@@ -1,1 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Snake Game Online - Play Free Snake Game | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Snake Game online for free on Gameso. Control the snake, collect food, grow longer and try to achieve the highest score."
+    >
+
+    <meta
+        name="keywords"
+        content="snake game, snake game online, play snake online, free snake game"
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/snake/"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- ================================================
+         HEADER
+    ================================================= -->
+
+    <header class="game-header">
+
+        <div class="header-inner">
+
+            <a
+                href="/"
+                class="logo"
+                aria-label="Gameso Home"
+            >
+
+                <span>🎮</span>
+
+                <strong>Gameso</strong>
+
+            </a>
+
+
+            <a
+                href="/"
+                class="back-button"
+            >
+                ← All Games
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================
+         MAIN
+    ================================================= -->
+
+    <main>
+
+        <section class="game-page">
+
+            <div class="game-container">
+
+
+                <!-- ======================================
+                     GAME INTRO
+                ======================================= -->
+
+                <div class="game-heading">
+
+                    <span class="game-label">
+                        🐍 ARCADE GAME
+                    </span>
+
+                    <h1>
+                        Snake Game Online
+                    </h1>
+
+                    <p>
+                        Play the classic Snake Game for free.
+                        Eat the food, grow your snake and
+                        beat your highest score.
+                    </p>
+
+                </div>
+
+
+                <!-- ======================================
+                     GAME BOX
+                ======================================= -->
+
+                <div class="game-box">
+
+
+                    <!-- SCORE -->
+
+                    <div class="game-topbar">
+
+                        <div class="score-box">
+
+                            <span>
+                                Score
+                            </span>
+
+                            <strong id="score">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="high-score-box">
+
+                            <span>
+                                Best
+                            </span>
+
+                            <strong id="highScore">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         CANVAS
+                    =================================== -->
+
+                    <div class="canvas-wrapper">
+
+                        <canvas
+                            id="gameCanvas"
+                            width="500"
+                            height="500"
+                            aria-label="Snake Game"
+                        ></canvas>
+
+
+                        <!-- START / GAME OVER -->
+
+                        <div
+                            class="game-message"
+                            id="gameMessage"
+                        >
+
+                            <div class="message-icon">
+                                🐍
+                            </div>
+
+                            <h2>
+                                Snake Game
+                            </h2>
+
+                            <p>
+                                Press Start to play
+                            </p>
+
+                            <button
+                                id="startButton"
+                                class="start-button"
+                                type="button"
+                            >
+                                ▶ Start Game
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         MOBILE CONTROLS
+                    =================================== -->
+
+                    <div class="controls">
+
+                        <button
+                            class="control-btn up"
+                            data-direction="up"
+                            aria-label="Move Up"
+                            type="button"
+                        >
+                            ↑
+                        </button>
+
+
+                        <div class="control-row">
+
+                            <button
+                                class="control-btn"
+                                data-direction="left"
+                                aria-label="Move Left"
+                                type="button"
+                            >
+                                ←
+                            </button>
+
+
+                            <button
+                                class="control-btn"
+                                data-direction="down"
+                                aria-label="Move Down"
+                                type="button"
+                            >
+                                ↓
+                            </button>
+
+
+                            <button
+                                class="control-btn"
+                                data-direction="right"
+                                aria-label="Move Right"
+                                type="button"
+                            >
+                                →
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ======================================
+                     HOW TO PLAY
+                ======================================= -->
+
+                <section class="game-info-section">
+
+                    <h2>
+                        How to Play Snake Game
+                    </h2>
+
+                    <p>
+                        Control the snake and collect the
+                        food that appears on the game board.
+                        Every time the snake eats food, it
+                        grows longer and your score increases.
+                    </p>
+
+                    <p>
+                        Avoid hitting the walls and don't let
+                        the snake hit its own body. Try to get
+                        the highest score possible!
+                    </p>
+
+
+                    <h2>
+                        Snake Game Controls
+                    </h2>
+
+                    <ul>
+
+                        <li>
+                            ⌨️ Use the
+                            <strong>Arrow Keys</strong>
+                            on desktop.
+                        </li>
+
+                        <li>
+                            📱 Use the
+                            <strong>direction buttons</strong>
+                            on mobile.
+                        </li>
+
+                        <li>
+                            🎮 Collect food to increase your
+                            score.
+                        </li>
+
+                        <li>
+                            🏆 Try to beat your best score.
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- ======================================
+                     RELATED GAMES
+                ======================================= -->
+
+                <section class="related-section">
+
+                    <h2>
+                        More Games
+                    </h2>
+
+                    <div class="related-grid">
+
+
+                        <a
+                            href="/games/2048/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🔢
+                            </span>
+
+                            <strong>
+                                2048
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/tic-tac-toe/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                ❌⭕
+                            </span>
+
+                            <strong>
+                                Tic Tac Toe
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/memory/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🧠
+                            </span>
+
+                            <strong>
+                                Memory Game
+                            </strong>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================================
+         FOOTER
+    ================================================= -->
+
+    <footer>
+
+        <p>
+            ©
+            <span id="year"></span>
+            Gameso.
+            All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- ================================================
+         JAVASCRIPT
+    ================================================= -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
