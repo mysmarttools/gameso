@@ -1,1 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Tic Tac Toe Online - Play Free Tic Tac Toe | Gameso
+    </title>
+
+    <meta
+        name="description"
+        content="Play Tic Tac Toe online for free on Gameso. Challenge a friend, place X and O, and try to get three in a row."
+    >
+
+    <meta
+        name="keywords"
+        content="tic tac toe, tic tac toe online, play tic tac toe, free tic tac toe game"
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/tic-tac-toe/"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="game-header">
+
+        <div class="header-inner">
+
+            <a
+                href="/"
+                class="logo"
+                aria-label="Gameso Home"
+            >
+
+                <span>🎮</span>
+
+                <strong>Gameso</strong>
+
+            </a>
+
+
+            <a
+                href="/"
+                class="back-button"
+            >
+                ← All Games
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main>
+
+        <section class="game-page">
+
+            <div class="game-container">
+
+
+                <!-- GAME INTRO -->
+
+                <div class="game-heading">
+
+                    <span class="game-label">
+                        ❌⭕ CLASSIC GAME
+                    </span>
+
+                    <h1>
+                        Tic Tac Toe Online
+                    </h1>
+
+                    <p>
+                        Play the classic Tic Tac Toe game
+                        online for free. Take turns placing
+                        X and O and get three in a row to win.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================
+                     GAME BOX
+                ================================== -->
+
+                <div class="game-box">
+
+
+                    <!-- GAME STATUS -->
+
+                    <div class="game-status">
+
+                        <div class="player-box active" id="playerX">
+
+                            <span class="player-symbol">
+                                X
+                            </span>
+
+                            <div>
+                                <small>
+                                    Player
+                                </small>
+
+                                <strong>
+                                    X
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="vs">
+                            VS
+                        </div>
+
+
+                        <div class="player-box" id="playerO">
+
+                            <span class="player-symbol">
+                                O
+                            </span>
+
+                            <div>
+                                <small>
+                                    Player
+                                </small>
+
+                                <strong>
+                                    O
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS MESSAGE -->
+
+                    <div
+                        class="turn-message"
+                        id="turnMessage"
+                    >
+                        Player X's Turn
+                    </div>
+
+
+                    <!-- BOARD -->
+
+                    <div
+                        class="tic-tac-toe-board"
+                        id="gameBoard"
+                    >
+
+                        <button
+                            class="cell"
+                            data-index="0"
+                            aria-label="Cell 1"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="1"
+                            aria-label="Cell 2"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="2"
+                            aria-label="Cell 3"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="3"
+                            aria-label="Cell 4"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="4"
+                            aria-label="Cell 5"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="5"
+                            aria-label="Cell 6"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="6"
+                            aria-label="Cell 7"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="7"
+                            aria-label="Cell 8"
+                        ></button>
+
+                        <button
+                            class="cell"
+                            data-index="8"
+                            aria-label="Cell 9"
+                        ></button>
+
+                    </div>
+
+
+                    <!-- SCORE -->
+
+                    <div class="score-panel">
+
+                        <div class="score-item">
+
+                            <span>
+                                X Wins
+                            </span>
+
+                            <strong id="xScore">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <span>
+                                Draws
+                            </span>
+
+                            <strong id="drawScore">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <span>
+                                O Wins
+                            </span>
+
+                            <strong id="oScore">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESTART -->
+
+                    <button
+                        id="restartButton"
+                        class="restart-button"
+                        type="button"
+                    >
+                        🔄 New Game
+                    </button>
+
+                </div>
+
+
+                <!-- =================================
+                     HOW TO PLAY
+                ================================== -->
+
+                <section class="game-info-section">
+
+                    <h2>
+                        How to Play Tic Tac Toe
+                    </h2>
+
+                    <p>
+                        Tic Tac Toe is a simple two-player
+                        strategy game. Players take turns
+                        placing X and O on the 3×3 board.
+                    </p>
+
+                    <p>
+                        The first player to get three matching
+                        symbols in a row, column, or diagonal
+                        wins the game.
+                    </p>
+
+
+                    <h2>
+                        Tic Tac Toe Rules
+                    </h2>
+
+                    <ul>
+
+                        <li>
+                            ❌ Player X goes first.
+                        </li>
+
+                        <li>
+                            ⭕ Player O goes second.
+                        </li>
+
+                        <li>
+                            🏆 Get three symbols in a row
+                            to win.
+                        </li>
+
+                        <li>
+                            🤝 If all cells are filled with
+                            no winner, the game is a draw.
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- =================================
+                     RELATED GAMES
+                ================================== -->
+
+                <section class="related-section">
+
+                    <h2>
+                        More Games
+                    </h2>
+
+                    <div class="related-grid">
+
+
+                        <a
+                            href="/games/snake/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🐍
+                            </span>
+
+                            <strong>
+                                Snake Game
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/2048/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🔢
+                            </span>
+
+                            <strong>
+                                2048
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/memory/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🧠
+                            </span>
+
+                            <strong>
+                                Memory Game
+                            </strong>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        <p>
+            ©
+            <span id="year"></span>
+            Gameso.
+            All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
