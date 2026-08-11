@@ -1,1 +1,852 @@
+/* =========================================================
+   GAMESO — SNAKE GAME CSS
+========================================================= */
 
+:root {
+    --bg: #080b14;
+    --bg-secondary: #0e1320;
+    --card: #121827;
+    --card-hover: #171f31;
+
+    --text: #ffffff;
+    --muted: #9aa3b5;
+
+    --primary: #6c5ce7;
+    --primary-light: #8175ee;
+    --accent: #00d4ff;
+
+    --border: rgba(255, 255, 255, 0.08);
+
+    --radius: 18px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(108, 92, 231, 0.12),
+            transparent 35%
+        ),
+        var(--bg);
+
+    line-height: 1.6;
+
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    border: 0;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.game-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    height: 70px;
+
+    background: rgba(8, 11, 20, 0.88);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    width: min(1100px, calc(100% - 32px));
+
+    height: 100%;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.logo span {
+    width: 35px;
+    height: 35px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--accent)
+        );
+
+    font-size: 18px;
+}
+
+.logo strong {
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #bdb9ff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 40px;
+
+    padding: 0 15px;
+
+    color: var(--muted);
+
+    background: rgba(255, 255, 255, 0.03);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+.back-button:hover {
+    color: white;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    border-color:
+        rgba(108, 92, 231, 0.35);
+
+    transform: translateX(-2px);
+}
+
+
+/* =========================================================
+   MAIN GAME PAGE
+========================================================= */
+
+.game-page {
+    padding: 55px 0 80px;
+}
+
+.game-container {
+    width: min(900px, calc(100% - 32px));
+
+    margin: auto;
+}
+
+
+/* =========================================================
+   GAME HEADING
+========================================================= */
+
+.game-heading {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.game-label {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: #9b93ff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.game-heading h1 {
+    font-size: clamp(32px, 5vw, 48px);
+
+    line-height: 1.1;
+
+    letter-spacing: -1.5px;
+
+    font-weight: 800;
+}
+
+.game-heading p {
+    max-width: 620px;
+
+    margin: 12px auto 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   GAME BOX
+========================================================= */
+
+.game-box {
+    width: min(620px, 100%);
+
+    margin: auto;
+
+    padding: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #141b2b,
+            #0e1422
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   SCORE BAR
+========================================================= */
+
+.game-topbar {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+}
+
+.score-box,
+.high-score-box {
+    min-width: 100px;
+
+    padding: 8px 13px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+}
+
+.score-box span,
+.high-score-box span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+}
+
+.score-box strong,
+.high-score-box strong {
+    display: block;
+
+    margin-top: 1px;
+
+    color: white;
+
+    font-size: 18px;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.canvas-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #070b12;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    border-radius: 15px;
+
+    box-shadow:
+        inset 0 0 50px rgba(0, 0, 0, 0.25);
+}
+
+#gameCanvas {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    touch-action: none;
+}
+
+
+/* =========================================================
+   START / GAME OVER MESSAGE
+========================================================= */
+
+.game-message {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 10;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    text-align: center;
+
+    background:
+        rgba(7, 11, 18, 0.78);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.message-icon {
+    width: 70px;
+    height: 70px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 14px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(108, 92, 231, 0.13);
+
+    border:
+        1px solid rgba(108, 92, 231, 0.2);
+
+    font-size: 36px;
+
+    box-shadow:
+        0 15px 35px rgba(108, 92, 231, 0.12);
+}
+
+.game-message h2 {
+    color: white;
+
+    font-size: 25px;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.5px;
+}
+
+.game-message p {
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   START BUTTON
+========================================================= */
+
+.start-button {
+    min-height: 45px;
+
+    margin-top: 20px;
+
+    padding: 0 22px;
+
+    border-radius: 11px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            #5144d7
+        );
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 10px 25px rgba(108, 92, 231, 0.25);
+
+    transition: 0.25s ease;
+}
+
+.start-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(108, 92, 231, 0.35);
+}
+
+.start-button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE CONTROLS
+========================================================= */
+
+.controls {
+    display: none;
+
+    margin-top: 18px;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+.control-row {
+    display: flex;
+
+    gap: 7px;
+}
+
+.control-btn {
+    width: 52px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    color: white;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    transition: 0.15s ease;
+
+    -webkit-tap-highlight-color: transparent;
+
+    user-select: none;
+}
+
+.control-btn:hover {
+    background:
+        rgba(108, 92, 231, 0.18);
+
+    border-color:
+        rgba(108, 92, 231, 0.35);
+}
+
+.control-btn:active {
+    transform: scale(0.94);
+
+    background:
+        rgba(108, 92, 231, 0.3);
+}
+
+
+/* =========================================================
+   GAME INFORMATION
+========================================================= */
+
+.game-info-section {
+    max-width: 760px;
+
+    margin: 65px auto 0;
+}
+
+.game-info-section h2,
+.related-section h2 {
+    margin-bottom: 13px;
+
+    color: white;
+
+    font-size: 23px;
+
+    line-height: 1.3;
+
+    letter-spacing: -0.5px;
+}
+
+.game-info-section h2:not(:first-child) {
+    margin-top: 38px;
+}
+
+.game-info-section p {
+    margin-bottom: 12px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+.game-info-section ul {
+    padding-left: 20px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 2;
+}
+
+.game-info-section li {
+    padding-left: 3px;
+}
+
+.game-info-section strong {
+    color: white;
+}
+
+
+/* =========================================================
+   RELATED GAMES
+========================================================= */
+
+.related-section {
+    max-width: 760px;
+
+    margin: 65px auto 0;
+}
+
+.related-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.related-card {
+    min-height: 100px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    transition: 0.25s ease;
+}
+
+.related-card:hover {
+    transform: translateY(-3px);
+
+    background: var(--card-hover);
+
+    border-color:
+        rgba(108, 92, 231, 0.35);
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.related-card span {
+    font-size: 30px;
+}
+
+.related-card strong {
+    color: white;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 22px 20px;
+
+    text-align: center;
+
+    background: #060810;
+
+    border-top: 1px solid var(--border);
+
+    color: #697284;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .game-page {
+        padding: 40px 0 60px;
+    }
+
+    .game-heading {
+        margin-bottom: 22px;
+    }
+
+    .game-heading h1 {
+        font-size: 34px;
+    }
+
+    .game-heading p {
+        font-size: 13px;
+    }
+
+    .game-box {
+        padding: 10px;
+
+        border-radius: 17px;
+    }
+
+    .controls {
+        display: flex;
+    }
+
+    .game-info-section {
+        margin-top: 50px;
+    }
+
+    .related-section {
+        margin-top: 50px;
+    }
+
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .related-card {
+        min-height: 70px;
+
+        flex-direction: row;
+
+        justify-content: flex-start;
+
+        padding: 0 18px;
+    }
+
+    .related-card span {
+        font-size: 25px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .game-header {
+        height: 62px;
+    }
+
+    .header-inner {
+        width: calc(100% - 24px);
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .logo span {
+        width: 32px;
+        height: 32px;
+
+        font-size: 16px;
+    }
+
+    .back-button {
+        min-height: 36px;
+
+        padding: 0 10px;
+
+        font-size: 11px;
+    }
+
+    .game-container {
+        width: calc(100% - 20px);
+    }
+
+    .game-heading h1 {
+        font-size: 29px;
+    }
+
+    .game-heading p {
+        font-size: 12px;
+    }
+
+    .score-box,
+    .high-score-box {
+        min-width: 85px;
+
+        padding: 7px 10px;
+    }
+
+    .score-box strong,
+    .high-score-box strong {
+        font-size: 16px;
+    }
+
+    .control-btn {
+        width: 48px;
+        height: 45px;
+    }
+
+    .game-info-section h2,
+    .related-section h2 {
+        font-size: 20px;
+    }
+
+    .game-info-section p,
+    .game-info-section ul {
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--accent);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        transition-duration: 0.01ms !important;
+
+        animation-duration: 0.01ms !important;
+    }
+}
