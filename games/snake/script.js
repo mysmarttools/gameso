@@ -1,70 +1,52 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
 
-    const scoreElement = document.getElementById("score");
-    const highScoreElement = document.getElementById("highScore");
+    const scoreEl = document.getElementById("score");
+    const highScoreEl = document.getElementById("highScore");
+    const messageEl = document.getElementById("gameMessage");
 
-    const gameMessage = document.getElementById("gameMessage");
-    const startButton = document.getElementById("startButton");
+    let startButton = document.getElementById("startButton");
 
-    const canvasSize = 500;
-    const gridSize = 20;
-    const tileCount = canvasSize / gridSize;
+    const GRID = 25;
+    const SIZE = canvas.width;
+    const CELL = SIZE / GRID;
 
     let snake = [];
     let food = {};
 
-    let direction = {
-        x: 1,
-        y: 0
-    };
-
-    let nextDirection = {
-        x: 1,
-        y: 0
-    };
+    let direction = { x: 1, y: 0 };
+    let nextDirection = { x: 1, y: 0 };
 
     let score = 0;
     let highScore = Number(
         localStorage.getItem("gamesoSnakeHighScore") || 0
     );
 
-    let gameRunning = false;
-    let gameOver = false;
+    let gameTimer = null;
+    let running = false;
 
-    let gameLoop = null;
-
-    let speed = 115;
+    let speed = 140;
 
 
-    /* =====================================================
+    /* =========================================
        HIGH SCORE
-    ===================================================== */
+    ========================================= */
 
-    highScoreElement.textContent = highScore;
+    highScoreEl.textContent = highScore;
 
 
-    /* =====================================================
-       INITIAL SNAKE
-    ===================================================== */
+    /* =========================================
+       RESET GAME
+    ========================================= */
 
     function resetGame() {
 
         snake = [
-            {
-                x: 12,
-                y: 12
-            },
-            {
-                x: 11,
-                y: 12
-            },
-            {
-                x: 10,
-                y: 12
-            }
+            { x: 12, y: 12 },
+            { x: 11, y: 12 },
+            { x: 10, y: 12 },
+            { x: 9, y: 12 }
         ];
 
         direction = {
@@ -78,75 +60,85 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         score = 0;
+        speed = 140;
 
-        speed = 115;
-
-        scoreElement.textContent = score;
+        scoreEl.textContent = "0";
 
         createFood();
 
-        drawGame();
+        draw();
     }
 
 
-    /* =====================================================
+    /* =========================================
        CREATE FOOD
-    ===================================================== */
+    ========================================= */
 
     function createFood() {
 
-        let newFood;
+        let valid = false;
 
-        do {
+        while (!valid) {
 
-            newFood = {
-                x: Math.floor(Math.random() * tileCount),
-                y: Math.floor(Math.random() * tileCount)
+            food = {
+                x: Math.floor(Math.random() * GRID),
+                y: Math.floor(Math.random() * GRID)
             };
 
-        } while (
-            snake.some(
-                segment =>
-                    segment.x === newFood.x &&
-                    segment.y === newFood.y
-            )
-        );
-
-        food = newFood;
+            valid = !snake.some(
+                part =>
+                    part.x === food.x &&
+                    part.y === food.y
+            );
+        }
     }
 
 
-    /* =====================================================
+    /* =========================================
        START GAME
-    ===================================================== */
+    ========================================= */
 
     function startGame() {
 
-        clearInterval(gameLoop);
+        stopGame();
 
         resetGame();
 
-        gameRunning = true;
-        gameOver = false;
+        running = true;
 
-        gameMessage.style.display = "none";
+        messageEl.style.display = "none";
 
-        gameLoop = setInterval(
-            updateGame,
+        gameTimer = setInterval(
+            gameLoop,
             speed
         );
     }
 
 
-    /* =====================================================
-       UPDATE GAME
-    ===================================================== */
+    /* =========================================
+       STOP GAME
+    ========================================= */
 
-    function updateGame() {
+    function stopGame() {
 
-        if (!gameRunning) return;
+        if (gameTimer) {
+            clearInterval(gameTimer);
+            gameTimer = null;
+        }
+    }
 
-        direction = nextDirection;
+
+    /* =========================================
+       GAME LOOP
+    ========================================= */
+
+    function gameLoop() {
+
+        if (!running) return;
+
+        direction = {
+            ...nextDirection
+        };
 
         const head = {
             x: snake[0].x + direction.x,
@@ -154,69 +146,79 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
 
-        /* ---------------------------------------------
+        /* =====================================
            WALL COLLISION
-        --------------------------------------------- */
+        ===================================== */
 
         if (
             head.x < 0 ||
-            head.x >= tileCount ||
+            head.x >= GRID ||
             head.y < 0 ||
-            head.y >= tileCount
+            head.y >= GRID
         ) {
 
-            endGame();
+            gameOver();
 
             return;
         }
 
 
-        /* ---------------------------------------------
+        /* =====================================
            SELF COLLISION
-        --------------------------------------------- */
+        ===================================== */
 
-        const hitSelf = snake.some(
-            segment =>
-                segment.x === head.x &&
-                segment.y === head.y
+        const eating =
+            head.x === food.x &&
+            head.y === food.y;
+
+        /*
+         * If we're not eating, the tail will move,
+         * so don't count the current tail as a collision.
+         */
+
+        const bodyToCheck = eating
+            ? snake
+            : snake.slice(0, -1);
+
+        const hitBody = bodyToCheck.some(
+            part =>
+                part.x === head.x &&
+                part.y === head.y
         );
 
-        if (hitSelf) {
+        if (hitBody) {
 
-            endGame();
+            gameOver();
 
             return;
         }
 
 
-        /* ---------------------------------------------
-           ADD NEW HEAD
-        --------------------------------------------- */
+        /* =====================================
+           MOVE SNAKE
+        ===================================== */
 
         snake.unshift(head);
 
 
-        /* ---------------------------------------------
+        /* =====================================
            FOOD
-        --------------------------------------------- */
+        ===================================== */
 
-        if (
-            head.x === food.x &&
-            head.y === food.y
-        ) {
+        if (eating) {
 
             score++;
 
-            scoreElement.textContent = score;
+            scoreEl.textContent = score;
 
 
-            /* High score */
+            /* High Score */
 
             if (score > highScore) {
 
                 highScore = score;
 
-                highScoreElement.textContent =
+                highScoreEl.textContent =
                     highScore;
 
                 localStorage.setItem(
@@ -226,82 +228,74 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            /* Increase difficulty */
+            createFood();
+
+
+            /*
+             * Increase speed slowly
+             */
 
             if (
                 score % 5 === 0 &&
-                speed > 65
+                speed > 75
             ) {
 
-                speed -= 5;
+                speed -= 8;
 
-                clearInterval(gameLoop);
+                stopGame();
 
-                gameLoop = setInterval(
-                    updateGame,
+                gameTimer = setInterval(
+                    gameLoop,
                     speed
                 );
             }
 
-            createFood();
-
         } else {
 
             snake.pop();
-
         }
 
 
-        drawGame();
+        draw();
     }
 
 
-    /* =====================================================
-       DRAW GAME
-    ===================================================== */
+    /* =========================================
+       DRAW EVERYTHING
+    ========================================= */
 
-    function drawGame() {
+    function draw() {
 
-        /* Background */
+        drawBackground();
+
+        drawGrid();
+
+        drawFood();
+
+        drawSnake();
+    }
+
+
+    /* =========================================
+       BACKGROUND
+    ========================================= */
+
+    function drawBackground() {
 
         ctx.fillStyle = "#070b12";
 
         ctx.fillRect(
             0,
             0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        /* Grid */
-
-        drawGrid();
-
-
-        /* Food */
-
-        drawFood();
-
-
-        /* Snake */
-
-        snake.forEach(
-            (segment, index) => {
-
-                drawSnakeSegment(
-                    segment,
-                    index
-                );
-
-            }
+            SIZE,
+            SIZE
         );
     }
 
 
-    /* =====================================================
+    /* =========================================
        GRID
-    ===================================================== */
+    ========================================= */
 
     function drawGrid() {
 
@@ -312,23 +306,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (
             let i = 0;
-            i <= tileCount;
+            i <= GRID;
             i++
         ) {
 
-            const position =
-                i * gridSize;
+            const pos = i * CELL;
 
             ctx.beginPath();
 
             ctx.moveTo(
-                position,
+                pos,
                 0
             );
 
             ctx.lineTo(
-                position,
-                canvasSize
+                pos,
+                SIZE
             );
 
             ctx.stroke();
@@ -338,12 +331,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             ctx.moveTo(
                 0,
-                position
+                pos
             );
 
             ctx.lineTo(
-                canvasSize,
-                position
+                SIZE,
+                pos
             );
 
             ctx.stroke();
@@ -351,169 +344,164 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
+    /* =========================================
        DRAW SNAKE
-    ===================================================== */
+    ========================================= */
 
-    function drawSnakeSegment(
-        segment,
-        index
-    ) {
+    function drawSnake() {
 
-        const padding = 2;
+        snake.forEach(
+            (part, index) => {
 
-        const x =
-            segment.x * gridSize + padding;
+                const padding = 2;
 
-        const y =
-            segment.y * gridSize + padding;
+                const x =
+                    part.x * CELL + padding;
 
-        const size =
-            gridSize - padding * 2;
+                const y =
+                    part.y * CELL + padding;
 
-
-        /* Head */
-
-        if (index === 0) {
-
-            ctx.fillStyle = "#8175ee";
-
-            roundedRect(
-                ctx,
-                x,
-                y,
-                size,
-                size,
-                6
-            );
-
-            ctx.fill();
+                const size =
+                    CELL - padding * 2;
 
 
-            /* Eyes */
+                if (index === 0) {
 
-            drawSnakeEyes(
-                x,
-                y
-            );
+                    ctx.fillStyle = "#8175ee";
 
-        } else {
+                } else {
 
-            ctx.fillStyle =
-                index % 2 === 0
-                    ? "#6659df"
-                    : "#5b50d2";
+                    ctx.fillStyle =
+                        index % 2 === 0
+                            ? "#6659df"
+                            : "#5b50d2";
+                }
 
-            roundedRect(
-                ctx,
-                x,
-                y,
-                size,
-                size,
-                5
-            );
 
-            ctx.fill();
-        }
+                roundedRect(
+                    x,
+                    y,
+                    size,
+                    size,
+                    5
+                );
+
+                ctx.fill();
+
+
+                /* Eyes */
+
+                if (index === 0) {
+
+                    drawEyes(
+                        x,
+                        y,
+                        size
+                    );
+                }
+            }
+        );
     }
 
 
-    /* =====================================================
+    /* =========================================
        SNAKE EYES
-    ===================================================== */
+    ========================================= */
 
-    function drawSnakeEyes(
+    function drawEyes(
         x,
-        y
+        y,
+        size
     ) {
 
         ctx.fillStyle = "#ffffff";
 
-        const eyeSize = 3;
+        const eye = 3;
 
-        let eye1;
-        let eye2;
+        let eyes = [];
 
 
-        if (direction.x === 1) {
+        if (direction.x > 0) {
 
-            eye1 = {
-                x: x + 13,
-                y: y + 5
-            };
+            eyes = [
+                {
+                    x: x + size - 7,
+                    y: y + 5
+                },
+                {
+                    x: x + size - 7,
+                    y: y + size - 8
+                }
+            ];
 
-            eye2 = {
-                x: x + 13,
-                y: y + 12
-            };
+        } else if (direction.x < 0) {
 
-        } else if (direction.x === -1) {
+            eyes = [
+                {
+                    x: x + 4,
+                    y: y + 5
+                },
+                {
+                    x: x + 4,
+                    y: y + size - 8
+                }
+            ];
 
-            eye1 = {
-                x: x + 4,
-                y: y + 5
-            };
+        } else if (direction.y < 0) {
 
-            eye2 = {
-                x: x + 4,
-                y: y + 12
-            };
-
-        } else if (direction.y === -1) {
-
-            eye1 = {
-                x: x + 5,
-                y: y + 4
-            };
-
-            eye2 = {
-                x: x + 12,
-                y: y + 4
-            };
+            eyes = [
+                {
+                    x: x + 5,
+                    y: y + 4
+                },
+                {
+                    x: x + size - 8,
+                    y: y + 4
+                }
+            ];
 
         } else {
 
-            eye1 = {
-                x: x + 5,
-                y: y + 13
-            };
-
-            eye2 = {
-                x: x + 12,
-                y: y + 13
-            };
+            eyes = [
+                {
+                    x: x + 5,
+                    y: y + size - 7
+                },
+                {
+                    x: x + size - 8,
+                    y: y + size - 7
+                }
+            ];
         }
 
 
-        ctx.fillRect(
-            eye1.x,
-            eye1.y,
-            eyeSize,
-            eyeSize
-        );
+        eyes.forEach(
+            eyePos => {
 
-        ctx.fillRect(
-            eye2.x,
-            eye2.y,
-            eyeSize,
-            eyeSize
+                ctx.fillRect(
+                    eyePos.x,
+                    eyePos.y,
+                    eye,
+                    eye
+                );
+            }
         );
     }
 
 
-    /* =====================================================
+    /* =========================================
        DRAW FOOD
-    ===================================================== */
+    ========================================= */
 
     function drawFood() {
 
         const centerX =
-            food.x * gridSize +
-            gridSize / 2;
+            food.x * CELL +
+            CELL / 2;
 
         const centerY =
-            food.y * gridSize +
-            gridSize / 2;
+            food.y * CELL +
+            CELL / 2;
 
 
         /* Glow */
@@ -523,7 +511,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.arc(
             centerX,
             centerY,
-            10,
+            CELL * 0.38,
             0,
             Math.PI * 2
         );
@@ -541,7 +529,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.arc(
             centerX,
             centerY,
-            6,
+            CELL * 0.25,
             0,
             Math.PI * 2
         );
@@ -569,12 +557,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       ROUNDED RECTANGLE
-    ===================================================== */
+    /* =========================================
+       ROUNDED RECT
+    ========================================= */
 
     function roundedRect(
-        context,
         x,
         y,
         width,
@@ -582,301 +569,295 @@ document.addEventListener("DOMContentLoaded", () => {
         radius
     ) {
 
-        context.beginPath();
+        ctx.beginPath();
 
-        context.moveTo(
+        ctx.moveTo(
             x + radius,
             y
         );
 
-        context.lineTo(
+        ctx.lineTo(
             x + width - radius,
             y
         );
 
-        context.quadraticCurveTo(
+        ctx.quadraticCurveTo(
             x + width,
             y,
             x + width,
             y + radius
         );
 
-        context.lineTo(
+        ctx.lineTo(
             x + width,
             y + height - radius
         );
 
-        context.quadraticCurveTo(
+        ctx.quadraticCurveTo(
             x + width,
             y + height,
             x + width - radius,
             y + height
         );
 
-        context.lineTo(
+        ctx.lineTo(
             x + radius,
             y + height
         );
 
-        context.quadraticCurveTo(
+        ctx.quadraticCurveTo(
             x,
             y + height,
             x,
             y + height - radius
         );
 
-        context.lineTo(
+        ctx.lineTo(
             x,
             y + radius
         );
 
-        context.quadraticCurveTo(
+        ctx.quadraticCurveTo(
             x,
             y,
             x + radius,
             y
         );
 
-        context.closePath();
+        ctx.closePath();
     }
 
 
-    /* =====================================================
+    /* =========================================
        CHANGE DIRECTION
-    ===================================================== */
+    ========================================= */
 
     function changeDirection(
-        newDirection
+        x,
+        y
     ) {
 
-        if (!gameRunning) return;
-
-
-        /* Prevent reversing */
+        /*
+         * Don't allow the snake to
+         * instantly reverse.
+         */
 
         if (
-            newDirection.x === -direction.x &&
-            newDirection.y === -direction.y
+            x === -direction.x &&
+            y === -direction.y
         ) {
-
             return;
         }
 
-        nextDirection = newDirection;
+        nextDirection = {
+            x,
+            y
+        };
     }
 
 
-    /* =====================================================
-       KEYBOARD CONTROLS
-    ===================================================== */
+    /* =========================================
+       KEYBOARD
+    ========================================= */
 
     document.addEventListener(
         "keydown",
         event => {
 
-            const key =
-                event.key.toLowerCase();
+            const key = event.key;
 
 
             if (
-                [
-                    "arrowup",
-                    "arrowdown",
-                    "arrowleft",
-                    "arrowright",
-                    " "
-                ].includes(key)
+                key === "ArrowUp" ||
+                key === "ArrowDown" ||
+                key === "ArrowLeft" ||
+                key === "ArrowRight" ||
+                key === " "
             ) {
 
                 event.preventDefault();
-
             }
 
 
-            if (key === "arrowup") {
+            if (key === "ArrowUp") {
 
-                changeDirection({
-                    x: 0,
-                    y: -1
-                });
+                changeDirection(
+                    0,
+                    -1
+                );
 
-            }
-
-            else if (
-                key === "arrowdown"
+            } else if (
+                key === "ArrowDown"
             ) {
 
-                changeDirection({
-                    x: 0,
-                    y: 1
-                });
+                changeDirection(
+                    0,
+                    1
+                );
 
-            }
-
-            else if (
-                key === "arrowleft"
+            } else if (
+                key === "ArrowLeft"
             ) {
 
-                changeDirection({
-                    x: -1,
-                    y: 0
-                });
+                changeDirection(
+                    -1,
+                    0
+                );
 
-            }
-
-            else if (
-                key === "arrowright"
+            } else if (
+                key === "ArrowRight"
             ) {
 
-                changeDirection({
-                    x: 1,
-                    y: 0
-                });
-
+                changeDirection(
+                    1,
+                    0
+                );
             }
 
+
+            /* Space = Start */
+
+            if (
+                event.code === "Space" &&
+                !running
+            ) {
+
+                startGame();
+            }
         }
     );
 
 
-    /* =====================================================
+    /* =========================================
        MOBILE CONTROLS
-    ===================================================== */
+    ========================================= */
 
-    const controlButtons =
+    const controls =
         document.querySelectorAll(
             ".control-btn"
         );
 
 
-    controlButtons.forEach(
+    controls.forEach(
         button => {
+
+            const press = event => {
+
+                event.preventDefault();
+
+                const dir =
+                    button.dataset.direction;
+
+
+                if (dir === "up") {
+
+                    changeDirection(
+                        0,
+                        -1
+                    );
+
+                } else if (
+                    dir === "down"
+                ) {
+
+                    changeDirection(
+                        0,
+                        1
+                    );
+
+                } else if (
+                    dir === "left"
+                ) {
+
+                    changeDirection(
+                        -1,
+                        0
+                    );
+
+                } else if (
+                    dir === "right"
+                ) {
+
+                    changeDirection(
+                        1,
+                        0
+                    );
+                }
+            };
+
 
             button.addEventListener(
                 "click",
-                () => {
-
-                    const directionName =
-                        button.dataset.direction;
-
-                    if (
-                        directionName === "up"
-                    ) {
-
-                        changeDirection({
-                            x: 0,
-                            y: -1
-                        });
-
-                    }
-
-                    else if (
-                        directionName === "down"
-                    ) {
-
-                        changeDirection({
-                            x: 0,
-                            y: 1
-                        });
-
-                    }
-
-                    else if (
-                        directionName === "left"
-                    ) {
-
-                        changeDirection({
-                            x: -1,
-                            y: 0
-                        });
-
-                    }
-
-                    else if (
-                        directionName === "right"
-                    ) {
-
-                        changeDirection({
-                            x: 1,
-                            y: 0
-                        });
-
-                    }
-
-                }
+                press
             );
 
 
-            /* Prevent mobile delay */
-
             button.addEventListener(
                 "touchstart",
-                event => {
-
-                    event.preventDefault();
-
-                },
+                press,
                 {
                     passive: false
                 }
             );
-
         }
     );
 
 
-    /* =====================================================
+    /* =========================================
        GAME OVER
-    ===================================================== */
+    ========================================= */
 
-    function endGame() {
+    function gameOver() {
 
-        gameRunning = false;
-        gameOver = true;
+        running = false;
 
-        clearInterval(gameLoop);
+        stopGame();
 
-        gameMessage.style.display = "flex";
 
-        gameMessage.innerHTML = `
+        messageEl.innerHTML = `
+
             <div class="message-icon">
                 💥
             </div>
 
-            <h2>Game Over!</h2>
+            <h2>
+                Game Over!
+            </h2>
 
             <p>
-                Your score: <strong>${score}</strong>
+                Your score:
+                <strong>${score}</strong>
             </p>
 
             <button
                 id="startButton"
                 class="start-button"
+                type="button"
             >
                 🔄 Play Again
             </button>
         `;
 
 
-        const newStartButton =
+        messageEl.style.display = "flex";
+
+
+        startButton =
             document.getElementById(
                 "startButton"
             );
 
-        if (newStartButton) {
 
-            newStartButton.addEventListener(
-                "click",
-                startGame
-            );
-
-        }
+        startButton.addEventListener(
+            "click",
+            startGame
+        );
     }
 
 
-    /* =====================================================
+    /* =========================================
        START BUTTON
-    ===================================================== */
+    ========================================= */
 
     if (startButton) {
 
@@ -884,36 +865,12 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             startGame
         );
-
     }
 
 
-    /* =====================================================
-       SPACEBAR TO START / RESTART
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.code === "Space" &&
-                !gameRunning
-            ) {
-
-                event.preventDefault();
-
-                startGame();
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       INITIAL DRAW
-    ===================================================== */
+    /* =========================================
+       INITIAL SCREEN
+    ========================================= */
 
     resetGame();
 
