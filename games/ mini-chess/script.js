@@ -1,888 +1,700 @@
-const boardElement = document.getElementById("chessBoard");
+document.addEventListener("DOMContentLoaded", () => {
+    const boardElement = document.getElementById("chessBoard");
+
+    const playerScoreElement = document.getElementById("playerScore");
+    const computerScoreElement = document.getElementById("computerScore");
+    const turnElement = document.getElementById("turn");
+
+    const messageElement = document.getElementById("message");
+
+    const gameOverlay = document.getElementById("gameOverlay");
+    const resultIcon = document.getElementById("resultIcon");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+
+    const restartButton = document.getElementById("restartButton");
+    const newGameButton = document.getElementById("newGameButton");
+
+    const yearElement = document.getElementById("year");
+
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+
+    const PIECES = {
+        white: {
+            king: "♔",
+            queen: "♕",
+            rook: "♖",
+            bishop: "♗",
+            knight: "♘",
+            pawn: "♙"
+        },
+        black: {
+            king: "♚",
+            queen: "♛",
+            rook: "♜",
+            bishop: "♝",
+            knight: "♞",
+            pawn: "♟"
+        }
+    };
+
+    let board = [];
+    let selected = null;
+    let validMoves = [];
+    let playerScore = 0;
+    let computerScore = 0;
+    let gameOver = false;
+    let computerThinking = false;
+
+    /*
+     * Mini Chess uses a simplified 8x8 board.
+     * Normal chess pieces are supported.
+     */
+
+    function createInitialBoard() {
+        return [
+            [
+                piece("black", "rook"),
+                piece("black", "knight"),
+                piece("black", "bishop"),
+                piece("black", "queen"),
+                piece("black", "king"),
+                piece("black", "bishop"),
+                piece("black", "knight"),
+                piece("black", "rook")
+            ],
+            [
+                piece("black", "pawn"),
+                piece("black", "pawn"),
+                piece("black", "pawn"),
+                piece("black", "pawn"),
+                piece("black", "pawn"),
+                piece("black", "pawn"),
+                piece("black", "pawn"),
+                piece("black", "pawn")
+            ],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null],
+            [
+                piece("white", "pawn"),
+                piece("white", "pawn"),
+                piece("white", "pawn"),
+                piece("white", "pawn"),
+                piece("white", "pawn"),
+                piece("white", "pawn"),
+                piece("white", "pawn"),
+                piece("white", "pawn")
+            ],
+            [
+                piece("white", "rook"),
+                piece("white", "knight"),
+                piece("white", "bishop"),
+                piece("white", "queen"),
+                piece("white", "king"),
+                piece("white", "bishop"),
+                piece("white", "knight"),
+                piece("white", "rook")
+            ]
+        ];
+    }
 
-const playerScoreElement =
-    document.getElementById("playerScore");
+    function piece(color, type) {
+        return {
+            color: color,
+            type: type
+        };
+    }
 
-const computerScoreElement =
-    document.getElementById("computerScore");
+    function resetGame() {
+        board = createInitialBoard();
 
-const turnElement =
-    document.getElementById("turn");
+        selected = null;
+        validMoves = [];
 
-const messageElement =
-    document.getElementById("message");
+        playerScore = 0;
+        computerScore = 0;
 
-const gameOverlay =
-    document.getElementById("gameOverlay");
+        gameOver = false;
+        computerThinking = false;
 
-const resultIcon =
-    document.getElementById("resultIcon");
+        updateStats();
 
-const resultTitle =
-    document.getElementById("resultTitle");
+        gameOverlay.classList.add("hidden");
 
-const resultText =
-    document.getElementById("resultText");
+        messageElement.textContent =
+            "Your turn — select a piece.";
 
-const restartButton =
-    document.getElementById("restartButton");
+        turnElement.textContent = "YOU";
 
-const newGameButton =
-    document.getElementById("newGameButton");
+        renderBoard();
+    }
 
-const yearElement =
-    document.getElementById("year");
+    function renderBoard() {
+        boardElement.innerHTML = "";
 
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
 
-yearElement.textContent =
-    new Date().getFullYear();
+                const square = document.createElement("button");
 
+                square.type = "button";
+                square.className = "chess-square";
 
-/* =========================
-PIECES
-========================= */
-
-const PIECES = {
-
-    wK: "♔",
-    wQ: "♕",
-    wR: "♖",
-    wB: "♗",
-    wN: "♘",
-    wP: "♙",
-
-    bK: "♚",
-    bQ: "♛",
-    bR: "♜",
-    bB: "♝",
-    bN: "♞",
-    bP: "♟"
-
-};
-
-
-/* =========================
-GAME VARIABLES
-========================= */
-
-let board = [];
-
-let selectedSquare = null;
-
-let validMoves = [];
-
-let playerScore = 0;
-
-let computerScore = 0;
-
-let gameRunning = true;
-
-let computerThinking = false;
-
-
-/* =========================
-CREATE BOARD
-========================= */
-
-function createStartingBoard() {
-
-    return [
-
-        ["bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"],
-
-        ["bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"],
-
-        [null, null, null, null, null, null, null, null],
-
-        [null, null, null, null, null, null, null, null],
-
-        [null, null, null, null, null, null, null, null],
-
-        [null, null, null, null, null, null, null, null],
-
-        ["wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP"],
-
-        ["wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"]
-
-    ];
-}
-
-
-/* =========================
-START / RESET
-========================= */
-
-function startNewGame() {
-
-    board =
-        createStartingBoard();
-
-    selectedSquare = null;
-
-    validMoves = [];
-
-    playerScore = 0;
-
-    computerScore = 0;
-
-    gameRunning = true;
-
-    computerThinking = false;
-
-    playerScoreElement.textContent =
-        playerScore;
-
-    computerScoreElement.textContent =
-        computerScore;
-
-    turnElement.textContent =
-        "YOU";
-
-    messageElement.textContent =
-        "Your turn — select a piece.";
-
-    gameOverlay.classList.add("hidden");
-
-    renderBoard();
-}
-
-
-/* =========================
-RENDER BOARD
-========================= */
-
-function renderBoard() {
-
-    boardElement.innerHTML = "";
-
-    for (let row = 0; row < 8; row++) {
-
-        for (let col = 0; col < 8; col++) {
-
-            const square =
-                document.createElement("button");
-
-            square.className =
-                "chess-square " +
-                (
-                    (row + col) % 2 === 0
-                        ? "light"
-                        : "dark"
-                );
-
-            square.dataset.row = row;
-            square.dataset.col = col;
-
-            const piece =
-                board[row][col];
-
-            if (piece) {
-
-                const pieceElement =
-                    document.createElement("span");
-
-                pieceElement.className =
-                    "piece";
-
-                pieceElement.textContent =
-                    PIECES[piece];
-
-                square.appendChild(
-                    pieceElement
-                );
-            }
-
-
-            if (
-                selectedSquare &&
-                selectedSquare.row === row &&
-                selectedSquare.col === col
-            ) {
-
-                square.classList.add(
-                    "selected"
-                );
-            }
-
-
-            const isValid =
-                validMoves.some(
-                    move =>
-                        move.row === row &&
-                        move.col === col
-                );
-
-            if (isValid) {
-
-                if (board[row][col]) {
-
-                    square.classList.add(
-                        "capture-move"
-                    );
-
+                if ((row + col) % 2 === 0) {
+                    square.classList.add("light");
                 } else {
-
-                    square.classList.add(
-                        "valid-move"
-                    );
+                    square.classList.add("dark");
                 }
+
+                square.dataset.row = row;
+                square.dataset.col = col;
+
+                if (
+                    selected &&
+                    selected.row === row &&
+                    selected.col === col
+                ) {
+                    square.classList.add("selected");
+                }
+
+                const move = validMoves.find(
+                    m => m.row === row && m.col === col
+                );
+
+                if (move) {
+                    if (board[row][col]) {
+                        square.classList.add("capture-move");
+                    } else {
+                        square.classList.add("valid-move");
+                    }
+                }
+
+                const currentPiece = board[row][col];
+
+                if (currentPiece) {
+                    const pieceElement =
+                        document.createElement("span");
+
+                    pieceElement.className = "piece";
+
+                    pieceElement.textContent =
+                        PIECES[currentPiece.color][currentPiece.type];
+
+                    square.appendChild(pieceElement);
+                }
+
+                square.addEventListener(
+                    "click",
+                    () => handleSquareClick(row, col)
+                );
+
+                boardElement.appendChild(square);
             }
-
-
-            square.addEventListener(
-                "click",
-                handleSquareClick
-            );
-
-            boardElement.appendChild(
-                square
-            );
         }
     }
-}
 
+    function handleSquareClick(row, col) {
 
-/* =========================
-SQUARE CLICK
-========================= */
-
-function handleSquareClick(event) {
-
-    if (
-        !gameRunning ||
-        computerThinking
-    ) {
-        return;
-    }
-
-    const row =
-        Number(
-            event.currentTarget.dataset.row
-        );
-
-    const col =
-        Number(
-            event.currentTarget.dataset.col
-        );
-
-
-    /* MOVE SELECTED PIECE */
-
-    if (selectedSquare) {
-
-        const moveIsValid =
-            validMoves.some(
-                move =>
-                    move.row === row &&
-                    move.col === col
-            );
-
-        if (moveIsValid) {
-
-            makePlayerMove(
-                selectedSquare.row,
-                selectedSquare.col,
-                row,
-                col
-            );
-
+        if (gameOver || computerThinking) {
             return;
         }
-    }
 
+        const clickedPiece = board[row][col];
 
-    /* SELECT PLAYER PIECE */
+        /*
+         * If player already selected a piece,
+         * check whether clicked square is a valid move.
+         */
 
-    const piece =
-        board[row][col];
+        if (selected) {
 
-    if (
-        piece &&
-        piece.startsWith("w")
-    ) {
+            const move = validMoves.find(
+                m => m.row === row && m.col === col
+            );
 
-        selectedSquare = {
-            row,
-            col
-        };
+            if (move) {
+                makePlayerMove(
+                    selected.row,
+                    selected.col,
+                    row,
+                    col
+                );
 
-        validMoves =
-            getMovesForPiece(
+                return;
+            }
+        }
+
+        /*
+         * Select a white piece.
+         */
+
+        if (
+            clickedPiece &&
+            clickedPiece.color === "white"
+        ) {
+
+            selected = {
+                row: row,
+                col: col
+            };
+
+            validMoves = getValidMoves(
                 row,
                 col,
                 board
             );
 
-        messageElement.textContent =
-            "Choose a highlighted square.";
+            if (validMoves.length === 0) {
 
-        renderBoard();
+                messageElement.textContent =
+                    "That piece has no valid moves.";
 
-        return;
-    }
+                selected = null;
+                validMoves = [];
 
+            } else {
 
-    selectedSquare = null;
+                messageElement.textContent =
+                    "Choose a highlighted square.";
+            }
 
-    validMoves = [];
-
-    messageElement.textContent =
-        "Select one of your pieces.";
-
-    renderBoard();
-}
-
-
-/* =========================
-PLAYER MOVE
-========================= */
-
-function makePlayerMove(
-    fromRow,
-    fromCol,
-    toRow,
-    toCol
-) {
-
-    const captured =
-        board[toRow][toCol];
-
-    board[toRow][toCol] =
-        board[fromRow][fromCol];
-
-    board[fromRow][fromCol] =
-        null;
-
-    selectedSquare = null;
-
-    validMoves = [];
-
-
-    if (captured) {
-
-        playerScore +=
-            getPieceValue(captured);
-
-        playerScoreElement.textContent =
-            playerScore;
-
-        if (captured === "bK") {
-
-            finishGame(
-                true,
-                "🏆",
-                "You Win!",
-                "You captured the computer's king!"
-            );
-
-            return;
+            renderBoard();
         }
     }
 
+    function makePlayerMove(fromRow, fromCol, toRow, toCol) {
 
-    turnElement.textContent =
-        "CPU";
+        const captured = board[toRow][toCol];
 
-    messageElement.textContent =
-        "Computer is thinking...";
+        board[toRow][toCol] =
+            board[fromRow][fromCol];
 
-    renderBoard();
+        board[fromRow][fromCol] = null;
 
-    computerThinking = true;
+        selected = null;
+        validMoves = [];
 
-    setTimeout(
-        computerMove,
-        500
-    );
-}
+        if (captured) {
 
+            playerScore += pieceValue(
+                captured.type
+            );
 
-/* =========================
-COMPUTER MOVE
-========================= */
+            playerScoreElement.textContent =
+                playerScore;
 
-function computerMove() {
+            if (captured.type === "king") {
+                finishGame(true);
+                return;
+            }
+        }
 
-    if (!gameRunning) {
-        return;
+        /*
+         * Pawn promotion
+         */
+
+        promotePawn(toRow, toCol);
+
+        renderBoard();
+
+        if (checkForKings()) {
+            finishGame(true);
+            return;
+        }
+
+        turnElement.textContent = "CPU";
+
+        messageElement.textContent =
+            "Computer is thinking...";
+
+        computerThinking = true;
+
+        renderBoard();
+
+        setTimeout(() => {
+            computerMove();
+        }, 500);
     }
 
-    const possibleMoves = [];
+    function computerMove() {
 
+        if (gameOver) {
+            return;
+        }
 
-    for (let row = 0; row < 8; row++) {
+        const moves = [];
 
-        for (let col = 0; col < 8; col++) {
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
 
-            const piece =
-                board[row][col];
+                const currentPiece = board[row][col];
 
-            if (
-                piece &&
-                piece.startsWith("b")
-            ) {
+                if (
+                    currentPiece &&
+                    currentPiece.color === "black"
+                ) {
 
-                const moves =
-                    getMovesForPiece(
-                        row,
-                        col,
-                        board
-                    );
+                    const pieceMoves =
+                        getValidMoves(
+                            row,
+                            col,
+                            board
+                        );
 
-                moves.forEach(
-                    move => {
+                    pieceMoves.forEach(move => {
 
-                        possibleMoves.push({
+                        moves.push({
                             fromRow: row,
                             fromCol: col,
                             toRow: move.row,
                             toCol: move.col
                         });
 
-                    }
-                );
-            }
-        }
-    }
-
-
-    if (possibleMoves.length === 0) {
-
-        finishGame(
-            true,
-            "🏆",
-            "You Win!",
-            "The computer has no moves left."
-        );
-
-        return;
-    }
-
-
-    /* Prefer captures */
-
-    const captures =
-        possibleMoves.filter(
-            move =>
-                board[
-                    move.toRow
-                ][
-                    move.toCol
-                ]
-        );
-
-
-    const pool =
-        captures.length > 0
-            ? captures
-            : possibleMoves;
-
-
-    const chosen =
-        pool[
-            Math.floor(
-                Math.random() * pool.length
-            )
-        ];
-
-
-    const captured =
-        board[
-            chosen.toRow
-        ][
-            chosen.toCol
-        ];
-
-
-    board[
-        chosen.toRow
-    ][
-        chosen.toCol
-    ] =
-        board[
-            chosen.fromRow
-        ][
-            chosen.fromCol
-        ];
-
-
-    board[
-        chosen.fromRow
-    ][
-        chosen.fromCol
-    ] =
-        null;
-
-
-    if (captured) {
-
-        computerScore +=
-            getPieceValue(captured);
-
-        computerScoreElement.textContent =
-            computerScore;
-
-
-        if (captured === "wK") {
-
-            finishGame(
-                false,
-                "💥",
-                "Game Over",
-                "The computer captured your king."
-            );
-
-            return;
-        }
-    }
-
-
-    computerThinking = false;
-
-    turnElement.textContent =
-        "YOU";
-
-    messageElement.textContent =
-        "Your turn — select a piece.";
-
-    renderBoard();
-}
-
-
-/* =========================
-PIECE VALUE
-========================= */
-
-function getPieceValue(piece) {
-
-    const type =
-        piece[1];
-
-    const values = {
-        P: 1,
-        N: 3,
-        B: 3,
-        R: 5,
-        Q: 9,
-        K: 100
-    };
-
-    return values[type] || 0;
-}
-
-
-/* =========================
-GET MOVES
-========================= */
-
-function getMovesForPiece(
-    row,
-    col,
-    currentBoard
-) {
-
-    const piece =
-        currentBoard[row][col];
-
-    if (!piece) {
-        return [];
-    }
-
-    const type =
-        piece[1];
-
-    const color =
-        piece[0];
-
-    const moves = [];
-
-
-    /* PAWN */
-
-    if (type === "P") {
-
-        const direction =
-            color === "w"
-                ? -1
-                : 1;
-
-        const startRow =
-            color === "w"
-                ? 6
-                : 1;
-
-
-        const oneRow =
-            row + direction;
-
-        if (
-            isInside(
-                oneRow,
-                col
-            ) &&
-            !currentBoard[
-                oneRow
-            ][
-                col
-            ]
-        ) {
-
-            moves.push({
-                row: oneRow,
-                col
-            });
-
-
-            const twoRow =
-                row +
-                direction * 2;
-
-            if (
-                row === startRow &&
-                !currentBoard[
-                    twoRow
-                ][
-                    col
-                ]
-            ) {
-
-                moves.push({
-                    row: twoRow,
-                    col
-                });
-            }
-        }
-
-
-        for (
-            const offset of [-1, 1]
-        ) {
-
-            const captureCol =
-                col + offset;
-
-            if (
-                isInside(
-                    oneRow,
-                    captureCol
-                )
-            ) {
-
-                const target =
-                    currentBoard[
-                        oneRow
-                    ][
-                        captureCol
-                    ];
-
-                if (
-                    target &&
-                    target[0] !== color
-                ) {
-
-                    moves.push({
-                        row: oneRow,
-                        col: captureCol
                     });
                 }
             }
         }
-    }
 
+        if (moves.length === 0) {
 
-    /* KNIGHT */
+            finishGame(true);
+            return;
+        }
 
-    if (type === "N") {
+        /*
+         * Prefer captures.
+         */
 
-        const jumps = [
-            [-2, -1],
-            [-2, 1],
-            [-1, -2],
-            [-1, 2],
-            [1, -2],
-            [1, 2],
-            [2, -1],
-            [2, 1]
-        ];
+        const captures = moves.filter(move => {
 
-        jumps.forEach(
-            ([dr, dc]) => {
+            return board[move.toRow][move.toCol] &&
+                board[move.toRow][move.toCol].color === "white";
 
-                addIfValid(
-                    row + dr,
-                    col + dc,
-                    color,
-                    currentBoard,
-                    moves
-                );
+        });
 
+        let chosenMove;
+
+        if (captures.length > 0) {
+
+            chosenMove =
+                captures[
+                    Math.floor(
+                        Math.random() *
+                        captures.length
+                    )
+                ];
+
+        } else {
+
+            chosenMove =
+                moves[
+                    Math.floor(
+                        Math.random() *
+                        moves.length
+                    )
+                ];
+        }
+
+        const captured =
+            board[
+                chosenMove.toRow
+            ][
+                chosenMove.toCol
+            ];
+
+        board[
+            chosenMove.toRow
+        ][
+            chosenMove.toCol
+        ] =
+            board[
+                chosenMove.fromRow
+            ][
+                chosenMove.fromCol
+            ];
+
+        board[
+            chosenMove.fromRow
+        ][
+            chosenMove.fromCol
+        ] = null;
+
+        if (captured) {
+
+            computerScore += pieceValue(
+                captured.type
+            );
+
+            computerScoreElement.textContent =
+                computerScore;
+
+            if (captured.type === "king") {
+
+                finishGame(false);
+                return;
             }
+        }
+
+        promotePawn(
+            chosenMove.toRow,
+            chosenMove.toCol
         );
-    }
 
+        computerThinking = false;
 
-    /* KING */
+        turnElement.textContent = "YOU";
 
-    if (type === "K") {
+        messageElement.textContent =
+            "Your turn — select a piece.";
 
-        for (let dr = -1; dr <= 1; dr++) {
+        renderBoard();
 
-            for (let dc = -1; dc <= 1; dc++) {
-
-                if (
-                    dr === 0 &&
-                    dc === 0
-                ) {
-                    continue;
-                }
-
-                addIfValid(
-                    row + dr,
-                    col + dc,
-                    color,
-                    currentBoard,
-                    moves
-                );
-            }
+        if (checkForKings()) {
+            finishGame(false);
         }
     }
 
+    function getValidMoves(row, col, currentBoard) {
 
-    /* ROOK */
+        const currentPiece =
+            currentBoard[row][col];
 
-    if (type === "R") {
+        if (!currentPiece) {
+            return [];
+        }
 
-        addSlidingMoves(
-            row,
-            col,
-            color,
-            currentBoard,
-            moves,
-            [
-                [-1, 0],
-                [1, 0],
-                [0, -1],
-                [0, 1]
-            ]
-        );
-    }
+        const moves = [];
 
+        if (currentPiece.type === "pawn") {
 
-    /* BISHOP */
+            const direction =
+                currentPiece.color === "white"
+                    ? -1
+                    : 1;
 
-    if (type === "B") {
+            const startRow =
+                currentPiece.color === "white"
+                    ? 6
+                    : 1;
 
-        addSlidingMoves(
-            row,
-            col,
-            color,
-            currentBoard,
-            moves,
-            [
-                [-1, -1],
-                [-1, 1],
-                [1, -1],
-                [1, 1]
-            ]
-        );
-    }
+            const oneRow = row + direction;
 
-
-    /* QUEEN */
-
-    if (type === "Q") {
-
-        addSlidingMoves(
-            row,
-            col,
-            color,
-            currentBoard,
-            moves,
-            [
-                [-1, 0],
-                [1, 0],
-                [0, -1],
-                [0, 1],
-                [-1, -1],
-                [-1, 1],
-                [1, -1],
-                [1, 1]
-            ]
-        );
-    }
-
-
-    return moves;
-}
-
-
-/* =========================
-ADD VALID MOVE
-========================= */
-
-function addIfValid(
-    row,
-    col,
-    color,
-    currentBoard,
-    moves
-) {
-
-    if (
-        !isInside(
-            row,
-            col
-        )
-    ) {
-        return;
-    }
-
-    const target =
-        currentBoard[row][col];
-
-    if (
-        !target ||
-        target[0] !== color
-    ) {
-
-        moves.push({
-            row,
-            col
-        });
-    }
-}
-
-
-/* =========================
-SLIDING PIECES
-========================= */
-
-function addSlidingMoves(
-    row,
-    col,
-    color,
-    currentBoard,
-    moves,
-    directions
-) {
-
-    directions.forEach(
-        ([dr, dc]) => {
-
-            let r =
-                row + dr;
-
-            let c =
-                col + dc;
-
-
-            while (
-                isInside(r, c)
+            if (
+                inBounds(oneRow, col) &&
+                !currentBoard[oneRow][col]
             ) {
+
+                moves.push({
+                    row: oneRow,
+                    col: col
+                });
+
+                const twoRow =
+                    row + direction * 2;
+
+                if (
+                    row === startRow &&
+                    !currentBoard[twoRow][col]
+                ) {
+
+                    moves.push({
+                        row: twoRow,
+                        col: col
+                    });
+                }
+            }
+
+            for (const dc of [-1, 1]) {
+
+                const captureRow =
+                    row + direction;
+
+                const captureCol =
+                    col + dc;
+
+                if (
+                    inBounds(
+                        captureRow,
+                        captureCol
+                    )
+                ) {
+
+                    const target =
+                        currentBoard[
+                            captureRow
+                        ][
+                            captureCol
+                        ];
+
+                    if (
+                        target &&
+                        target.color !==
+                            currentPiece.color
+                    ) {
+
+                        moves.push({
+                            row: captureRow,
+                            col: captureCol
+                        });
+                    }
+                }
+            }
+        }
+
+        if (currentPiece.type === "knight") {
+
+            const offsets = [
+                [-2, -1],
+                [-2, 1],
+                [-1, -2],
+                [-1, 2],
+                [1, -2],
+                [1, 2],
+                [2, -1],
+                [2, 1]
+            ];
+
+            offsets.forEach(([dr, dc]) => {
+
+                addMove(
+                    row + dr,
+                    col + dc,
+                    currentPiece,
+                    currentBoard,
+                    moves
+                );
+
+            });
+        }
+
+        if (currentPiece.type === "king") {
+
+            for (let dr = -1; dr <= 1; dr++) {
+
+                for (let dc = -1; dc <= 1; dc++) {
+
+                    if (dr === 0 && dc === 0) {
+                        continue;
+                    }
+
+                    addMove(
+                        row + dr,
+                        col + dc,
+                        currentPiece,
+                        currentBoard,
+                        moves
+                    );
+                }
+            }
+        }
+
+        if (currentPiece.type === "rook") {
+
+            slideMoves(
+                row,
+                col,
+                currentPiece,
+                currentBoard,
+                moves,
+                [
+                    [-1, 0],
+                    [1, 0],
+                    [0, -1],
+                    [0, 1]
+                ]
+            );
+        }
+
+        if (currentPiece.type === "bishop") {
+
+            slideMoves(
+                row,
+                col,
+                currentPiece,
+                currentBoard,
+                moves,
+                [
+                    [-1, -1],
+                    [-1, 1],
+                    [1, -1],
+                    [1, 1]
+                ]
+            );
+        }
+
+        if (currentPiece.type === "queen") {
+
+            slideMoves(
+                row,
+                col,
+                currentPiece,
+                currentBoard,
+                moves,
+                [
+                    [-1, 0],
+                    [1, 0],
+                    [0, -1],
+                    [0, 1],
+                    [-1, -1],
+                    [-1, 1],
+                    [1, -1],
+                    [1, 1]
+                ]
+            );
+        }
+
+        return moves;
+    }
+
+    function addMove(
+        row,
+        col,
+        currentPiece,
+        currentBoard,
+        moves
+    ) {
+
+        if (!inBounds(row, col)) {
+            return;
+        }
+
+        const target =
+            currentBoard[row][col];
+
+        if (
+            !target ||
+            target.color !== currentPiece.color
+        ) {
+
+            moves.push({
+                row: row,
+                col: col
+            });
+        }
+    }
+
+    function slideMoves(
+        row,
+        col,
+        currentPiece,
+        currentBoard,
+        moves,
+        directions
+    ) {
+
+        directions.forEach(([dr, dc]) => {
+
+            let r = row + dr;
+            let c = col + dc;
+
+            while (inBounds(r, c)) {
 
                 const target =
                     currentBoard[r][c];
-
 
                 if (!target) {
 
@@ -894,7 +706,8 @@ function addSlidingMoves(
                 } else {
 
                     if (
-                        target[0] !== color
+                        target.color !==
+                        currentPiece.color
                     ) {
 
                         moves.push({
@@ -906,86 +719,180 @@ function addSlidingMoves(
                     break;
                 }
 
-
                 r += dr;
                 c += dc;
             }
+        });
+    }
+
+    function inBounds(row, col) {
+
+        return (
+            row >= 0 &&
+            row < 8 &&
+            col >= 0 &&
+            col < 8
+        );
+    }
+
+    function pieceValue(type) {
+
+        const values = {
+            pawn: 1,
+            knight: 3,
+            bishop: 3,
+            rook: 5,
+            queen: 9,
+            king: 10
+        };
+
+        return values[type] || 0;
+    }
+
+    function promotePawn(row, col) {
+
+        const currentPiece =
+            board[row][col];
+
+        if (
+            !currentPiece ||
+            currentPiece.type !== "pawn"
+        ) {
+            return;
         }
-    );
-}
 
+        if (
+            currentPiece.color === "white" &&
+            row === 0
+        ) {
 
-/* =========================
-BOARD CHECK
-========================= */
+            currentPiece.type = "queen";
+        }
 
-function isInside(row, col) {
+        if (
+            currentPiece.color === "black" &&
+            row === 7
+        ) {
 
-    return (
-        row >= 0 &&
-        row < 8 &&
-        col >= 0 &&
-        col < 8
-    );
-}
+            currentPiece.type = "queen";
+        }
+    }
 
+    function checkForKings() {
 
-/* =========================
-END GAME
-========================= */
+        let whiteKing = false;
+        let blackKing = false;
 
-function finishGame(
-    won,
-    icon,
-    title,
-    text
-) {
+        for (let row = 0; row < 8; row++) {
 
-    gameRunning = false;
+            for (let col = 0; col < 8; col++) {
 
-    computerThinking = false;
+                const currentPiece =
+                    board[row][col];
 
-    selectedSquare = null;
+                if (
+                    currentPiece &&
+                    currentPiece.type === "king"
+                ) {
 
-    validMoves = [];
+                    if (
+                        currentPiece.color === "white"
+                    ) {
+                        whiteKing = true;
+                    }
 
-    resultIcon.textContent =
-        icon;
+                    if (
+                        currentPiece.color === "black"
+                    ) {
+                        blackKing = true;
+                    }
+                }
+            }
+        }
 
-    resultTitle.textContent =
-        title;
+        if (!whiteKing) {
+            finishGame(false);
+            return true;
+        }
 
-    resultText.textContent =
-        text;
+        if (!blackKing) {
+            finishGame(true);
+            return true;
+        }
 
-    gameOverlay.classList.remove(
-        "hidden"
-    );
+        return false;
+    }
 
-    messageElement.textContent =
-        won
-            ? "You won the game!"
-            : "The computer won.";
-}
+    function finishGame(playerWon) {
 
+        gameOver = true;
+        computerThinking = false;
 
-/* =========================
-BUTTONS
-========================= */
+        if (playerWon) {
 
-restartButton.addEventListener(
-    "click",
-    startNewGame
-);
+            resultIcon.textContent = "🏆";
 
-newGameButton.addEventListener(
-    "click",
-    startNewGame
-);
+            resultTitle.textContent =
+                "You Win!";
 
+            resultText.textContent =
+                "Great game! You defeated the computer.";
 
-/* =========================
-START
-========================= */
+            messageElement.textContent =
+                "🏆 Victory!";
 
-startNewGame();
+        } else {
+
+            resultIcon.textContent = "💥";
+
+            resultTitle.textContent =
+                "Game Over";
+
+            resultText.textContent =
+                "The computer captured your king.";
+
+            messageElement.textContent =
+                "Computer wins!";
+        }
+
+        gameOverlay.classList.remove("hidden");
+
+        renderBoard();
+    }
+
+    function updateStats() {
+
+        playerScoreElement.textContent =
+            playerScore;
+
+        computerScoreElement.textContent =
+            computerScore;
+
+        turnElement.textContent =
+            computerThinking ? "CPU" : "YOU";
+    }
+
+    /*
+     * Buttons
+     */
+
+    if (restartButton) {
+        restartButton.addEventListener(
+            "click",
+            resetGame
+        );
+    }
+
+    if (newGameButton) {
+        newGameButton.addEventListener(
+            "click",
+            resetGame
+        );
+    }
+
+    /*
+     * Start game
+     */
+
+    resetGame();
+});
