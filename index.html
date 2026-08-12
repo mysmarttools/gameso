@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mini Chess Game Online - Play Free | Gameso</title>
+    <title>Gameso - Free Online Games | Play Games Online</title>
 
     <meta
         name="description"
-        content="Play Mini Chess online for free on Gameso. Move your pieces, capture the computer's pieces and win the game."
+        content="Play free online games on Gameso. Enjoy Snake, 2048, Tic Tac Toe, Memory Game, Minesweeper, Breakout and more fun games."
     >
 
     <meta name="robots" content="index, follow">
 
     <link
         rel="canonical"
-        href="https://gameso.vercel.app/games/mini-chess/"
+        href="https://gameso.vercel.app/"
     >
 
     <link rel="stylesheet" href="style.css">
@@ -23,226 +24,1052 @@
 
 <body>
 
-<header class="game-header">
-    <div class="header-inner">
+    <!-- =========================
+         HEADER
+    ========================== -->
 
-        <a href="/" class="logo">
-            <span class="logo-icon">🎮</span>
-            <strong>Gameso</strong>
-        </a>
+    <header class="site-header">
 
-        <a href="/" class="back-button">
-            ← All Games
-        </a>
+        <div class="header-inner">
 
-    </div>
-</header>
+            <!-- LOGO -->
 
+            <a href="/" class="logo">
 
-<main class="game-page">
+                <span class="logo-icon">🎮</span>
 
-    <div class="game-container">
+                <strong>Gameso</strong>
 
-        <section class="game-heading">
-
-            <span class="game-label">
-                ♟️ STRATEGY GAME
-            </span>
-
-            <h1>Mini Chess</h1>
-
-            <p>
-                Play a quick chess battle against the computer.
-                Capture the enemy king to win!
-            </p>
-
-        </section>
+            </a>
 
 
-        <section class="game-box">
+            <!-- DESKTOP NAV -->
 
-            <div class="game-stats">
+            <nav class="desktop-nav">
 
-                <div class="stat-box">
-                    <span>YOU</span>
-                    <strong id="playerScore">0</strong>
-                </div>
+                <a href="/" class="nav-link active">
+                    Home
+                </a>
 
-                <div class="stat-box">
-                    <span>TURN</span>
-                    <strong id="turnText">YOU</strong>
-                </div>
+                <a href="#popularGames" class="nav-link">
+                    Popular
+                </a>
 
-                <div class="stat-box">
-                    <span>COMPUTER</span>
-                    <strong id="computerScore">0</strong>
-                </div>
+                <a href="#categories" class="nav-link">
+                    Categories
+                </a>
 
-            </div>
-
-
-            <div class="board-area">
-
-                <div class="board-label black-label">
-                    🤖 COMPUTER
-                </div>
-
-                <div
-                    id="chessBoard"
-                    class="chess-board"
-                ></div>
-
-                <div class="board-label white-label">
-                    👤 YOU
-                </div>
-
-            </div>
-
-
-            <div
-                id="message"
-                class="game-message"
-            >
-                Your turn — select a piece.
-            </div>
-
-
-            <div class="game-actions">
+                <a href="#newGames" class="nav-link">
+                    New Games
+                </a>
 
                 <button
-                    id="newGameButton"
-                    class="game-button"
+                    type="button"
+                    id="searchToggle"
+                    class="search-button"
+                    aria-label="Search games"
                 >
-                    🔄 New Game
+                    🔍
+                </button>
+
+            </nav>
+
+
+            <!-- MOBILE MENU BUTTON -->
+
+            <button
+                type="button"
+                id="menuToggle"
+                class="menu-toggle"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+
+        <!-- MOBILE NAV -->
+
+        <nav
+            id="mobileNav"
+            class="mobile-nav"
+        >
+
+            <a href="/" class="nav-link">
+                Home
+            </a>
+
+            <a href="#popularGames" class="nav-link">
+                Popular
+            </a>
+
+            <a href="#categories" class="nav-link">
+                Categories
+            </a>
+
+            <a href="#newGames" class="nav-link">
+                New Games
+            </a>
+
+        </nav>
+
+
+        <!-- SEARCH -->
+
+        <div
+            id="searchSection"
+            class="search-section"
+        >
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="gameSearch"
+                    placeholder="Search games..."
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="clearSearch"
+                    aria-label="Clear search"
+                >
+                    ✕
                 </button>
 
             </div>
 
+        </div>
 
-            <div class="controls">
-
-                <span>♟️ Select a piece</span>
-                <span>👆 Select destination</span>
-                <span>⚔️ Capture pieces</span>
-
-            </div>
+    </header>
 
 
-            <div
-                id="gameOverlay"
-                class="game-overlay hidden"
-            >
 
-                <div
-                    id="resultIcon"
-                    class="result-icon"
-                >
-                    🏆
-                </div>
+    <!-- =========================
+         MAIN
+    ========================== -->
 
-                <h2 id="resultTitle">
-                    You Win!
-                </h2>
+    <main>
 
-                <p id="resultText">
-                    Great game!
+
+        <!-- =========================
+             HERO
+        ========================== -->
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <span class="hero-label">
+                    🎮 FREE ONLINE GAMES
+                </span>
+
+                <h1>
+                    Play Fun Games<br>
+                    <span>Anytime, Anywhere</span>
+                </h1>
+
+                <p>
+                    Discover exciting free games and enjoy
+                    endless fun directly in your browser.
                 </p>
 
-                <button
-                    id="restartButton"
-                    class="game-button"
-                >
-                    🔄 Play Again
-                </button>
+                <div class="hero-actions">
+
+                    <a
+                        href="#popularGames"
+                        class="primary-button"
+                    >
+                        ▶ Play Games
+                    </a>
+
+                    <a
+                        href="#categories"
+                        class="secondary-button"
+                    >
+                        Explore Categories
+                    </a>
+
+                </div>
 
             </div>
 
         </section>
 
 
-        <section class="game-info">
 
-            <h2>How to Play Mini Chess</h2>
+        <!-- =========================
+             POPULAR GAMES
+        ========================== -->
 
-            <p>
-                You control the white pieces and the computer
-                controls the black pieces. Click one of your
-                pieces to see its possible moves.
-            </p>
+        <section
+            id="popularGames"
+            class="games-section"
+        >
 
-            <p>
-                Click a highlighted square to move your piece.
-                Capture the computer's king to win the game.
-            </p>
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Popular Games
+                    </h2>
+
+                    <p>
+                        Play the games everyone loves.
+                    </p>
+
+                </div>
+
+                <a
+                    href="#popularGames"
+                    class="view-all"
+                >
+                    View All →
+                </a>
+
+            </div>
 
 
-            <h2>Mini Chess Controls</h2>
-
-            <ul>
-                <li>♟️ Click a white piece to select it.</li>
-                <li>🟢 Green squares show possible moves.</li>
-                <li>⚔️ Red squares contain capturable pieces.</li>
-                <li>🤖 The computer moves automatically.</li>
-            </ul>
+            <div class="games-grid">
 
 
-            <h2>Tips</h2>
+                <!-- SNAKE -->
 
-            <ul>
-                <li>🧠 Plan your moves carefully.</li>
-                <li>🎯 Look for pieces that you can capture.</li>
-                <li>🛡️ Protect your important pieces.</li>
-                <li>🏆 Capture the black king to win.</li>
-            </ul>
+                <article
+                    class="game-card"
+                    data-name="Snake"
+                    data-category="Arcade"
+                >
+
+                    <a
+                        href="/games/snake/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail arcade-thumbnail">
+
+                            <span class="game-emoji">
+                                🐍
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Snake
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🎮 Arcade
+                                </span>
+
+                                <span>
+                                    ⭐ 4.8
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- 2048 -->
+
+                <article
+                    class="game-card"
+                    data-name="2048"
+                    data-category="Puzzle"
+                >
+
+                    <a
+                        href="/games/2048/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail puzzle-thumbnail">
+
+                            <span class="game-emoji">
+                                🔢
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                2048
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🧩 Puzzle
+                                </span>
+
+                                <span>
+                                    ⭐ 4.9
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- TIC TAC TOE -->
+
+                <article
+                    class="game-card"
+                    data-name="Tic Tac Toe"
+                    data-category="Board"
+                >
+
+                    <a
+                        href="/games/tic-tac-toe/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail board-thumbnail">
+
+                            <span class="game-emoji">
+                                ❌⭕
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Tic Tac Toe
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🎯 Board
+                                </span>
+
+                                <span>
+                                    ⭐ 4.7
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- MEMORY -->
+
+                <article
+                    class="game-card"
+                    data-name="Memory Game"
+                    data-category="Brain"
+                >
+
+                    <a
+                        href="/games/memory/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail brain-thumbnail">
+
+                            <span class="game-emoji">
+                                🧠
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Memory Game
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🧠 Brain
+                                </span>
+
+                                <span>
+                                    ⭐ 4.8
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- ROCK PAPER SCISSORS -->
+
+                <article
+                    class="game-card"
+                    data-name="Rock Paper Scissors"
+                    data-category="Arcade"
+                >
+
+                    <a
+                        href="/games/rock-paper-scissors/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail arcade-thumbnail">
+
+                            <span class="game-emoji">
+                                ✊📄✂️
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Rock Paper Scissors
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🎯 Arcade
+                                </span>
+
+                                <span>
+                                    ⭐ 4.8
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- MINESWEEPER -->
+
+                <article
+                    class="game-card"
+                    data-name="Minesweeper"
+                    data-category="Puzzle"
+                >
+
+                    <a
+                        href="/games/minesweeper/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail puzzle-thumbnail">
+
+                            <span class="game-emoji">
+                                💣
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Minesweeper
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🧩 Puzzle
+                                </span>
+
+                                <span>
+                                    ⭐ 4.8
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+            </div>
 
         </section>
 
 
-        <section class="related-section">
 
-            <h2>More Games</h2>
+        <!-- =========================
+             NEW GAMES
+        ========================== -->
 
-            <div class="related-grid">
+        <section
+            id="newGames"
+            class="games-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        New Games
+                    </h2>
+
+                    <p>
+                        Check out the latest games added to Gameso.
+                    </p>
+
+                </div>
 
                 <a
-                    href="/games/tic-tac-toe/"
-                    class="related-card"
+                    href="#newGames"
+                    class="view-all"
                 >
-                    <span>❌⭕</span>
-                    <strong>Tic Tac Toe</strong>
+                    View All →
                 </a>
 
-                <a
-                    href="/games/2048/"
-                    class="related-card"
+            </div>
+
+
+            <div class="games-grid">
+
+
+                <!-- BREAKOUT -->
+
+                <article
+                    class="game-card"
+                    data-name="Breakout"
+                    data-category="Arcade"
                 >
-                    <span>🔢</span>
-                    <strong>2048</strong>
-                </a>
+
+                    <a
+                        href="/games/breakout/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail arcade-thumbnail">
+
+                            <span class="new-badge">
+                                NEW
+                            </span>
+
+                            <span class="game-emoji">
+                                🧱
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Breakout
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🎮 Arcade
+                                </span>
+
+                                <span>
+                                    ⭐ 4.9
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- SPACE SHOOTER -->
+
+                <article
+                    class="game-card"
+                    data-name="Space Shooter"
+                    data-category="Action"
+                >
+
+                    <a
+                        href="/games/space-shooter/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail action-thumbnail">
+
+                            <span class="new-badge">
+                                NEW
+                            </span>
+
+                            <span class="game-emoji">
+                                🚀
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Space Shooter
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    ⚔️ Action
+                                </span>
+
+                                <span>
+                                    ⭐ New
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- COLOR MATCH -->
+
+                <article
+                    class="game-card"
+                    data-name="Color Match"
+                    data-category="Puzzle"
+                >
+
+                    <a
+                        href="/games/color-match/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail puzzle-thumbnail">
+
+                            <span class="new-badge">
+                                NEW
+                            </span>
+
+                            <span class="game-emoji">
+                                🎨
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Color Match
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    🧩 Puzzle
+                                </span>
+
+                                <span>
+                                    ⭐ New
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- MINI CHESS -->
+
+                <article
+                    class="game-card"
+                    data-name="Mini Chess"
+                    data-category="Strategy"
+                >
+
+                    <a
+                        href="/games/mini-chess/"
+                        class="game-link"
+                    >
+
+                        <div class="game-thumbnail board-thumbnail">
+
+                            <span class="new-badge">
+                                NEW
+                            </span>
+
+                            <span class="game-emoji">
+                                ♟️
+                            </span>
+
+                            <span class="play-overlay">
+                                ▶
+                            </span>
+
+                        </div>
+
+                        <div class="game-info">
+
+                            <h3>
+                                Mini Chess
+                            </h3>
+
+                            <div class="game-meta">
+
+                                <span>
+                                    ♟️ Strategy
+                                </span>
+
+                                <span>
+                                    ⭐ New
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CATEGORIES
+        ========================== -->
+
+        <section
+            id="categories"
+            class="categories-section"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Game Categories
+                    </h2>
+
+                    <p>
+                        Find your favorite type of game.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="categories-grid">
+
 
                 <a
-                    href="/games/color-match/"
-                    class="related-card"
+                    href="#popularGames"
+                    class="category-card"
+                    data-category="Arcade"
                 >
-                    <span>🎨</span>
-                    <strong>Color Match</strong>
+
+                    <span>
+                        🎮
+                    </span>
+
+                    <strong>
+                        Arcade
+                    </strong>
+
+                    <small>
+                        Fun & Action
+                    </small>
+
+                </a>
+
+
+                <a
+                    href="#popularGames"
+                    class="category-card"
+                    data-category="Puzzle"
+                >
+
+                    <span>
+                        🧩
+                    </span>
+
+                    <strong>
+                        Puzzle
+                    </strong>
+
+                    <small>
+                        Think & Solve
+                    </small>
+
+                </a>
+
+
+                <a
+                    href="#popularGames"
+                    class="category-card"
+                    data-category="Board"
+                >
+
+                    <span>
+                        🎯
+                    </span>
+
+                    <strong>
+                        Board Games
+                    </strong>
+
+                    <small>
+                        Classic Games
+                    </small>
+
+                </a>
+
+
+                <a
+                    href="#popularGames"
+                    class="category-card"
+                    data-category="Brain"
+                >
+
+                    <span>
+                        🧠
+                    </span>
+
+                    <strong>
+                        Brain Games
+                    </strong>
+
+                    <small>
+                        Train Your Mind
+                    </small>
+
+                </a>
+
+
+                <a
+                    href="#newGames"
+                    class="category-card"
+                    data-category="Action"
+                >
+
+                    <span>
+                        ⚔️
+                    </span>
+
+                    <strong>
+                        Action
+                    </strong>
+
+                    <small>
+                        Fast & Exciting
+                    </small>
+
+                </a>
+
+
+                <a
+                    href="#newGames"
+                    class="category-card"
+                    data-category="Strategy"
+                >
+
+                    <span>
+                        ♟️
+                    </span>
+
+                    <strong>
+                        Strategy
+                    </strong>
+
+                    <small>
+                        Think Ahead
+                    </small>
+
                 </a>
 
             </div>
 
         </section>
 
-    </div>
-
-</main>
 
 
-<footer>
-    © <span id="year"></span> Gameso. All rights reserved.
-</footer>
+        <!-- =========================
+             CTA
+        ========================== -->
+
+        <section class="cta-section">
+
+            <div class="cta-content">
+
+                <span class="cta-icon">
+                    🎮
+                </span>
+
+                <h2>
+                    Ready to Play?
+                </h2>
+
+                <p>
+                    Choose a game and start playing for free.
+                </p>
+
+                <a
+                    href="#popularGames"
+                    class="primary-button"
+                >
+                    ▶ Start Playing
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
 
 
-<script src="script.js"></script>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+            <div class="footer-brand">
+
+                <a href="/" class="logo">
+
+                    <span class="logo-icon">
+                        🎮
+                    </span>
+
+                    <strong>
+                        Gameso
+                    </strong>
+
+                </a>
+
+                <p>
+                    Free online games for everyone.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="#popularGames">
+                    Popular Games
+                </a>
+
+                <a href="#newGames">
+                    New Games
+                </a>
+
+                <a href="#categories">
+                    Categories
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            © <span id="currentYear"></span>
+            Gameso. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
