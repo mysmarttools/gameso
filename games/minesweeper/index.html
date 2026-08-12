@@ -1,1 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minesweeper Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Minesweeper online for free on Gameso. Find safe cells, avoid hidden mines, place flags and clear the board to win."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/minesweeper/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="game-header">
+
+        <div class="header-inner">
+
+            <a href="/" class="logo">
+                <span>🎮</span>
+                <strong>Gameso</strong>
+            </a>
+
+            <a href="/" class="back-button">
+                ← All Games
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <section class="game-page">
+
+            <div class="game-container">
+
+
+                <!-- HEADING -->
+
+                <div class="game-heading">
+
+                    <span class="game-label">
+                        💣 PUZZLE CHALLENGE
+                    </span>
+
+                    <h1>
+                        Minesweeper
+                    </h1>
+
+                    <p>
+                        Find all the safe cells and avoid
+                        the hidden mines!
+                    </p>
+
+                </div>
+
+
+                <!-- GAME BOX -->
+
+                <div class="game-box">
+
+
+                    <!-- STATS -->
+
+                    <div class="game-stats">
+
+                        <div class="stat-box">
+
+                            <span>
+                                MINES
+                            </span>
+
+                            <strong id="mineCount">
+                                10
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat-box">
+
+                            <span>
+                                FLAGS
+                            </span>
+
+                            <strong id="flagCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat-box">
+
+                            <span>
+                                TIME
+                            </span>
+
+                            <strong id="timer">
+                                00:00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONTROLS -->
+
+                    <div class="game-controls">
+
+                        <div class="game-tip">
+
+                            <strong>
+                                How to play
+                            </strong>
+
+                            <span>
+                                Click safe cells. Right-click
+                                or use Flag Mode for mines.
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            id="newGame"
+                            class="new-game-button"
+                            type="button"
+                        >
+                            🔄 New Game
+                        </button>
+
+                    </div>
+
+
+                    <!-- MOBILE FLAG MODE -->
+
+                    <button
+                        id="flagMode"
+                        class="flag-mode"
+                        type="button"
+                    >
+                        🚩 Flag Mode: OFF
+                    </button>
+
+
+                    <!-- BOARD -->
+
+                    <div
+                        id="mineBoard"
+                        class="mine-board"
+                        aria-label="Minesweeper board"
+                    ></div>
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        id="gameMessage"
+                        class="game-message"
+                    ></div>
+
+                </div>
+
+
+                <!-- INFO -->
+
+                <section class="game-info-section">
+
+                    <h2>
+                        How to Play Minesweeper
+                    </h2>
+
+                    <p>
+                        Minesweeper is a classic puzzle game
+                        where you need to clear the board
+                        without clicking on a hidden mine.
+                    </p>
+
+                    <p>
+                        Each revealed number tells you how
+                        many mines are located in the
+                        surrounding cells. Use these clues
+                        to find the safe cells.
+                    </p>
+
+
+                    <h2>
+                        Minesweeper Rules
+                    </h2>
+
+                    <ul>
+
+                        <li>
+                            💣 Avoid all hidden mines.
+                        </li>
+
+                        <li>
+                            🔢 Numbers show nearby mines.
+                        </li>
+
+                        <li>
+                            🚩 Flag cells you believe
+                            contain mines.
+                        </li>
+
+                        <li>
+                            🏆 Clear every safe cell to win.
+                        </li>
+
+                        <li>
+                            ⏱️ Try to complete the board
+                            as quickly as possible.
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- RELATED GAMES -->
+
+                <section class="related-section">
+
+                    <h2>
+                        More Games
+                    </h2>
+
+                    <div class="related-grid">
+
+                        <a
+                            href="/games/memory/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🧠
+                            </span>
+
+                            <strong>
+                                Memory Game
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/rock-paper-scissors/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                ✊
+                            </span>
+
+                            <strong>
+                                Rock Paper Scissors
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/2048/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🔢
+                            </span>
+
+                            <strong>
+                                2048
+                            </strong>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            ©
+            <span id="year"></span>
+            Gameso. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
