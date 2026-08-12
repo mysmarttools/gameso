@@ -1,1445 +1,639 @@
-document.addEventListener("DOMContentLoaded", () => {
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
-    const canvas =
-        document.getElementById("gameCanvas");
+const scoreEl = document.getElementById("score");
+const livesEl = document.getElementById("lives");
+const levelEl = document.getElementById("level");
 
-    const ctx =
-        canvas.getContext("2d");
+const startScreen = document.getElementById("startScreen");
+const gameOverScreen = document.getElementById("gameOverScreen");
 
-    const scoreElement =
-        document.getElementById("score");
+const startButton = document.getElementById("startButton");
+const restartButton = document.getElementById("restartButton");
 
-    const livesElement =
-        document.getElementById("lives");
+const resultIcon = document.getElementById("resultIcon");
+const resultTitle = document.getElementById("resultTitle");
+const resultText = document.getElementById("resultText");
 
-    const levelElement =
-        document.getElementById("level");
+const WIDTH = canvas.width;
+const HEIGHT = canvas.height;
 
-    const startScreen =
-        document.getElementById("startScreen");
+let score = 0;
+let lives = 3;
+let level = 1;
+let running = false;
 
-    const gameOverScreen =
-        document.getElementById("gameOverScreen");
+let animationId;
 
-    const startButton =
-        document.getElementById("startButton");
+const paddle = {
+    width: 120,
+    height: 14,
+    x: WIDTH / 2 - 60,
+    y: HEIGHT - 40,
+    speed: 8
+};
 
-    const restartButton =
-        document.getElementById("restartButton");
+const ball = {
+    x: WIDTH / 2,
+    y: HEIGHT - 60,
+    radius: 8,
+    dx: 5,
+    dy: -5
+};
 
-    const resultIcon =
-        document.getElementById("resultIcon");
+const keys = {};
 
-    const resultTitle =
-        document.getElementById("resultTitle");
+let bricks = [];
 
-    const resultText =
-        document.getElementById("resultText");
+const rows = 5;
+const cols = 9;
 
-    const year =
-        document.getElementById("year");
+const brickWidth = 72;
+const brickHeight = 23;
+const brickGap = 8;
 
+const brickStartX =
+    (WIDTH - (cols * brickWidth + (cols - 1) * brickGap)) / 2;
 
-    /* ==============================
-       GAME SETTINGS
-    ============================== */
+const brickStartY = 70;
 
-    const WIDTH = canvas.width;
-    const HEIGHT = canvas.height;
 
-    const paddleWidth = 120;
-    const paddleHeight = 14;
+/* =========================
+   CREATE BRICKS
+========================= */
 
-    const ballRadius = 8;
+function createBricks() {
 
-    const brickRows = 5;
-    const brickColumns = 9;
+    bricks = [];
 
-    const brickWidth = 72;
-    const brickHeight = 23;
+    for (let row = 0; row < rows; row++) {
 
-    const brickGap = 8;
+        for (let col = 0; col < cols; col++) {
 
-    const brickStartX =
-        (
-            WIDTH -
-            (
-                brickColumns *
-                brickWidth
-            ) -
-            (
-                (brickColumns - 1) *
-                brickGap
-            )
-        ) / 2;
+            bricks.push({
+                x:
+                    brickStartX +
+                    col * (brickWidth + brickGap),
 
-    const brickStartY = 75;
+                y:
+                    brickStartY +
+                    row * (brickHeight + brickGap),
 
-    const baseBallSpeed = 5;
+                width: brickWidth,
+                height: brickHeight,
 
-
-    /* ==============================
-       GAME STATE
-    ============================== */
-
-    let paddle;
-    let ball;
-    let bricks;
-
-    let score = 0;
-    let lives = 3;
-    let level = 1;
-
-    let gameRunning = false;
-
-    let animationId = null;
-
-    let keys = {};
-
-    let mouseX = null;
-
-    let touchActive = false;
-
-
-    /* ==============================
-       BRICK COLORS
-    ============================== */
-
-    const brickColors = [
-        "#ff5c7a",
-        "#ff8a4c",
-        "#ffd34d",
-        "#54d98c",
-        "#43c7f4"
-    ];
-
-
-    /* ==============================
-       CREATE PADDLE
-    ============================== */
-
-    function createPaddle() {
-
-        return {
-
-            x:
-                WIDTH / 2 -
-                paddleWidth / 2,
-
-            y:
-                HEIGHT - 45,
-
-            width:
-                paddleWidth,
-
-            height:
-                paddleHeight,
-
-            speed: 8
-        };
-    }
-
-
-    /* ==============================
-       CREATE BALL
-    ============================== */
-
-    function createBall() {
-
-        return {
-
-            x:
-                WIDTH / 2,
-
-            y:
-                HEIGHT - 65,
-
-            radius:
-                ballRadius,
-
-            velocityX:
-                baseBallSpeed,
-
-            velocityY:
-                -baseBallSpeed
-        };
-    }
-
-
-    /* ==============================
-       CREATE BRICKS
-    ============================== */
-
-    function createBricks() {
-
-        const result = [];
-
-        for (
-            let row = 0;
-            row < brickRows;
-            row++
-        ) {
-
-            for (
-                let col = 0;
-                col < brickColumns;
-                col++
-            ) {
-
-                result.push({
-
-                    x:
-                        brickStartX +
-                        col *
-                        (
-                            brickWidth +
-                            brickGap
-                        ),
-
-                    y:
-                        brickStartY +
-                        row *
-                        (
-                            brickHeight +
-                            brickGap
-                        ),
-
-                    width:
-                        brickWidth,
-
-                    height:
-                        brickHeight,
-
-                    visible:
-                        true,
-
-                    color:
-                        brickColors[
-                            row %
-                            brickColors.length
-                        ]
-                });
-            }
-        }
-
-        return result;
-    }
-
-
-    /* ==============================
-       RESET GAME
-    ============================== */
-
-    function resetGame() {
-
-        score = 0;
-        lives = 3;
-        level = 1;
-
-        scoreElement.textContent =
-            score;
-
-        livesElement.textContent =
-            lives;
-
-        levelElement.textContent =
-            level;
-
-        paddle =
-            createPaddle();
-
-        ball =
-            createBall();
-
-        bricks =
-            createBricks();
-
-        gameRunning = false;
-
-        draw();
-    }
-
-
-    /* ==============================
-       START GAME
-    ============================== */
-
-    function startGame() {
-
-        resetGame();
-
-        gameRunning = true;
-
-        startScreen.classList.add(
-            "hidden"
-        );
-
-        gameOverScreen.classList.add(
-            "hidden"
-        );
-
-        if (animationId) {
-
-            cancelAnimationFrame(
-                animationId
-            );
-        }
-
-        animationId =
-            requestAnimationFrame(
-                gameLoop
-            );
-    }
-
-
-    /* ==============================
-       GAME LOOP
-    ============================== */
-
-    function gameLoop() {
-
-        if (!gameRunning) {
-            return;
-        }
-
-        update();
-
-        draw();
-
-        animationId =
-            requestAnimationFrame(
-                gameLoop
-            );
-    }
-
-
-    /* ==============================
-       UPDATE
-    ============================== */
-
-    function update() {
-
-        updatePaddle();
-
-        updateBall();
-
-        checkBrickCollisions();
-
-        checkWin();
-    }
-
-
-    /* ==============================
-       PADDLE UPDATE
-    ============================== */
-
-    function updatePaddle() {
-
-        if (
-            keys["ArrowLeft"] ||
-            keys["a"] ||
-            keys["A"]
-        ) {
-
-            paddle.x -=
-                paddle.speed;
-        }
-
-
-        if (
-            keys["ArrowRight"] ||
-            keys["d"] ||
-            keys["D"]
-        ) {
-
-            paddle.x +=
-                paddle.speed;
-        }
-
-
-        /* Mouse */
-
-        if (
-            mouseX !== null
-        ) {
-
-            paddle.x =
-                mouseX -
-                paddle.width / 2;
-        }
-
-
-        /* Bounds */
-
-        if (
-            paddle.x < 0
-        ) {
-
-            paddle.x = 0;
-        }
-
-
-        if (
-            paddle.x +
-            paddle.width >
-            WIDTH
-        ) {
-
-            paddle.x =
-                WIDTH -
-                paddle.width;
+                alive: true
+            });
         }
     }
+}
 
 
-    /* ==============================
-       BALL UPDATE
-    ============================== */
+/* =========================
+   RESET BALL
+========================= */
 
-    function updateBall() {
+function resetBall() {
 
-        ball.x +=
-            ball.velocityX;
+    ball.x = WIDTH / 2;
+    ball.y = HEIGHT - 60;
 
-        ball.y +=
-            ball.velocityY;
+    const speed = 5 + (level - 1) * 0.5;
 
+    ball.dx =
+        Math.random() > 0.5
+            ? speed
+            : -speed;
 
-        /* Left wall */
+    ball.dy = -speed;
 
-        if (
-            ball.x -
-            ball.radius <= 0
-        ) {
-
-            ball.x =
-                ball.radius;
-
-            ball.velocityX *= -1;
-        }
+    paddle.x =
+        WIDTH / 2 -
+        paddle.width / 2;
+}
 
 
-        /* Right wall */
+/* =========================
+   RESET GAME
+========================= */
 
-        if (
-            ball.x +
-            ball.radius >=
-            WIDTH
-        ) {
+function resetGame() {
 
-            ball.x =
-                WIDTH -
-                ball.radius;
+    score = 0;
+    lives = 3;
+    level = 1;
 
-            ball.velocityX *= -1;
-        }
+    scoreEl.textContent = score;
+    livesEl.textContent = lives;
+    levelEl.textContent = level;
 
-
-        /* Top wall */
-
-        if (
-            ball.y -
-            ball.radius <= 0
-        ) {
-
-            ball.y =
-                ball.radius;
-
-            ball.velocityY *= -1;
-        }
+    createBricks();
+    resetBall();
+}
 
 
-        /* Paddle */
+/* =========================
+   START
+========================= */
 
-        if (
-            ball.velocityY > 0 &&
-            circleRectangleCollision(
-                ball,
-                paddle
-            )
-        ) {
+function startGame() {
 
-            ball.y =
-                paddle.y -
-                ball.radius;
+    resetGame();
 
+    running = true;
 
-            const hitPosition =
-                (
-                    ball.x -
-                    (
-                        paddle.x +
-                        paddle.width / 2
-                    )
-                ) /
-                (
-                    paddle.width / 2
-                );
+    startScreen.classList.add("hidden");
+    gameOverScreen.classList.add("hidden");
 
-
-            const angle =
-                hitPosition *
-                (
-                    Math.PI / 3
-                );
-
-
-            const speed =
-                Math.min(
-                    Math.sqrt(
-                        ball.velocityX *
-                        ball.velocityX +
-                        ball.velocityY *
-                        ball.velocityY
-                    ) + 0.12,
-                    10
-                );
-
-
-            ball.velocityX =
-                speed *
-                Math.sin(angle);
-
-
-            ball.velocityY =
-                -speed *
-                Math.cos(angle);
-        }
-
-
-        /* Bottom */
-
-        if (
-            ball.y -
-            ball.radius >
-            HEIGHT
-        ) {
-
-            loseLife();
-        }
+    if (animationId) {
+        cancelAnimationFrame(animationId);
     }
 
+    gameLoop();
+}
 
-    /* ==============================
-       CIRCLE / RECTANGLE COLLISION
-    ============================== */
 
-    function circleRectangleCollision(
-        circle,
-        rect
+/* =========================
+   GAME LOOP
+========================= */
+
+function gameLoop() {
+
+    if (!running) {
+        return;
+    }
+
+    update();
+    draw();
+
+    animationId =
+        requestAnimationFrame(gameLoop);
+}
+
+
+/* =========================
+   UPDATE
+========================= */
+
+function update() {
+
+    movePaddle();
+
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+
+
+    /* LEFT WALL */
+
+    if (
+        ball.x - ball.radius <= 0
     ) {
 
-        const closestX =
-            Math.max(
-                rect.x,
-                Math.min(
-                    circle.x,
-                    rect.x +
-                    rect.width
-                )
-            );
-
-        const closestY =
-            Math.max(
-                rect.y,
-                Math.min(
-                    circle.y,
-                    rect.y +
-                    rect.height
-                )
-            );
-
-
-        const distanceX =
-            circle.x -
-            closestX;
-
-        const distanceY =
-            circle.y -
-            closestY;
-
-
-        const distance =
-            (
-                distanceX *
-                distanceX
-            ) +
-            (
-                distanceY *
-                distanceY
-            );
-
-
-        return (
-            distance <
-            circle.radius *
-            circle.radius
-        );
+        ball.x = ball.radius;
+        ball.dx *= -1;
     }
 
 
-    /* ==============================
-       BRICK COLLISIONS
-    ============================== */
+    /* RIGHT WALL */
 
-    function checkBrickCollisions() {
-
-        for (
-            const brick of bricks
-        ) {
-
-            if (
-                !brick.visible
-            ) {
-
-                continue;
-            }
-
-
-            if (
-                circleRectangleCollision(
-                    ball,
-                    brick
-                )
-            ) {
-
-                brick.visible =
-                    false;
-
-
-                score += 10;
-
-                scoreElement.textContent =
-                    score;
-
-
-                /*
-                    Determine which side
-                    was hit so the ball
-                    bounces naturally.
-                */
-
-                const overlapLeft =
-                    ball.x +
-                    ball.radius -
-                    brick.x;
-
-                const overlapRight =
-                    brick.x +
-                    brick.width -
-                    (
-                        ball.x -
-                        ball.radius
-                    );
-
-                const overlapTop =
-                    ball.y +
-                    ball.radius -
-                    brick.y;
-
-                const overlapBottom =
-                    brick.y +
-                    brick.height -
-                    (
-                        ball.y -
-                        ball.radius
-                    );
-
-
-                const minHorizontal =
-                    Math.min(
-                        overlapLeft,
-                        overlapRight
-                    );
-
-                const minVertical =
-                    Math.min(
-                        overlapTop,
-                        overlapBottom
-                    );
-
-
-                if (
-                    minHorizontal <
-                    minVertical
-                ) {
-
-                    ball.velocityX *= -1;
-
-                } else {
-
-                    ball.velocityY *= -1;
-                }
-
-
-                break;
-            }
-        }
-    }
-
-
-    /* ==============================
-       CHECK WIN
-    ============================== */
-
-    function checkWin() {
-
-        const remaining =
-            bricks.some(
-                brick =>
-                    brick.visible
-            );
-
-
-        if (
-            !remaining
-        ) {
-
-            nextLevel();
-        }
-    }
-
-
-    /* ==============================
-       NEXT LEVEL
-    ============================== */
-
-    function nextLevel() {
-
-        level++;
-
-        levelElement.textContent =
-            level;
-
-
-        if (
-            level > 3
-        ) {
-
-            endGame(true);
-
-            return;
-        }
-
-
-        bricks =
-            createBricks();
-
-
-        paddle =
-            createPaddle();
-
-
-        ball =
-            createBall();
-
-
-        /*
-            Increase difficulty
-        */
-
-        const speed =
-            baseBallSpeed +
-            (
-                level -
-                1
-            ) *
-            0.8;
-
-
-        ball.velocityX =
-            Math.random() > 0.5
-                ? speed
-                : -speed;
-
-        ball.velocityY =
-            -speed;
-    }
-
-
-    /* ==============================
-       LOSE LIFE
-    ============================== */
-
-    function loseLife() {
-
-        lives--;
-
-        livesElement.textContent =
-            lives;
-
-
-        if (
-            lives <= 0
-        ) {
-
-            endGame(false);
-
-            return;
-        }
-
-
-        paddle =
-            createPaddle();
-
-        ball =
-            createBall();
-    }
-
-
-    /* ==============================
-       END GAME
-    ============================== */
-
-    function endGame(
-        won
+    if (
+        ball.x + ball.radius >= WIDTH
     ) {
 
-        gameRunning = false;
+        ball.x =
+            WIDTH - ball.radius;
 
-
-        if (animationId) {
-
-            cancelAnimationFrame(
-                animationId
-            );
-
-            animationId = null;
-        }
-
-
-        if (won) {
-
-            resultIcon.textContent =
-                "🏆";
-
-            resultTitle.textContent =
-                "You Win!";
-
-            resultText.textContent =
-                `Amazing! Final Score: ${score}`;
-
-        } else {
-
-            resultIcon.textContent =
-                "💥";
-
-            resultTitle.textContent =
-                "Game Over";
-
-            resultText.textContent =
-                `Your Score: ${score}`;
-        }
-
-
-        gameOverScreen.classList.remove(
-            "hidden"
-        );
-
-
-        draw();
+        ball.dx *= -1;
     }
 
 
-    /* ==============================
-       DRAW
-    ============================== */
+    /* TOP */
 
-    function draw() {
+    if (
+        ball.y - ball.radius <= 0
+    ) {
 
-        drawBackground();
+        ball.y = ball.radius;
 
-        drawStars();
-
-        drawBricks();
-
-        drawPaddle();
-
-        drawBall();
+        ball.dy *= -1;
     }
 
 
-    /* ==============================
-       BACKGROUND
-    ============================== */
+    /* PADDLE */
 
-    function drawBackground() {
+    if (
+        ball.y + ball.radius >= paddle.y &&
+        ball.y - ball.radius <=
+            paddle.y + paddle.height &&
+        ball.x >= paddle.x &&
+        ball.x <=
+            paddle.x + paddle.width &&
+        ball.dy > 0
+    ) {
 
-        const gradient =
-            ctx.createLinearGradient(
-                0,
-                0,
-                0,
-                HEIGHT
-            );
+        const hit =
+            (
+                ball.x -
+                (paddle.x + paddle.width / 2)
+            ) /
+            (paddle.width / 2);
+
+        ball.dx = hit * 6;
+
+        ball.dy = -Math.abs(ball.dy);
+    }
 
 
-        gradient.addColorStop(
-            0,
-            "#101a31"
+    /* BRICKS */
+
+    for (const brick of bricks) {
+
+        if (!brick.alive) {
+            continue;
+        }
+
+        if (
+            ball.x + ball.radius > brick.x &&
+            ball.x - ball.radius <
+                brick.x + brick.width &&
+            ball.y + ball.radius > brick.y &&
+            ball.y - ball.radius <
+                brick.y + brick.height
+        ) {
+
+            brick.alive = false;
+
+            score += 10;
+
+            scoreEl.textContent = score;
+
+            ball.dy *= -1;
+
+            break;
+        }
+    }
+
+
+    /* CHECK WIN */
+
+    const remaining =
+        bricks.some(
+            brick => brick.alive
         );
 
-        gradient.addColorStop(
-            1,
-            "#070b14"
-        );
+    if (!remaining) {
+
+        nextLevel();
+
+        return;
+    }
 
 
-        ctx.fillStyle =
-            gradient;
+    /* BALL FALL */
+
+    if (
+        ball.y - ball.radius > HEIGHT
+    ) {
+
+        loseLife();
+    }
+}
+
+
+/* =========================
+   PADDLE
+========================= */
+
+function movePaddle() {
+
+    if (
+        keys["ArrowLeft"] ||
+        keys["a"]
+    ) {
+
+        paddle.x -=
+            paddle.speed;
+    }
+
+    if (
+        keys["ArrowRight"] ||
+        keys["d"]
+    ) {
+
+        paddle.x +=
+            paddle.speed;
+    }
+
+
+    if (paddle.x < 0) {
+        paddle.x = 0;
+    }
+
+    if (
+        paddle.x + paddle.width >
+        WIDTH
+    ) {
+
+        paddle.x =
+            WIDTH - paddle.width;
+    }
+}
+
+
+/* =========================
+   LOSE LIFE
+========================= */
+
+function loseLife() {
+
+    lives--;
+
+    livesEl.textContent = lives;
+
+    if (lives <= 0) {
+
+        endGame(false);
+
+        return;
+    }
+
+    resetBall();
+}
+
+
+/* =========================
+   NEXT LEVEL
+========================= */
+
+function nextLevel() {
+
+    level++;
+
+    if (level > 3) {
+
+        endGame(true);
+
+        return;
+    }
+
+    levelEl.textContent = level;
+
+    createBricks();
+
+    resetBall();
+}
+
+
+/* =========================
+   END GAME
+========================= */
+
+function endGame(won) {
+
+    running = false;
+
+    cancelAnimationFrame(animationId);
+
+    if (won) {
+
+        resultIcon.textContent = "🏆";
+        resultTitle.textContent = "You Win!";
+        resultText.textContent =
+            "Amazing! Final Score: " + score;
+
+    } else {
+
+        resultIcon.textContent = "💥";
+        resultTitle.textContent = "Game Over";
+        resultText.textContent =
+            "Your Score: " + score;
+    }
+
+    gameOverScreen.classList.remove("hidden");
+}
+
+
+/* =========================
+   DRAW
+========================= */
+
+function draw() {
+
+    ctx.clearRect(
+        0,
+        0,
+        WIDTH,
+        HEIGHT
+    );
+
+
+    /* BACKGROUND */
+
+    ctx.fillStyle = "#080d18";
+
+    ctx.fillRect(
+        0,
+        0,
+        WIDTH,
+        HEIGHT
+    );
+
+
+    /* BRICKS */
+
+    bricks.forEach(brick => {
+
+        if (!brick.alive) {
+            return;
+        }
+
+        ctx.fillStyle = "#6c5ce7";
 
         ctx.fillRect(
-            0,
-            0,
-            WIDTH,
-            HEIGHT
+            brick.x,
+            brick.y,
+            brick.width,
+            brick.height
         );
-
-
-        const glow =
-            ctx.createRadialGradient(
-                WIDTH / 2,
-                HEIGHT / 2,
-                20,
-                WIDTH / 2,
-                HEIGHT / 2,
-                420
-            );
-
-
-        glow.addColorStop(
-            0,
-            "rgba(108,92,231,0.12)"
-        );
-
-        glow.addColorStop(
-            1,
-            "rgba(108,92,231,0)"
-        );
-
 
         ctx.fillStyle =
-            glow;
+            "rgba(255,255,255,0.25)";
 
         ctx.fillRect(
-            0,
-            0,
-            WIDTH,
-            HEIGHT
+            brick.x,
+            brick.y,
+            brick.width,
+            4
         );
-    }
+    });
 
 
-    /* ==============================
-       STARS
-    ============================== */
+    /* PADDLE */
 
-    function drawStars() {
+    ctx.fillStyle = "#00d4ff";
 
-        ctx.save();
+    ctx.fillRect(
+        paddle.x,
+        paddle.y,
+        paddle.width,
+        paddle.height
+    );
 
-        ctx.fillStyle =
-            "rgba(255,255,255,0.18)";
+
+    /* BALL */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        ball.x,
+        ball.y,
+        ball.radius,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.fill();
+
+    ctx.closePath();
+}
 
 
-        for (
-            let i = 0;
-            i < 35;
-            i++
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        keys[event.key] = true;
+
+        if (
+            event.key === "ArrowLeft" ||
+            event.key === "ArrowRight"
         ) {
 
-            const x =
-                (
-                    i * 137
-                ) %
-                WIDTH;
-
-            const y =
-                (
-                    i * 83
-                ) %
-                HEIGHT;
-
-
-            ctx.fillRect(
-                x,
-                y,
-                2,
-                2
-            );
+            event.preventDefault();
         }
-
-
-        ctx.restore();
     }
+);
 
 
-    /* ==============================
-       DRAW BRICKS
-    ============================== */
+document.addEventListener(
+    "keyup",
+    event => {
 
-    function drawBricks() {
-
-        bricks.forEach(
-            brick => {
-
-                if (
-                    !brick.visible
-                ) {
-
-                    return;
-                }
-
-
-                ctx.save();
-
-
-                ctx.shadowBlur = 10;
-
-                ctx.shadowColor =
-                    brick.color;
-
-
-                const gradient =
-                    ctx.createLinearGradient(
-                        brick.x,
-                        brick.y,
-                        brick.x,
-                        brick.y +
-                        brick.height
-                    );
-
-
-                gradient.addColorStop(
-                    0,
-                    "#ffffff"
-                );
-
-                gradient.addColorStop(
-                    0.12,
-                    brick.color
-                );
-
-                gradient.addColorStop(
-                    1,
-                    brick.color
-                );
-
-
-                ctx.fillStyle =
-                    gradient;
-
-
-                roundRect(
-                    brick.x,
-                    brick.y,
-                    brick.width,
-                    brick.height,
-                    6
-                );
-
-
-                ctx.fill();
-
-
-                ctx.fillStyle =
-                    "rgba(255,255,255,0.22)";
-
-
-                roundRect(
-                    brick.x + 4,
-                    brick.y + 3,
-                    brick.width - 8,
-                    4,
-                    2
-                );
-
-
-                ctx.fill();
-
-
-                ctx.restore();
-            }
-        );
+        keys[event.key] = false;
     }
+);
 
 
-    /* ==============================
-       DRAW PADDLE
-    ============================== */
+/* =========================
+   MOUSE
+========================= */
 
-    function drawPaddle() {
-
-        ctx.save();
-
-
-        ctx.shadowBlur = 20;
-
-        ctx.shadowColor =
-            "#6c5ce7";
-
-
-        const gradient =
-            ctx.createLinearGradient(
-                paddle.x,
-                paddle.y,
-                paddle.x +
-                paddle.width,
-                paddle.y
-            );
-
-
-        gradient.addColorStop(
-            0,
-            "#5144d7"
-        );
-
-        gradient.addColorStop(
-            0.5,
-            "#8b7cff"
-        );
-
-        gradient.addColorStop(
-            1,
-            "#5144d7"
-        );
-
-
-        ctx.fillStyle =
-            gradient;
-
-
-        roundRect(
-            paddle.x,
-            paddle.y,
-            paddle.width,
-            paddle.height,
-            7
-        );
-
-
-        ctx.fill();
-
-
-        ctx.restore();
-    }
-
-
-    /* ==============================
-       DRAW BALL
-    ============================== */
-
-    function drawBall() {
-
-        ctx.save();
-
-
-        ctx.shadowBlur = 25;
-
-        ctx.shadowColor =
-            "#00d4ff";
-
-
-        const gradient =
-            ctx.createRadialGradient(
-                ball.x - 2,
-                ball.y - 2,
-                1,
-                ball.x,
-                ball.y,
-                ball.radius
-            );
-
-
-        gradient.addColorStop(
-            0,
-            "#ffffff"
-        );
-
-        gradient.addColorStop(
-            0.45,
-            "#00e5ff"
-        );
-
-        gradient.addColorStop(
-            1,
-            "#6c5ce7"
-        );
-
-
-        ctx.fillStyle =
-            gradient;
-
-
-        ctx.beginPath();
-
-        ctx.arc(
-            ball.x,
-            ball.y,
-            ball.radius,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-
-        ctx.restore();
-    }
-
-
-    /* ==============================
-       ROUND RECTANGLE
-    ============================== */
-
-    function roundRect(
-        x,
-        y,
-        width,
-        height,
-        radius
-    ) {
-
-        const r =
-            Math.min(
-                radius,
-                width / 2,
-                height / 2
-            );
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x + r,
-            y
-        );
-
-        ctx.arcTo(
-            x + width,
-            y,
-            x + width,
-            y + height,
-            r
-        );
-
-        ctx.arcTo(
-            x + width,
-            y + height,
-            x,
-            y + height,
-            r
-        );
-
-        ctx.arcTo(
-            x,
-            y + height,
-            x,
-            y,
-            r
-        );
-
-        ctx.arcTo(
-            x,
-            y,
-            x + width,
-            y,
-            r
-        );
-
-        ctx.closePath();
-    }
-
-
-    /* ==============================
-       KEYBOARD
-    ============================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            keys[event.key] = true;
-
-
-            if (
-                event.key ===
-                "ArrowLeft" ||
-                event.key ===
-                "ArrowRight"
-            ) {
-
-                event.preventDefault();
-            }
-        }
-    );
-
-
-    document.addEventListener(
-        "keyup",
-        event => {
-
-            keys[event.key] = false;
-        }
-    );
-
-
-    /* ==============================
-       MOUSE
-    ============================== */
-
-    canvas.addEventListener(
-        "mousemove",
-        event => {
-
-            const rect =
-                canvas.getBoundingClientRect();
-
-
-            const scaleX =
-                WIDTH /
-                rect.width;
-
-
-            mouseX =
-                (
-                    event.clientX -
-                    rect.left
-                ) *
-                scaleX;
-        }
-    );
-
-
-    canvas.addEventListener(
-        "mouseleave",
-        () => {
-
-            mouseX = null;
-        }
-    );
-
-
-    /* ==============================
-       TOUCH
-    ============================== */
-
-    function handleTouch(
-        event
-    ) {
-
-        event.preventDefault();
-
-
-        const touch =
-            event.touches[0];
-
-
-        if (!touch) {
-            return;
-        }
-
+canvas.addEventListener(
+    "mousemove",
+    event => {
 
         const rect =
             canvas.getBoundingClientRect();
 
+        const scale =
+            WIDTH / rect.width;
 
-        const scaleX =
-            WIDTH /
-            rect.width;
+        paddle.x =
+            (
+                event.clientX -
+                rect.left
+            ) *
+                scale -
+            paddle.width / 2;
+
+        if (paddle.x < 0) {
+            paddle.x = 0;
+        }
+
+        if (
+            paddle.x + paddle.width >
+            WIDTH
+        ) {
+
+            paddle.x =
+                WIDTH - paddle.width;
+        }
+    }
+);
 
 
-        mouseX =
+/* =========================
+   MOBILE TOUCH
+========================= */
+
+canvas.addEventListener(
+    "touchmove",
+    event => {
+
+        event.preventDefault();
+
+        const touch =
+            event.touches[0];
+
+        const rect =
+            canvas.getBoundingClientRect();
+
+        const scale =
+            WIDTH / rect.width;
+
+        paddle.x =
             (
                 touch.clientX -
                 rect.left
             ) *
-            scaleX;
+                scale -
+            paddle.width / 2;
+
+        if (paddle.x < 0) {
+            paddle.x = 0;
+        }
+
+        if (
+            paddle.x + paddle.width >
+            WIDTH
+        ) {
+
+            paddle.x =
+                WIDTH - paddle.width;
+        }
+
+    },
+    {
+        passive: false
     }
+);
 
 
-    canvas.addEventListener(
-        "touchstart",
-        event => {
+/* =========================
+   BUTTONS
+========================= */
 
-            touchActive = true;
+startButton.addEventListener(
+    "click",
+    startGame
+);
 
-            handleTouch(event);
-
-        },
-        {
-            passive: false
-        }
-    );
-
-
-    canvas.addEventListener(
-        "touchmove",
-        event => {
-
-            if (
-                touchActive
-            ) {
-
-                handleTouch(event);
-            }
-
-        },
-        {
-            passive: false
-        }
-    );
+restartButton.addEventListener(
+    "click",
+    startGame
+);
 
 
-    canvas.addEventListener(
-        "touchend",
-        () => {
+/* =========================
+   INITIAL
+========================= */
 
-            touchActive = false;
-        }
-    );
+resetGame();
 
-
-    /* ==============================
-       BUTTONS
-    ============================== */
-
-    startButton.addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-            startGame();
-        }
-    );
-
-
-    restartButton.addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-            startGame();
-        }
-    );
-
-
-    /* ==============================
-       YEAR
-    ============================== */
-
-    year.textContent =
-        new Date().getFullYear();
-
-
-    /* ==============================
-       INITIALIZE
-    ============================== */
-
-    resetGame();
-
-    draw();
-
-});
+draw();
