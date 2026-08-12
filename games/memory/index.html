@@ -1,1 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Memory Card Game Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Memory Card Game online for free on Gameso. Flip cards, find matching pairs and complete the puzzle with the fewest moves."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/memory/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="game-header">
+
+        <div class="header-inner">
+
+            <a href="/" class="logo">
+                <span>🎮</span>
+                <strong>Gameso</strong>
+            </a>
+
+            <a href="/" class="back-button">
+                ← All Games
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <section class="game-page">
+
+            <div class="game-container">
+
+
+                <!-- GAME INTRO -->
+
+                <div class="game-heading">
+
+                    <span class="game-label">
+                        🧠 MEMORY PUZZLE
+                    </span>
+
+                    <h1>
+                        Memory Card Game
+                    </h1>
+
+                    <p>
+                        Flip the cards, find matching
+                        pairs and test your memory!
+                    </p>
+
+                </div>
+
+
+                <!-- GAME -->
+
+                <div class="game-box">
+
+
+                    <!-- GAME STATS -->
+
+                    <div class="game-stats">
+
+                        <div class="stat-box">
+
+                            <span>
+                                MOVES
+                            </span>
+
+                            <strong id="moves">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat-box">
+
+                            <span>
+                                PAIRS
+                            </span>
+
+                            <strong id="pairs">
+                                0 / 8
+                            </strong>
+
+                        </div>
+
+
+                        <div class="stat-box">
+
+                            <span>
+                                TIME
+                            </span>
+
+                            <strong id="timer">
+                                00:00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONTROLS -->
+
+                    <div class="game-controls">
+
+                        <div class="game-tip">
+
+                            <strong>
+                                How to play
+                            </strong>
+
+                            <span>
+                                Flip two cards and find
+                                matching pairs.
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            id="newGame"
+                            class="new-game-button"
+                            type="button"
+                        >
+                            🔄 New Game
+                        </button>
+
+                    </div>
+
+
+                    <!-- MEMORY BOARD -->
+
+                    <div
+                        id="memoryBoard"
+                        class="memory-board"
+                    ></div>
+
+
+                    <!-- WIN MESSAGE -->
+
+                    <div
+                        id="gameMessage"
+                        class="game-message"
+                    ></div>
+
+                </div>
+
+
+                <!-- HOW TO PLAY -->
+
+                <section class="game-info-section">
+
+                    <h2>
+                        How to Play Memory Card Game
+                    </h2>
+
+                    <p>
+                        The Memory Card Game is a simple
+                        puzzle game where you need to find
+                        all matching pairs of cards.
+                    </p>
+
+                    <p>
+                        Click or tap a card to flip it.
+                        Then flip another card. If both
+                        cards match, they remain open.
+                        If they do not match, they flip
+                        back.
+                    </p>
+
+
+                    <h2>
+                        Memory Game Rules
+                    </h2>
+
+                    <ul>
+
+                        <li>
+                            🃏 Flip two cards at a time.
+                        </li>
+
+                        <li>
+                            🧠 Remember where each
+                            symbol is located.
+                        </li>
+
+                        <li>
+                            🎯 Match all 8 pairs.
+                        </li>
+
+                        <li>
+                            🏆 Complete the game using
+                            as few moves as possible.
+                        </li>
+
+                        <li>
+                            ⏱️ Try to beat your best
+                            completion time.
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- RELATED GAMES -->
+
+                <section class="related-section">
+
+                    <h2>
+                        More Games
+                    </h2>
+
+                    <div class="related-grid">
+
+
+                        <a
+                            href="/games/snake/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🐍
+                            </span>
+
+                            <strong>
+                                Snake Game
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/tic-tac-toe/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                ❌⭕
+                            </span>
+
+                            <strong>
+                                Tic Tac Toe
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/2048/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🔢
+                            </span>
+
+                            <strong>
+                                2048
+                            </strong>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            ©
+            <span id="year"></span>
+            Gameso. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
