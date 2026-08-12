@@ -1,1 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Flappy Bird Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Flappy Bird online for free on Gameso. Fly through the pipes, avoid obstacles and beat your high score."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/flappy-bird/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="game-header">
+        <div class="header-inner">
+
+            <a href="/" class="logo">
+                <span>🎮</span>
+                <strong>Gameso</strong>
+            </a>
+
+            <a href="/" class="back-button">
+                ← All Games
+            </a>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="game-page">
+
+            <div class="game-container">
+
+                <div class="game-heading">
+
+                    <span class="game-label">
+                        🐦 ARCADE CHALLENGE
+                    </span>
+
+                    <h1>Flappy Bird</h1>
+
+                    <p>
+                        Fly through the pipes and beat your
+                        highest score!
+                    </p>
+
+                </div>
+
+
+                <div class="game-box">
+
+                    <div class="game-stats">
+
+                        <div class="stat-box">
+                            <span>SCORE</span>
+                            <strong id="score">0</strong>
+                        </div>
+
+                        <div class="stat-box">
+                            <span>BEST</span>
+                            <strong id="bestScore">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="canvas-wrapper">
+
+                        <canvas
+                            id="gameCanvas"
+                            width="480"
+                            height="640"
+                        ></canvas>
+
+
+                        <div
+                            id="startScreen"
+                            class="game-overlay"
+                        >
+
+                            <div class="overlay-icon">
+                                🐦
+                            </div>
+
+                            <h2>Flappy Bird</h2>
+
+                            <p>
+                                Tap, click or press Space
+                                to fly
+                            </p>
+
+                            <button
+                                id="startButton"
+                                class="game-button"
+                            >
+                                ▶ Start Game
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="gameOverScreen"
+                            class="game-overlay hidden"
+                        >
+
+                            <div class="overlay-icon">
+                                💥
+                            </div>
+
+                            <h2>Game Over</h2>
+
+                            <p>
+                                Your Score:
+                                <strong id="finalScore">
+                                    0
+                                </strong>
+                            </p>
+
+                            <p>
+                                Best Score:
+                                <strong id="finalBest">
+                                    0
+                                </strong>
+                            </p>
+
+                            <button
+                                id="restartButton"
+                                class="game-button"
+                            >
+                                🔄 Play Again
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="controls">
+
+                        <span>
+                            🖥️ Space / Click
+                        </span>
+
+                        <span>
+                            📱 Tap Screen
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <section class="game-info">
+
+                    <h2>
+                        How to Play Flappy Bird
+                    </h2>
+
+                    <p>
+                        Control the bird and fly through
+                        the gaps between the pipes. Every
+                        pipe you pass gives you one point.
+                    </p>
+
+                    <p>
+                        Click, tap the screen or press the
+                        Space key to make the bird fly upward.
+                        Avoid hitting the pipes and ground.
+                    </p>
+
+
+                    <h2>
+                        Flappy Bird Tips
+                    </h2>
+
+                    <ul>
+                        <li>🐦 Tap gently to control the bird.</li>
+                        <li>🎯 Focus on the upcoming gap.</li>
+                        <li>🚫 Don't hit the pipes.</li>
+                        <li>🏆 Try to beat your high score.</li>
+                    </ul>
+
+                </section>
+
+
+                <section class="related-section">
+
+                    <h2>More Games</h2>
+
+                    <div class="related-grid">
+
+                        <a
+                            href="/games/snake/"
+                            class="related-card"
+                        >
+                            <span>🐍</span>
+                            <strong>Snake</strong>
+                        </a>
+
+                        <a
+                            href="/games/minesweeper/"
+                            class="related-card"
+                        >
+                            <span>💣</span>
+                            <strong>Minesweeper</strong>
+                        </a>
+
+                        <a
+                            href="/games/2048/"
+                            class="related-card"
+                        >
+                            <span>🔢</span>
+                            <strong>2048</strong>
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        © <span id="year"></span> Gameso. All rights reserved.
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
