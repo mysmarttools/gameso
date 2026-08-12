@@ -1,1 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Mini Chess Game Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Mini Chess online for free on Gameso. Challenge the computer, capture pieces and improve your chess skills."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/mini-chess/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="game-header">
+    <div class="header-inner">
+
+        <a href="/" class="logo">
+            <span>🎮</span>
+            <strong>Gameso</strong>
+        </a>
+
+        <a href="/" class="back-button">
+            ← All Games
+        </a>
+
+    </div>
+</header>
+
+
+<main class="game-page">
+
+    <div class="game-container">
+
+        <section class="game-heading">
+
+            <span class="game-label">
+                ♟️ STRATEGY CHALLENGE
+            </span>
+
+            <h1>Mini Chess</h1>
+
+            <p>
+                Play chess against the computer, capture pieces
+                and checkmate your opponent.
+            </p>
+
+        </section>
+
+
+        <section class="game-box">
+
+            <div class="game-stats">
+
+                <div class="stat-box">
+                    <span>YOU</span>
+                    <strong id="playerScore">0</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span>TURN</span>
+                    <strong id="turn">YOU</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span>COMPUTER</span>
+                    <strong id="computerScore">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="board-wrapper">
+
+                <div
+                    id="chessBoard"
+                    class="chess-board"
+                    aria-label="Mini Chess board"
+                ></div>
+
+                <div
+                    id="gameOverlay"
+                    class="game-overlay hidden"
+                >
+
+                    <div id="resultIcon" class="overlay-icon">
+                        🏆
+                    </div>
+
+                    <h2 id="resultTitle">
+                        You Win!
+                    </h2>
+
+                    <p id="resultText">
+                        Great game!
+                    </p>
+
+                    <button
+                        id="restartButton"
+                        class="game-button"
+                    >
+                        🔄 Play Again
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="game-message">
+                <span id="message">
+                    Your turn — select a piece.
+                </span>
+            </div>
+
+
+            <div class="game-actions">
+
+                <button
+                    id="newGameButton"
+                    class="secondary-button"
+                >
+                    ↻ New Game
+                </button>
+
+            </div>
+
+
+            <div class="controls">
+
+                <span>♟️ Select a piece</span>
+
+                <span>👆 Choose a square</span>
+
+                <span>🤖 Beat the computer</span>
+
+            </div>
+
+        </section>
+
+
+        <section class="game-info">
+
+            <h2>How to Play Mini Chess</h2>
+
+            <p>
+                You play as White and the computer plays as Black.
+                Select one of your pieces and then select a valid
+                square to move it.
+            </p>
+
+            <p>
+                Capture the computer's pieces and try to capture
+                its king before it captures yours.
+            </p>
+
+
+            <h2>Mini Chess Controls</h2>
+
+            <ul>
+                <li>♟️ Click your chess piece.</li>
+                <li>👆 Click a highlighted destination.</li>
+                <li>⚔️ Capture opponent pieces.</li>
+                <li>🏆 Capture the enemy king to win.</li>
+            </ul>
+
+
+            <h2>Tips</h2>
+
+            <ul>
+                <li>🧠 Think before making a move.</li>
+                <li>🎯 Protect your important pieces.</li>
+                <li>⚡ Look for easy captures.</li>
+                <li>🏆 Try to defeat the computer.</li>
+            </ul>
+
+        </section>
+
+
+        <section class="related-section">
+
+            <h2>More Games</h2>
+
+            <div class="related-grid">
+
+                <a
+                    href="/games/tic-tac-toe/"
+                    class="related-card"
+                >
+                    <span>❌⭕</span>
+                    <strong>Tic Tac Toe</strong>
+                </a>
+
+                <a
+                    href="/games/2048/"
+                    class="related-card"
+                >
+                    <span>🔢</span>
+                    <strong>2048</strong>
+                </a>
+
+                <a
+                    href="/games/color-match/"
+                    class="related-card"
+                >
+                    <span>🎨</span>
+                    <strong>Color Match</strong>
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<footer>
+    © <span id="year"></span> Gameso. All rights reserved.
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
