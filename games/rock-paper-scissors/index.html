@@ -1,1 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rock Paper Scissors Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Rock Paper Scissors online for free. Choose rock, paper or scissors and challenge the computer. Fast and fun game on Gameso."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/rock-paper-scissors/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="game-header">
+
+        <div class="header-inner">
+
+            <a href="/" class="logo">
+                <span>🎮</span>
+                <strong>Gameso</strong>
+            </a>
+
+            <a href="/" class="back-button">
+                ← All Games
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <section class="game-page">
+
+            <div class="game-container">
+
+
+                <!-- HEADING -->
+
+                <div class="game-heading">
+
+                    <span class="game-label">
+                        ✊ QUICK CHALLENGE
+                    </span>
+
+                    <h1>
+                        Rock Paper Scissors
+                    </h1>
+
+                    <p>
+                        Choose your move and battle
+                        against the computer!
+                    </p>
+
+                </div>
+
+
+                <!-- GAME BOX -->
+
+                <div class="game-box">
+
+
+                    <!-- SCORE -->
+
+                    <div class="score-board">
+
+                        <div class="score-item">
+
+                            <span>
+                                YOU
+                            </span>
+
+                            <strong id="playerScore">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div class="score-divider">
+                            :
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <span>
+                                COMPUTER
+                            </span>
+
+                            <strong id="computerScore">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESULT -->
+
+                    <div
+                        id="result"
+                        class="result-box"
+                    >
+
+                        <strong>
+                            Make your move!
+                        </strong>
+
+                        <span>
+                            Choose Rock, Paper or Scissors
+                        </span>
+
+                    </div>
+
+
+                    <!-- BATTLE AREA -->
+
+                    <div class="battle-area">
+
+                        <div class="player-choice">
+
+                            <span class="choice-label">
+                                YOU
+                            </span>
+
+                            <div
+                                id="playerChoice"
+                                class="choice-display"
+                            >
+                                ❔
+                            </div>
+
+                        </div>
+
+
+                        <div class="vs">
+                            VS
+                        </div>
+
+
+                        <div class="computer-choice">
+
+                            <span class="choice-label">
+                                COMPUTER
+                            </span>
+
+                            <div
+                                id="computerChoice"
+                                class="choice-display"
+                            >
+                                ❔
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CHOICES -->
+
+                    <div class="choices-title">
+                        Choose your move
+                    </div>
+
+
+                    <div class="choices">
+
+                        <button
+                            class="choice-button"
+                            data-choice="rock"
+                            type="button"
+                            aria-label="Choose Rock"
+                        >
+
+                            <span>
+                                ✊
+                            </span>
+
+                            <strong>
+                                Rock
+                            </strong>
+
+                        </button>
+
+
+                        <button
+                            class="choice-button"
+                            data-choice="paper"
+                            type="button"
+                            aria-label="Choose Paper"
+                        >
+
+                            <span>
+                                ✋
+                            </span>
+
+                            <strong>
+                                Paper
+                            </strong>
+
+                        </button>
+
+
+                        <button
+                            class="choice-button"
+                            data-choice="scissors"
+                            type="button"
+                            aria-label="Choose Scissors"
+                        >
+
+                            <span>
+                                ✌️
+                            </span>
+
+                            <strong>
+                                Scissors
+                            </strong>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- RESET -->
+
+                    <button
+                        id="resetGame"
+                        class="reset-button"
+                        type="button"
+                    >
+                        🔄 Reset Game
+                    </button>
+
+
+                    <!-- MESSAGE -->
+
+                    <div
+                        id="gameMessage"
+                        class="game-message"
+                    ></div>
+
+                </div>
+
+
+                <!-- INFO -->
+
+                <section class="game-info-section">
+
+                    <h2>
+                        How to Play Rock Paper Scissors
+                    </h2>
+
+                    <p>
+                        Rock Paper Scissors is a classic
+                        two-player game. In this online
+                        version, you play against the
+                        computer.
+                    </p>
+
+                    <p>
+                        Choose one of the three options:
+                        Rock, Paper or Scissors. The
+                        computer will randomly select
+                        its move and the winner will be
+                        displayed instantly.
+                    </p>
+
+
+                    <h2>
+                        Rock Paper Scissors Rules
+                    </h2>
+
+                    <ul>
+
+                        <li>
+                            ✊ Rock beats Scissors.
+                        </li>
+
+                        <li>
+                            ✋ Paper beats Rock.
+                        </li>
+
+                        <li>
+                            ✌️ Scissors beats Paper.
+                        </li>
+
+                        <li>
+                            🤝 Matching choices result
+                            in a draw.
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- RELATED GAMES -->
+
+                <section class="related-section">
+
+                    <h2>
+                        More Games
+                    </h2>
+
+                    <div class="related-grid">
+
+
+                        <a
+                            href="/games/memory/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🧠
+                            </span>
+
+                            <strong>
+                                Memory Game
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/tic-tac-toe/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                ❌⭕
+                            </span>
+
+                            <strong>
+                                Tic Tac Toe
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/2048/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                🔢
+                            </span>
+
+                            <strong>
+                                2048
+                            </strong>
+
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            ©
+            <span id="year"></span>
+            Gameso. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
