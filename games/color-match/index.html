@@ -1,1 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Color Match Game Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Color Match online for free on Gameso. Match the correct colors, test your reaction speed and beat your high score."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/color-match/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="game-header">
+    <div class="header-inner">
+
+        <a href="/" class="logo">
+            <span>🎮</span>
+            <strong>Gameso</strong>
+        </a>
+
+        <a href="/" class="back-button">
+            ← All Games
+        </a>
+
+    </div>
+</header>
+
+
+<main class="game-page">
+
+    <div class="game-container">
+
+        <section class="game-heading">
+
+            <span class="game-label">
+                🎨 PUZZLE CHALLENGE
+            </span>
+
+            <h1>Color Match</h1>
+
+            <p>
+                Match the target color before time runs out!
+                Test your speed and accuracy.
+            </p>
+
+        </section>
+
+
+        <section class="game-box">
+
+            <div class="game-stats">
+
+                <div class="stat-box">
+                    <span>SCORE</span>
+                    <strong id="score">0</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span>TIME</span>
+                    <strong id="time">30</strong>
+                </div>
+
+                <div class="stat-box">
+                    <span>BEST</span>
+                    <strong id="best">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="game-area">
+
+                <div id="startScreen" class="game-overlay">
+
+                    <div class="overlay-icon">🎨</div>
+
+                    <h2>Color Match</h2>
+
+                    <p>
+                        Find the color that matches the target!
+                    </p>
+
+                    <button id="startButton" class="game-button">
+                        ▶ Start Game
+                    </button>
+
+                </div>
+
+
+                <div id="gameScreen" class="hidden">
+
+                    <div class="target-section">
+
+                        <span class="target-label">
+                            MATCH THIS COLOR
+                        </span>
+
+                        <div
+                            id="targetColor"
+                            class="target-color"
+                        ></div>
+
+                    </div>
+
+
+                    <div
+                        id="message"
+                        class="message"
+                    >
+                        Choose the matching color
+                    </div>
+
+
+                    <div
+                        id="colorGrid"
+                        class="color-grid"
+                    ></div>
+
+                </div>
+
+
+                <div
+                    id="gameOverScreen"
+                    class="game-overlay hidden"
+                >
+
+                    <div class="overlay-icon">🏆</div>
+
+                    <h2>Game Over!</h2>
+
+                    <p id="finalText">
+                        Your score: 0
+                    </p>
+
+                    <button
+                        id="restartButton"
+                        class="game-button"
+                    >
+                        🔄 Play Again
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="controls">
+
+                <span>🎯 Match the color</span>
+
+                <span>⚡ Be quick</span>
+
+                <span>🏆 Beat your score</span>
+
+            </div>
+
+        </section>
+
+
+        <section class="game-info">
+
+            <h2>How to Play Color Match</h2>
+
+            <p>
+                A target color will appear at the top of the game.
+                Choose the exact same color from the options below.
+            </p>
+
+            <p>
+                You have 30 seconds to match as many colors as
+                possible. Every correct answer increases your score.
+            </p>
+
+
+            <h2>Color Match Controls</h2>
+
+            <ul>
+                <li>🎨 Look at the target color.</li>
+                <li>👆 Click the matching color.</li>
+                <li>⚡ Answer quickly to get a higher score.</li>
+                <li>🏆 Try to beat your best score.</li>
+            </ul>
+
+
+            <h2>Tips</h2>
+
+            <ul>
+                <li>🎯 Focus on the target color.</li>
+                <li>⚡ Don't waste time.</li>
+                <li>🧠 Train your color recognition.</li>
+                <li>🏆 Keep playing to improve your score.</li>
+            </ul>
+
+        </section>
+
+
+        <section class="related-section">
+
+            <h2>More Games</h2>
+
+            <div class="related-grid">
+
+                <a
+                    href="/games/2048/"
+                    class="related-card"
+                >
+                    <span>🔢</span>
+                    <strong>2048</strong>
+                </a>
+
+                <a
+                    href="/games/minesweeper/"
+                    class="related-card"
+                >
+                    <span>💣</span>
+                    <strong>Minesweeper</strong>
+                </a>
+
+                <a
+                    href="/games/tic-tac-toe/"
+                    class="related-card"
+                >
+                    <span>❌⭕</span>
+                    <strong>Tic Tac Toe</strong>
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<footer>
+    © <span id="year"></span> Gameso. All rights reserved.
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
