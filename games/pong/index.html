@@ -1,1 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Pong Game Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Pong online for free on Gameso. Challenge the computer in this classic arcade game and beat your high score."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/pong/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="game-header">
+        <div class="header-inner">
+
+            <a href="/" class="logo">
+                <span>🎮</span>
+                <strong>Gameso</strong>
+            </a>
+
+            <a href="/" class="back-button">
+                ← All Games
+            </a>
+
+        </div>
+    </header>
+
+
+    <main class="game-page">
+
+        <div class="game-container">
+
+            <section class="game-heading">
+
+                <span class="game-label">
+                    🏓 ARCADE GAME
+                </span>
+
+                <h1>Pong</h1>
+
+                <p>
+                    Challenge the computer and be the first
+                    player to reach 7 points!
+                </p>
+
+            </section>
+
+
+            <section class="game-box">
+
+                <div class="score-board">
+
+                    <div class="player-score">
+                        <span>YOU</span>
+                        <strong id="playerScore">0</strong>
+                    </div>
+
+                    <div class="vs">
+                        VS
+                    </div>
+
+                    <div class="player-score">
+                        <span>CPU</span>
+                        <strong id="computerScore">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="canvas-wrapper">
+
+                    <canvas
+                        id="pongCanvas"
+                        width="800"
+                        height="500"
+                    ></canvas>
+
+
+                    <div
+                        id="startScreen"
+                        class="game-overlay"
+                    >
+
+                        <div class="overlay-icon">
+                            🏓
+                        </div>
+
+                        <h2>Pong</h2>
+
+                        <p>
+                            Move your paddle and beat the CPU!
+                        </p>
+
+                        <button
+                            id="startButton"
+                            class="game-button"
+                        >
+                            ▶ Start Game
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="gameOverScreen"
+                        class="game-overlay hidden"
+                    >
+
+                        <div
+                            id="resultIcon"
+                            class="overlay-icon"
+                        >
+                            🏆
+                        </div>
+
+                        <h2 id="resultTitle">
+                            You Win!
+                        </h2>
+
+                        <p id="resultText">
+                            Great game!
+                        </p>
+
+                        <button
+                            id="restartButton"
+                            class="game-button"
+                        >
+                            🔄 Play Again
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="controls">
+
+                    <span>
+                        ⌨️ W / S
+                    </span>
+
+                    <span>
+                        ⬆️ / ⬇️ Arrow Keys
+                    </span>
+
+                    <span>
+                        📱 Touch
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <section class="game-info">
+
+                <h2>How to Play Pong</h2>
+
+                <p>
+                    Control the left paddle and hit the ball
+                    back toward your opponent. The computer
+                    controls the right paddle.
+                </p>
+
+                <p>
+                    The first player to score 7 points wins
+                    the match.
+                </p>
+
+
+                <h2>Controls</h2>
+
+                <ul>
+                    <li>⬆️ Use the Up Arrow to move up.</li>
+                    <li>⬇️ Use the Down Arrow to move down.</li>
+                    <li>⌨️ W and S keys also control your paddle.</li>
+                    <li>📱 On mobile, drag your finger vertically on the game.</li>
+                </ul>
+
+            </section>
+
+
+            <section class="related-section">
+
+                <h2>More Games</h2>
+
+                <div class="related-grid">
+
+                    <a
+                        href="/games/flappy-bird/"
+                        class="related-card"
+                    >
+                        <span>🐦</span>
+                        <strong>Flappy Bird</strong>
+                    </a>
+
+                    <a
+                        href="/games/snake/"
+                        class="related-card"
+                    >
+                        <span>🐍</span>
+                        <strong>Snake</strong>
+                    </a>
+
+                    <a
+                        href="/games/2048/"
+                        class="related-card"
+                    >
+                        <span>🔢</span>
+                        <strong>2048</strong>
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        © <span id="year"></span> Gameso. All rights reserved.
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
