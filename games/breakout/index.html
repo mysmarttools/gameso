@@ -1,1 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Breakout Game Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Breakout online for free on Gameso. Break the bricks, control the paddle, clear every level and beat your high score."
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/breakout/"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="game-header">
+        <div class="header-inner">
+
+            <a href="/" class="logo">
+                <span>🎮</span>
+                <strong>Gameso</strong>
+            </a>
+
+            <a href="/" class="back-button">
+                ← All Games
+            </a>
+
+        </div>
+    </header>
+
+
+    <main class="game-page">
+
+        <div class="game-container">
+
+            <section class="game-heading">
+
+                <span class="game-label">
+                    🧱 ARCADE CHALLENGE
+                </span>
+
+                <h1>Breakout</h1>
+
+                <p>
+                    Break every brick, keep the ball alive
+                    and clear all the levels!
+                </p>
+
+            </section>
+
+
+            <section class="game-box">
+
+                <div class="game-stats">
+
+                    <div class="stat-box">
+                        <span>SCORE</span>
+                        <strong id="score">0</strong>
+                    </div>
+
+                    <div class="stat-box">
+                        <span>LIVES</span>
+                        <strong id="lives">3</strong>
+                    </div>
+
+                    <div class="stat-box">
+                        <span>LEVEL</span>
+                        <strong id="level">1</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="canvas-wrapper">
+
+                    <canvas
+                        id="gameCanvas"
+                        width="800"
+                        height="600"
+                    ></canvas>
+
+
+                    <div
+                        id="startScreen"
+                        class="game-overlay"
+                    >
+
+                        <div class="overlay-icon">
+                            🧱
+                        </div>
+
+                        <h2>Breakout</h2>
+
+                        <p>
+                            Break all the bricks to win!
+                        </p>
+
+                        <button
+                            id="startButton"
+                            class="game-button"
+                        >
+                            ▶ Start Game
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="gameOverScreen"
+                        class="game-overlay hidden"
+                    >
+
+                        <div
+                            id="resultIcon"
+                            class="overlay-icon"
+                        >
+                            🏆
+                        </div>
+
+                        <h2 id="resultTitle">
+                            Game Over
+                        </h2>
+
+                        <p id="resultText">
+                            Try again and beat your score!
+                        </p>
+
+                        <button
+                            id="restartButton"
+                            class="game-button"
+                        >
+                            🔄 Play Again
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="controls">
+
+                    <span>
+                        ⌨️ ← →
+                    </span>
+
+                    <span>
+                        🖱️ Mouse
+                    </span>
+
+                    <span>
+                        📱 Touch / Drag
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <section class="game-info">
+
+                <h2>How to Play Breakout</h2>
+
+                <p>
+                    Control the paddle at the bottom of the
+                    screen and bounce the ball into the bricks.
+                    Break every brick to complete the level.
+                </p>
+
+                <p>
+                    Don't let the ball fall below your paddle.
+                    You have 3 lives to complete the game.
+                </p>
+
+
+                <h2>Breakout Controls</h2>
+
+                <ul>
+                    <li>⬅️ Left Arrow — Move paddle left.</li>
+                    <li>➡️ Right Arrow — Move paddle right.</li>
+                    <li>🖱️ Move your mouse to control the paddle.</li>
+                    <li>📱 Drag your finger on mobile.</li>
+                </ul>
+
+
+                <h2>Tips</h2>
+
+                <ul>
+                    <li>🎯 Aim for the center of the bricks.</li>
+                    <li>⚡ Keep the ball moving.</li>
+                    <li>❤️ Save your lives.</li>
+                    <li>🏆 Clear every level to win.</li>
+                </ul>
+
+            </section>
+
+
+            <section class="related-section">
+
+                <h2>More Games</h2>
+
+                <div class="related-grid">
+
+                    <a
+                        href="/games/pong/"
+                        class="related-card"
+                    >
+                        <span>🏓</span>
+                        <strong>Pong</strong>
+                    </a>
+
+                    <a
+                        href="/games/flappy-bird/"
+                        class="related-card"
+                    >
+                        <span>🐦</span>
+                        <strong>Flappy Bird</strong>
+                    </a>
+
+                    <a
+                        href="/games/snake/"
+                        class="related-card"
+                    >
+                        <span>🐍</span>
+                        <strong>Snake</strong>
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        © <span id="year"></span> Gameso. All rights reserved.
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
