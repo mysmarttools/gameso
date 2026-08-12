@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +8,7 @@
 
     <meta
         name="description"
-        content="Play Breakout online for free on Gameso. Break the bricks, control the paddle, clear every level and beat your high score."
-    >
-
-    <meta name="robots" content="index, follow">
-
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/breakout/"
+        content="Play Breakout online for free on Gameso. Break the bricks, control the paddle and beat your high score."
     >
 
     <link rel="stylesheet" href="style.css">
@@ -24,229 +16,143 @@
 
 <body>
 
-    <header class="game-header">
-        <div class="header-inner">
+<header class="header">
+    <div class="header-inner">
 
-            <a href="/" class="logo">
-                <span>🎮</span>
-                <strong>Gameso</strong>
-            </a>
+        <a href="/" class="logo">
+            <span>🎮</span>
+            <strong>Gameso</strong>
+        </a>
 
-            <a href="/" class="back-button">
-                ← All Games
-            </a>
+        <a href="/" class="back-btn">
+            ← All Games
+        </a>
 
-        </div>
-    </header>
+    </div>
+</header>
 
 
-    <main class="game-page">
+<main>
 
-        <div class="game-container">
+    <section class="heading">
 
-            <section class="game-heading">
+        <div class="label">🧱 ARCADE GAME</div>
 
-                <span class="game-label">
-                    🧱 ARCADE CHALLENGE
-                </span>
+        <h1>Breakout</h1>
 
-                <h1>Breakout</h1>
+        <p>
+            Break the bricks, control the paddle and clear the board!
+        </p>
 
-                <p>
-                    Break every brick, keep the ball alive
-                    and clear all the levels!
-                </p>
+    </section>
 
-            </section>
 
+    <section class="game-card">
 
-            <section class="game-box">
+        <div class="stats">
 
-                <div class="game-stats">
+            <div class="stat">
+                <span>SCORE</span>
+                <strong id="score">0</strong>
+            </div>
 
-                    <div class="stat-box">
-                        <span>SCORE</span>
-                        <strong id="score">0</strong>
-                    </div>
+            <div class="stat">
+                <span>LIVES</span>
+                <strong id="lives">3</strong>
+            </div>
 
-                    <div class="stat-box">
-                        <span>LIVES</span>
-                        <strong id="lives">3</strong>
-                    </div>
-
-                    <div class="stat-box">
-                        <span>LEVEL</span>
-                        <strong id="level">1</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="canvas-wrapper">
-
-                    <canvas
-                        id="gameCanvas"
-                        width="800"
-                        height="600"
-                    ></canvas>
-
-
-                    <div
-                        id="startScreen"
-                        class="game-overlay"
-                    >
-
-                        <div class="overlay-icon">
-                            🧱
-                        </div>
-
-                        <h2>Breakout</h2>
-
-                        <p>
-                            Break all the bricks to win!
-                        </p>
-
-                        <button
-                            id="startButton"
-                            class="game-button"
-                            type="button"
-                        >
-                            ▶ Start Game
-                        </button>
-
-                    </div>
-
-
-                    <div
-                        id="gameOverScreen"
-                        class="game-overlay hidden"
-                    >
-
-                        <div
-                            id="resultIcon"
-                            class="overlay-icon"
-                        >
-                            🏆
-                        </div>
-
-                        <h2 id="resultTitle">
-                            Game Over
-                        </h2>
-
-                        <p id="resultText">
-                            Try again and beat your score!
-                        </p>
-
-                        <button
-                            id="restartButton"
-                            class="game-button"
-                            type="button"
-                        >
-                            🔄 Play Again
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="controls">
-
-                    <span>⌨️ ← →</span>
-
-                    <span>🖱️ Mouse</span>
-
-                    <span>📱 Touch / Drag</span>
-
-                </div>
-
-            </section>
-
-
-            <section class="game-info">
-
-                <h2>How to Play Breakout</h2>
-
-                <p>
-                    Control the paddle at the bottom of the
-                    screen and bounce the ball into the bricks.
-                    Break every brick to complete the level.
-                </p>
-
-                <p>
-                    Don't let the ball fall below your paddle.
-                    You have 3 lives to complete the game.
-                </p>
-
-
-                <h2>Breakout Controls</h2>
-
-                <ul>
-                    <li>⬅️ Left Arrow — Move paddle left.</li>
-                    <li>➡️ Right Arrow — Move paddle right.</li>
-                    <li>🖱️ Move your mouse to control the paddle.</li>
-                    <li>📱 Drag your finger on mobile.</li>
-                </ul>
-
-
-                <h2>Tips</h2>
-
-                <ul>
-                    <li>🎯 Aim for the center of the bricks.</li>
-                    <li>⚡ Keep the ball moving.</li>
-                    <li>❤️ Save your lives.</li>
-                    <li>🏆 Clear every level to win.</li>
-                </ul>
-
-            </section>
-
-
-            <section class="related-section">
-
-                <h2>More Games</h2>
-
-                <div class="related-grid">
-
-                    <a
-                        href="/games/pong/"
-                        class="related-card"
-                    >
-                        <span>🏓</span>
-                        <strong>Pong</strong>
-                    </a>
-
-                    <a
-                        href="/games/flappy-bird/"
-                        class="related-card"
-                    >
-                        <span>🐦</span>
-                        <strong>Flappy Bird</strong>
-                    </a>
-
-                    <a
-                        href="/games/snake/"
-                        class="related-card"
-                    >
-                        <span>🐍</span>
-                        <strong>Snake</strong>
-                    </a>
-
-                </div>
-
-            </section>
+            <div class="stat">
+                <span>LEVEL</span>
+                <strong id="level">1</strong>
+            </div>
 
         </div>
 
-    </main>
+
+        <div class="canvas-box">
+
+            <canvas
+                id="gameCanvas"
+                width="800"
+                height="500"
+            ></canvas>
 
 
-    <footer>
-        © <span id="year"></span> Gameso. All rights reserved.
-    </footer>
+            <div id="startScreen" class="overlay">
+
+                <div class="big-icon">🧱</div>
+
+                <h2>Breakout</h2>
+
+                <p>Break all the bricks to win!</p>
+
+                <button id="startBtn">
+                    ▶ Start Game
+                </button>
+
+            </div>
 
 
-    <script src="script.js"></script>
+            <div id="endScreen" class="overlay hidden">
+
+                <div id="endIcon" class="big-icon">
+                    🏆
+                </div>
+
+                <h2 id="endTitle">Game Over</h2>
+
+                <p id="endText">Try again!</p>
+
+                <button id="restartBtn">
+                    🔄 Play Again
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="controls">
+
+            <span>⌨️ ← →</span>
+            <span>🖱️ Mouse</span>
+            <span>📱 Touch</span>
+
+        </div>
+
+    </section>
+
+
+    <section class="info">
+
+        <h2>How to Play Breakout</h2>
+
+        <p>
+            Move the paddle at the bottom of the screen and bounce
+            the ball into the bricks. Break every brick to complete
+            the level.
+        </p>
+
+        <h2>Controls</h2>
+
+        <ul>
+            <li>⬅️ Left Arrow — Move left</li>
+            <li>➡️ Right Arrow — Move right</li>
+            <li>🖱️ Mouse — Move the paddle</li>
+            <li>📱 Touch — Drag the paddle</li>
+        </ul>
+
+    </section>
+
+</main>
+
+
+<footer>
+    © <span id="year"></span> Gameso. All rights reserved.
+</footer>
+
+
+<script src="script.js"></script>
 
 </body>
-
 </html>
