@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
 
+Sitemap: https://gameso.vercel.app/sitemap.xml
