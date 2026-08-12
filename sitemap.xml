@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <!-- Home Page -->
+    
     <url>
         <loc>https://gameso.vercel.app/</loc>
         <changefreq>weekly</changefreq>
