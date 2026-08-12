@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Gameso - Free Online Games | Play Games Online</title>
+    <title>Gameso - Free Online Games</title>
 
     <meta
         name="description"
-        content="Play free online games on Gameso. Enjoy Snake, 2048, Tic Tac Toe, Memory Game, Minesweeper, Breakout and more fun games."
+        content="Play free online games on Gameso including Snake, 2048, Tic Tac Toe, Memory Game, Minesweeper, Breakout and more."
     >
 
     <meta name="robots" content="index, follow">
@@ -24,64 +24,49 @@
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+    <!-- HEADER -->
 
     <header class="site-header">
 
         <div class="header-inner">
 
-            <!-- LOGO -->
-
             <a href="/" class="logo">
-
-                <span class="logo-icon">🎮</span>
-
+                <span>🎮</span>
                 <strong>Gameso</strong>
-
             </a>
 
+            <nav class="main-nav">
 
-            <!-- DESKTOP NAV -->
-
-            <nav class="desktop-nav">
-
-                <a href="/" class="nav-link active">
+                <a href="/" class="active">
                     Home
                 </a>
 
-                <a href="#popularGames" class="nav-link">
+                <a href="#popular">
                     Popular
                 </a>
 
-                <a href="#categories" class="nav-link">
+                <a href="#categories">
                     Categories
                 </a>
 
-                <a href="#newGames" class="nav-link">
+                <a href="#new-games">
                     New Games
                 </a>
 
                 <button
                     type="button"
-                    id="searchToggle"
+                    id="searchButton"
                     class="search-button"
-                    aria-label="Search games"
                 >
                     🔍
                 </button>
 
             </nav>
 
-
-            <!-- MOBILE MENU BUTTON -->
-
             <button
                 type="button"
-                id="menuToggle"
-                class="menu-toggle"
-                aria-label="Open menu"
+                id="mobileMenuButton"
+                class="mobile-menu-button"
             >
                 ☰
             </button>
@@ -89,59 +74,19 @@
         </div>
 
 
-        <!-- MOBILE NAV -->
-
-        <nav
-            id="mobileNav"
-            class="mobile-nav"
-        >
-
-            <a href="/" class="nav-link">
-                Home
-            </a>
-
-            <a href="#popularGames" class="nav-link">
-                Popular
-            </a>
-
-            <a href="#categories" class="nav-link">
-                Categories
-            </a>
-
-            <a href="#newGames" class="nav-link">
-                New Games
-            </a>
-
-        </nav>
-
-
         <!-- SEARCH -->
 
         <div
-            id="searchSection"
-            class="search-section"
+            id="searchBox"
+            class="search-container"
         >
 
-            <div class="search-box">
-
-                <span>🔍</span>
-
-                <input
-                    type="text"
-                    id="gameSearch"
-                    placeholder="Search games..."
-                    autocomplete="off"
-                >
-
-                <button
-                    type="button"
-                    id="clearSearch"
-                    aria-label="Clear search"
-                >
-                    ✕
-                </button>
-
-            </div>
+            <input
+                type="text"
+                id="gameSearch"
+                placeholder="Search games..."
+                autocomplete="off"
+            >
 
         </div>
 
@@ -149,22 +94,18 @@
 
 
 
-    <!-- =========================
-         MAIN
-    ========================== -->
+    <!-- MAIN -->
 
     <main>
 
 
-        <!-- =========================
-             HERO
-        ========================== -->
+        <!-- HERO -->
 
-        <section class="hero-section">
+        <section class="hero">
 
             <div class="hero-content">
 
-                <span class="hero-label">
+                <span class="hero-badge">
                     🎮 FREE ONLINE GAMES
                 </span>
 
@@ -174,27 +115,16 @@
                 </h1>
 
                 <p>
-                    Discover exciting free games and enjoy
-                    endless fun directly in your browser.
+                    Discover fun and exciting games you can
+                    play directly in your browser.
                 </p>
 
-                <div class="hero-actions">
-
-                    <a
-                        href="#popularGames"
-                        class="primary-button"
-                    >
-                        ▶ Play Games
-                    </a>
-
-                    <a
-                        href="#categories"
-                        class="secondary-button"
-                    >
-                        Explore Categories
-                    </a>
-
-                </div>
+                <a
+                    href="#popular"
+                    class="hero-button"
+                >
+                    ▶ Play Now
+                </a>
 
             </div>
 
@@ -202,12 +132,10 @@
 
 
 
-        <!-- =========================
-             POPULAR GAMES
-        ========================== -->
+        <!-- POPULAR GAMES -->
 
         <section
-            id="popularGames"
+            id="popular"
             class="games-section"
         >
 
@@ -226,7 +154,7 @@
                 </div>
 
                 <a
-                    href="#popularGames"
+                    href="#popular"
                     class="view-all"
                 >
                     View All →
@@ -548,12 +476,10 @@
 
 
 
-        <!-- =========================
-             NEW GAMES
-        ========================== -->
+        <!-- NEW GAMES -->
 
         <section
-            id="newGames"
+            id="new-games"
             class="games-section"
         >
 
@@ -572,7 +498,7 @@
                 </div>
 
                 <a
-                    href="#newGames"
+                    href="#new-games"
                     class="view-all"
                 >
                     View All →
@@ -762,7 +688,7 @@
                         class="game-link"
                     >
 
-                        <div class="game-thumbnail board-thumbnail">
+                        <div class="game-thumbnail strategy-thumbnail">
 
                             <span class="new-badge">
                                 NEW
@@ -808,9 +734,7 @@
 
 
 
-        <!-- =========================
-             CATEGORIES
-        ========================== -->
+        <!-- CATEGORIES -->
 
         <section
             id="categories"
@@ -822,11 +746,11 @@
                 <div>
 
                     <h2>
-                        Game Categories
+                        Categories
                     </h2>
 
                     <p>
-                        Find your favorite type of game.
+                        Choose your favorite type of game.
                     </p>
 
                 </div>
@@ -836,163 +760,52 @@
 
             <div class="categories-grid">
 
-
                 <a
-                    href="#popularGames"
+                    href="#popular"
                     class="category-card"
-                    data-category="Arcade"
                 >
-
-                    <span>
-                        🎮
-                    </span>
-
-                    <strong>
-                        Arcade
-                    </strong>
-
-                    <small>
-                        Fun & Action
-                    </small>
-
+                    <span>🎮</span>
+                    <strong>Arcade</strong>
                 </a>
 
-
                 <a
-                    href="#popularGames"
+                    href="#popular"
                     class="category-card"
-                    data-category="Puzzle"
                 >
-
-                    <span>
-                        🧩
-                    </span>
-
-                    <strong>
-                        Puzzle
-                    </strong>
-
-                    <small>
-                        Think & Solve
-                    </small>
-
+                    <span>🧩</span>
+                    <strong>Puzzle</strong>
                 </a>
 
-
                 <a
-                    href="#popularGames"
+                    href="#popular"
                     class="category-card"
-                    data-category="Board"
                 >
-
-                    <span>
-                        🎯
-                    </span>
-
-                    <strong>
-                        Board Games
-                    </strong>
-
-                    <small>
-                        Classic Games
-                    </small>
-
+                    <span>🎯</span>
+                    <strong>Board</strong>
                 </a>
 
-
                 <a
-                    href="#popularGames"
+                    href="#popular"
                     class="category-card"
-                    data-category="Brain"
                 >
-
-                    <span>
-                        🧠
-                    </span>
-
-                    <strong>
-                        Brain Games
-                    </strong>
-
-                    <small>
-                        Train Your Mind
-                    </small>
-
+                    <span>🧠</span>
+                    <strong>Brain</strong>
                 </a>
 
-
                 <a
-                    href="#newGames"
+                    href="#new-games"
                     class="category-card"
-                    data-category="Action"
                 >
-
-                    <span>
-                        ⚔️
-                    </span>
-
-                    <strong>
-                        Action
-                    </strong>
-
-                    <small>
-                        Fast & Exciting
-                    </small>
-
+                    <span>⚔️</span>
+                    <strong>Action</strong>
                 </a>
 
-
                 <a
-                    href="#newGames"
+                    href="#new-games"
                     class="category-card"
-                    data-category="Strategy"
                 >
-
-                    <span>
-                        ♟️
-                    </span>
-
-                    <strong>
-                        Strategy
-                    </strong>
-
-                    <small>
-                        Think Ahead
-                    </small>
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             CTA
-        ========================== -->
-
-        <section class="cta-section">
-
-            <div class="cta-content">
-
-                <span class="cta-icon">
-                    🎮
-                </span>
-
-                <h2>
-                    Ready to Play?
-                </h2>
-
-                <p>
-                    Choose a game and start playing for free.
-                </p>
-
-                <a
-                    href="#popularGames"
-                    class="primary-button"
-                >
-                    ▶ Start Playing
+                    <span>♟️</span>
+                    <strong>Strategy</strong>
                 </a>
 
             </div>
@@ -1003,70 +816,32 @@
 
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
+    <!-- FOOTER -->
 
     <footer class="site-footer">
 
-        <div class="footer-inner">
+        <div class="footer-content">
 
-            <div class="footer-brand">
+            <a href="/" class="logo">
+                <span>🎮</span>
+                <strong>Gameso</strong>
+            </a>
 
-                <a href="/" class="logo">
-
-                    <span class="logo-icon">
-                        🎮
-                    </span>
-
-                    <strong>
-                        Gameso
-                    </strong>
-
-                </a>
-
-                <p>
-                    Free online games for everyone.
-                </p>
-
-            </div>
-
-
-            <div class="footer-links">
-
-                <a href="/">
-                    Home
-                </a>
-
-                <a href="#popularGames">
-                    Popular Games
-                </a>
-
-                <a href="#newGames">
-                    New Games
-                </a>
-
-                <a href="#categories">
-                    Categories
-                </a>
-
-            </div>
+            <p>
+                Free online games for everyone.
+            </p>
 
         </div>
 
-
         <div class="footer-bottom">
 
-            © <span id="currentYear"></span>
+            © <span id="year"></span>
             Gameso. All rights reserved.
 
         </div>
 
     </footer>
 
-
-
-    <!-- JAVASCRIPT -->
 
     <script src="script.js"></script>
 
