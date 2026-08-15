@@ -1,1 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Racing Games Online | Play Free Racing Games | Gameso</title>
+
+  <meta
+    name="description"
+    content="Play free racing games online at Gameso. Race cars, dodge traffic and enjoy exciting racing games directly in your browser."
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header class="site-header">
+
+    <a href="/" class="logo">
+      <span class="logo-icon">🎮</span>
+      <span>Gameso</span>
+    </a>
+
+    <a href="/" class="back-btn">
+      ← All Categories
+    </a>
+
+  </header>
+
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main class="racing-page">
+
+    <!-- PAGE HEADING -->
+
+    <section class="page-heading">
+
+      <div class="category-label">
+        🏎️ RACING
+      </div>
+
+      <h1>Racing Games</h1>
+
+      <p>
+        Get behind the wheel and enjoy exciting racing games.
+        Race, dodge traffic and beat your highest score!
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         GAMES GRID
+    ========================== -->
+
+    <section class="games-grid">
+
+
+      <!-- =========================
+           TRAFFIC RACER
+      ========================== -->
+
+      <article class="game-card">
+
+        <a href="/games/traffic-racer/" class="game-link">
+
+          <div class="game-image traffic-image">
+
+            <div class="road-lines"></div>
+
+            <span class="game-emoji">🏎️</span>
+
+            <span class="speed-effect speed-one"></span>
+            <span class="speed-effect speed-two"></span>
+            <span class="speed-effect speed-three"></span>
+
+          </div>
+
+
+          <div class="game-content">
+
+            <h2>Traffic Racer</h2>
+
+            <div class="game-meta">
+
+              <span>🏎️ Racing</span>
+
+              <span>⭐ 4.9</span>
+
+            </div>
+
+            <p>
+              Dodge traffic, drive fast and travel as far
+              as possible to beat your high score!
+            </p>
+
+            <span class="play-btn">
+              Play Game →
+            </span>
+
+          </div>
+
+        </a>
+
+      </article>
+
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer class="site-footer">
+
+    <p>
+      © 2026 Gameso. Play Free Games Online.
+    </p>
+
+  </footer>
+
+</body>
+</html>
