@@ -81,5 +81,31 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+<!-- Arcade Category -->
+  <url>
+    <loc>https://gameso.vercel.app/games/arcade/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Traffic Racer -->
+  <url>
+    <loc>https://gameso.vercel.app/games/traffic-racer/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Racing Category -->
+  <url>
+    <loc>https://gameso.vercel.app/games/racing/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+    <url>
+    <loc>https://gameso.vercel.app/games/pacman/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
 </urlset>
