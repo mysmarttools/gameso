@@ -108,4 +108,18 @@
     <priority>0.8</priority>
   </url>
 
+    <!-- Gameso Blog -->
+  <url>
+    <loc>https://gameso.vercel.app/blog/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Best Free Online Games 2026 -->
+  <url>
+    <loc>https://gameso.vercel.app/blog/best-free-online-games-2026/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
