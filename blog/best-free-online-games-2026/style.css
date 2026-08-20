@@ -208,3 +208,38 @@ nav a:hover {
   object-fit: contain;
   box-sizing: border-box;
 }
+
+
+
+/* ==========================================
+   BLOG ARTICLE - PERFECT CONTENT WIDTH
+========================================== */
+
+.blog-post,
+.blog-content {
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.blog-post img,
+.blog-content img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 25px 0;
+  padding: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+/* Keep paragraphs exactly aligned with image */
+.blog-post p,
+.blog-content p {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
