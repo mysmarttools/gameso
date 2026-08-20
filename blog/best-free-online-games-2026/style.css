@@ -167,3 +167,44 @@ nav a:hover {
     font-size: 14px;
   }
 }
+
+
+
+
+
+/* ==========================================
+   BLOG POST FEATURED IMAGE - FIX
+========================================== */
+
+.blog-post img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 25px 0;
+  object-fit: contain;
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+/* Featured / Hero image */
+.blog-post .featured-image,
+.blog-post .post-featured-image {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 28px;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 14px;
+}
+
+.blog-post .featured-image img,
+.blog-post .post-featured-image img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  object-fit: contain;
+  box-sizing: border-box;
+}
