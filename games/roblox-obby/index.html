@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Roblox Obby Game - Play Free Online | Gameso</title>
+  <meta name="description" content="Play a fun Roblox-inspired obby parkour game online for free. Jump across platforms, avoid obstacles and reach the finish line on Gameso.">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="game-wrapper">
+
+    <header class="game-header">
+      <div>
+        <h1>Roblox Obby</h1>
+        <p>Parkour Challenge</p>
+      </div>
+
+      <div class="stats">
+        <div>❤️ <span id="lives">3</span></div>
+        <div>🪙 <span id="coins">0</span></div>
+        <div>⏱️ <span id="timer">0</span>s</div>
+      </div>
+    </header>
+
+    <main class="game-container">
+
+      <canvas id="gameCanvas" width="1000" height="550"></canvas>
+
+      <div id="startScreen" class="overlay">
+        <div class="menu-box">
+          <h2>🎮 Roblox Obby</h2>
+          <p>Jump across platforms, collect coins and reach the finish!</p>
+          <button id="startBtn">Start Game</button>
+        </div>
+      </div>
+
+      <div id="gameOverScreen" class="overlay hidden">
+        <div class="menu-box">
+          <h2>💥 Game Over</h2>
+          <p>You ran out of lives.</p>
+          <button id="restartBtn">Try Again</button>
+        </div>
+      </div>
+
+      <div id="winScreen" class="overlay hidden">
+        <div class="menu-box">
+          <h2>🏆 You Won!</h2>
+          <p>Congratulations! You completed the Obby.</p>
+          <p>Coins: <strong id="finalCoins">0</strong></p>
+          <p>Time: <strong id="finalTime">0</strong>s</p>
+          <button id="playAgainBtn">Play Again</button>
+        </div>
+      </div>
+
+    </main>
+
+    <div class="controls">
+
+      <button id="leftBtn">⬅️</button>
+
+      <button id="jumpBtn">⬆️ Jump</button>
+
+      <button id="rightBtn">➡️</button>
+
+    </div>
+
+    <section class="instructions">
+      <h2>How to Play</h2>
+
+      <p>
+        Use <strong>Arrow Keys</strong> or <strong>A / D</strong> to move.
+        Press <strong>Space</strong> to jump.
+      </p>
+
+      <p>
+        Collect 🪙 coins, avoid 🔴 obstacles and reach 🏁 the finish line.
+      </p>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
