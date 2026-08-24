@@ -2,70 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Chess Engine</title>
+
+    <title>Mini Chess - Play Free Online | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Mini Chess online for free on Gameso. Enjoy a quick chess match with simple controls on desktop and mobile."
+    >
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="game-header">
-        <div class="header-inner">
-            <div class="logo">
-                <span>♔</span>
-                <strong>ChessArena</strong>
-            </div>
-            <button class="back-button" onclick="resetGame()">Reset Game</button>
-        </div>
-    </header>
+    <div class="chess-wrapper">
 
-    <main class="game-page">
-        <div class="game-container">
-            
-            <div class="game-heading">
-                <span class="game-label">STRATEGY BOARD</span>
-                <h1>Classic Chess</h1>
-                <p>Play a clean, lag-free match of chess optimized for both desktop and mobile devices.</p>
+        <header class="chess-header">
+
+            <div>
+                <h1>♟️ Mini Chess</h1>
+                <p>Quick Chess Challenge</p>
             </div>
 
-            <div class="game-box">
-                <!-- Stats Section -->
-                <div class="game-stats">
-                    <div class="stat-box">
-                        <span>TURN</span>
-                        <strong id="current-turn">White</strong>
-                    </div>
-                    <div class="stat-box">
-                        <span>STATUS</span>
-                        <strong id="game-status" style="font-size: 14px; margin-top: 8px;">Active</strong>
-                    </div>
-                    <div class="stat-box">
-                        <span>MOVES</span>
-                        <strong id="move-count">0</strong>
-                    </div>
-                </div>
-
-                <!-- Board Wrapper -->
-                <div class="board-wrapper">
-                    <div class="chess-board" id="board"></div>
-
-                    <!-- Game Overlay (Hidden by default) -->
-                    <div class="game-overlay hidden" id="overlay">
-                        <div class="overlay-icon">🏆</div>
-                        <h2 id="overlay-title">Game Over</h2>
-                        <p id="overlay-msg">White wins by checkmate!</p>
-                        <button class="game-button" onclick="resetGame()">Play Again</button>
-                    </div>
-                </div>
-
-                <!-- Interactive Message -->
-                <div class="game-message" id="status-message">
-                    White's turn to move. Select a piece.
-                </div>
+            <div class="turn-box">
+                Turn: <strong id="turn">White</strong>
             </div>
 
-        </div>
-    </main>
+        </header>
+
+
+        <main class="chess-game">
+
+            <div id="chessBoard" class="chess-board"></div>
+
+
+            <div class="game-controls">
+
+                <button id="restartBtn">
+                    🔄 Restart Game
+                </button>
+
+            </div>
+
+
+            <div id="gameMessage" class="game-message">
+                White's turn
+            </div>
+
+        </main>
+
+
+        <section class="how-to-play">
+
+            <h2>How to Play Mini Chess</h2>
+
+            <p>
+                Click a chess piece to select it, then click a highlighted
+                square to move. Capture your opponent's pieces and checkmate
+                the king to win.
+            </p>
+
+        </section>
+
+    </div>
+
 
     <script src="script.js"></script>
+
 </body>
 </html>
