@@ -1,1 +1,177 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+body {
+  font-family: Arial, sans-serif;
+  background: #101522;
+  color: white;
+  min-height: 100vh;
+}
+
+.game-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 15px;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1b2335;
+  padding: 15px 20px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.game-header h1 {
+  font-size: 28px;
+}
+
+.game-header p {
+  color: #b8c0d4;
+  margin-top: 4px;
+}
+
+.stats {
+  display: flex;
+  gap: 18px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.game-container {
+  position: relative;
+  width: 100%;
+  background: #080c14;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #87ceeb;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.menu-box {
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  background: #1c2435;
+  padding: 35px 25px;
+  border-radius: 20px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.5);
+}
+
+.menu-box h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.menu-box p {
+  color: #d3d8e4;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.menu-box button {
+  background: #5865f2;
+  color: white;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
+.menu-box button:hover {
+  opacity: .85;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.controls button {
+  background: #252e43;
+  color: white;
+  min-width: 70px;
+  min-height: 55px;
+  border-radius: 12px;
+  font-size: 18px;
+  touch-action: manipulation;
+}
+
+.controls button:active {
+  transform: scale(.95);
+}
+
+.instructions {
+  background: #1b2335;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 15px;
+  line-height: 1.7;
+}
+
+.instructions h2 {
+  margin-bottom: 8px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .game-wrapper {
+    padding: 8px;
+  }
+
+  .game-header {
+    padding: 12px;
+  }
+
+  .game-header h1 {
+    font-size: 21px;
+  }
+
+  .stats {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .controls button {
+    min-width: 80px;
+    min-height: 55px;
+  }
+
+  .menu-box h2 {
+    font-size: 26px;
+  }
+
+}
