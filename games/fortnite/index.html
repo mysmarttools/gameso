@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Battle Arena - Fortnite Inspired Game | Gameso</title>
+
+    <meta name="description" content="Play a free Fortnite-inspired Battle Arena game online on Gameso. Move, aim, shoot enemies and survive the arena.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="game-wrapper">
+
+    <header class="game-header">
+
+        <div>
+            <h1>🎯 Battle Arena</h1>
+            <p>Fortnite-Inspired Survival Challenge</p>
+        </div>
+
+        <div class="stats">
+            <span>❤️ <b id="health">100</b></span>
+            <span>🎯 <b id="score">0</b></span>
+            <span>👾 <b id="enemyCount">0</b></span>
+        </div>
+
+    </header>
+
+
+    <main class="game-container">
+
+        <canvas id="gameCanvas"></canvas>
+
+
+        <div id="startScreen" class="overlay">
+
+            <div class="menu-box">
+
+                <h2>🎯 Battle Arena</h2>
+
+                <p>
+                    Survive the arena, defeat enemies
+                    and get the highest score!
+                </p>
+
+                <button id="startBtn">
+                    Start Game
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div id="gameOverScreen" class="overlay hidden">
+
+            <div class="menu-box">
+
+                <h2>💥 Game Over</h2>
+
+                <p>
+                    Your Score:
+                    <strong id="finalScore">0</strong>
+                </p>
+
+                <button id="restartBtn">
+                    🔄 Play Again
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <div class="mobile-controls">
+
+        <div class="movement">
+
+            <button id="upBtn">⬆️</button>
+
+            <div>
+                <button id="leftBtn">⬅️</button>
+                <button id="downBtn">⬇️</button>
+                <button id="rightBtn">➡️</button>
+            </div>
+
+        </div>
+
+        <button id="shootBtn" class="shoot-button">
+            🔥 SHOOT
+        </button>
+
+    </div>
+
+
+    <section class="instructions">
+
+        <h2>How to Play</h2>
+
+        <p>
+            Use <strong>W A S D</strong> or arrow keys to move.
+            Move your mouse to aim and click to shoot.
+        </p>
+
+        <p>
+            On mobile, use the movement buttons and
+            <strong>SHOOT</strong> button.
+        </p>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
