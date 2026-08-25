@@ -1,1 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snow Rider 3D - Play Online | Gameso</title>
+  <meta name="description" content="Play Snow Rider 3D online on Gameso. Ride down the snowy mountain, avoid obstacles and collect gifts to beat your high score.">
 
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+
+  <div id="game">
+
+    <!-- HUD -->
+    <div class="hud">
+      <div class="hud-box">
+        <span>🎁 Gifts</span>
+        <strong id="gifts">0</strong>
+      </div>
+
+      <div class="hud-box">
+        <span>🏆 Score</span>
+        <strong id="score">0</strong>
+      </div>
+
+      <div class="hud-box">
+        <span>⚡ Speed</span>
+        <strong id="speed">1</strong>
+      </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen">
+      <div class="panel">
+        <div class="emoji">🏂</div>
+        <h1>Snow Rider 3D</h1>
+        <p>Ride down the snowy mountain!</p>
+
+        <div class="controls">
+          <div>⬅️ <b>Left</b></div>
+          <div>➡️ <b>Right</b></div>
+          <div>🎁 <b>Collect Gifts</b></div>
+        </div>
+
+        <button id="startBtn">PLAY NOW</button>
+      </div>
+    </div>
+
+    <!-- Game Over -->
+    <div id="gameOver" class="screen hidden">
+      <div class="panel">
+        <div class="emoji">💥</div>
+        <h2>Game Over!</h2>
+
+        <p>Your Score</p>
+        <strong id="finalScore">0</strong>
+
+        <p>Best Score: <b id="bestScore">0</b></p>
+
+        <button id="restartBtn">PLAY AGAIN</button>
+      </div>
+    </div>
+
+    <!-- Mobile Controls -->
+    <div class="mobile-controls">
+      <button id="leftBtn">◀</button>
+      <button id="rightBtn">▶</button>
+    </div>
+
+  </div>
+
+  <script src="game.js"></script>
+
+</body>
+</html>
