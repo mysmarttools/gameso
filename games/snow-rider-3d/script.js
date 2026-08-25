@@ -1,8 +1,3 @@
-/* =========================================================
-   SNOW RIDER 3D
-   Gameso
-========================================================= */
-
 let scene;
 let camera;
 let renderer;
@@ -23,21 +18,17 @@ let obstacles = [];
 let gifts = [];
 let trees = [];
 
-let roadSegments = [];
-
 let spawnTimer = 0;
 let giftTimer = 0;
 
 let bestScore = Number(localStorage.getItem("snowRiderBest")) || 0;
 
-/* Game dimensions */
-
 const ROAD_WIDTH = 16;
-const ROAD_LENGTH = 180;
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+
+/* =========================
+   INIT
+========================= */
 
 function init() {
 
@@ -47,13 +38,11 @@ function init() {
 
   scene.fog = new THREE.Fog(
     0xbfe9ff,
-    45,
-    190
+    40,
+    180
   );
 
   clock = new THREE.Clock();
-
-  /* Camera */
 
   camera = new THREE.PerspectiveCamera(
     60,
@@ -62,19 +51,7 @@ function init() {
     500
   );
 
-  camera.position.set(
-    0,
-    5.5,
-    10
-  );
-
-  camera.lookAt(
-    0,
-    1,
-    -20
-  );
-
-  /* Renderer */
+  camera.position.set(0, 5, 10);
 
   renderer = new THREE.WebGLRenderer({
     antialias: true
@@ -89,58 +66,53 @@ function init() {
     window.innerHeight
   );
 
-  renderer.shadowMap.enabled = true;
-
   document
     .getElementById("game")
     .appendChild(renderer.domElement);
 
-  /* Lighting */
 
-  const ambientLight =
-    new THREE.HemisphereLight(
-      0xffffff,
-      0x8bb5c7,
-      1.5
-    );
+  /* LIGHT */
 
-  scene.add(ambientLight);
-
-  const sun =
-    new THREE.DirectionalLight(
-      0xffffff,
-      1.8
-    );
-
-  sun.position.set(
-    30,
-    50,
-    20
+  const ambient = new THREE.HemisphereLight(
+    0xffffff,
+    0x8bb5c7,
+    1.6
   );
 
-  sun.castShadow = true;
+  scene.add(ambient);
+
+
+  const sun = new THREE.DirectionalLight(
+    0xffffff,
+    2
+  );
+
+  sun.position.set(30, 50, 20);
 
   scene.add(sun);
 
-  /* World */
+
+  /* WORLD */
 
   createSnowGround();
   createMountains();
 
-  /* Player */
-
   createSled();
 
-  /* Initial trees */
 
-  for (let i = 0; i < 35; i++) {
+  /* TREES */
+
+  for (let i = 0; i < 30; i++) {
+
     createTree(
       randomLane(),
       -10 - Math.random() * 170
     );
+
   }
 
-  /* Events */
+
+  /* EVENTS */
 
   window.addEventListener(
     "resize",
@@ -152,12 +124,14 @@ function init() {
     handleKeyDown
   );
 
+
   document
     .getElementById("startBtn")
     .addEventListener(
       "click",
       startGame
     );
+
 
   document
     .getElementById("restartBtn")
@@ -166,28 +140,31 @@ function init() {
       restartGame
     );
 
+
   setupMobileControls();
+
+
+  updateHUD();
 
   animate();
 }
 
 
-/* =========================================================
-   SNOW GROUND
-========================================================= */
+/* =========================
+   SNOW
+========================= */
 
 function createSnowGround() {
 
   const geometry =
     new THREE.PlaneGeometry(
-      150,
+      120,
       500
     );
 
   const material =
     new THREE.MeshStandardMaterial({
-      color: 0xf7fbff,
-      roughness: 0.95
+      color: 0xf7fbff
     });
 
   const ground =
@@ -199,42 +176,35 @@ function createSnowGround() {
   ground.rotation.x =
     -Math.PI / 2;
 
-  ground.position.y = -0.35;
+  ground.position.y = -0.4;
 
   ground.position.z = -180;
 
-  ground.receiveShadow = true;
-
   scene.add(ground);
-
 }
 
 
-/* =========================================================
+/* =========================
    MOUNTAINS
-========================================================= */
+========================= */
 
 function createMountains() {
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 14; i++) {
 
     const height =
-      15 + Math.random() * 18;
-
-    const radius =
-      10 + Math.random() * 8;
+      15 + Math.random() * 20;
 
     const geometry =
       new THREE.ConeGeometry(
-        radius,
+        10 + Math.random() * 8,
         height,
         8
       );
 
     const material =
       new THREE.MeshStandardMaterial({
-        color: 0xd9eff8,
-        roughness: 1
+        color: 0xd9eff8
       });
 
     const mountain =
@@ -244,11 +214,8 @@ function createMountains() {
       );
 
     mountain.position.set(
-      (Math.random() < 0.5 ? -1 : 1) *
-        (25 + Math.random() * 25),
-
+      i % 2 === 0 ? -30 : 30,
       height / 2 - 1,
-
       -20 - Math.random() * 180
     );
 
@@ -257,108 +224,58 @@ function createMountains() {
 }
 
 
-/* =========================================================
+/* =========================
    SLED
-========================================================= */
+========================= */
 
 function createSled() {
 
   sled = new THREE.Group();
 
-  /* Sled body */
-
-  const bodyGeometry =
-    new THREE.BoxGeometry(
-      1.8,
-      0.35,
-      3.2
-    );
-
-  const bodyMaterial =
-    new THREE.MeshStandardMaterial({
-      color: 0xd71920,
-      roughness: 0.4
-    });
 
   const body =
     new THREE.Mesh(
-      bodyGeometry,
-      bodyMaterial
+      new THREE.BoxGeometry(
+        1.8,
+        0.35,
+        3.2
+      ),
+      new THREE.MeshStandardMaterial({
+        color: 0xd71920
+      })
     );
 
   body.position.y = 0.45;
 
-  body.castShadow = true;
-
   sled.add(body);
 
 
-  /* Seat */
-
-  const seatGeometry =
-    new THREE.BoxGeometry(
-      1.4,
-      0.25,
-      1.4
-    );
-
-  const seatMaterial =
-    new THREE.MeshStandardMaterial({
-      color: 0x242424
-    });
-
   const seat =
     new THREE.Mesh(
-      seatGeometry,
-      seatMaterial
+      new THREE.BoxGeometry(
+        1.4,
+        0.25,
+        1.4
+      ),
+      new THREE.MeshStandardMaterial({
+        color: 0x222222
+      })
     );
 
-  seat.position.y = 0.75;
-  seat.position.z = 0.25;
+  seat.position.set(
+    0,
+    0.75,
+    0.25
+  );
 
   sled.add(seat);
 
 
-  /* Front nose */
-
-  const noseGeometry =
-    new THREE.ConeGeometry(
-      0.9,
-      1.2,
-      4
-    );
-
-  const noseMaterial =
-    new THREE.MeshStandardMaterial({
-      color: 0xf22d36
-    });
-
-  const nose =
-    new THREE.Mesh(
-      noseGeometry,
-      noseMaterial
-    );
-
-  nose.rotation.x =
-    Math.PI / 2;
-
-  nose.rotation.z =
-    Math.PI / 4;
-
-  nose.position.y = 0.45;
-  nose.position.z = -1.9;
-
-  sled.add(nose);
-
-
-  /* Runners */
-
   const runnerMaterial =
     new THREE.MeshStandardMaterial({
-      color: 0x222222,
-      metalness: 0.5,
-      roughness: 0.3
+      color: 0x222222
     });
+
 
   [-0.65, 0.65].forEach(x => {
 
@@ -393,16 +310,15 @@ function createSled() {
 }
 
 
-/* =========================================================
-   TREES
-========================================================= */
+/* =========================
+   TREE
+========================= */
 
 function createTree(x, z) {
 
   const tree =
     new THREE.Group();
 
-  /* Trunk */
 
   const trunk =
     new THREE.Mesh(
@@ -421,8 +337,6 @@ function createTree(x, z) {
 
   tree.add(trunk);
 
-
-  /* Leaves */
 
   for (let i = 0; i < 3; i++) {
 
@@ -461,28 +375,21 @@ function createTree(x, z) {
 }
 
 
-/* =========================================================
+/* =========================
    ROCK
-========================================================= */
+========================= */
 
 function createRock(x, z) {
 
-  const geometry =
-    new THREE.DodecahedronGeometry(
-      0.9,
-      0
-    );
-
-  const material =
-    new THREE.MeshStandardMaterial({
-      color: 0x77848b,
-      roughness: 1
-    });
-
   const rock =
     new THREE.Mesh(
-      geometry,
-      material
+      new THREE.DodecahedronGeometry(
+        0.9,
+        0
+      ),
+      new THREE.MeshStandardMaterial({
+        color: 0x77848b
+      })
     );
 
   rock.position.set(
@@ -491,35 +398,26 @@ function createRock(x, z) {
     z
   );
 
-  rock.scale.set(
-    1.2,
-    0.8,
-    1
-  );
-
-  rock.castShadow = true;
-
   scene.add(rock);
 
   obstacles.push(rock);
 }
 
 
-/* =========================================================
+/* =========================
    SNOWMAN
-========================================================= */
+========================= */
 
 function createSnowman(x, z) {
 
   const snowman =
     new THREE.Group();
 
-  const white =
+  const material =
     new THREE.MeshStandardMaterial({
       color: 0xffffff
     });
 
-  /* Body */
 
   const body =
     new THREE.Mesh(
@@ -528,15 +426,13 @@ function createSnowman(x, z) {
         16,
         16
       ),
-      white
+      material
     );
 
   body.position.y = 0.8;
 
   snowman.add(body);
 
-
-  /* Head */
 
   const head =
     new THREE.Mesh(
@@ -545,38 +441,12 @@ function createSnowman(x, z) {
         16,
         16
       ),
-      white
+      material
     );
 
   head.position.y = 1.9;
 
   snowman.add(head);
-
-
-  /* Nose */
-
-  const nose =
-    new THREE.Mesh(
-      new THREE.ConeGeometry(
-        0.12,
-        0.6,
-        8
-      ),
-      new THREE.MeshStandardMaterial({
-        color: 0xff7a00
-      })
-    );
-
-  nose.rotation.z =
-    -Math.PI / 2;
-
-  nose.position.set(
-    0,
-    1.9,
-    -0.55
-  );
-
-  snowman.add(nose);
 
 
   snowman.position.set(
@@ -591,14 +461,15 @@ function createSnowman(x, z) {
 }
 
 
-/* =========================================================
+/* =========================
    GIFT
-========================================================= */
+========================= */
 
 function createGift(x, z) {
 
   const gift =
     new THREE.Group();
+
 
   const box =
     new THREE.Mesh(
@@ -618,9 +489,9 @@ function createGift(x, z) {
   const ribbon =
     new THREE.Mesh(
       new THREE.BoxGeometry(
-        0.18,
-        1.05,
-        1.05
+        0.2,
+        1.1,
+        1.1
       ),
       new THREE.MeshStandardMaterial({
         color: 0xffd21f
@@ -628,21 +499,6 @@ function createGift(x, z) {
     );
 
   gift.add(ribbon);
-
-
-  const ribbon2 =
-    new THREE.Mesh(
-      new THREE.BoxGeometry(
-        1.05,
-        1.05,
-        0.18
-      ),
-      new THREE.MeshStandardMaterial({
-        color: 0xffd21f
-      })
-    );
-
-  gift.add(ribbon2);
 
 
   gift.position.set(
@@ -657,75 +513,68 @@ function createGift(x, z) {
 }
 
 
-/* =========================================================
+/* =========================
    RANDOM LANE
-========================================================= */
+========================= */
 
 function randomLane() {
 
   return (
-    Math.random() *
-      (ROAD_WIDTH - 3) -
-    (ROAD_WIDTH - 3) / 2
+    Math.random() * 12 - 6
   );
 }
 
 
-/* =========================================================
-   SPAWN OBJECTS
-========================================================= */
+/* =========================
+   SPAWN
+========================= */
 
 function spawnObjects(delta) {
 
   spawnTimer += delta;
+
   giftTimer += delta;
 
-  /* Obstacles */
 
-  if (spawnTimer > 0.8) {
+  if (spawnTimer >= 1) {
 
     spawnTimer = 0;
 
-    const x =
-      randomLane();
+    const x = randomLane();
 
-    const type =
-      Math.random();
-
-    if (type < 0.5) {
+    if (Math.random() < 0.5) {
 
       createRock(
         x,
-        -150
+        -120
       );
 
     } else {
 
       createSnowman(
         x,
-        -150
+        -120
       );
+
     }
   }
 
 
-  /* Gifts */
-
-  if (giftTimer > 1.3) {
+  if (giftTimer >= 1.5) {
 
     giftTimer = 0;
 
     createGift(
       randomLane(),
-      -160
+      -140
     );
   }
 }
 
 
-/* =========================================================
+/* =========================
    UPDATE OBJECTS
-========================================================= */
+========================= */
 
 function updateObjects(delta) {
 
@@ -733,17 +582,18 @@ function updateObjects(delta) {
     speed * delta * 60;
 
 
-  /* Obstacles */
+  /* OBSTACLES */
 
-  for (let i = obstacles.length - 1; i >= 0; i--) {
+  for (
+    let i = obstacles.length - 1;
+    i >= 0;
+    i--
+  ) {
 
     const object =
       obstacles[i];
 
     object.position.z += movement;
-
-    object.rotation.y +=
-      delta * 0.5;
 
 
     if (
@@ -759,9 +609,13 @@ function updateObjects(delta) {
   }
 
 
-  /* Gifts */
+  /* GIFTS */
 
-  for (let i = gifts.length - 1; i >= 0; i--) {
+  for (
+    let i = gifts.length - 1;
+    i >= 0;
+    i--
+  ) {
 
     const gift =
       gifts[i];
@@ -771,30 +625,22 @@ function updateObjects(delta) {
     gift.rotation.y +=
       delta * 3;
 
-    gift.position.y =
-      1 + Math.sin(
-        performance.now() * 0.004
-      ) * 0.2;
-
-
-    /* Gift collision */
 
     const distance =
       gift.position.distanceTo(
         sled.position
       );
 
-    if (distance < 2.2) {
+
+    if (distance < 2) {
 
       giftsCollected++;
 
       score += 25;
 
-      updateHUD();
-
       scene.remove(gift);
 
-      gifts.splice(i);
+      gifts.splice(i, 1);
 
       continue;
     }
@@ -806,51 +652,22 @@ function updateObjects(delta) {
 
       scene.remove(gift);
 
-      gifts.splice(i);
+      gifts.splice(i, 1);
     }
   }
 }
 
 
-/* =========================================================
-   COLLISION
-========================================================= */
-
-function checkCollisions() {
-
-  const playerBox =
-    new THREE.Box3()
-      .setFromObject(sled);
-
-  for (const object of obstacles) {
-
-    const objectBox =
-      new THREE.Box3()
-        .setFromObject(object);
-
-    if (
-      playerBox.intersectsBox(
-        objectBox
-      )
-    ) {
-
-      endGame();
-
-      return;
-    }
-  }
-}
-
-
-/* =========================================================
-   PLAYER MOVEMENT
-========================================================= */
+/* =========================
+   PLAYER
+========================= */
 
 function updatePlayer(delta) {
 
   playerX +=
     (targetX - playerX) *
     Math.min(delta * 8, 1);
+
 
   playerX =
     THREE.MathUtils.clamp(
@@ -859,29 +676,26 @@ function updatePlayer(delta) {
       6
     );
 
+
   sled.position.x =
     playerX;
 
-  /* Tilt sled */
-
-  const tilt =
-    (targetX - playerX) * -0.08;
 
   sled.rotation.z =
     THREE.MathUtils.lerp(
       sled.rotation.z,
-      tilt,
+      (targetX - playerX) * -0.08,
       delta * 8
     );
 
-  /* Camera follows */
 
   camera.position.x =
     THREE.MathUtils.lerp(
       camera.position.x,
-      playerX * 0.35,
+      playerX * 0.3,
       delta * 3
     );
+
 
   camera.lookAt(
     playerX * 0.25,
@@ -891,13 +705,46 @@ function updatePlayer(delta) {
 }
 
 
-/* =========================================================
+/* =========================
+   COLLISION
+========================= */
+
+function checkCollisions() {
+
+  const playerBox =
+    new THREE.Box3()
+      .setFromObject(sled);
+
+
+  for (const object of obstacles) {
+
+    const objectBox =
+      new THREE.Box3()
+        .setFromObject(object);
+
+
+    if (
+      playerBox.intersectsBox(
+        objectBox
+      )
+    ) {
+
+      endGame();
+
+      break;
+    }
+  }
+}
+
+
+/* =========================
    KEYBOARD
-========================================================= */
+========================= */
 
 function handleKeyDown(event) {
 
   if (!gameRunning) return;
+
 
   if (
     event.key === "ArrowLeft" ||
@@ -905,8 +752,8 @@ function handleKeyDown(event) {
   ) {
 
     targetX -= 2;
-
   }
+
 
   if (
     event.key === "ArrowRight" ||
@@ -914,8 +761,8 @@ function handleKeyDown(event) {
   ) {
 
     targetX += 2;
-
   }
+
 
   targetX =
     THREE.MathUtils.clamp(
@@ -926,9 +773,9 @@ function handleKeyDown(event) {
 }
 
 
-/* =========================================================
-   MOBILE CONTROLS
-========================================================= */
+/* =========================
+   MOBILE
+========================= */
 
 function setupMobileControls() {
 
@@ -945,9 +792,11 @@ function setupMobileControls() {
 
   left.addEventListener(
     "touchstart",
-    e => {
+    function(e) {
 
       e.preventDefault();
+
+      if (!gameRunning) return;
 
       targetX -= 2;
 
@@ -957,16 +806,18 @@ function setupMobileControls() {
           -6,
           6
         );
-
-    }
+    },
+    { passive: false }
   );
 
 
   right.addEventListener(
     "touchstart",
-    e => {
+    function(e) {
 
       e.preventDefault();
+
+      if (!gameRunning) return;
 
       targetX += 2;
 
@@ -976,73 +827,83 @@ function setupMobileControls() {
           -6,
           6
         );
-
-    }
+    },
+    { passive: false }
   );
 }
 
 
-/* =========================================================
-   GAME START
-========================================================= */
+/* =========================
+   START
+========================= */
 
 function startGame() {
 
   document
-    .getElementById(
-      "startScreen"
-    )
+    .getElementById("startScreen")
     .classList.add("hidden");
+
+
+  document
+    .getElementById("gameOver")
+    .classList.add("hidden");
+
 
   gameRunning = true;
 
+
   score = 0;
+
   giftsCollected = 0;
 
   speed = 0.45;
 
   playerX = 0;
+
   targetX = 0;
 
   spawnTimer = 0;
+
   giftTimer = 0;
+
 
   updateHUD();
 }
 
 
-/* =========================================================
+/* =========================
    RESTART
-========================================================= */
+========================= */
 
 function restartGame() {
 
   clearObjects();
 
-  document
-    .getElementById(
-      "gameOver"
-    )
-    .classList.add("hidden");
-
   startGame();
 }
 
 
-/* =========================================================
-   END GAME
-========================================================= */
+/* =========================
+   GAME OVER
+========================= */
 
 function endGame() {
 
+  if (!gameRunning) return;
+
   gameRunning = false;
 
-  const final =
+
+  const finalScore =
     Math.floor(score);
 
-  if (final > bestScore) {
 
-    bestScore = final;
+  if (
+    finalScore > bestScore
+  ) {
+
+    bestScore =
+      finalScore;
 
     localStorage.setItem(
       "snowRiderBest",
@@ -1050,29 +911,28 @@ function endGame() {
     );
   }
 
-  document
-    .getElementById(
-      "finalScore"
-    )
-    .textContent = final;
 
   document
-    .getElementById(
-      "bestScore"
-    )
-    .textContent = bestScore;
+    .getElementById("finalScore")
+    .textContent =
+      finalScore;
+
 
   document
-    .getElementById(
-      "gameOver"
-    )
+    .getElementById("bestScore")
+    .textContent =
+      bestScore;
+
+
+  document
+    .getElementById("gameOver")
     .classList.remove("hidden");
 }
 
 
-/* =========================================================
-   CLEAR OBJECTS
-========================================================= */
+/* =========================
+   CLEAR
+========================= */
 
 function clearObjects() {
 
@@ -1084,23 +944,50 @@ function clearObjects() {
     gift => scene.remove(gift)
   );
 
+
   obstacles = [];
+
   gifts = [];
 }
 
 
-/* =========================================================
-   SCORE / SPEED
-========================================================= */
+/* =========================
+   HUD
+========================= */
+
+function updateHUD() {
+
+  document
+    .getElementById("score")
+    .textContent =
+      Math.floor(score);
+
+
+  document
+    .getElementById("gifts")
+    .textContent =
+      giftsCollected;
+
+
+  document
+    .getElementById("speed")
+    .textContent =
+      (speed / 0.45).toFixed(1) + "x";
+}
+
+
+/* =========================
+   GAME UPDATE
+========================= */
 
 function updateGame(delta) {
 
   score += delta * 4;
 
-  /* Increase speed */
 
   speed +=
     delta * 0.006;
+
 
   speed =
     Math.min(
@@ -1108,42 +995,14 @@ function updateGame(delta) {
       1.5
     );
 
+
   updateHUD();
 }
 
 
-/* =========================================================
-   HUD
-========================================================= */
-
-function updateHUD() {
-
-  document
-    .getElementById(
-      "score"
-    )
-    .textContent =
-      Math.floor(score);
-
-  document
-    .getElementById(
-      "gifts"
-    )
-    .textContent =
-      giftsCollected;
-
-  document
-    .getElementById(
-      "speed"
-    )
-    .textContent =
-      (speed / 0.45).toFixed(1) + "x";
-}
-
-
-/* =========================================================
+/* =========================
    RESIZE
-========================================================= */
+========================= */
 
 function onResize() {
 
@@ -1151,7 +1010,9 @@ function onResize() {
     window.innerWidth /
     window.innerHeight;
 
+
   camera.updateProjectionMatrix();
+
 
   renderer.setSize(
     window.innerWidth,
@@ -1160,15 +1021,16 @@ function onResize() {
 }
 
 
-/* =========================================================
-   MAIN LOOP
-========================================================= */
+/* =========================
+   ANIMATION
+========================= */
 
 function animate() {
 
   requestAnimationFrame(
     animate
   );
+
 
   const delta =
     Math.min(
@@ -1188,8 +1050,8 @@ function animate() {
     updateGame(delta);
 
     checkCollisions();
-
   }
+
 
   renderer.render(
     scene,
@@ -1198,8 +1060,8 @@ function animate() {
 }
 
 
-/* =========================================================
-   START
-========================================================= */
+/* =========================
+   START GAME ENGINE
+========================= */
 
 init();
