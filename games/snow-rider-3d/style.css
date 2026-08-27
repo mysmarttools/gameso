@@ -30,55 +30,75 @@ canvas {
   height: 100%;
 }
 
-/* HUD */
+/* =========================
+   HUD
+========================= */
 
 .hud {
   position: absolute;
   top: 18px;
   left: 50%;
   transform: translateX(-50%);
+
   width: min(650px, 94%);
+
   display: flex;
   justify-content: space-between;
   gap: 10px;
+
   z-index: 10;
   pointer-events: none;
 }
 
 .hud-box {
   min-width: 120px;
+
   padding: 10px 18px;
+
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.85);
+
+  background: rgba(255, 255, 255, 0.88);
+
   backdrop-filter: blur(8px);
+
   text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 .hud-box span {
   display: block;
+
   color: #4d6370;
+
   font-size: 12px;
+
   margin-bottom: 3px;
 }
 
 .hud-box strong {
   font-size: 22px;
+
   color: #152a35;
 }
 
-/* Screens */
+/* =========================
+   SCREENS
+========================= */
 
 .screen {
   position: absolute;
   inset: 0;
-  z-index: 20;
+
+  z-index: 30;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: rgba(12, 49, 70, 0.28);
+  background: rgba(12, 49, 70, 0.30);
+
   backdrop-filter: blur(5px);
 }
 
@@ -86,12 +106,18 @@ canvas {
   display: none !important;
 }
 
+/* =========================
+   PANEL
+========================= */
+
 .panel {
   width: min(430px, 90%);
+
   padding: 35px 25px;
+
   border-radius: 25px;
 
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.96);
 
   text-align: center;
 
@@ -101,30 +127,43 @@ canvas {
 
 .emoji {
   font-size: 60px;
+
   margin-bottom: 8px;
 }
 
 .panel h1 {
   color: #173746;
+
   font-size: 38px;
+
   margin-bottom: 10px;
 }
 
 .panel h2 {
   color: #173746;
+
   font-size: 34px;
+
   margin-bottom: 10px;
 }
 
 .panel p {
   color: #647985;
+
   margin-bottom: 18px;
+
   font-size: 16px;
 }
 
+/* =========================
+   INSTRUCTIONS
+========================= */
+
 .controls {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 8px;
 
   margin: 20px 0;
@@ -132,9 +171,13 @@ canvas {
 
 .controls div {
   padding: 12px;
+
   background: #eef8fc;
+
   border-radius: 10px;
+
   color: #395765;
+
   font-size: 14px;
 }
 
@@ -142,30 +185,39 @@ canvas {
   grid-column: span 2;
 }
 
-/* Buttons */
+/* =========================
+   BUTTONS
+========================= */
 
 button {
   border: 0;
+
   cursor: pointer;
+
   font-family: inherit;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 #startBtn,
 #restartBtn {
   width: 100%;
+
   padding: 16px 25px;
 
   border-radius: 14px;
 
   background: #1677ff;
+
   color: white;
 
   font-size: 17px;
+
   font-weight: 800;
 
   box-shadow: 0 7px 0 #0759c8;
 
-  transition: 0.15s;
+  transition: transform 0.15s ease;
 }
 
 #startBtn:hover,
@@ -176,30 +228,41 @@ button {
 #startBtn:active,
 #restartBtn:active {
   transform: translateY(4px);
+
   box-shadow: 0 3px 0 #0759c8;
 }
 
 #finalScore {
   display: block;
+
   font-size: 48px;
+
   color: #1677ff;
+
   margin: 5px 0 12px;
 }
 
-/* Mobile Controls */
+/* =========================
+   MOBILE CONTROLS
+========================= */
 
 .mobile-controls {
   position: absolute;
+
   bottom: 25px;
+
   left: 0;
   right: 0;
 
   display: none;
 
   justify-content: space-between;
+
   padding: 0 25px;
 
-  z-index: 15;
+  z-index: 20;
+
+  pointer-events: none;
 }
 
 .mobile-controls button {
@@ -208,31 +271,45 @@ button {
 
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.82);
+
   color: #173746;
 
   font-size: 28px;
+
   font-weight: bold;
 
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.2);
+
+  pointer-events: auto;
+
+  user-select: none;
+
+  touch-action: manipulation;
 }
 
 .mobile-controls button:active {
   transform: scale(0.9);
 }
 
-/* Mobile */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
 
   .hud {
     top: 10px;
+
     width: 96%;
   }
 
   .hud-box {
     min-width: 0;
+
     flex: 1;
+
     padding: 8px 6px;
   }
 
@@ -275,5 +352,8 @@ button {
     width: 62px;
     height: 62px;
   }
-}
 
+  .panel h1 {
+    font-size: 27px;
+  }
+}
