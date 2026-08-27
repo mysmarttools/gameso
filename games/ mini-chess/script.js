@@ -1,4 +1,4 @@
-const boardElement = document.getElementById("board");
+const boardElement = document.getElementById("chessBoard");
 const turnElement = document.getElementById("turn");
 const messageElement = document.getElementById("message");
 const restartButton = document.getElementById("restartBtn");
@@ -7,9 +7,7 @@ const yearElement = document.getElementById("year");
 yearElement.textContent = new Date().getFullYear();
 
 
-/* =========================
-   CHESS PIECES
-========================= */
+/* PIECES */
 
 const pieces = {
 
@@ -34,9 +32,7 @@ const pieces = {
 };
 
 
-/* =========================
-   GAME STATE
-========================= */
+/* GAME VARIABLES */
 
 let board = [];
 let currentTurn = "white";
@@ -44,64 +40,62 @@ let selected = null;
 let gameOver = false;
 
 
-/* =========================
-   INITIAL BOARD
-========================= */
+/* CREATE BOARD */
 
 function createBoard() {
 
     return [
 
         [
-            { type: "rook", color: "black" },
-            { type: "knight", color: "black" },
-            { type: "bishop", color: "black" },
-            { type: "queen", color: "black" },
-            { type: "king", color: "black" },
-            { type: "bishop", color: "black" },
-            { type: "knight", color: "black" },
-            { type: "rook", color: "black" }
+            {type:"rook", color:"black"},
+            {type:"knight", color:"black"},
+            {type:"bishop", color:"black"},
+            {type:"queen", color:"black"},
+            {type:"king", color:"black"},
+            {type:"bishop", color:"black"},
+            {type:"knight", color:"black"},
+            {type:"rook", color:"black"}
         ],
 
         [
-            { type: "pawn", color: "black" },
-            { type: "pawn", color: "black" },
-            { type: "pawn", color: "black" },
-            { type: "pawn", color: "black" },
-            { type: "pawn", color: "black" },
-            { type: "pawn", color: "black" },
-            { type: "pawn", color: "black" },
-            { type: "pawn", color: "black" }
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"},
+            {type:"pawn", color:"black"}
         ],
 
-        [null, null, null, null, null, null, null, null],
+        [null,null,null,null,null,null,null,null],
 
-        [null, null, null, null, null, null, null, null],
+        [null,null,null,null,null,null,null,null],
 
-        [null, null, null, null, null, null, null, null],
+        [null,null,null,null,null,null,null,null],
 
-        [null, null, null, null, null, null, null, null],
+        [null,null,null,null,null,null,null,null],
 
         [
-            { type: "pawn", color: "white" },
-            { type: "pawn", color: "white" },
-            { type: "pawn", color: "white" },
-            { type: "pawn", color: "white" },
-            { type: "pawn", color: "white" },
-            { type: "pawn", color: "white" },
-            { type: "pawn", color: "white" },
-            { type: "pawn", color: "white" }
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"},
+            {type:"pawn", color:"white"}
         ],
 
         [
-            { type: "rook", color: "white" },
-            { type: "knight", color: "white" },
-            { type: "bishop", color: "white" },
-            { type: "queen", color: "white" },
-            { type: "king", color: "white" },
-            { type: "bishop", color: "white" },
-            { type: "knight", color: "white" },
-            { type: "rook", color: "white" }
+            {type:"rook", color:"white"},
+            {type:"knight", color:"white"},
+            {type:"bishop", color:"white"},
+            {type:"queen", color:"white"},
+            {type:"king", color:"white"},
+            {type:"bishop", color:"white"},
+            {type:"knight", color:"white"},
+            {type:"rook", color:"white"}
         ]
 
     ];
@@ -109,87 +103,59 @@ function createBoard() {
 }
 
 
-/* =========================
-   RESET
-========================= */
+/* RESET */
 
 function resetGame() {
 
     board = createBoard();
 
     currentTurn = "white";
-
     selected = null;
-
     gameOver = false;
 
     turnElement.textContent = "White";
-
-    messageElement.textContent =
-        "White's turn — select a piece";
+    messageElement.textContent = "White's turn";
 
     renderBoard();
-
 }
 
 
-/* =========================
-   RENDER BOARD
-========================= */
+/* RENDER */
 
 function renderBoard() {
 
     boardElement.innerHTML = "";
 
-    let validMoves = [];
-
-    if (selected) {
-
-        validMoves =
-            getLegalMoves(
-                selected.row,
-                selected.col
-            );
-
-    }
-
-
     for (let row = 0; row < 8; row++) {
 
         for (let col = 0; col < 8; col++) {
 
-            const square =
-                document.createElement("div");
+            const square = document.createElement("div");
 
-            square.className = "square";
+            square.classList.add("square");
 
-            square.classList.add(
-                (row + col) % 2 === 0
-                    ? "light"
-                    : "dark"
-            );
-
-            square.dataset.row = row;
-            square.dataset.col = col;
-
+            if ((row + col) % 2 === 0) {
+                square.classList.add("light");
+            } else {
+                square.classList.add("dark");
+            }
 
             const piece = board[row][col];
 
-
             if (piece) {
 
-                const pieceElement =
-                    document.createElement("span");
-
-                pieceElement.className = "piece";
-
-                pieceElement.textContent =
+                square.textContent =
                     pieces[piece.color][piece.type];
 
-                square.appendChild(pieceElement);
-
+                square.classList.add(
+                    piece.color === "white"
+                        ? "white-piece"
+                        : "black-piece"
+                );
             }
 
+
+            /* SELECTED */
 
             if (
                 selected &&
@@ -202,20 +168,29 @@ function renderBoard() {
             }
 
 
-            const isValid =
-                validMoves.some(
+            /* VALID MOVES */
+
+            if (selected) {
+
+                const moves = getMoves(
+                    selected.row,
+                    selected.col
+                );
+
+                const valid = moves.some(
                     move =>
                         move.row === row &&
                         move.col === col
                 );
 
+                if (valid) {
 
-            if (isValid) {
+                    square.classList.add("valid");
 
-                square.classList.add("valid");
+                    if (piece) {
+                        square.classList.add("capture");
+                    }
 
-                if (piece) {
-                    square.classList.add("capture");
                 }
 
             }
@@ -223,159 +198,94 @@ function renderBoard() {
 
             square.addEventListener(
                 "click",
-                () => handleSquareClick(row, col)
+                () => squareClick(row, col)
             );
 
-
             boardElement.appendChild(square);
-
         }
-
     }
-
 }
 
 
-/* =========================
-   HANDLE CLICK
-========================= */
+/* CLICK */
 
-function handleSquareClick(row, col) {
+function squareClick(row, col) {
 
-    if (gameOver) {
-        return;
-    }
+    if (gameOver) return;
+
+    const piece = board[row][col];
 
 
-    const clickedPiece =
-        board[row][col];
-
-
-    /* Select own piece */
+    /* NOTHING SELECTED */
 
     if (!selected) {
 
         if (
-            clickedPiece &&
-            clickedPiece.color === currentTurn
+            piece &&
+            piece.color === currentTurn
         ) {
 
             selected = {
-                row,
-                col
+                row: row,
+                col: col
             };
 
-            messageElement.textContent =
-                "Choose a highlighted square";
-
             renderBoard();
-
         }
 
         return;
     }
 
 
-    /* Select another own piece */
+    /* CLICK OWN PIECE */
 
     if (
-        clickedPiece &&
-        clickedPiece.color === currentTurn
+        piece &&
+        piece.color === currentTurn
     ) {
 
         selected = {
-            row,
-            col
+            row: row,
+            col: col
         };
 
-        messageElement.textContent =
-            "Choose a highlighted square";
-
         renderBoard();
 
         return;
     }
 
 
-    /* Check move */
+    /* CHECK MOVE */
 
-    const moves =
-        getLegalMoves(
-            selected.row,
-            selected.col
-        );
-
-
-    const validMove =
-        moves.some(
-            move =>
-                move.row === row &&
-                move.col === col
-        );
-
-
-    if (!validMove) {
-
-        selected = null;
-
-        messageElement.textContent =
-            `${capitalize(currentTurn)}'s turn — select a piece`;
-
-        renderBoard();
-
-        return;
-    }
-
-
-    makeMove(
+    const moves = getMoves(
         selected.row,
-        selected.col,
-        row,
-        col
+        selected.col
+    );
+
+    const valid = moves.some(
+        move =>
+            move.row === row &&
+            move.col === col
     );
 
 
-    selected = null;
+    if (!valid) {
 
+        selected = null;
 
-    if (!gameOver) {
+        renderBoard();
 
-        currentTurn =
-            currentTurn === "white"
-                ? "black"
-                : "white";
-
-
-        turnElement.textContent =
-            capitalize(currentTurn);
-
-        messageElement.textContent =
-            `${capitalize(currentTurn)}'s turn — select a piece`;
-
+        return;
     }
 
 
-    renderBoard();
+    /* MAKE MOVE */
 
-}
+    const fromRow = selected.row;
+    const fromCol = selected.col;
 
-
-/* =========================
-   MAKE MOVE
-========================= */
-
-function makeMove(
-    fromRow,
-    fromCol,
-    toRow,
-    toCol
-) {
-
-    const movingPiece =
-        board[fromRow][fromCol];
-
-    const targetPiece =
-        board[toRow][toCol];
+    const movingPiece = board[fromRow][fromCol];
+    const targetPiece = board[row][col];
 
 
     /* KING CAPTURE */
@@ -385,11 +295,8 @@ function makeMove(
         targetPiece.type === "king"
     ) {
 
-        board[toRow][toCol] =
-            movingPiece;
-
-        board[fromRow][fromCol] =
-            null;
+        board[row][col] = movingPiece;
+        board[fromRow][fromCol] = null;
 
         gameOver = true;
 
@@ -398,91 +305,156 @@ function makeMove(
                 ? "White"
                 : "Black";
 
-        turnElement.textContent =
-            "Game Over";
+        turnElement.textContent = "Game Over";
 
         messageElement.textContent =
-            `🏆 ${winner} wins! King captured.`;
+            "🏆 " + winner + " wins!";
+
+        selected = null;
+
+        renderBoard();
 
         return;
     }
 
 
-    /* NORMAL MOVE */
+    /* MOVE */
 
-    board[toRow][toCol] =
-        movingPiece;
-
-    board[fromRow][fromCol] =
-        null;
+    board[row][col] = movingPiece;
+    board[fromRow][fromCol] = null;
 
 
     /* PAWN PROMOTION */
 
     if (
         movingPiece.type === "pawn" &&
-        (
-            toRow === 0 ||
-            toRow === 7
-        )
+        (row === 0 || row === 7)
     ) {
 
         movingPiece.type = "queen";
 
     }
 
+
+    selected = null;
+
+    switchTurn();
 }
 
 
-/* =========================
-   LEGAL MOVES
-========================= */
+/* TURN */
 
-function getLegalMoves(row, col) {
+function switchTurn() {
 
-    const piece =
-        board[row][col];
+    currentTurn =
+        currentTurn === "white"
+            ? "black"
+            : "white";
+
+    turnElement.textContent =
+        currentTurn === "white"
+            ? "White"
+            : "Black";
+
+    messageElement.textContent =
+        currentTurn === "white"
+            ? "White's turn"
+            : "Black's turn";
+
+    renderBoard();
+}
+
+
+/* GET MOVES */
+
+function getMoves(row, col) {
+
+    const piece = board[row][col];
 
     if (!piece) {
         return [];
     }
 
 
-    switch (piece.type) {
+    let moves = [];
 
-        case "pawn":
-            return pawnMoves(row, col, piece);
 
-        case "rook":
-            return rookMoves(row, col, piece);
+    if (piece.type === "pawn") {
 
-        case "bishop":
-            return bishopMoves(row, col, piece);
-
-        case "queen":
-
-            return [
-                ...rookMoves(row, col, piece),
-                ...bishopMoves(row, col, piece)
-            ];
-
-        case "knight":
-            return knightMoves(row, col, piece);
-
-        case "king":
-            return kingMoves(row, col, piece);
-
-        default:
-            return [];
+        moves = pawnMoves(row, col, piece);
 
     }
 
+    else if (piece.type === "rook") {
+
+        moves = slidingMoves(
+            row,
+            col,
+            piece,
+            [
+                [-1,0],
+                [1,0],
+                [0,-1],
+                [0,1]
+            ]
+        );
+
+    }
+
+    else if (piece.type === "bishop") {
+
+        moves = slidingMoves(
+            row,
+            col,
+            piece,
+            [
+                [-1,-1],
+                [-1,1],
+                [1,-1],
+                [1,1]
+            ]
+        );
+
+    }
+
+    else if (piece.type === "queen") {
+
+        moves = slidingMoves(
+            row,
+            col,
+            piece,
+            [
+                [-1,0],
+                [1,0],
+                [0,-1],
+                [0,1],
+                [-1,-1],
+                [-1,1],
+                [1,-1],
+                [1,1]
+            ]
+        );
+
+    }
+
+    else if (piece.type === "knight") {
+
+        moves = knightMoves(row, col, piece);
+
+    }
+
+    else if (piece.type === "king") {
+
+        moves = kingMoves(row, col, piece);
+
+    }
+
+
+    return moves;
 }
 
 
-/* =========================
-   PAWN
-========================= */
+/* PAWN */
 
 function pawnMoves(row, col, piece) {
 
@@ -494,14 +466,13 @@ function pawnMoves(row, col, piece) {
             : 1;
 
 
-    const nextRow =
-        row + direction;
+    const nextRow = row + direction;
 
 
-    /* Forward */
+    /* MOVE FORWARD */
 
     if (
-        isInside(nextRow, col) &&
+        inside(nextRow, col) &&
         !board[nextRow][col]
     ) {
 
@@ -511,7 +482,7 @@ function pawnMoves(row, col, piece) {
         });
 
 
-        const startingRow =
+        const startRow =
             piece.color === "white"
                 ? 6
                 : 1;
@@ -522,8 +493,8 @@ function pawnMoves(row, col, piece) {
 
 
         if (
-            row === startingRow &&
-            isInside(doubleRow, col) &&
+            row === startRow &&
+            inside(doubleRow, col) &&
             !board[doubleRow][col]
         ) {
 
@@ -537,30 +508,18 @@ function pawnMoves(row, col, piece) {
     }
 
 
-    /* Diagonal capture */
+    /* CAPTURE */
 
     for (const dc of [-1, 1]) {
 
-        const targetRow =
-            row + direction;
+        const r = row + direction;
+        const c = col + dc;
 
-        const targetCol =
-            col + dc;
-
-
-        if (
-            !isInside(
-                targetRow,
-                targetCol
-            )
-        ) {
+        if (!inside(r, c)) {
             continue;
         }
 
-
-        const target =
-            board[targetRow][targetCol];
-
+        const target = board[r][c];
 
         if (
             target &&
@@ -568,79 +527,19 @@ function pawnMoves(row, col, piece) {
         ) {
 
             moves.push({
-                row: targetRow,
-                col: targetCol
+                row: r,
+                col: c
             });
 
         }
 
     }
 
-
     return moves;
-
 }
 
 
-/* =========================
-   ROOK
-========================= */
-
-function rookMoves(row, col, piece) {
-
-    return slidingMoves(
-        row,
-        col,
-        piece,
-        [
-            [-1, 0],
-            [1, 0],
-            [0, -1],
-            [0, 1]
-        ]
-    );
-
-}
-
-
-/* =========================
-   BISHOP
-========================= */
-
-function bishopMoves(row, col, piece) {
-
-    return slidingMoves(
-        row,
-        col,
-        piece,
-        [
-            [-1, -1],
-            [-1, 1],
-            [1, -1],
-            [1, 1]
-        ]
-    );
-
-}
-
-
-/* =========================
-   QUEEN
-========================= */
-
-function queenMoves(row, col, piece) {
-
-    return [
-        ...rookMoves(row, col, piece),
-        ...bishopMoves(row, col, piece)
-    ];
-
-}
-
-
-/* =========================
-   SLIDING
-========================= */
+/* SLIDING */
 
 function slidingMoves(
     row,
@@ -652,16 +551,15 @@ function slidingMoves(
     const moves = [];
 
 
-    for (const [dr, dc] of directions) {
+    for (const direction of directions) {
 
-        let r = row + dr;
-        let c = col + dc;
+        let r = row + direction[0];
+        let c = col + direction[1];
 
 
-        while (isInside(r, c)) {
+        while (inside(r, c)) {
 
-            const target =
-                board[r][c];
+            const target = board[r][c];
 
 
             if (!target) {
@@ -671,12 +569,11 @@ function slidingMoves(
                     col: c
                 });
 
-            } else {
+            }
 
-                if (
-                    target.color !==
-                    piece.color
-                ) {
+            else {
+
+                if (target.color !== piece.color) {
 
                     moves.push({
                         row: r,
@@ -686,62 +583,49 @@ function slidingMoves(
                 }
 
                 break;
-
             }
 
 
-            r += dr;
-            c += dc;
-
+            r += direction[0];
+            c += direction[1];
         }
-
     }
 
 
     return moves;
-
 }
 
 
-/* =========================
-   KNIGHT
-========================= */
+/* KNIGHT */
 
 function knightMoves(row, col, piece) {
 
     const moves = [];
 
-
     const jumps = [
-
-        [-2, -1],
-        [-2, 1],
-
-        [-1, -2],
-        [-1, 2],
-
-        [1, -2],
-        [1, 2],
-
-        [2, -1],
-        [2, 1]
-
+        [-2,-1],
+        [-2,1],
+        [-1,-2],
+        [-1,2],
+        [1,-2],
+        [1,2],
+        [2,-1],
+        [2,1]
     ];
 
 
-    for (const [dr, dc] of jumps) {
+    for (const jump of jumps) {
 
-        const r = row + dr;
-        const c = col + dc;
+        const r = row + jump[0];
+        const c = col + jump[1];
 
 
-        if (!isInside(r, c)) {
+        if (!inside(r, c)) {
             continue;
         }
 
 
-        const target =
-            board[r][c];
+        const target = board[r][c];
 
 
         if (
@@ -760,13 +644,10 @@ function knightMoves(row, col, piece) {
 
 
     return moves;
-
 }
 
 
-/* =========================
-   KING
-========================= */
+/* KING */
 
 function kingMoves(row, col, piece) {
 
@@ -777,10 +658,7 @@ function kingMoves(row, col, piece) {
 
         for (let dc = -1; dc <= 1; dc++) {
 
-            if (
-                dr === 0 &&
-                dc === 0
-            ) {
+            if (dr === 0 && dc === 0) {
                 continue;
             }
 
@@ -789,13 +667,12 @@ function kingMoves(row, col, piece) {
             const c = col + dc;
 
 
-            if (!isInside(r, c)) {
+            if (!inside(r, c)) {
                 continue;
             }
 
 
-            const target =
-                board[r][c];
+            const target = board[r][c];
 
 
             if (
@@ -816,15 +693,12 @@ function kingMoves(row, col, piece) {
 
 
     return moves;
-
 }
 
 
-/* =========================
-   BOARD LIMIT
-========================= */
+/* BOARD LIMIT */
 
-function isInside(row, col) {
+function inside(row, col) {
 
     return (
         row >= 0 &&
@@ -836,23 +710,7 @@ function isInside(row, col) {
 }
 
 
-/* =========================
-   CAPITALIZE
-========================= */
-
-function capitalize(text) {
-
-    return (
-        text.charAt(0).toUpperCase() +
-        text.slice(1)
-    );
-
-}
-
-
-/* =========================
-   RESTART BUTTON
-========================= */
+/* RESTART */
 
 restartButton.addEventListener(
     "click",
@@ -860,8 +718,6 @@ restartButton.addEventListener(
 );
 
 
-/* =========================
-   START
-========================= */
+/* START GAME */
 
 resetGame();
