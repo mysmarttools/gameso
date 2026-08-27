@@ -1,1 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Connect 4 Board Game Online - Play Free | Gameso
+    </title>
+
+    <meta
+        name="description"
+        content="Play Connect 4 Board Game online for free on Gameso. Drop your discs, connect four in a row and challenge another player."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <link
+        rel="canonical"
+        href="https://gameso.vercel.app/games/connect-4-board-games/"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a
+            href="/"
+            class="logo"
+        >
+
+            <span>🎮</span>
+
+            <strong>
+                Gameso
+            </strong>
+
+        </a>
+
+
+        <a
+            href="/"
+            class="back-btn"
+        >
+            ← All Games
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+
+    <!-- GAME HEADING -->
+
+    <section class="heading">
+
+        <div class="label">
+            🎲 BOARD GAME
+        </div>
+
+
+        <h1>
+            Connect 4 Board Game
+        </h1>
+
+
+        <p>
+            Play Connect 4 online and connect four discs
+            in a row to win!
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================
+         GAME CARD
+    ========================== -->
+
+    <section class="game-card">
+
+
+        <!-- SCORE -->
+
+        <div class="stats">
+
+
+            <div class="stat red-stat">
+
+                <span>
+                    🔴 PLAYER 1
+                </span>
+
+                <strong id="redScore">
+                    0
+                </strong>
+
+            </div>
+
+
+
+            <div class="stat turn-stat">
+
+                <span>
+                    TURN
+                </span>
+
+                <strong id="turnText">
+                    🔴
+                </strong>
+
+            </div>
+
+
+
+            <div class="stat yellow-stat">
+
+                <span>
+                    🟡 PLAYER 2
+                </span>
+
+                <strong id="yellowScore">
+                    0
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- STATUS -->
+
+        <div
+            id="status"
+            class="status"
+        >
+            🔴 Player 1's Turn
+        </div>
+
+
+
+        <!-- BOARD -->
+
+        <div class="board-wrapper">
+
+            <div
+                id="board"
+                class="board"
+                aria-label="Connect 4 Board Game"
+            ></div>
+
+        </div>
+
+
+
+        <!-- BUTTON -->
+
+        <button
+            id="restartBtn"
+            class="restart-btn"
+            type="button"
+        >
+            🔄 New Game
+        </button>
+
+
+
+        <!-- CONTROLS -->
+
+        <div class="controls">
+
+            <span>
+                🖱️ Click a column
+            </span>
+
+            <span>
+                📱 Tap a column
+            </span>
+
+            <span>
+                👥 2 Players
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         SEO CONTENT
+    ========================== -->
+
+    <section class="info">
+
+
+        <h2>
+            Play Connect 4 Board Game Online
+        </h2>
+
+
+        <p>
+
+            Enjoy this classic Connect 4 board game online
+            for free on Gameso. Take turns with another player,
+            drop your colored discs into the board and try to
+            connect four discs horizontally, vertically or
+            diagonally.
+
+        </p>
+
+
+
+        <h2>
+            How to Play Connect 4
+        </h2>
+
+
+        <p>
+
+            Connect 4 is a simple and fun two-player board game.
+            Player 1 uses red discs and Player 2 uses yellow
+            discs. Players take turns dropping one disc into
+            any available column.
+
+        </p>
+
+
+
+        <h2>
+            Connect 4 Board Game Rules
+        </h2>
+
+
+        <ul>
+
+            <li>
+                🔴 Player 1 starts with red discs.
+            </li>
+
+            <li>
+                🟡 Player 2 uses yellow discs.
+            </li>
+
+            <li>
+                🎯 Connect four discs in a row to win.
+            </li>
+
+            <li>
+                ↔️ Horizontal connections count.
+            </li>
+
+            <li>
+                ↕️ Vertical connections count.
+            </li>
+
+            <li>
+                ↗️ Diagonal connections count.
+            </li>
+
+            <li>
+                🤝 If the board fills without four in a row,
+                the game ends in a draw.
+            </li>
+
+        </ul>
+
+
+
+        <h2>
+            Classic Board Games
+        </h2>
+
+
+        <p>
+
+            Connect 4 is one of many fun board games that can
+            be enjoyed online. Gameso is building a collection
+            of free board games including strategy, puzzle and
+            classic multiplayer games.
+
+        </p>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    ©
+    <span id="year"></span>
+    Gameso. All rights reserved.
+
+</footer>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script src="./script.js"></script>
+
+
+</body>
+
+</html>
