@@ -6,9 +6,11 @@ let clock;
 let sled;
 
 let gameRunning = false;
+let initialized = false;
 
 let score = 0;
 let giftsCollected = 0;
+
 let speed = 0.45;
 
 let playerX = 0;
@@ -21,7 +23,8 @@ let trees = [];
 let spawnTimer = 0;
 let giftTimer = 0;
 
-let bestScore = Number(localStorage.getItem("snowRiderBest")) || 0;
+let bestScore =
+  Number(localStorage.getItem("snowRiderBest")) || 0;
 
 const ROAD_WIDTH = 16;
 
@@ -32,33 +35,55 @@ const ROAD_WIDTH = 16;
 
 function init() {
 
+  if (initialized) return;
+
+  initialized = true;
+
   scene = new THREE.Scene();
 
-  scene.background = new THREE.Color(0xbfe9ff);
+  scene.background =
+    new THREE.Color(0xbfe9ff);
 
-  scene.fog = new THREE.Fog(
-    0xbfe9ff,
-    40,
-    180
-  );
+  scene.fog =
+    new THREE.Fog(
+      0xbfe9ff,
+      35,
+      190
+    );
 
   clock = new THREE.Clock();
 
-  camera = new THREE.PerspectiveCamera(
-    60,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    500
+  camera =
+    new THREE.PerspectiveCamera(
+      60,
+      window.innerWidth /
+      window.innerHeight,
+      0.1,
+      500
+    );
+
+  camera.position.set(
+    0,
+    5.5,
+    10
   );
 
-  camera.position.set(0, 5, 10);
 
-  renderer = new THREE.WebGLRenderer({
-    antialias: true
-  });
+  /* =========================
+     RENDERER
+  ========================= */
+
+  renderer =
+    new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: "high-performance"
+    });
 
   renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio, 2)
+    Math.min(
+      window.devicePixelRatio || 1,
+      2
+    )
   );
 
   renderer.setSize(
@@ -66,53 +91,73 @@ function init() {
     window.innerHeight
   );
 
+  renderer.outputEncoding =
+    THREE.sRGBEncoding;
+
   document
     .getElementById("game")
-    .appendChild(renderer.domElement);
+    .appendChild(
+      renderer.domElement
+    );
 
 
-  /* LIGHT */
+  /* =========================
+     LIGHT
+  ========================= */
 
-  const ambient = new THREE.HemisphereLight(
-    0xffffff,
-    0x8bb5c7,
-    1.6
-  );
+  const ambient =
+    new THREE.HemisphereLight(
+      0xffffff,
+      0x8bb5c7,
+      1.7
+    );
 
   scene.add(ambient);
 
 
-  const sun = new THREE.DirectionalLight(
-    0xffffff,
-    2
-  );
+  const sun =
+    new THREE.DirectionalLight(
+      0xffffff,
+      2
+    );
 
-  sun.position.set(30, 50, 20);
+  sun.position.set(
+    30,
+    50,
+    20
+  );
 
   scene.add(sun);
 
 
-  /* WORLD */
+  /* =========================
+     WORLD
+  ========================= */
 
   createSnowGround();
+
   createMountains();
 
   createSled();
 
 
-  /* TREES */
+  /* =========================
+     TREES
+  ========================= */
 
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 35; i++) {
 
     createTree(
       randomLane(),
-      -10 - Math.random() * 170
+      -10 -
+      Math.random() * 180
     );
-
   }
 
 
-  /* EVENTS */
+  /* =========================
+     EVENTS
+  ========================= */
 
   window.addEventListener(
     "resize",
@@ -143,7 +188,6 @@ function init() {
 
   setupMobileControls();
 
-
   updateHUD();
 
   animate();
@@ -151,7 +195,7 @@ function init() {
 
 
 /* =========================
-   SNOW
+   SNOW GROUND
 ========================= */
 
 function createSnowGround() {
@@ -176,9 +220,11 @@ function createSnowGround() {
   ground.rotation.x =
     -Math.PI / 2;
 
-  ground.position.y = -0.4;
-
-  ground.position.z = -180;
+  ground.position.set(
+    0,
+    -0.4,
+    -180
+  );
 
   scene.add(ground);
 }
@@ -190,14 +236,16 @@ function createSnowGround() {
 
 function createMountains() {
 
-  for (let i = 0; i < 14; i++) {
+  for (let i = 0; i < 18; i++) {
 
     const height =
-      15 + Math.random() * 20;
+      15 +
+      Math.random() * 20;
 
     const geometry =
       new THREE.ConeGeometry(
-        10 + Math.random() * 8,
+        10 +
+        Math.random() * 8,
         height,
         8
       );
@@ -213,10 +261,17 @@ function createMountains() {
         material
       );
 
+    const side =
+      i % 2 === 0
+        ? -30
+        : 30;
+
     mountain.position.set(
-      i % 2 === 0 ? -30 : 30,
+      side +
+      (Math.random() * 10 - 5),
       height / 2 - 1,
-      -20 - Math.random() * 180
+      -20 -
+      Math.random() * 180
     );
 
     scene.add(mountain);
@@ -230,8 +285,11 @@ function createMountains() {
 
 function createSled() {
 
-  sled = new THREE.Group();
+  sled =
+    new THREE.Group();
 
+
+  /* BODY */
 
   const body =
     new THREE.Mesh(
@@ -241,7 +299,8 @@ function createSled() {
         3.2
       ),
       new THREE.MeshStandardMaterial({
-        color: 0xd71920
+        color: 0xd71920,
+        roughness: 0.7
       })
     );
 
@@ -249,6 +308,31 @@ function createSled() {
 
   sled.add(body);
 
+
+  /* FRONT */
+
+  const front =
+    new THREE.Mesh(
+      new THREE.BoxGeometry(
+        1.45,
+        0.22,
+        0.5
+      ),
+      new THREE.MeshStandardMaterial({
+        color: 0xff3b30
+      })
+    );
+
+  front.position.set(
+    0,
+    0.68,
+    -1.2
+  );
+
+  sled.add(front);
+
+
+  /* SEAT */
 
   const seat =
     new THREE.Mesh(
@@ -271,33 +355,36 @@ function createSled() {
   sled.add(seat);
 
 
+  /* RUNNERS */
+
   const runnerMaterial =
     new THREE.MeshStandardMaterial({
       color: 0x222222
     });
 
 
-  [-0.65, 0.65].forEach(x => {
+  [-0.65, 0.65].forEach(
+    x => {
 
-    const runner =
-      new THREE.Mesh(
-        new THREE.BoxGeometry(
-          0.12,
-          0.12,
-          3.7
-        ),
-        runnerMaterial
+      const runner =
+        new THREE.Mesh(
+          new THREE.BoxGeometry(
+            0.12,
+            0.12,
+            3.7
+          ),
+          runnerMaterial
+        );
+
+      runner.position.set(
+        x,
+        0.18,
+        0
       );
 
-    runner.position.set(
-      x,
-      0.18,
-      0
-    );
-
-    sled.add(runner);
-
-  });
+      sled.add(runner);
+    }
+  );
 
 
   sled.position.set(
@@ -343,7 +430,8 @@ function createTree(x, z) {
     const leaves =
       new THREE.Mesh(
         new THREE.ConeGeometry(
-          1.5 - i * 0.25,
+          1.5 -
+          i * 0.25,
           2.4,
           8
         ),
@@ -353,7 +441,8 @@ function createTree(x, z) {
       );
 
     leaves.position.y =
-      2.4 + i * 1.2;
+      2.4 +
+      i * 1.2;
 
     tree.add(leaves);
   }
@@ -366,7 +455,8 @@ function createTree(x, z) {
   );
 
   tree.scale.setScalar(
-    0.8 + Math.random() * 0.6
+    0.8 +
+    Math.random() * 0.6
   );
 
   scene.add(tree);
@@ -412,6 +502,7 @@ function createSnowman(x, z) {
 
   const snowman =
     new THREE.Group();
+
 
   const material =
     new THREE.MeshStandardMaterial({
@@ -486,7 +577,7 @@ function createGift(x, z) {
   gift.add(box);
 
 
-  const ribbon =
+  const ribbonVertical =
     new THREE.Mesh(
       new THREE.BoxGeometry(
         0.2,
@@ -498,7 +589,22 @@ function createGift(x, z) {
       })
     );
 
-  gift.add(ribbon);
+  gift.add(ribbonVertical);
+
+
+  const ribbonHorizontal =
+    new THREE.Mesh(
+      new THREE.BoxGeometry(
+        1.1,
+        0.2,
+        1.1
+      ),
+      new THREE.MeshStandardMaterial({
+        color: 0xffd21f
+      })
+    );
+
+  gift.add(ribbonHorizontal);
 
 
   gift.position.set(
@@ -520,7 +626,9 @@ function createGift(x, z) {
 function randomLane() {
 
   return (
-    Math.random() * 12 - 6
+    Math.random() *
+    (ROAD_WIDTH - 4) -
+    (ROAD_WIDTH - 4) / 2
   );
 }
 
@@ -536,37 +644,43 @@ function spawnObjects(delta) {
   giftTimer += delta;
 
 
-  if (spawnTimer >= 1) {
+  /* OBSTACLE */
+
+  if (spawnTimer >= 0.9) {
 
     spawnTimer = 0;
 
-    const x = randomLane();
+    const x =
+      randomLane();
 
-    if (Math.random() < 0.5) {
+    if (
+      Math.random() < 0.55
+    ) {
 
       createRock(
         x,
-        -120
+        -100
       );
 
     } else {
 
       createSnowman(
         x,
-        -120
+        -100
       );
-
     }
   }
 
 
-  if (giftTimer >= 1.5) {
+  /* GIFTS */
+
+  if (giftTimer >= 1.35) {
 
     giftTimer = 0;
 
     createGift(
       randomLane(),
-      -140
+      -125
     );
   }
 }
@@ -579,7 +693,9 @@ function spawnObjects(delta) {
 function updateObjects(delta) {
 
   const movement =
-    speed * delta * 60;
+    speed *
+    delta *
+    60;
 
 
   /* OBSTACLES */
@@ -593,7 +709,8 @@ function updateObjects(delta) {
     const object =
       obstacles[i];
 
-    object.position.z += movement;
+    object.position.z +=
+      movement;
 
 
     if (
@@ -602,7 +719,10 @@ function updateObjects(delta) {
 
       scene.remove(object);
 
-      obstacles.splice(i, 1);
+      obstacles.splice(
+        i,
+        1
+      );
 
       score += 5;
     }
@@ -620,19 +740,32 @@ function updateObjects(delta) {
     const gift =
       gifts[i];
 
-    gift.position.z += movement;
+    gift.position.z +=
+      movement;
 
     gift.rotation.y +=
       delta * 3;
 
 
+    const dx =
+      gift.position.x -
+      sled.position.x;
+
+    const dz =
+      gift.position.z -
+      sled.position.z;
+
+
     const distance =
-      gift.position.distanceTo(
-        sled.position
+      Math.sqrt(
+        dx * dx +
+        dz * dz
       );
 
 
-    if (distance < 2) {
+    if (
+      distance < 1.8
+    ) {
 
       giftsCollected++;
 
@@ -640,7 +773,10 @@ function updateObjects(delta) {
 
       scene.remove(gift);
 
-      gifts.splice(i, 1);
+      gifts.splice(
+        i,
+        1
+      );
 
       continue;
     }
@@ -652,7 +788,10 @@ function updateObjects(delta) {
 
       scene.remove(gift);
 
-      gifts.splice(i, 1);
+      gifts.splice(
+        i,
+        1
+      );
     }
   }
 }
@@ -666,7 +805,10 @@ function updatePlayer(delta) {
 
   playerX +=
     (targetX - playerX) *
-    Math.min(delta * 8, 1);
+    Math.min(
+      delta * 10,
+      1
+    );
 
 
   playerX =
@@ -681,11 +823,19 @@ function updatePlayer(delta) {
     playerX;
 
 
+  const tilt =
+    (targetX - playerX) *
+    -0.08;
+
+
   sled.rotation.z =
     THREE.MathUtils.lerp(
       sled.rotation.z,
-      (targetX - playerX) * -0.08,
-      delta * 8
+      tilt,
+      Math.min(
+        delta * 10,
+        1
+      )
     );
 
 
@@ -693,7 +843,10 @@ function updatePlayer(delta) {
     THREE.MathUtils.lerp(
       camera.position.x,
       playerX * 0.3,
-      delta * 3
+      Math.min(
+        delta * 4,
+        1
+      )
     );
 
 
@@ -716,7 +869,9 @@ function checkCollisions() {
       .setFromObject(sled);
 
 
-  for (const object of obstacles) {
+  for (
+    const object of obstacles
+  ) {
 
     const objectBox =
       new THREE.Box3()
@@ -731,7 +886,7 @@ function checkCollisions() {
 
       endGame();
 
-      break;
+      return;
     }
   }
 }
@@ -740,6 +895,36 @@ function checkCollisions() {
 /* =========================
    KEYBOARD
 ========================= */
+
+function moveLeft() {
+
+  if (!gameRunning) return;
+
+  targetX -= 2;
+
+  targetX =
+    THREE.MathUtils.clamp(
+      targetX,
+      -6,
+      6
+    );
+}
+
+
+function moveRight() {
+
+  if (!gameRunning) return;
+
+  targetX += 2;
+
+  targetX =
+    THREE.MathUtils.clamp(
+      targetX,
+      -6,
+      6
+    );
+}
+
 
 function handleKeyDown(event) {
 
@@ -751,7 +936,9 @@ function handleKeyDown(event) {
     event.key.toLowerCase() === "a"
   ) {
 
-    targetX -= 2;
+    event.preventDefault();
+
+    moveLeft();
   }
 
 
@@ -760,21 +947,15 @@ function handleKeyDown(event) {
     event.key.toLowerCase() === "d"
   ) {
 
-    targetX += 2;
+    event.preventDefault();
+
+    moveRight();
   }
-
-
-  targetX =
-    THREE.MathUtils.clamp(
-      targetX,
-      -6,
-      6
-    );
 }
 
 
 /* =========================
-   MOBILE
+   MOBILE CONTROLS
 ========================= */
 
 function setupMobileControls() {
@@ -791,44 +972,24 @@ function setupMobileControls() {
 
 
   left.addEventListener(
-    "touchstart",
-    function(e) {
+    "pointerdown",
+    function(event) {
 
-      e.preventDefault();
+      event.preventDefault();
 
-      if (!gameRunning) return;
-
-      targetX -= 2;
-
-      targetX =
-        THREE.MathUtils.clamp(
-          targetX,
-          -6,
-          6
-        );
-    },
-    { passive: false }
+      moveLeft();
+    }
   );
 
 
   right.addEventListener(
-    "touchstart",
-    function(e) {
+    "pointerdown",
+    function(event) {
 
-      e.preventDefault();
+      event.preventDefault();
 
-      if (!gameRunning) return;
-
-      targetX += 2;
-
-      targetX =
-        THREE.MathUtils.clamp(
-          targetX,
-          -6,
-          6
-        );
-    },
-    { passive: false }
+      moveRight();
+    }
   );
 }
 
@@ -839,14 +1000,7 @@ function setupMobileControls() {
 
 function startGame() {
 
-  document
-    .getElementById("startScreen")
-    .classList.add("hidden");
-
-
-  document
-    .getElementById("gameOver")
-    .classList.add("hidden");
+  clearObjects();
 
 
   gameRunning = true;
@@ -867,7 +1021,47 @@ function startGame() {
   giftTimer = 0;
 
 
+  sled.position.set(
+    0,
+    0,
+    5
+  );
+
+  sled.rotation.set(
+    0,
+    0,
+    0
+  );
+
+
+  camera.position.set(
+    0,
+    5.5,
+    10
+  );
+
+
+  document
+    .getElementById(
+      "startScreen"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "gameOver"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+
   updateHUD();
+
+  clock.start();
 }
 
 
@@ -876,8 +1070,6 @@ function startGame() {
 ========================= */
 
 function restartGame() {
-
-  clearObjects();
 
   startGame();
 }
@@ -907,42 +1099,57 @@ function endGame() {
 
     localStorage.setItem(
       "snowRiderBest",
-      bestScore
+      String(bestScore)
     );
   }
 
 
   document
-    .getElementById("finalScore")
+    .getElementById(
+      "finalScore"
+    )
     .textContent =
       finalScore;
 
 
   document
-    .getElementById("bestScore")
+    .getElementById(
+      "bestScore"
+    )
     .textContent =
       bestScore;
 
 
   document
-    .getElementById("gameOver")
-    .classList.remove("hidden");
+    .getElementById(
+      "gameOver"
+    )
+    .classList.remove(
+      "hidden"
+    );
 }
 
 
 /* =========================
-   CLEAR
+   CLEAR OBJECTS
 ========================= */
 
 function clearObjects() {
 
-  obstacles.forEach(
-    object => scene.remove(object)
-  );
+  for (
+    const object of obstacles
+  ) {
 
-  gifts.forEach(
-    gift => scene.remove(gift)
-  );
+    scene.remove(object);
+  }
+
+
+  for (
+    const gift of gifts
+  ) {
+
+    scene.remove(gift);
+  }
 
 
   obstacles = [];
@@ -958,21 +1165,29 @@ function clearObjects() {
 function updateHUD() {
 
   document
-    .getElementById("score")
+    .getElementById(
+      "score"
+    )
     .textContent =
       Math.floor(score);
 
 
   document
-    .getElementById("gifts")
+    .getElementById(
+      "gifts"
+    )
     .textContent =
       giftsCollected;
 
 
   document
-    .getElementById("speed")
+    .getElementById(
+      "speed"
+    )
     .textContent =
-      (speed / 0.45).toFixed(1) + "x";
+      (speed / 0.45)
+        .toFixed(1) +
+      "x";
 }
 
 
@@ -982,7 +1197,8 @@ function updateHUD() {
 
 function updateGame(delta) {
 
-  score += delta * 4;
+  score +=
+    delta * 4;
 
 
   speed +=
@@ -1005,6 +1221,11 @@ function updateGame(delta) {
 ========================= */
 
 function onResize() {
+
+  if (!camera || !renderer) {
+    return;
+  }
+
 
   camera.aspect =
     window.innerWidth /
@@ -1061,7 +1282,20 @@ function animate() {
 
 
 /* =========================
-   START GAME ENGINE
+   START ENGINE
 ========================= */
 
-init();
+if (
+  document.readyState ===
+  "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    init
+  );
+
+} else {
+
+  init();
+}
