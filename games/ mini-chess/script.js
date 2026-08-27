@@ -2,14 +2,11 @@ const BOARD_SIZE = 4;
 const boardElement = document.getElementById('board');
 const currentPlayerElement = document.getElementById('current-player');
 
-// Piece Unicode symbols
 const PIECES = {
   'r': '♜', 'n': '♞', 'k': '♚', 'p': '♟', // Black
   'R': '♖', 'N': '♘', 'K': '♔', 'P': '♙'  // White
 };
 
-// 4x4 Mini-Chess Initial Board Setup
-// Capital = White, Lowercase = Black
 let initialBoard = [
   ['r', 'n', 'k', 'r'],
   ['p', 'p', 'p', 'p'],
@@ -18,7 +15,7 @@ let initialBoard = [
 ];
 
 let boardState = [];
-let turn = 'white'; // 'white' or 'black'
+let turn = 'white';
 let selectedSquare = null;
 let validMoves = [];
 
@@ -44,7 +41,6 @@ function renderBoard() {
       const piece = boardState[r][c];
       if (piece) {
         square.textContent = PIECES[piece];
-        // Style white vs black pieces
         square.style.color = piece === piece.toUpperCase() ? '#ffffff' : '#000000';
       }
 
@@ -66,7 +62,6 @@ function handleSquareClick(r, c) {
   const piece = boardState[r][c];
   const isWhiteTurn = turn === 'white';
 
-  // If clicking on own piece, select it
   if (piece && ((isWhiteTurn && piece === piece.toUpperCase()) || (!isWhiteTurn && piece === piece.toLowerCase()))) {
     selectedSquare = { r, c };
     validMoves = calculateValidMoves(r, c, piece);
@@ -74,7 +69,6 @@ function handleSquareClick(r, c) {
     return;
   }
 
-  // If a piece is selected and clicking on a valid target square
   if (selectedSquare && validMoves.some(m => m.r === r && m.c === c)) {
     movePiece(selectedSquare.r, selectedSquare.c, r, c);
     selectedSquare = null;
@@ -103,26 +97,23 @@ function calculateValidMoves(r, c, piece) {
       const targetPiece = boardState[targetR][targetC];
       if (!targetPiece) {
         moves.push({ r: targetR, c: targetC });
-        return true; // Empty square
+        return true;
       } else {
         const isTargetWhite = targetPiece === targetPiece.toUpperCase();
         if (isWhite !== isTargetWhite) {
-          moves.push({ r: targetR, c: targetC }); // Capture
+          moves.push({ r: targetR, c: targetC });
         }
-        return false; // Blocked
+        return false;
       }
     }
     return false;
   };
 
-  // Pawn Movement (1 step forward, diagonal capture)
   if (type === 'p') {
     const dir = isWhite ? -1 : 1;
-    // Move Forward
     if (r + dir >= 0 && r + dir < BOARD_SIZE && !boardState[r + dir][c]) {
       moves.push({ r: r + dir, c });
     }
-    // Diagonal Captures
     [-1, 1].forEach(dc => {
       let targetR = r + dir, targetC = c + dc;
       if (targetR >= 0 && targetR < BOARD_SIZE && targetC >= 0 && targetC < BOARD_SIZE) {
@@ -134,7 +125,6 @@ function calculateValidMoves(r, c, piece) {
     });
   }
 
-  // Rook Movement
   if (type === 'r') {
     const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
     directions.forEach(([dr, dc]) => {
@@ -146,13 +136,11 @@ function calculateValidMoves(r, c, piece) {
     });
   }
 
-  // Knight Movement
   if (type === 'n') {
     const kMoves = [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]];
     kMoves.forEach(([dr, dc]) => addMoveIfValid(r + dr, c + dc));
   }
 
-  // King Movement
   if (type === 'k') {
     const kMoves = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
     kMoves.forEach(([dr, dc]) => addMoveIfValid(r + dr, c + dc));
@@ -190,5 +178,4 @@ function resetGame() {
   initGame();
 }
 
-// Initialize on page load
 initGame();
