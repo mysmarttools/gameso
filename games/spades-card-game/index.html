@@ -1,1 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Spades Card Game Online - Play Free | Gameso</title>
+
+    <meta
+        name="description"
+        content="Play Spades Card Game online for free on Gameso. Bid your tricks, play cards, beat the AI opponents and enjoy this classic card game."
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a href="/" class="logo">
+            <span>🎮</span>
+            <strong>Gameso</strong>
+        </a>
+
+        <a href="/" class="back-btn">
+            ← All Games
+        </a>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="heading">
+
+        <div class="label">
+            🃏 CARD GAME
+        </div>
+
+        <h1>
+            Spades Card Game
+        </h1>
+
+        <p>
+            Bid your tricks, play your cards and beat the AI!
+        </p>
+
+    </section>
+
+
+    <section class="game-card">
+
+        <!-- SCORE -->
+
+        <div class="score-board">
+
+            <div class="team">
+                <span>Your Team</span>
+                <strong id="playerScore">0</strong>
+            </div>
+
+            <div class="tricks">
+                <span>TRICKS</span>
+                <strong id="trickCount">0 / 13</strong>
+            </div>
+
+            <div class="team enemy">
+                <span>Opponents</span>
+                <strong id="aiScore">0</strong>
+            </div>
+
+        </div>
+
+
+        <!-- TABLE -->
+
+        <div class="table" id="gameTable">
+
+            <!-- NORTH -->
+
+            <div class="player north">
+
+                <div class="player-name">
+                    🤖 North
+                </div>
+
+                <div
+                    class="card-back-row"
+                    id="northCards"
+                ></div>
+
+            </div>
+
+
+            <!-- WEST -->
+
+            <div class="player west">
+
+                <div class="player-name">
+                    🤖 West
+                </div>
+
+                <div
+                    class="vertical-cards"
+                    id="westCards"
+                ></div>
+
+            </div>
+
+
+            <!-- EAST -->
+
+            <div class="player east">
+
+                <div class="player-name">
+                    🤖 East
+                </div>
+
+                <div
+                    class="vertical-cards"
+                    id="eastCards"
+                ></div>
+
+            </div>
+
+
+            <!-- CENTER -->
+
+            <div class="center-area">
+
+                <div
+                    id="status"
+                    class="status"
+                >
+                    Deal cards to start
+                </div>
+
+                <div
+                    id="trickArea"
+                    class="trick-area"
+                ></div>
+
+            </div>
+
+
+            <!-- SOUTH -->
+
+            <div class="player south">
+
+                <div class="player-name">
+                    👤 You
+                </div>
+
+                <div
+                    id="playerCards"
+                    class="player-cards"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BIDDING -->
+
+        <div
+            id="bidPanel"
+            class="bid-panel"
+        >
+
+            <h2>
+                🎯 Make Your Bid
+            </h2>
+
+            <p>
+                How many tricks do you think you can win?
+            </p>
+
+            <div
+                id="bidButtons"
+                class="bid-buttons"
+            ></div>
+
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="game-controls">
+
+            <button
+                id="newGameBtn"
+                class="primary-btn"
+            >
+                🔄 New Game
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- INFO -->
+
+    <section class="info">
+
+        <h2>
+            How to Play Spades Card Game
+        </h2>
+
+        <p>
+            Spades is a classic four-player partnership card game.
+            Each player receives 13 cards and bids how many tricks
+            they expect to win. Spades are always trump.
+        </p>
+
+        <h2>
+            Spades Card Game Rules
+        </h2>
+
+        <ul>
+
+            <li>
+                🃏 52 cards are dealt between four players.
+            </li>
+
+            <li>
+                🎯 Players bid the number of tricks they expect to win.
+            </li>
+
+            <li>
+                ♠️ Spades are always the trump suit.
+            </li>
+
+            <li>
+                🃏 You must follow the suit that was led if possible.
+            </li>
+
+            <li>
+                🏆 The highest spade wins when a spade is played.
+            </li>
+
+            <li>
+                ⭐ First team to reach the target score wins.
+            </li>
+
+        </ul>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    © <span id="year"></span>
+    Gameso. All rights reserved.
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
