@@ -1,118 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Mini Chess Board Game Online - Play Free | Gameso</title>
-
-    <meta name="description"
-          content="Play Mini Chess Board Game online for free on Gameso. Enjoy a quick chess board game with simple click controls on desktop and mobile.">
-
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gameso - Mini Chess</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-
-<div class="page">
-
-    <header class="header">
-
-        <a href="/" class="logo">
-            🎮 <span>Gameso</span>
-        </a>
-
-        <a href="/" class="back-btn">
-            ← All Games
-        </a>
-
+  <div class="game-container">
+    <header>
+      <h1>GAMESO</h1>
+      <h2>Mini Chess (4x4)</h2>
     </header>
 
-    <main>
+    <div class="status-panel">
+      <div id="status">Turn: <span id="current-player">White</span></div>
+    </div>
 
-        <section class="intro">
+    <div id="board" class="board"></div>
 
-            <div class="badge">♟️ BOARD GAME</div>
+    <button id="reset-btn" onclick="resetGame()">Restart Game</button>
+  </div>
 
-            <h1>Mini Chess</h1>
-
-            <p>
-                Play a quick and fun chess board game online.
-            </p>
-
-        </section>
-
-
-        <section class="game-card">
-
-            <div class="game-top">
-
-                <div>
-                    <span class="label">CURRENT TURN</span>
-                    <strong id="turn">White</strong>
-                </div>
-
-                <button id="restartBtn" type="button">
-                    🔄 Restart
-                </button>
-
-            </div>
-
-
-            <div id="message" class="message">
-                White's turn — select a piece
-            </div>
-
-
-            <div id="board" class="board" aria-label="Chess board">
-            </div>
-
-
-            <div class="instructions">
-
-                <span>🖱️ Click</span>
-                <span>📱 Tap</span>
-                <span>♟️ Select & Move</span>
-
-            </div>
-
-        </section>
-
-
-        <section class="info">
-
-            <h2>Mini Chess Board Game</h2>
-
-            <p>
-                Mini Chess is a simple online board game inspired by
-                classic chess. Select your piece and then choose a
-                highlighted square to move. Capture the opponent's
-                pieces and capture the king to win.
-            </p>
-
-            <h2>How to Play</h2>
-
-            <ul>
-                <li>♟️ Click or tap your chess piece.</li>
-                <li>🟢 Green squares show possible moves.</li>
-                <li>🔴 Red squares show captures.</li>
-                <li>🏆 Capture the opponent king to win.</li>
-                <li>🔄 Use Restart Game to start again.</li>
-            </ul>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-        © <span id="year"></span> Gameso. All rights reserved.
-    </footer>
-
-</div>
-
-
-<script src="./script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
