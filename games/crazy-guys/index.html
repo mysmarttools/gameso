@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Crazy Guys Game Online - Play Free | Gameso</title>
+
+    <meta name="description"
+        content="Play Crazy Guys online for free on Gameso. Run, jump, avoid obstacles and get the highest score in this fun arcade game.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="game">
+
+    <!-- HUD -->
+    <div class="hud">
+
+        <div class="hud-box">
+            <span>SCORE</span>
+            <strong id="score">0</strong>
+        </div>
+
+        <div class="hud-box">
+            <span>HIGH SCORE</span>
+            <strong id="highScore">0</strong>
+        </div>
+
+        <div class="hud-box">
+            <span>SPEED</span>
+            <strong id="speed">1x</strong>
+        </div>
+
+    </div>
+
+
+    <!-- CANVAS -->
+    <canvas id="gameCanvas"></canvas>
+
+
+    <!-- START SCREEN -->
+    <div id="startScreen" class="screen">
+
+        <div class="panel">
+
+            <div class="emoji">🤪</div>
+
+            <h1>Crazy Guys</h1>
+
+            <p>
+                Run, jump and avoid the crazy obstacles!
+            </p>
+
+            <div class="controls-info">
+
+                <div>⌨️ <b>Space</b> — Jump</div>
+                <div>⬆️ <b>Arrow Up</b> — Jump</div>
+                <div>📱 <b>Tap</b> — Jump</div>
+
+            </div>
+
+            <button id="startBtn">
+                ▶ Start Game
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME OVER -->
+    <div id="gameOverScreen" class="screen hidden">
+
+        <div class="panel">
+
+            <div class="emoji">💥</div>
+
+            <h2>Game Over!</h2>
+
+            <p>Your Score</p>
+
+            <strong id="finalScore">0</strong>
+
+            <button id="restartBtn">
+                🔄 Play Again
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE BUTTON -->
+    <button id="jumpBtn" class="jump-btn">
+        ⬆️
+    </button>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
