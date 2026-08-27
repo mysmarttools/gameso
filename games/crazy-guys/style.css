@@ -1,1 +1,363 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #87ceeb;
+}
+
+body {
+    touch-action: none;
+}
+
+#game {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================
+   HUD
+========================= */
+
+.hud {
+    position: absolute;
+
+    top: 18px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(600px, 94%);
+
+    display: flex;
+    justify-content: center;
+
+    gap: 12px;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+.hud-box {
+    min-width: 120px;
+
+    padding: 9px 18px;
+
+    text-align: center;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,0.15);
+}
+
+.hud-box span {
+    display: block;
+
+    color: #66727d;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.hud-box strong {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #18232d;
+
+    font-size: 21px;
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(10,30,45,0.35);
+
+    backdrop-filter: blur(5px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   PANEL
+========================= */
+
+.panel {
+    width: min(420px, 90%);
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.96);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,0.25);
+}
+
+.emoji {
+    font-size: 65px;
+
+    margin-bottom: 8px;
+}
+
+.panel h1 {
+    color: #172b38;
+
+    font-size: 40px;
+
+    margin-bottom: 10px;
+}
+
+.panel h2 {
+    color: #172b38;
+
+    font-size: 34px;
+
+    margin-bottom: 8px;
+}
+
+.panel p {
+    color: #667783;
+
+    font-size: 16px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   CONTROLS INFO
+========================= */
+
+.controls-info {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+
+    margin: 20px 0;
+}
+
+.controls-info div {
+    padding: 11px;
+
+    border-radius: 10px;
+
+    background: #eef8fc;
+
+    color: #405866;
+
+    font-size: 13px;
+}
+
+.controls-info div:last-child {
+    grid-column: span 2;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    border: 0;
+
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+#startBtn,
+#restartBtn {
+    width: 100%;
+
+    padding: 15px 20px;
+
+    border-radius: 14px;
+
+    background: #ff4d6d;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    box-shadow: 0 6px 0 #c92d4b;
+
+    transition: 0.15s;
+}
+
+#startBtn:hover,
+#restartBtn:hover {
+    transform: translateY(-2px);
+}
+
+#startBtn:active,
+#restartBtn:active {
+    transform: translateY(3px);
+
+    box-shadow: 0 3px 0 #c92d4b;
+}
+
+
+/* =========================
+   FINAL SCORE
+========================= */
+
+#finalScore {
+    display: block;
+
+    color: #ff4d6d;
+
+    font-size: 50px;
+
+    margin: 5px 0 15px;
+}
+
+
+/* =========================
+   MOBILE JUMP
+========================= */
+
+.jump-btn {
+    position: absolute;
+
+    right: 25px;
+    bottom: 25px;
+
+    z-index: 15;
+
+    width: 72px;
+    height: 72px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.85);
+
+    color: #172b38;
+
+    font-size: 30px;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,0.2);
+
+    display: none;
+}
+
+.jump-btn:active {
+    transform: scale(0.9);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .hud {
+        top: 10px;
+
+        width: 96%;
+
+        gap: 6px;
+    }
+
+    .hud-box {
+        min-width: 0;
+
+        flex: 1;
+
+        padding: 8px 5px;
+    }
+
+    .hud-box span {
+        font-size: 9px;
+    }
+
+    .hud-box strong {
+        font-size: 17px;
+    }
+
+    .panel {
+        padding: 28px 20px;
+    }
+
+    .panel h1 {
+        font-size: 32px;
+    }
+
+    .panel h2 {
+        font-size: 28px;
+    }
+
+    .emoji {
+        font-size: 52px;
+    }
+
+    .jump-btn {
+        display: block;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .hud-box strong {
+        font-size: 15px;
+    }
+
+    .jump-btn {
+        width: 62px;
+        height: 62px;
+
+        right: 18px;
+        bottom: 18px;
+    }
+}
