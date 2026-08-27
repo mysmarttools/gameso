@@ -1,1 +1,795 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+:root {
+    --bg: #07130f;
+    --table: #087443;
+    --table-dark: #045a32;
+    --card: #ffffff;
+    --text: #ffffff;
+    --muted: #aabbb4;
+    --gold: #ffd166;
+    --red: #e63946;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at top,
+            #123c2b,
+            #07130f 65%
+        );
+
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* HEADER */
+
+.header {
+    height: 70px;
+
+    background: rgba(5, 15, 11, .95);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+.header-inner {
+    width:
+        min(1000px, calc(100% - 30px));
+
+    height: 100%;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.logo span {
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #20b878,
+            #0a7548
+        );
+}
+
+.back-btn {
+    padding: 10px 15px;
+
+    color: var(--muted);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 9px;
+
+    font-size: 13px;
+}
+
+
+/* MAIN */
+
+main {
+    width:
+        min(1100px, calc(100% - 25px));
+
+    margin: auto;
+
+    padding:
+        50px 0 80px;
+}
+
+
+/* HEADING */
+
+.heading {
+    text-align: center;
+
+    margin-bottom: 28px;
+}
+
+.label {
+    color: var(--gold);
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+}
+
+.heading h1 {
+    font-size:
+        clamp(32px, 6vw, 52px);
+
+    margin-bottom: 10px;
+}
+
+.heading p {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* GAME CARD */
+
+.game-card {
+    padding: 16px;
+
+    background: #0e1d17;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.4);
+}
+
+
+/* SCORE */
+
+.score-board {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.team,
+.tricks {
+    padding: 9px;
+
+    text-align: center;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border-radius: 10px;
+}
+
+.team span,
+.tricks span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.team strong,
+.tricks strong {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 20px;
+}
+
+
+/* TABLE */
+
+.table {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 620px;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #11965a,
+            var(--table-dark)
+        );
+
+    border:
+        7px solid #754c2c;
+
+    box-shadow:
+        inset 0 0 40px rgba(0,0,0,.25);
+}
+
+
+/* PLAYER */
+
+.player {
+    position: absolute;
+
+    z-index: 5;
+
+    text-align: center;
+}
+
+.player-name {
+    display: inline-block;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(0,0,0,.35);
+
+    font-size: 11px;
+
+    font-weight: bold;
+}
+
+
+/* NORTH */
+
+.north {
+    top: 12px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+}
+
+
+/* SOUTH */
+
+.south {
+    bottom: 12px;
+
+    left: 50%;
+
+    width: 95%;
+
+    transform:
+        translateX(-50%);
+}
+
+
+/* WEST */
+
+.west {
+    left: 12px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+}
+
+
+/* EAST */
+
+.east {
+    right: 12px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+}
+
+
+/* CARD BACKS */
+
+.card-back-row {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 8px;
+}
+
+.card-back {
+    width: 34px;
+    height: 48px;
+
+    margin-left: -12px;
+
+    border-radius: 5px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #173f91,
+            #173f91 4px,
+            #244fa7 4px,
+            #244fa7 8px
+        );
+
+    border: 2px solid white;
+}
+
+
+/* VERTICAL */
+
+.vertical-cards {
+    display: flex;
+
+    flex-direction: column;
+
+    margin-top: 7px;
+}
+
+.vertical-cards .card-back {
+    margin-left: 0;
+
+    margin-top: -30px;
+}
+
+
+/* CENTER */
+
+.center-area {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 280px;
+
+    min-height: 180px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.status {
+    min-height: 28px;
+
+    padding: 6px 12px;
+
+    margin-bottom: 12px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        rgba(0,0,0,.35);
+
+    font-size: 12px;
+}
+
+
+/* TRICK */
+
+.trick-area {
+    position: relative;
+
+    width: 180px;
+    height: 130px;
+}
+
+.played-card {
+    position: absolute;
+
+    width: 64px;
+    height: 88px;
+
+    padding: 7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    background: white;
+
+    color: #111;
+
+    border-radius: 7px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.35);
+
+    font-weight: bold;
+
+    user-select: none;
+}
+
+.played-card.red {
+    color: var(--red);
+}
+
+.played-card.black {
+    color: #111;
+}
+
+.trick-north {
+    left: 58px;
+    top: 0;
+}
+
+.trick-west {
+    left: 0;
+    top: 30px;
+}
+
+.trick-east {
+    right: 0;
+    top: 30px;
+}
+
+.trick-south {
+    left: 58px;
+    bottom: 0;
+}
+
+
+/* PLAYER CARDS */
+
+.player-cards {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-end;
+
+    margin-top: 8px;
+
+    min-height: 105px;
+}
+
+.hand-card {
+    position: relative;
+
+    width: 62px;
+    height: 88px;
+
+    margin-left: -12px;
+
+    padding: 6px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    background: white;
+
+    color: #111;
+
+    border:
+        2px solid #ddd;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    transition:
+        transform .15s,
+        margin .15s;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.25);
+}
+
+.hand-card:first-child {
+    margin-left: 0;
+}
+
+.hand-card:hover {
+    transform:
+        translateY(-18px);
+
+    z-index: 30;
+}
+
+.hand-card.red {
+    color: var(--red);
+}
+
+.hand-card.black {
+    color: #111;
+}
+
+.hand-card.disabled {
+    opacity: .55;
+
+    cursor: not-allowed;
+}
+
+.card-rank {
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+.card-suit {
+    font-size: 25px;
+
+    text-align: center;
+}
+
+.card-bottom {
+    transform:
+        rotate(180deg);
+
+    font-size: 16px;
+
+    font-weight: 900;
+}
+
+
+/* BIDDING */
+
+.bid-panel {
+    margin-top: 15px;
+
+    padding: 18px;
+
+    text-align: center;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border-radius: 12px;
+}
+
+.bid-panel h2 {
+    font-size: 18px;
+
+    margin-bottom: 5px;
+}
+
+.bid-panel p {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 12px;
+}
+
+.bid-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+.bid-btn {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background:
+        #ffffff;
+
+    color: #123;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.bid-btn:hover {
+    transform: translateY(-2px);
+
+    background: var(--gold);
+}
+
+
+/* CONTROLS */
+
+.game-controls {
+    margin-top: 14px;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+.primary-btn {
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #20b878,
+            #087443
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* INFO */
+
+.info {
+    max-width: 800px;
+
+    margin: 55px auto 0;
+}
+
+.info h2 {
+    margin-bottom: 12px;
+
+    font-size: 23px;
+}
+
+.info p,
+.info li {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+.info p {
+    margin-bottom: 28px;
+}
+
+.info ul {
+    padding-left: 22px;
+}
+
+
+/* FOOTER */
+
+footer {
+    padding: 25px 15px;
+
+    text-align: center;
+
+    color: #687a72;
+
+    background: #050b08;
+
+    font-size: 11px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    main {
+        padding-top: 35px;
+    }
+
+    .game-card {
+        padding: 8px;
+    }
+
+    .table {
+        min-height: 520px;
+
+        border-width: 5px;
+    }
+
+    .hand-card {
+        width: 43px;
+        height: 64px;
+
+        margin-left: -10px;
+
+        padding: 4px;
+    }
+
+    .card-rank {
+        font-size: 12px;
+    }
+
+    .card-suit {
+        font-size: 18px;
+    }
+
+    .card-bottom {
+        font-size: 12px;
+    }
+
+    .card-back {
+        width: 25px;
+        height: 38px;
+
+        margin-left: -9px;
+    }
+
+    .center-area {
+        width: 200px;
+    }
+
+    .trick-area {
+        transform: scale(.8);
+    }
+
+    .player-name {
+        font-size: 9px;
+    }
+
+    .south {
+        width: 100%;
+    }
+
+    .west {
+        left: 4px;
+    }
+
+    .east {
+        right: 4px;
+    }
+
+}
