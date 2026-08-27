@@ -151,4 +151,27 @@
             <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     </url>
+
+<url>
+        <loc>https://gameso.vercel.app/games/connect-4-board-games</loc>
+            <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://gameso.vercel.app/games/ludo/</loc>
+            <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://gameso.vercel.app/games/spades-card-games/</loc>
+            <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://gameso.vercel.app/games/crazy-guys/</loc>
+            <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    </url>
+
+    
 </urlset>
