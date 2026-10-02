@@ -1,1 +1,206 @@
 
+<!-- About Gameso Section -->
+<section class="about-gameso" id="about">
+  <div class="about-container">
+
+    <div class="about-header">
+      <span class="about-label">ABOUT GAMESO</span>
+      <h2>About Gameso – Play Free Online Games</h2>
+      <p>
+        Welcome to Gameso, a simple and growing online gaming platform where
+        you can discover and play fun, engaging games directly in your browser.
+      </p>
+    </div>
+
+    <div class="about-content">
+
+      <div class="about-card">
+        <div class="about-icon">🎮</div>
+        <h3>What Is Gameso?</h3>
+        <p>
+          Gameso is an online gaming website featuring a growing collection of
+          browser games across different categories. From classic puzzle and
+          arcade games to racing, action, sports, brain, and strategy games,
+          Gameso makes it easy to find something fun to play.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-icon">🧩</div>
+        <h3>Our Goal</h3>
+        <p>
+          Our goal is to provide a simple and enjoyable gaming experience for
+          players of different ages and skill levels. We focus on easy
+          navigation, useful game instructions, and a variety of games that
+          can be accessed directly through a web browser.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-icon">⚡</div>
+        <h3>Play Games Online</h3>
+        <p>
+          Gameso lets you discover and play browser games without complicated
+          downloads or installations. Each game page can include helpful
+          information such as how to play, controls, rules, and gameplay tips.
+        </p>
+      </div>
+
+      <div class="about-card">
+        <div class="about-icon">📱</div>
+        <h3>Built for Easy Access</h3>
+        <p>
+          We aim to make Gameso easy to use across desktop and mobile devices.
+          Our categories and game pages are organized to help visitors quickly
+          discover games they enjoy and start playing with minimal effort.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="about-extra">
+      <h2>Explore Games on Gameso</h2>
+
+      <p>
+        Explore popular games such as 2048, Minesweeper, Snake, Tic Tac Toe,
+        Memory Game, Traffic Racer, Flappy Bird, Pong, Breakout, and more.
+        Whether you enjoy solving puzzles, racing through traffic, testing
+        your memory, or playing classic arcade games, Gameso gives you
+        different options to explore in one place.
+      </p>
+
+      <p>
+        We continue to improve the website, add new games, and provide useful
+        information to make browsing and playing more enjoyable. If you find
+        a technical issue or have feedback about a game, you can contact us
+        through our Contact Us page.
+      </p>
+
+      <h2>Keep Exploring Gameso</h2>
+
+      <p>
+        New games and content may be added over time, so check back regularly
+        to discover something new. Browse our game categories, choose a game
+        that interests you, and start playing directly in your browser.
+      </p>
+
+      <p class="about-thanks">
+        Thanks for visiting Gameso — have fun playing! 🎮
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.about-gameso {
+  padding: 70px 20px;
+  background: #f8fafc;
+}
+
+.about-container {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.about-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 45px;
+}
+
+.about-label {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  opacity: .7;
+}
+
+.about-header h2,
+.about-extra h2 {
+  margin: 0 0 16px;
+  font-size: 32px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.about-header p,
+.about-card p,
+.about-extra p {
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.about-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .07);
+}
+
+.about-icon {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.about-card h3 {
+  margin: 0 0 10px;
+  color: #111827;
+  font-size: 21px;
+}
+
+.about-extra {
+  max-width: 900px;
+  margin: 50px auto 0;
+}
+
+.about-extra h2 {
+  font-size: 26px;
+  margin-top: 38px;
+}
+
+.about-thanks {
+  font-weight: 700;
+  color: #111827 !important;
+  margin-top: 30px;
+}
+
+@media (max-width: 700px) {
+  .about-gameso {
+    padding: 50px 16px;
+  }
+
+  .about-header h2 {
+    font-size: 27px;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    padding: 24px;
+  }
+
+  .about-header p,
+  .about-card p,
+  .about-extra p {
+    font-size: 15px;
+  }
+}
+</style>
