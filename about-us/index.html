@@ -1,384 +1,232 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-  background: #f7f8fc;
-  color: #172033;
-  line-height: 1.7;
-}
-
-.about-page {
-  width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 70px 20px 90px;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.about-hero {
-  text-align: center;
-  max-width: 850px;
-  margin: 0 auto 55px;
-}
-
-.eyebrow {
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 7px 14px;
-  border-radius: 30px;
-  background: #eef2ff;
-  color: #5b5fe9;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
-.about-hero h1 {
-  color: #111827;
-  font-size: clamp(32px, 5vw, 48px);
-  line-height: 1.15;
-  font-weight: 800;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
-}
-
-.hero-text {
-  max-width: 760px;
-  margin: 0 auto;
-  color: #64748b;
-  font-size: 17px;
-  line-height: 1.8;
-}
-
-
-/* =========================
-   CARDS
-========================= */
-
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 28px;
-}
-
-.about-card {
-  position: relative;
-  background: #ffffff;
-  border: 1px solid #e7eaf0;
-  border-radius: 20px;
-  padding: 32px;
-  overflow: hidden;
-  box-shadow:
-    0 8px 30px rgba(15, 23, 42, 0.045);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-}
-
-.about-card:hover {
-  transform: translateY(-4px);
-  border-color: #d9dcff;
-  box-shadow:
-    0 14px 38px rgba(15, 23, 42, 0.08);
-}
-
-.card-number {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: #eef2ff;
-  color: #5b5fe9;
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-
-.about-card h2 {
-  color: #111827;
-  font-size: 24px;
-  line-height: 1.3;
-  margin-bottom: 13px;
-}
-
-.about-card p {
-  color: #64748b;
-  font-size: 15.5px;
-  line-height: 1.8;
-}
-
-
-/* =========================
-   CONTENT SECTIONS
-========================= */
-
-.content-section {
-  background: #ffffff;
-  border: 1px solid #e7eaf0;
-  border-radius: 20px;
-  padding: 35px;
-  margin-bottom: 24px;
-  box-shadow:
-    0 8px 30px rgba(15, 23, 42, 0.04);
-}
-
-.section-tag {
-  color: #5b5fe9;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  margin-bottom: 9px;
-}
-
-.content-section h2 {
-  color: #111827;
-  font-size: 28px;
-  line-height: 1.3;
-  margin-bottom: 16px;
-}
-
-.content-section p {
-  color: #64748b;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-bottom: 15px;
-}
-
-.content-section p:last-child {
-  margin-bottom: 0;
-}
-
-
-/* =========================
-   FEATURES
-========================= */
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-top: 22px;
-}
-
-.feature {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px 16px;
-  border-radius: 12px;
-  background: #f8f9fc;
-  border: 1px solid #edf0f5;
-}
-
-.feature span {
-  flex: 0 0 auto;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #eef2ff;
-  color: #5b5fe9;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.feature p {
-  margin: 0;
-  color: #475569;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-
-/* =========================
-   CTA
-========================= */
-
-.about-cta {
-  position: relative;
-  overflow: hidden;
-  margin-top: 30px;
-  border-radius: 24px;
-  background: #111827;
-  padding: 55px 25px;
-  text-align: center;
-}
-
-.about-cta::before {
-  content: "";
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  top: -160px;
-  left: -100px;
-  border-radius: 50%;
-  background: rgba(99, 102, 241, 0.15);
-}
-
-.about-cta::after {
-  content: "";
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  bottom: -150px;
-  right: -80px;
-  border-radius: 50%;
-  background: rgba(99, 102, 241, 0.12);
-}
-
-.cta-content {
-  position: relative;
-  z-index: 2;
-  max-width: 680px;
-  margin: 0 auto;
-}
-
-.cta-icon {
-  font-size: 38px;
-  margin-bottom: 10px;
-}
-
-.about-cta h2 {
-  color: #ffffff;
-  font-size: 30px;
-  line-height: 1.3;
-  margin-bottom: 12px;
-}
-
-.about-cta p {
-  color: #cbd5e1;
-  font-size: 16px;
-  line-height: 1.7;
-  max-width: 600px;
-  margin: 0 auto 25px;
-}
-
-.cta-button {
-  display: inline-block;
-  padding: 13px 25px;
-  border-radius: 11px;
-  background: #6366f1;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 800;
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.cta-button:hover {
-  opacity: 0.92;
-  transform: translateY(-2px);
-}
-
-
-/* =========================
-   TABLET
-========================= */
-
-@media (max-width: 800px) {
-
-  .about-page {
-    padding: 55px 18px 70px;
-  }
-
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .features {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 560px) {
-
-  .about-page {
-    padding: 40px 14px 55px;
-  }
-
-  .about-hero {
-    margin-bottom: 38px;
-  }
-
-  .about-hero h1 {
-    font-size: 31px;
-    letter-spacing: -0.5px;
-  }
-
-  .hero-text {
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .about-card {
-    padding: 25px;
-    border-radius: 17px;
-  }
-
-  .about-card h2 {
-    font-size: 21px;
-  }
-
-  .about-card p {
-    font-size: 14.5px;
-  }
-
-  .content-section {
-    padding: 26px 22px;
-    border-radius: 17px;
-  }
-
-  .content-section h2 {
-    font-size: 23px;
-  }
-
-  .content-section p {
-    font-size: 14.5px;
-  }
-
-  .about-cta {
-    padding: 42px 20px;
-    border-radius: 19px;
-  }
-
-  .about-cta h2 {
-    font-size: 25px;
-  }
-
-  .about-cta p {
-    font-size: 14.5px;
-  }
-
-  .cta-button {
-    width: 100%;
-    max-width: 220px;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>About Us – Gameso | Play Free Online Games</title>
+
+  <meta name="description" content="Learn more about Gameso, a free online gaming platform where you can discover and play fun browser games including puzzle, arcade, racing, action, and strategy games.">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://gameso.vercel.app/about-us">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="about-page">
+
+    <!-- Hero -->
+    <section class="about-hero">
+
+      <div class="eyebrow">ABOUT GAMESO</div>
+
+      <h1>About Gameso – Play Free Online Games</h1>
+
+      <p class="hero-text">
+        Welcome to Gameso, a simple and growing online gaming platform where
+        you can discover and play fun, engaging games directly in your browser.
+      </p>
+
+    </section>
+
+
+    <!-- Information Cards -->
+    <section class="about-grid">
+
+      <article class="about-card">
+        <div class="card-number">01</div>
+
+        <h2>What Is Gameso?</h2>
+
+        <p>
+          Gameso is an online gaming platform featuring a growing collection
+          of browser games across different categories. Visitors can discover
+          and play games such as 2048, Minesweeper, Snake, Tic Tac Toe,
+          Memory Game, Traffic Racer, Flappy Bird, Pong, Breakout, and more.
+        </p>
+      </article>
+
+
+      <article class="about-card">
+        <div class="card-number">02</div>
+
+        <h2>Our Goal</h2>
+
+        <p>
+          Our goal is to provide a simple and enjoyable gaming experience for
+          visitors of different skill levels. We focus on easy navigation,
+          straightforward game instructions, and a variety of games that are
+          easy to discover.
+        </p>
+      </article>
+
+
+      <article class="about-card">
+        <div class="card-number">03</div>
+
+        <h2>Play Games Online</h2>
+
+        <p>
+          Gameso allows visitors to discover and play games directly through
+          their web browser. Game pages can include useful information such as
+          how to play, controls, rules, and helpful tips.
+        </p>
+      </article>
+
+
+      <article class="about-card">
+        <div class="card-number">04</div>
+
+        <h2>Easy Access</h2>
+
+        <p>
+          Gameso is designed to provide a straightforward browsing experience
+          on desktop and mobile devices. Players can explore different
+          categories and quickly find games they want to play.
+        </p>
+      </article>
+
+    </section>
+
+
+    <!-- Explore -->
+    <section class="content-section">
+
+      <div class="section-tag">EXPLORE</div>
+
+      <h2>Explore Games on Gameso</h2>
+
+      <p>
+        Gameso features different types of online games for players with
+        different interests. You can explore puzzle games, arcade games,
+        racing games, action games, strategy games, brain games, and other
+        browser-based experiences.
+      </p>
+
+      <p>
+        Whether you have a few minutes for a quick puzzle or want to spend
+        more time playing an arcade or racing game, Gameso makes it easy to
+        discover different games in one place.
+      </p>
+
+    </section>
+
+
+    <!-- Why Gameso -->
+    <section class="content-section">
+
+      <div class="section-tag">GAMESO</div>
+
+      <h2>Why Visit Gameso?</h2>
+
+      <div class="features">
+
+        <div class="feature">
+          <span>✓</span>
+          <p>A growing collection of free online games</p>
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          <p>Multiple game categories</p>
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          <p>Simple and easy-to-use interface</p>
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          <p>Browser-based gaming</p>
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          <p>Helpful game instructions and information</p>
+        </div>
+
+        <div class="feature">
+          <span>✓</span>
+          <p>Designed for desktop and mobile users</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Content & Games -->
+    <section class="content-section">
+
+      <div class="section-tag">OUR CONTENT</div>
+
+      <h2>Our Content & Games</h2>
+
+      <p>
+        We aim to provide useful and original information about the games
+        available on Gameso. Game descriptions, instructions, controls, and
+        tips are created to help visitors understand each game and enjoy
+        their gaming experience.
+      </p>
+
+      <p>
+        We continue to improve Gameso by adding new games, improving
+        navigation, and providing useful information for players.
+      </p>
+
+    </section>
+
+
+    <!-- Website Experience -->
+    <section class="content-section">
+
+      <div class="section-tag">OUR EXPERIENCE</div>
+
+      <h2>A Simple Online Gaming Experience</h2>
+
+      <p>
+        Gameso is built around a simple idea: make it easy for visitors to
+        find interesting games and start playing them online. Our website
+        brings different types of browser games together so visitors can
+        explore new games without complicated navigation.
+      </p>
+
+      <p>
+        We are continuously working on improving the website and creating a
+        better experience for visitors across different devices.
+      </p>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="about-cta">
+
+      <div class="cta-content">
+
+        <div class="cta-icon">🎮</div>
+
+        <h2>Keep Exploring Gameso</h2>
+
+        <p>
+          Discover new games, explore different categories, and find something
+          fun to play directly in your browser.
+        </p>
+
+        <a href="/" class="cta-button">
+          Explore Games
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
