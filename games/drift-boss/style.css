@@ -1,1 +1,516 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+:root {
+  --bg: #080b16;
+  --panel: #101526;
+  --panel-light: #171d31;
+  --text: #ffffff;
+  --muted: #9ba5bd;
+  --accent: #7c5cff;
+  --accent-2: #00d4ff;
+  --danger: #ff416c;
+  --border: rgba(255,255,255,0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(124,92,255,0.18), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  font-family: inherit;
+}
+
+.game-page {
+  width: min(1200px, 100%);
+  margin: auto;
+  padding: 24px 18px 60px;
+}
+
+.game-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* TOP BAR */
+
+.top-bar {
+  min-height: 72px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  background: rgba(16,21,38,0.94);
+  border: 1px solid var(--border);
+  border-radius: 18px 18px 0 0;
+
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.brand-icon {
+  font-size: 27px;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-box {
+  min-width: 78px;
+  padding: 7px 12px;
+  text-align: center;
+
+  background: var(--panel-light);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.stat-label {
+  display: block;
+  margin-bottom: 2px;
+
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.stat-box strong {
+  font-size: 18px;
+}
+
+.coin-box strong {
+  color: #ffd84d;
+}
+
+/* GAME */
+
+.game-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  background: #202d27;
+
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  aspect-ratio: 16 / 9;
+
+  background: #4c8b49;
+}
+
+/* OVERLAYS */
+
+.screen-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(4,7,15,0.48);
+  backdrop-filter: blur(5px);
+
+  z-index: 10;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.menu-card {
+  width: min(420px, 100%);
+  padding: 34px 28px;
+
+  text-align: center;
+
+  background: rgba(15,20,36,0.96);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.5),
+    0 0 40px rgba(124,92,255,0.12);
+}
+
+.car-logo {
+  font-size: 58px;
+  margin-bottom: 5px;
+}
+
+.menu-card h1 {
+  font-size: clamp(36px, 6vw, 52px);
+  font-weight: 950;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+}
+
+.menu-card h2 {
+  font-size: 34px;
+  margin-bottom: 8px;
+}
+
+.menu-card p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* BUTTON */
+
+.main-btn {
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+
+  min-width: 190px;
+  padding: 14px 25px;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 900;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(135deg, var(--accent), #5a39e8);
+
+  box-shadow:
+    0 10px 25px rgba(124,92,255,0.3);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.main-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 30px rgba(124,92,255,0.4);
+}
+
+.main-btn:active {
+  transform: scale(0.97);
+}
+
+/* CONTROLS INFO */
+
+.controls-info {
+  margin-top: 25px;
+
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.controls-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.controls-info span {
+  padding: 5px 8px;
+
+  background: #20273c;
+  border-radius: 6px;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.controls-info small {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+/* GAME OVER */
+
+.game-over-icon {
+  font-size: 55px;
+  margin-bottom: 8px;
+}
+
+.result-text {
+  margin-bottom: 20px !important;
+}
+
+.final-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+
+  margin-bottom: 24px;
+}
+
+.final-stats div {
+  padding: 12px 5px;
+
+  background: #171d31;
+  border-radius: 10px;
+}
+
+.final-stats span {
+  display: block;
+
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.final-stats strong {
+  font-size: 18px;
+}
+
+/* MOBILE DRIFT BUTTON */
+
+.drift-btn {
+  display: none;
+
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+
+  width: 92px;
+  height: 92px;
+
+  border: 3px solid rgba(255,255,255,0.7);
+  border-radius: 50%;
+
+  color: white;
+  background: rgba(124,92,255,0.78);
+
+  font-size: 13px;
+  font-weight: 900;
+
+  z-index: 5;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.drift-btn:active {
+  transform: scale(0.94);
+  background: rgba(90,57,232,0.95);
+}
+
+/* BOTTOM CONTROLS */
+
+.game-controls {
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+
+  padding: 12px 20px;
+
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 0 0 18px 18px;
+}
+
+.game-controls div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--muted);
+  font-size: 12px;
+}
+
+kbd {
+  min-width: 28px;
+  padding: 5px 7px;
+
+  text-align: center;
+
+  color: white;
+
+  background: #1c2337;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* SEO */
+
+.seo-content {
+  max-width: 900px;
+  margin: 50px auto 0;
+
+  padding: 0 10px;
+}
+
+.seo-content h2 {
+  margin: 32px 0 12px;
+
+  font-size: 26px;
+  letter-spacing: -0.5px;
+}
+
+.seo-content p,
+.seo-content li {
+  color: #aeb7ca;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.seo-content ul {
+  padding-left: 22px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+  .game-page {
+    padding: 8px 0 40px;
+  }
+
+  .top-bar {
+    border-radius: 0;
+    padding: 10px 12px;
+  }
+
+  .brand {
+    font-size: 14px;
+  }
+
+  .brand-icon {
+    font-size: 22px;
+  }
+
+  .stats {
+    gap: 5px;
+  }
+
+  .stat-box {
+    min-width: 57px;
+    padding: 6px 5px;
+  }
+
+  .stat-box strong {
+    font-size: 14px;
+  }
+
+  .game-container {
+    border-left: 0;
+    border-right: 0;
+  }
+
+  #gameCanvas {
+    aspect-ratio: 9 / 14;
+  }
+
+  .game-controls {
+    display: none;
+  }
+
+  .drift-btn {
+    display: block;
+  }
+
+  .menu-card {
+    padding: 25px 18px;
+    border-radius: 20px;
+  }
+
+  .menu-card h1 {
+    font-size: 38px;
+  }
+
+  .controls-info {
+    gap: 10px;
+  }
+
+  .seo-content {
+    padding: 0 18px;
+    margin-top: 35px;
+  }
+
+  .seo-content h2 {
+    font-size: 22px;
+  }
+
+  .seo-content p,
+  .seo-content li {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+
+  .stat-box {
+    min-width: 52px;
+  }
+
+  .stat-label {
+    font-size: 7px;
+  }
+
+  .stat-box strong {
+    font-size: 13px;
+  }
+
+  .brand {
+    letter-spacing: 0;
+  }
+
+  .final-stats {
+    gap: 5px;
+  }
+
+  .drift-btn {
+    width: 82px;
+    height: 82px;
+    right: 16px;
+    bottom: 16px;
+  }
+}
