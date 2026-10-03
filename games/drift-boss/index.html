@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Drift Boss Game – Play Free Online</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Drift Boss Game – Play Free Online | Gameso</title>
 
   <meta
     name="description"
@@ -16,91 +22,247 @@
     content="Drift Boss Game, Drift Boss, drift game, car drifting game, driving game, online car game"
   >
 
-  <meta name="robots" content="index, follow">
+  <meta
+    name="robots"
+    content="index, follow"
+  >
 
-  <link rel="stylesheet" href="style.css">
+  <meta
+    name="theme-color"
+    content="#080b16"
+  >
+
+  <link
+    rel="canonical"
+    href="https://gameso.vercel.app/games/drift-boss/"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
 
 <body>
 
+
+  <!-- =========================================
+       GAMESO HEADER
+  ========================================== -->
+
+  <header class="site-header">
+
+    <div class="site-header-inner">
+
+      <a
+        href="/"
+        class="site-logo"
+        aria-label="Gameso Home"
+      >
+
+        <span class="site-logo-icon">
+          🎮
+        </span>
+
+        <span>
+          Gameso
+        </span>
+
+      </a>
+
+
+      <a
+        href="/"
+        class="all-games-btn"
+      >
+        ← All Games
+      </a>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =========================================
+       MAIN PAGE
+  ========================================== -->
+
   <main class="game-page">
+
+
+    <!-- =========================================
+         GAME SECTION
+    ========================================== -->
 
     <section class="game-wrapper">
 
-      <!-- TOP BAR -->
+
+      <!-- GAME TOP BAR -->
+
       <div class="top-bar">
 
         <div class="brand">
-          <span class="brand-icon">🏎️</span>
-          <span>DRIFT BOSS</span>
+
+          <span class="brand-icon">
+            🏎️
+          </span>
+
+          <span>
+            DRIFT BOSS
+          </span>
+
         </div>
+
 
         <div class="stats">
 
-          <div class="stat-box">
-            <span class="stat-label">SCORE</span>
-            <strong id="score">0</strong>
-          </div>
 
           <div class="stat-box">
-            <span class="stat-label">BEST</span>
-            <strong id="bestScore">0</strong>
+
+            <span class="stat-label">
+              SCORE
+            </span>
+
+            <strong id="score">
+              0
+            </strong>
+
           </div>
+
+
+          <div class="stat-box">
+
+            <span class="stat-label">
+              BEST
+            </span>
+
+            <strong id="bestScore">
+              0
+            </strong>
+
+          </div>
+
 
           <div class="stat-box coin-box">
-            <span class="stat-label">COINS</span>
-            <strong id="coins">0</strong>
+
+            <span class="stat-label">
+              COINS
+            </span>
+
+            <strong id="coins">
+              0
+            </strong>
+
           </div>
+
 
         </div>
 
       </div>
 
 
-      <!-- GAME AREA -->
+
+      <!-- =========================================
+           GAME CONTAINER
+      ========================================== -->
+
       <div class="game-container">
 
-        <canvas id="gameCanvas"></canvas>
+
+        <canvas
+          id="gameCanvas"
+        ></canvas>
 
 
-        <!-- START SCREEN -->
-        <div id="startScreen" class="screen-overlay">
+
+        <!-- =====================================
+             START SCREEN
+        ====================================== -->
+
+        <div
+          id="startScreen"
+          class="screen-overlay"
+        >
 
           <div class="menu-card">
 
-            <div class="car-logo">🏎️</div>
 
-            <h1>Drift Boss</h1>
+            <div class="car-logo">
+              🏎️
+            </div>
+
+
+            <h1>
+              Drift Boss
+            </h1>
+
 
             <p>
               Stay on the road, master the curves,
               collect coins and beat your high score.
             </p>
 
-            <button id="startBtn" class="main-btn">
+
+            <button
+              id="startBtn"
+              class="main-btn"
+            >
               ▶ Start Game
             </button>
 
-            <a href="/" class="home-btn">
+
+            <a
+              href="/"
+              class="home-btn"
+            >
               ← Back to Home
             </a>
 
+
             <div class="controls-info">
 
-              <div>
-                <span>SPACE</span>
-                <small>Drift</small>
-              </div>
 
               <div>
-                <span>← →</span>
-                <small>Steer</small>
+
+                <span>
+                  SPACE
+                </span>
+
+                <small>
+                  Drift
+                </small>
+
               </div>
 
+
               <div>
-                <span>R</span>
-                <small>Restart</small>
+
+                <span>
+                  ← →
+                </span>
+
+                <small>
+                  Steer
+                </small>
+
               </div>
+
+
+              <div>
+
+                <span>
+                  R
+                </span>
+
+                <small>
+                  Restart
+                </small>
+
+              </div>
+
 
             </div>
 
@@ -109,107 +271,215 @@
         </div>
 
 
-        <!-- GAME OVER SCREEN -->
-        <div id="gameOverScreen" class="screen-overlay hidden">
+
+        <!-- =====================================
+             GAME OVER SCREEN
+        ====================================== -->
+
+        <div
+          id="gameOverScreen"
+          class="screen-overlay hidden"
+        >
 
           <div class="menu-card">
 
-            <div class="game-over-icon">💥</div>
 
-            <h2>Game Over!</h2>
+            <div class="game-over-icon">
+              💥
+            </div>
+
+
+            <h2>
+              Game Over!
+            </h2>
+
 
             <p class="result-text">
               Your drift ended.
             </p>
 
+
             <div class="final-stats">
 
-              <div>
-                <span>YOUR SCORE</span>
-                <strong id="finalScore">0</strong>
-              </div>
 
               <div>
-                <span>BEST SCORE</span>
-                <strong id="finalBest">0</strong>
+
+                <span>
+                  YOUR SCORE
+                </span>
+
+                <strong id="finalScore">
+                  0
+                </strong>
+
               </div>
 
+
               <div>
-                <span>COINS</span>
-                <strong id="finalCoins">0</strong>
+
+                <span>
+                  BEST SCORE
+                </span>
+
+                <strong id="finalBest">
+                  0
+                </strong>
+
               </div>
+
+
+              <div>
+
+                <span>
+                  COINS
+                </span>
+
+                <strong id="finalCoins">
+                  0
+                </strong>
+
+              </div>
+
 
             </div>
 
-            <button id="restartBtn" class="main-btn">
+
+            <button
+              id="restartBtn"
+              class="main-btn"
+            >
               ↻ Play Again
             </button>
 
-            <a href="/" class="home-btn">
+
+            <a
+              href="/"
+              class="home-btn"
+            >
               ← Back to Home
             </a>
+
 
           </div>
 
         </div>
 
 
+
         <!-- MOBILE DRIFT BUTTON -->
-        <button id="driftBtn" class="drift-btn">
+
+        <button
+          id="driftBtn"
+          class="drift-btn"
+          aria-label="Hold to drift"
+        >
           DRIFT
         </button>
 
+
       </div>
 
 
-      <!-- DESKTOP CONTROLS -->
+
+      <!-- =========================================
+           DESKTOP CONTROLS
+      ========================================== -->
+
       <div class="game-controls">
 
-        <div>
-          <kbd>SPACE</kbd>
-          <span>Hold to Drift</span>
-        </div>
 
         <div>
-          <kbd>←</kbd>
-          <kbd>→</kbd>
-          <span>Steer</span>
+
+          <kbd>
+            SPACE
+          </kbd>
+
+          <span>
+            Hold to Drift
+          </span>
+
         </div>
 
+
         <div>
-          <kbd>R</kbd>
-          <span>Restart</span>
+
+          <kbd>
+            ←
+          </kbd>
+
+          <kbd>
+            →
+          </kbd>
+
+          <span>
+            Steer
+          </span>
+
         </div>
+
+
+        <div>
+
+          <kbd>
+            R
+          </kbd>
+
+          <span>
+            Restart
+          </span>
+
+        </div>
+
 
       </div>
+
 
     </section>
 
 
-    <!-- SEO CONTENT -->
+
+    <!-- =========================================
+         SEO CONTENT
+    ========================================== -->
+
     <section class="seo-content">
 
-      <h2>Drift Boss Game</h2>
+
+      <h2>
+        Drift Boss Game
+      </h2>
+
 
       <p>
-        Play Drift Boss Game online and test your driving skills
-        on an endless winding road. Control your car, master sharp
-        turns, collect coins and try to achieve the highest score.
+        Play Drift Boss Game online and test your driving
+        skills on an endless winding road. Control your car,
+        master sharp turns, collect coins and try to achieve
+        the highest score.
       </p>
 
 
-      <h2>How to Play Drift Boss</h2>
+
+      <h2>
+        How to Play Drift Boss
+      </h2>
+
 
       <p>
-        Keep your car on the road for as long as possible. Use the
-        drift controls to move around curves and avoid falling off
-        the track. The longer you survive, the higher your score becomes.
+        Keep your car on the road for as long as possible.
+        Use the drift controls to move around curves and
+        avoid falling off the track. The longer you survive,
+        the higher your score becomes.
       </p>
 
 
-      <h2>Drift Boss Controls</h2>
+
+      <h2>
+        Drift Boss Controls
+      </h2>
+
 
       <ul>
+
         <li>
           <strong>Space:</strong>
           Hold to drift.
@@ -229,23 +499,33 @@
           <strong>Mobile:</strong>
           Hold the Drift button.
         </li>
+
       </ul>
 
 
-      <h2>Play Drift Boss Online</h2>
+
+      <h2>
+        Play Drift Boss Online
+      </h2>
+
 
       <p>
-        Challenge yourself to stay on the track, collect coins
-        and beat your personal best score in this fast-paced
-        drifting game.
+        Challenge yourself to stay on the track, collect
+        coins and beat your personal best score in this
+        fast-paced drifting game.
       </p>
 
+
     </section>
+
 
   </main>
 
 
+
   <script src="script.js"></script>
 
+
 </body>
+
 </html>
