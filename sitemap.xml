@@ -172,6 +172,9 @@
             <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     </url>
-
+<loc>https://gameso.vercel.app/games/drift-boss/</loc>
+            <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    </url>
     
 </urlset>
