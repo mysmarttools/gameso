@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,15 +20,19 @@
 
   <meta name="robots" content="index, follow">
 
+  <!-- Canonical -->
   <link
     rel="canonical"
     href="https://gameso.vercel.app/games/drift-boss/"
   >
 
+  <!-- CSS -->
   <link rel="stylesheet" href="./style.css">
+
 </head>
 
 <body>
+
 
   <!-- ==============================
        GAMESO HEADER
@@ -51,8 +56,9 @@
   </header>
 
 
+
   <!-- ==============================
-       MAIN
+       MAIN GAME PAGE
   =============================== -->
 
   <main class="game-page">
@@ -60,30 +66,59 @@
     <section class="game-wrapper">
 
 
-      <!-- GAME TOP BAR -->
+      <!-- ==============================
+           GAME TOP BAR
+      =============================== -->
 
       <div class="top-bar">
 
         <div class="brand">
+
           <span class="brand-icon">🏎️</span>
+
           <span>DRIFT BOSS</span>
+
         </div>
+
 
         <div class="stats">
 
           <div class="stat-box">
-            <span class="stat-label">SCORE</span>
-            <strong id="score">0</strong>
+
+            <span class="stat-label">
+              SCORE
+            </span>
+
+            <strong id="score">
+              0
+            </strong>
+
           </div>
+
 
           <div class="stat-box">
-            <span class="stat-label">BEST</span>
-            <strong id="bestScore">0</strong>
+
+            <span class="stat-label">
+              BEST
+            </span>
+
+            <strong id="bestScore">
+              0
+            </strong>
+
           </div>
 
+
           <div class="stat-box coin-box">
-            <span class="stat-label">COINS</span>
-            <strong id="coins">0</strong>
+
+            <span class="stat-label">
+              COINS
+            </span>
+
+            <strong id="coins">
+              0
+            </strong>
+
           </div>
 
         </div>
@@ -91,16 +126,24 @@
       </div>
 
 
-      <!-- GAME -->
+
+      <!-- ==============================
+           GAME AREA
+      =============================== -->
 
       <div class="game-container">
 
         <canvas id="gameCanvas"></canvas>
 
 
-        <!-- START SCREEN -->
+        <!-- ==============================
+             START SCREEN
+        =============================== -->
 
-        <div id="startScreen" class="screen-overlay">
+        <div
+          id="startScreen"
+          class="screen-overlay"
+        >
 
           <div class="menu-card">
 
@@ -108,19 +151,24 @@
               🏎️
             </div>
 
-            <h1>Drift Boss</h1>
+            <h1>
+              Drift Boss
+            </h1>
 
             <p>
               Stay on the road, master the curves,
               collect coins and beat your high score.
             </p>
 
+
             <button
               id="startBtn"
               class="main-btn"
+              type="button"
             >
               ▶ Start Game
             </button>
+
 
             <a
               href="/"
@@ -128,6 +176,7 @@
             >
               ← Back to Home
             </a>
+
 
             <div class="controls-info">
 
@@ -153,7 +202,10 @@
         </div>
 
 
-        <!-- GAME OVER -->
+
+        <!-- ==============================
+             GAME OVER SCREEN
+        =============================== -->
 
         <div
           id="gameOverScreen"
@@ -166,37 +218,66 @@
               💥
             </div>
 
-            <h2>Game Over!</h2>
+            <h2>
+              Game Over!
+            </h2>
 
             <p class="result-text">
               Your drift ended.
             </p>
 
+
             <div class="final-stats">
 
               <div>
-                <span>YOUR SCORE</span>
-                <strong id="finalScore">0</strong>
+
+                <span>
+                  YOUR SCORE
+                </span>
+
+                <strong id="finalScore">
+                  0
+                </strong>
+
               </div>
 
-              <div>
-                <span>BEST SCORE</span>
-                <strong id="finalBest">0</strong>
-              </div>
 
               <div>
-                <span>COINS</span>
-                <strong id="finalCoins">0</strong>
+
+                <span>
+                  BEST SCORE
+                </span>
+
+                <strong id="finalBest">
+                  0
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span>
+                  COINS
+                </span>
+
+                <strong id="finalCoins">
+                  0
+                </strong>
+
               </div>
 
             </div>
 
+
             <button
               id="restartBtn"
               class="main-btn"
+              type="button"
             >
               ↻ Play Again
             </button>
+
 
             <a
               href="/"
@@ -210,11 +291,15 @@
         </div>
 
 
-        <!-- MOBILE DRIFT -->
+
+        <!-- ==============================
+             MOBILE DRIFT BUTTON
+        =============================== -->
 
         <button
           id="driftBtn"
           class="drift-btn"
+          type="button"
         >
           DRIFT
         </button>
@@ -222,24 +307,44 @@
       </div>
 
 
-      <!-- CONTROLS -->
+
+      <!-- ==============================
+           CONTROLS
+      =============================== -->
 
       <div class="game-controls">
 
         <div>
+
           <kbd>SPACE</kbd>
-          <span>Hold to Drift</span>
+
+          <span>
+            Hold to Drift
+          </span>
+
         </div>
 
+
         <div>
+
           <kbd>←</kbd>
           <kbd>→</kbd>
-          <span>Steer</span>
+
+          <span>
+            Steer
+          </span>
+
         </div>
 
+
         <div>
+
           <kbd>R</kbd>
-          <span>Restart</span>
+
+          <span>
+            Restart
+          </span>
+
         </div>
 
       </div>
@@ -247,21 +352,30 @@
     </section>
 
 
-    <!-- SEO CONTENT -->
+
+    <!-- ==============================
+         SEO CONTENT
+    =============================== -->
 
     <section class="seo-content">
 
-      <h2>Drift Boss Game</h2>
+
+      <h2>
+        Drift Boss Game
+      </h2>
 
       <p>
-        Play Drift Boss Game online and test your driving
-        skills on an endless winding road. Control your car,
-        master sharp turns, collect coins and try to achieve
-        the highest score.
+        Play Drift Boss Game online for free and test
+        your driving skills on an endless winding road.
+        Control your car, master sharp turns, collect
+        coins and try to achieve the highest score.
       </p>
 
 
-      <h2>How to Play Drift Boss</h2>
+
+      <h2>
+        How to Play Drift Boss
+      </h2>
 
       <p>
         Keep your car on the road for as long as possible.
@@ -271,11 +385,16 @@
       </p>
 
 
-      <h2>Drift Boss Controls</h2>
+
+      <h2>
+        Drift Boss Controls
+      </h2>
 
       <ul>
+
         <li>
-          <strong>Space:</strong> Hold to drift.
+          <strong>Space:</strong>
+          Hold to drift.
         </li>
 
         <li>
@@ -284,28 +403,38 @@
         </li>
 
         <li>
-          <strong>R:</strong> Restart the game.
+          <strong>R:</strong>
+          Restart the game.
         </li>
 
         <li>
           <strong>Mobile:</strong>
           Hold the Drift button.
         </li>
+
       </ul>
 
 
-      <h2>Play Drift Boss Online</h2>
+
+      <h2>
+        Play Drift Boss Online
+      </h2>
 
       <p>
-        Challenge yourself to stay on the track, collect
-        coins and beat your personal best score in this
-        fast-paced drifting game.
+        Challenge yourself to stay on the track,
+        collect coins and beat your personal best
+        score in this fast-paced drifting game.
       </p>
 
     </section>
 
   </main>
 
+
+
+  <!-- ==============================
+       JAVASCRIPT
+  =============================== -->
 
   <script src="./script.js"></script>
 
