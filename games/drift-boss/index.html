@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Drift Boss Game – Play Free Online</title>
+  <meta name="description" content="Play Drift Boss Game online for free. Drift through endless winding roads, collect coins, avoid falling off the track and beat your highest score.">
+  <meta name="keywords" content="Drift Boss Game, Drift Boss, drift game, car drifting game, driving game, online car game">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="game-page">
+
+    <section class="game-wrapper">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+
+        <div class="brand">
+          <span class="brand-icon">🏎️</span>
+          <span>DRIFT BOSS</span>
+        </div>
+
+        <div class="stats">
+
+          <div class="stat-box">
+            <span class="stat-label">SCORE</span>
+            <strong id="score">0</strong>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-label">BEST</span>
+            <strong id="bestScore">0</strong>
+          </div>
+
+          <div class="stat-box coin-box">
+            <span class="stat-label">COINS</span>
+            <strong id="coins">0</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Game Area -->
+      <div class="game-container">
+
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen-overlay">
+
+          <div class="menu-card">
+
+            <div class="car-logo">🏎️</div>
+
+            <h1>Drift Boss</h1>
+
+            <p>
+              Stay on the road, master the curves,
+              collect coins and beat your high score.
+            </p>
+
+            <button id="startBtn" class="main-btn">
+              ▶ Start Game
+            </button>
+
+            <div class="controls-info">
+              <div>
+                <span>SPACE</span>
+                <small>Drift</small>
+              </div>
+
+              <div>
+                <span>← →</span>
+                <small>Steer</small>
+              </div>
+
+              <div>
+                <span>R</span>
+                <small>Restart</small>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Game Over -->
+        <div id="gameOverScreen" class="screen-overlay hidden">
+
+          <div class="menu-card">
+
+            <div class="game-over-icon">💥</div>
+
+            <h2>Game Over!</h2>
+
+            <p class="result-text">
+              Your drift ended.
+            </p>
+
+            <div class="final-stats">
+
+              <div>
+                <span>YOUR SCORE</span>
+                <strong id="finalScore">0</strong>
+              </div>
+
+              <div>
+                <span>BEST SCORE</span>
+                <strong id="finalBest">0</strong>
+              </div>
+
+              <div>
+                <span>COINS</span>
+                <strong id="finalCoins">0</strong>
+              </div>
+
+            </div>
+
+            <button id="restartBtn" class="main-btn">
+              ↻ Play Again
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- Mobile Control -->
+        <button id="driftBtn" class="drift-btn">
+          DRIFT
+        </button>
+
+      </div>
+
+      <!-- Bottom Info -->
+      <div class="game-controls">
+
+        <div>
+          <kbd>SPACE</kbd>
+          <span>Hold to Drift</span>
+        </div>
+
+        <div>
+          <kbd>←</kbd>
+          <kbd>→</kbd>
+          <span>Steer</span>
+        </div>
+
+        <div>
+          <kbd>R</kbd>
+          <span>Restart</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SEO Content -->
+    <section class="seo-content">
+
+      <h2>Drift Boss Game</h2>
+
+      <p>
+        Play Drift Boss Game online and test your driving skills on
+        an endless winding road. Control your car, master sharp turns,
+        collect coins and try to achieve the highest score.
+      </p>
+
+      <h2>How to Play Drift Boss</h2>
+
+      <p>
+        Keep your car on the road for as long as possible. Use the
+        drift controls to move around curves and avoid falling off
+        the track. The longer you survive, the higher your score becomes.
+      </p>
+
+      <h2>Drift Boss Controls</h2>
+
+      <ul>
+        <li><strong>Space:</strong> Hold to drift.</li>
+        <li><strong>Left / Right Arrow:</strong> Steer the car.</li>
+        <li><strong>R:</strong> Restart the game.</li>
+        <li><strong>Mobile:</strong> Hold the Drift button.</li>
+      </ul>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
