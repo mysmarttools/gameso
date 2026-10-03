@@ -176,5 +176,10 @@
             <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     </url>
+
+    <loc>https://gameso.vercel.app/games/blocky-blast-puzzle/</loc>
+            <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    </url>
     
 </urlset>
