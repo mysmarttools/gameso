@@ -146,11 +146,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-        <url>
-        <loc>https://gameso.vercel.app/games/pac-man/</loc>
-            <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    </url>
+    
 
 <url>
         <loc>https://gameso.vercel.app/games/connect-4-board-games</loc>
@@ -172,11 +168,12 @@
             <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     </url>
+    <url>
 <loc>https://gameso.vercel.app/games/drift-boss/</loc>
             <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     </url>
-
+<url>
     <loc>https://gameso.vercel.app/games/blocky-blast-puzzle/</loc>
             <changefreq>weekly</changefreq>
     <priority>0.8</priority>
