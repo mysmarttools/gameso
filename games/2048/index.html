@@ -10,7 +10,7 @@
 
     <meta
         name="description"
-        content="Play 2048 game online for free on gameso and test your strategy skills. Combine matching numbers, reach 2048, and enjoy this addictive classic puzzle game.."
+        content="Play 2048 game online for free on Gameso. Combine matching number tiles, reach 2048, improve your strategy, and challenge yourself to achieve a higher score."
     >
 
     <meta name="robots" content="index, follow">
@@ -21,21 +21,32 @@
     >
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- ================================================
+         HEADER
+    ================================================= -->
+
     <header class="game-header">
 
         <div class="header-inner">
 
-            <a href="/" class="logo">
+            <a
+                href="/"
+                class="logo"
+                aria-label="Gameso Home"
+            >
                 <span>🎮</span>
                 <strong>Gameso</strong>
             </a>
 
-            <a href="/" class="back-button">
+            <a
+                href="/"
+                class="back-button"
+            >
                 ← All Games
             </a>
 
@@ -44,14 +55,21 @@
     </header>
 
 
-    <!-- MAIN -->
+    <!-- ================================================
+         MAIN
+    ================================================= -->
+
     <main>
 
         <section class="game-page">
 
             <div class="game-container">
 
-                <!-- INTRO -->
+
+                <!-- ======================================
+                     GAME INTRO
+                ======================================= -->
+
                 <div class="game-heading">
 
                     <span class="game-label">
@@ -59,42 +77,61 @@
                     </span>
 
                     <h1>
-Play 2048 Game Online                    </h1>
+                        Play 2048 Game Online
+                    </h1>
 
                     <p>
-                    
-Play 2048 game online for free and challenge yourself to reach the 2048 tile! Combine matching numbers, plan your moves, and build higher-value tiles in this simple yet addictive puzzle game. Enjoy 2048 online and test your strategy, focus, and problem-solving skills.
+                        Play 2048 game online for free and challenge
+                        yourself to reach the 2048 tile. Combine
+                        matching numbers, plan your moves, and build
+                        higher-value tiles in this classic number
+                        puzzle game. Enjoy 2048 online and test your
+                        strategy, focus, and problem-solving skills.
                     </p>
 
                 </div>
 
 
-                <!-- GAME BOX -->
+                <!-- ======================================
+                     GAME BOX
+                ======================================= -->
+
                 <div class="game-box">
 
                     <!-- SCORE -->
+
                     <div class="game-top">
 
                         <div class="score-box">
-                            <span>SCORE</span>
+
+                            <span>
+                                SCORE
+                            </span>
 
                             <strong id="score">
                                 0
                             </strong>
+
                         </div>
 
+
                         <div class="score-box">
-                            <span>BEST</span>
+
+                            <span>
+                                BEST
+                            </span>
 
                             <strong id="bestScore">
                                 0
                             </strong>
+
                         </div>
 
                     </div>
 
 
                     <!-- CONTROLS -->
+
                     <div class="game-controls">
 
                         <div class="game-tip">
@@ -110,6 +147,7 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
 
                         </div>
 
+
                         <button
                             id="newGame"
                             class="new-game-button"
@@ -122,6 +160,7 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
 
 
                     <!-- BOARD -->
+
                     <div
                         id="gameBoard"
                         class="game-board"
@@ -152,6 +191,7 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
 
 
                     <!-- MESSAGE -->
+
                     <div
                         id="gameMessage"
                         class="game-message"
@@ -160,7 +200,10 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
                 </div>
 
 
-                <!-- HOW TO PLAY -->
+                <!-- ======================================
+                     EXISTING HOW TO PLAY
+                ======================================= -->
+
                 <section class="game-info-section">
 
                     <h2>
@@ -168,15 +211,18 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
                     </h2>
 
                     <p>
-                        2048 is a number puzzle game
-                        where you combine matching tiles
-                        to create larger numbers.
+                        2048 is a number puzzle game where you
+                        combine matching tiles to create larger
+                        numbers. The goal is to keep combining
+                        tiles and eventually create the 2048 tile.
                     </p>
 
                     <p>
-                        Use the arrow keys on desktop
-                        or swipe on mobile to move all
-                        tiles in the same direction.
+                        Use the arrow keys on desktop or swipe
+                        on mobile to move all tiles in the same
+                        direction. Each move can change the board,
+                        so planning ahead is an important part
+                        of the game.
                     </p>
 
 
@@ -187,8 +233,8 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
                     <ul>
 
                         <li>
-                            🔢 Match two identical
-                            numbers to combine them.
+                            🔢 Match two identical numbers
+                            to combine them.
                         </li>
 
                         <li>
@@ -215,7 +261,527 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
                 </section>
 
 
-                <!-- RELATED GAMES -->
+                <!-- ======================================
+                     DETAILED 2048 GAME GUIDE
+                ======================================= -->
+
+                <section
+                    class="game2048-guide"
+                    aria-labelledby="game2048-guide-title"
+                >
+
+                    <div class="game2048-guide-container">
+
+                        <span class="game2048-guide-label">
+                            🔢 CLASSIC NUMBER PUZZLE
+                        </span>
+
+
+                        <!-- INTRODUCTION -->
+
+                        <h2 id="game2048-guide-title">
+                            About 2048 Game
+                        </h2>
+
+                        <p>
+                            2048 is a simple but challenging number
+                            puzzle game that rewards careful planning.
+                            The board contains numbered tiles that
+                            move together when you choose a direction.
+                            When two tiles with the same number meet,
+                            they combine into one tile with a higher
+                            value.
+                        </p>
+
+                        <p>
+                            The challenge becomes harder as the board
+                            fills up. You need to think about where new
+                            tiles can appear and choose moves that leave
+                            enough space for future combinations. A good
+                            strategy can help you keep the board organized
+                            and continue playing for longer.
+                        </p>
+
+
+                        <!-- HOW TO PLAY -->
+
+                        <h2>
+                            🎮 How to Play 2048 Game
+                        </h2>
+
+                        <p>
+                            Start by moving the tiles in any available
+                            direction. Matching numbers combine when
+                            they come together. For example, two tiles
+                            with the same value can merge into a single
+                            tile with double the value.
+                        </p>
+
+                        <ol class="game2048-list">
+
+                            <li>
+                                <strong>Start a new game:</strong>
+                                Click the New Game button to begin
+                                with a fresh board.
+                            </li>
+
+                            <li>
+                                <strong>Choose a direction:</strong>
+                                Use the arrow keys on desktop or
+                                swipe on a mobile device.
+                            </li>
+
+                            <li>
+                                <strong>Combine matching tiles:</strong>
+                                Move identical numbered tiles together
+                                to create a higher-value tile.
+                            </li>
+
+                            <li>
+                                <strong>Keep the board organized:</strong>
+                                Avoid filling every available space
+                                with random moves.
+                            </li>
+
+                            <li>
+                                <strong>Build larger numbers:</strong>
+                                Continue combining tiles and work
+                                towards the 2048 tile.
+                            </li>
+
+                        </ol>
+
+
+                        <!-- CONTROLS -->
+
+                        <h2>
+                            ⌨️ 2048 Game Controls
+                        </h2>
+
+                        <div class="game2048-control-grid">
+
+                            <div class="game2048-card">
+
+                                <span class="game2048-icon">
+                                    💻
+                                </span>
+
+                                <h3>
+                                    Desktop Controls
+                                </h3>
+
+                                <p>
+                                    Use the keyboard arrow keys to
+                                    move the tiles up, down, left,
+                                    or right.
+                                </p>
+
+                            </div>
+
+
+                            <div class="game2048-card">
+
+                                <span class="game2048-icon">
+                                    📱
+                                </span>
+
+                                <h3>
+                                    Mobile Controls
+                                </h3>
+
+                                <p>
+                                    Swipe across the game board to
+                                    move the tiles in the direction
+                                    you want.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- STRATEGIES -->
+
+                        <h2>
+                            🧠 10 Tips and Strategies for 2048
+                        </h2>
+
+                        <p>
+                            Reaching 2048 becomes easier when you
+                            think about your next few moves instead
+                            of making random moves. Try these
+                            strategies during your games.
+                        </p>
+
+
+                        <ol class="game2048-list">
+
+                            <li>
+                                <strong>Keep your largest tile in one corner:</strong>
+                                Choose a corner and try to keep your
+                                highest-value tile there.
+                            </li>
+
+                            <li>
+                                <strong>Plan before moving:</strong>
+                                Look at the available spaces and
+                                consider what your next move might do.
+                            </li>
+
+                            <li>
+                                <strong>Avoid unnecessary moves:</strong>
+                                Do not move in a direction simply
+                                because it is available.
+                            </li>
+
+                            <li>
+                                <strong>Keep open spaces:</strong>
+                                Empty spaces give you more options
+                                when new tiles appear.
+                            </li>
+
+                            <li>
+                                <strong>Build gradually:</strong>
+                                Focus on combining smaller tiles
+                                instead of trying to create large
+                                numbers immediately.
+                            </li>
+
+                            <li>
+                                <strong>Use predictable patterns:</strong>
+                                Developing a consistent movement
+                                pattern can help keep the board
+                                organized.
+                            </li>
+
+                            <li>
+                                <strong>Watch the corners:</strong>
+                                Make sure your important tiles do
+                                not become trapped in an awkward
+                                position.
+                            </li>
+
+                            <li>
+                                <strong>Think about new tiles:</strong>
+                                Every move can change the available
+                                spaces, so leave room for new tiles.
+                            </li>
+
+                            <li>
+                                <strong>Do not rush:</strong>
+                                Take a moment to understand the board
+                                before making each important move.
+                            </li>
+
+                            <li>
+                                <strong>Practise:</strong>
+                                Every game gives you an opportunity
+                                to learn which moves help and which
+                                moves create problems.
+                            </li>
+
+                        </ol>
+
+
+                        <!-- FEATURES -->
+
+                        <h2>
+                            ⭐ 2048 Game Features
+                        </h2>
+
+
+                        <div class="game2048-feature-grid">
+
+                            <div class="game2048-card">
+
+                                <span class="game2048-icon">
+                                    🔢
+                                </span>
+
+                                <h3>
+                                    Number Puzzle
+                                </h3>
+
+                                <p>
+                                    Combine matching numbers and
+                                    build increasingly valuable tiles.
+                                </p>
+
+                            </div>
+
+
+                            <div class="game2048-card">
+
+                                <span class="game2048-icon">
+                                    🧠
+                                </span>
+
+                                <h3>
+                                    Strategy Challenge
+                                </h3>
+
+                                <p>
+                                    Think ahead and choose moves that
+                                    keep the board under control.
+                                </p>
+
+                            </div>
+
+
+                            <div class="game2048-card">
+
+                                <span class="game2048-icon">
+                                    🏆
+                                </span>
+
+                                <h3>
+                                    High Score Challenge
+                                </h3>
+
+                                <p>
+                                    Try to improve your best score
+                                    and create higher-value tiles.
+                                </p>
+
+                            </div>
+
+
+                            <div class="game2048-card">
+
+                                <span class="game2048-icon">
+                                    📱
+                                </span>
+
+                                <h3>
+                                    Desktop & Mobile
+                                </h3>
+
+                                <p>
+                                    Play using keyboard controls on
+                                    desktop or swipe controls on
+                                    compatible mobile devices.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- COMMON MISTAKES -->
+
+                        <h2>
+                            ⚠️ Common 2048 Mistakes to Avoid
+                        </h2>
+
+                        <p>
+                            Many games end because the board becomes
+                            crowded and there are not enough useful
+                            moves available. Avoiding common mistakes
+                            can help you play more consistently.
+                        </p>
+
+                        <ul class="game2048-bullet-list">
+
+                            <li>
+                                ❌ Making random moves without checking
+                                the board.
+                            </li>
+
+                            <li>
+                                ❌ Moving your largest tile away from
+                                your preferred corner.
+                            </li>
+
+                            <li>
+                                ❌ Filling too many spaces without a
+                                plan for combining tiles.
+                            </li>
+
+                            <li>
+                                ❌ Ignoring possible combinations
+                                before making a move.
+                            </li>
+
+                            <li>
+                                ❌ Focusing only on the next combination
+                                instead of the overall board.
+                            </li>
+
+                        </ul>
+
+
+                        <!-- FAQ -->
+
+                        <h2>
+                            ❓ 2048 Game FAQs
+                        </h2>
+
+
+                        <div class="game2048-faq">
+
+                            <details>
+
+                                <summary>
+                                    What is 2048 Game?
+                                </summary>
+
+                                <p>
+                                    2048 is a number puzzle game where
+                                    players combine matching numbered
+                                    tiles to create higher-value tiles.
+                                    The main objective is to reach the
+                                    2048 tile while keeping the board
+                                    playable.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    Can I play 2048 online for free?
+                                </summary>
+
+                                <p>
+                                    Yes. You can play the 2048 game
+                                    on Gameso directly in your browser
+                                    without purchasing the game.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    How do I move tiles in 2048?
+                                </summary>
+
+                                <p>
+                                    On desktop, use the keyboard arrow
+                                    keys. On mobile devices, swipe
+                                    across the game board to move
+                                    the tiles.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    What is the goal of 2048?
+                                </summary>
+
+                                <p>
+                                    The main goal is to combine matching
+                                    tiles and create a tile with the
+                                    value 2048. You can also continue
+                                    playing to challenge your highest
+                                    score.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    How can I get better at 2048?
+                                </summary>
+
+                                <p>
+                                    Plan your moves, keep your larger
+                                    tile in a consistent position,
+                                    maintain open spaces, and avoid
+                                    making unnecessary moves.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    Why does the 2048 game end?
+                                </summary>
+
+                                <p>
+                                    The game can end when the board
+                                    becomes full and there are no
+                                    available moves or combinations
+                                    remaining.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    Is 2048 easy to learn?
+                                </summary>
+
+                                <p>
+                                    The basic rules are simple to learn,
+                                    but reaching higher-value tiles
+                                    requires planning and practice.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    Can I play 2048 on mobile?
+                                </summary>
+
+                                <p>
+                                    Yes. The game supports swipe-based
+                                    movement on mobile devices, making
+                                    it possible to play 2048 on a
+                                    touchscreen.
+                                </p>
+
+                            </details>
+
+                        </div>
+
+
+                        <!-- FINAL CTA -->
+
+                        <div class="game2048-cta">
+
+                            <h2>
+                                🚀 Ready to Reach 2048?
+                            </h2>
+
+                            <p>
+                                Start a new game, combine the tiles,
+                                plan your moves, and see how high you
+                                can take your score.
+                            </p>
+
+                            <a
+                                href="#gameBoard"
+                                class="game2048-button"
+                            >
+                                Play 2048 Again ↑
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- ======================================
+                     RELATED GAMES
+                ======================================= -->
+
                 <section class="related-section">
 
                     <h2>
@@ -243,11 +809,11 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
 
 
                         <a
-                            href="/games/2048/"
+                            href="/games/memory/"
                             class="related-card"
                         >
-                            <span>🔢</span>
-                            <strong>2048</strong>
+                            <span>🧠</span>
+                            <strong>Memory Game</strong>
                         </a>
 
                     </div>
@@ -261,7 +827,10 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
     </main>
 
 
-    <!-- FOOTER -->
+    <!-- ================================================
+         FOOTER
+    ================================================= -->
+
     <footer>
 
         <p>
@@ -272,6 +841,246 @@ Play 2048 game online for free and challenge yourself to reach the 2048 tile! Co
 
     </footer>
 
+
+    <!-- ================================================
+         2048 CONTENT CSS
+    ================================================= -->
+
+    <style>
+
+        .game2048-guide {
+            width: 100%;
+            padding: 45px 20px;
+            background: #f8fafc;
+            box-sizing: border-box;
+        }
+
+
+        .game2048-guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 35px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-sizing: border-box;
+        }
+
+
+        .game2048-guide-container h2 {
+            margin: 32px 0 14px;
+            color: #111827;
+            font-size: 26px;
+            line-height: 1.4;
+        }
+
+
+        .game2048-guide-container h2:first-of-type {
+            margin-top: 12px;
+        }
+
+
+        .game2048-guide-container h3 {
+            margin: 10px 0;
+            color: #1f2937;
+            font-size: 18px;
+        }
+
+
+        .game2048-guide-container p,
+        .game2048-guide-container li {
+            color: #4b5563;
+            font-size: 16px;
+            line-height: 1.85;
+        }
+
+
+        .game2048-guide-container p {
+            margin: 0 0 16px;
+        }
+
+
+        .game2048-guide-label {
+            display: inline-block;
+            margin-bottom: 4px;
+            padding: 7px 12px;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+
+        .game2048-list {
+            padding-left: 24px;
+            margin: 16px 0 25px;
+        }
+
+
+        .game2048-list li {
+            margin-bottom: 12px;
+            padding-left: 5px;
+        }
+
+
+        .game2048-control-grid,
+        .game2048-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin: 22px 0;
+        }
+
+
+        .game2048-card {
+            padding: 22px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+
+        .game2048-card p {
+            margin-bottom: 0;
+        }
+
+
+        .game2048-icon {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 28px;
+        }
+
+
+        .game2048-bullet-list {
+            margin: 16px 0 25px;
+            padding-left: 24px;
+        }
+
+
+        .game2048-bullet-list li {
+            margin-bottom: 10px;
+        }
+
+
+        .game2048-faq {
+            margin-top: 18px;
+        }
+
+
+        .game2048-faq details {
+            margin-bottom: 12px;
+            padding: 17px 20px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+        }
+
+
+        .game2048-faq summary {
+            color: #111827;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+
+        .game2048-faq details p {
+            margin: 12px 0 0;
+        }
+
+
+        .game2048-cta {
+            margin-top: 35px;
+            padding: 28px;
+            text-align: center;
+            background: #eff6ff;
+            border-radius: 14px;
+        }
+
+
+        .game2048-cta h2 {
+            margin-top: 0;
+        }
+
+
+        .game2048-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: #ffffff;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+
+        .game2048-button:hover {
+            background: #1d4ed8;
+            color: #ffffff;
+        }
+
+
+        @media (max-width: 600px) {
+
+            .game2048-guide {
+                padding: 25px 12px;
+            }
+
+
+            .game2048-guide-container {
+                padding: 22px 16px;
+                border-radius: 12px;
+            }
+
+
+            .game2048-guide-container h2 {
+                font-size: 23px;
+            }
+
+
+            .game2048-guide-container h3 {
+                font-size: 17px;
+            }
+
+
+            .game2048-guide-container p,
+            .game2048-guide-container li {
+                font-size: 15px;
+                line-height: 1.8;
+            }
+
+
+            .game2048-control-grid,
+            .game2048-feature-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+
+            .game2048-card {
+                padding: 18px;
+            }
+
+
+            .game2048-cta {
+                padding: 22px 16px;
+            }
+
+        }
+
+    </style>
+
+
+    <!-- ================================================
+         JAVASCRIPT
+    ================================================= -->
 
     <script src="script.js"></script>
 
