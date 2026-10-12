@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -9,18 +10,11 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        Tic Tac Toe Online - Play Free Tic Tac Toe | Gameso
-    </title>
+    <title>Snake Game Online - Play Free Snake Game | Gameso</title>
 
     <meta
         name="description"
-        content="Play Tic Tac Toe online for free on Gameso. Challenge a friend, place X and O, and try to get three in a row."
-    >
-
-    <meta
-        name="keywords"
-        content="tic tac toe, tic tac toe online, play tic tac toe, free tic tac toe game"
+        content="Play Snake Game online for free on Gameso. Control the snake, collect food, grow longer, avoid obstacles and try to achieve the highest score."
     >
 
     <meta
@@ -30,21 +24,23 @@
 
     <link
         rel="canonical"
-        href="https://gameso.vercel.app/games/tic-tac-toe/"
+        href="https://gameso.vercel.app/games/snake/"
     >
 
     <link
         rel="stylesheet"
         href="style.css"
     >
+
 </head>
 
 
 <body>
 
-    <!-- =========================================
+
+    <!-- ================================================
          HEADER
-    ========================================== -->
+    ================================================= -->
 
     <header class="game-header">
 
@@ -58,7 +54,9 @@
 
                 <span>🎮</span>
 
-                <strong>Gameso</strong>
+                <strong>
+                    Gameso
+                </strong>
 
             </a>
 
@@ -75,9 +73,9 @@
     </header>
 
 
-    <!-- =========================================
+    <!-- ================================================
          MAIN
-    ========================================== -->
+    ================================================= -->
 
     <main>
 
@@ -86,194 +84,62 @@
             <div class="game-container">
 
 
-                <!-- GAME INTRO -->
+                <!-- ======================================
+                     GAME INTRO
+                ======================================= -->
 
                 <div class="game-heading">
 
                     <span class="game-label">
-                        ❌⭕ CLASSIC GAME
+                        🐍 ARCADE GAME
                     </span>
 
                     <h1>
-                        Tic Tac Toe Online
+                        Snake Game Online
                     </h1>
 
                     <p>
-                        Play the classic Tic Tac Toe game
-                        online for free. Take turns placing
-                        X and O and get three in a row to win.
+                        Play the classic Snake Game online for free.
+                        Control the snake, collect food, grow longer,
+                        avoid collisions and try to beat your highest
+                        score. Enjoy a simple and challenging arcade
+                        game directly in your browser.
                     </p>
 
                 </div>
 
 
-                <!-- =================================
+                <!-- ======================================
                      GAME BOX
-                ================================== -->
+                ======================================= -->
 
                 <div class="game-box">
 
 
-                    <!-- GAME STATUS -->
-
-                    <div class="game-status">
-
-                        <div class="player-box active" id="playerX">
-
-                            <span class="player-symbol">
-                                X
-                            </span>
-
-                            <div>
-                                <small>
-                                    Player
-                                </small>
-
-                                <strong>
-                                    X
-                                </strong>
-                            </div>
-
-                        </div>
-
-
-                        <div class="vs">
-                            VS
-                        </div>
-
-
-                        <div class="player-box" id="playerO">
-
-                            <span class="player-symbol">
-                                O
-                            </span>
-
-                            <div>
-                                <small>
-                                    Player
-                                </small>
-
-                                <strong>
-                                    O
-                                </strong>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- STATUS MESSAGE -->
-
-                    <div
-                        class="turn-message"
-                        id="turnMessage"
-                    >
-                        Player X's Turn
-                    </div>
-
-
-                    <!-- BOARD -->
-
-                    <div
-                        class="tic-tac-toe-board"
-                        id="gameBoard"
-                    >
-
-                        <button
-                            class="cell"
-                            data-index="0"
-                            aria-label="Cell 1"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="1"
-                            aria-label="Cell 2"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="2"
-                            aria-label="Cell 3"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="3"
-                            aria-label="Cell 4"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="4"
-                            aria-label="Cell 5"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="5"
-                            aria-label="Cell 6"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="6"
-                            aria-label="Cell 7"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="7"
-                            aria-label="Cell 8"
-                        ></button>
-
-                        <button
-                            class="cell"
-                            data-index="8"
-                            aria-label="Cell 9"
-                        ></button>
-
-                    </div>
-
-
                     <!-- SCORE -->
 
-                    <div class="score-panel">
+                    <div class="game-topbar">
 
-                        <div class="score-item">
+                        <div class="score-box">
 
                             <span>
-                                X Wins
+                                Score
                             </span>
 
-                            <strong id="xScore">
+                            <strong id="score">
                                 0
                             </strong>
 
                         </div>
 
 
-                        <div class="score-item">
+                        <div class="high-score-box">
 
                             <span>
-                                Draws
+                                Best
                             </span>
 
-                            <strong id="drawScore">
-                                0
-                            </strong>
-
-                        </div>
-
-
-                        <div class="score-item">
-
-                            <span>
-                                O Wins
-                            </span>
-
-                            <strong id="oScore">
+                            <strong id="highScore">
                                 0
                             </strong>
 
@@ -282,74 +148,680 @@
                     </div>
 
 
-                    <!-- RESTART -->
+                    <!-- ==================================
+                         CANVAS
+                    =================================== -->
 
-                    <button
-                        id="restartButton"
-                        class="restart-button"
-                        type="button"
-                    >
-                        🔄 New Game
-                    </button>
+                    <div class="canvas-wrapper">
+
+                        <canvas
+                            id="gameCanvas"
+                            width="500"
+                            height="500"
+                            aria-label="Snake Game"
+                        ></canvas>
+
+
+                        <!-- START / GAME OVER -->
+
+                        <div
+                            class="game-message"
+                            id="gameMessage"
+                        >
+
+                            <div class="message-icon">
+                                🐍
+                            </div>
+
+                            <h2>
+                                Snake Game
+                            </h2>
+
+                            <p>
+                                Press Start to play
+                            </p>
+
+                            <button
+                                id="startButton"
+                                class="start-button"
+                                type="button"
+                            >
+                                ▶ Start Game
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================
+                         MOBILE CONTROLS
+                    =================================== -->
+
+                    <div class="controls">
+
+                        <button
+                            class="control-btn up"
+                            data-direction="up"
+                            aria-label="Move Up"
+                            type="button"
+                        >
+                            ↑
+                        </button>
+
+
+                        <div class="control-row">
+
+                            <button
+                                class="control-btn"
+                                data-direction="left"
+                                aria-label="Move Left"
+                                type="button"
+                            >
+                                ←
+                            </button>
+
+
+                            <button
+                                class="control-btn"
+                                data-direction="down"
+                                aria-label="Move Down"
+                                type="button"
+                            >
+                                ↓
+                            </button>
+
+
+                            <button
+                                class="control-btn"
+                                data-direction="right"
+                                aria-label="Move Right"
+                                type="button"
+                            >
+                                →
+                            </button>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
 
-                <!-- =================================
-                     HOW TO PLAY
-                ================================== -->
+                <!-- ======================================
+                     DETAILED SNAKE CONTENT
+                     OLD CONTENT REMOVED
+                ======================================= -->
 
-                <section class="game-info-section">
+                <section
+                    class="gameso-snake-guide"
+                    aria-labelledby="snake-guide-title"
+                >
 
-                    <h2>
-                        How to Play Tic Tac Toe
-                    </h2>
-
-                    <p>
-                        Tic Tac Toe is a simple two-player
-                        strategy game. Players take turns
-                        placing X and O on the 3×3 board.
-                    </p>
-
-                    <p>
-                        The first player to get three matching
-                        symbols in a row, column, or diagonal
-                        wins the game.
-                    </p>
+                    <div class="gameso-snake-container">
 
 
-                    <h2>
-                        Tic Tac Toe Rules
-                    </h2>
+                        <!-- LABEL -->
 
-                    <ul>
+                        <span class="gameso-snake-label">
+                            🐍 CLASSIC ARCADE GAME
+                        </span>
 
-                        <li>
-                            ❌ Player X goes first.
-                        </li>
 
-                        <li>
-                            ⭕ Player O goes second.
-                        </li>
+                        <!-- ABOUT -->
 
-                        <li>
-                            🏆 Get three symbols in a row
-                            to win.
-                        </li>
+                        <h2 id="snake-guide-title">
+                            About Snake Game
+                        </h2>
 
-                        <li>
-                            🤝 If all cells are filled with
-                            no winner, the game is a draw.
-                        </li>
+                        <p>
+                            Snake is a classic arcade game that is
+                            simple to learn but becomes more challenging
+                            as your snake grows. The main objective is
+                            to guide the snake around the game board,
+                            collect food and increase your score.
+                        </p>
 
-                    </ul>
+                        <p>
+                            Each piece of food makes the snake longer.
+                            As the snake grows, you need more space and
+                            better control to avoid collisions. The
+                            challenge is to keep moving while managing
+                            the growing length of the snake.
+                        </p>
+
+
+                        <!-- HOW TO PLAY -->
+
+                        <h2>
+                            🎮 How to Play Snake Game
+                        </h2>
+
+                        <p>
+                            Start the game and guide the snake toward
+                            the food that appears on the board. Collecting
+                            food increases your score and makes the snake
+                            longer.
+                        </p>
+
+                        <p>
+                            Be careful while moving because hitting the
+                            wall or your own snake can end the game.
+                            Try to plan your movement before the snake
+                            becomes too long.
+                        </p>
+
+
+                        <ol class="gameso-snake-list">
+
+                            <li>
+                                <strong>Start the game:</strong>
+                                Press the Start Game button to begin.
+                            </li>
+
+                            <li>
+                                <strong>Move the snake:</strong>
+                                Use the arrow keys on desktop or the
+                                on-screen buttons on mobile.
+                            </li>
+
+                            <li>
+                                <strong>Collect food:</strong>
+                                Guide the snake toward the food to
+                                increase your score.
+                            </li>
+
+                            <li>
+                                <strong>Grow your snake:</strong>
+                                Every food item makes the snake longer.
+                            </li>
+
+                            <li>
+                                <strong>Avoid collisions:</strong>
+                                Do not hit the game board walls or
+                                your own snake.
+                            </li>
+
+                            <li>
+                                <strong>Beat your score:</strong>
+                                Keep playing and try to achieve a
+                                higher best score.
+                            </li>
+
+                        </ol>
+
+
+                        <!-- CONTROLS -->
+
+                        <h2>
+                            ⌨️ Snake Game Controls
+                        </h2>
+
+                        <div class="gameso-snake-control-grid">
+
+
+                            <div class="gameso-snake-card">
+
+                                <span class="gameso-snake-icon">
+                                    💻
+                                </span>
+
+                                <h3>
+                                    Desktop Controls
+                                </h3>
+
+                                <p>
+                                    Use the keyboard arrow keys to
+                                    move the snake up, down, left
+                                    or right.
+                                </p>
+
+                            </div>
+
+
+                            <div class="gameso-snake-card">
+
+                                <span class="gameso-snake-icon">
+                                    📱
+                                </span>
+
+                                <h3>
+                                    Mobile Controls
+                                </h3>
+
+                                <p>
+                                    Use the on-screen direction
+                                    buttons to control the snake
+                                    on mobile devices.
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- GAME OBJECTIVE -->
+
+                        <h2>
+                            🏆 Snake Game Objective
+                        </h2>
+
+                        <p>
+                            The objective of Snake is to collect as
+                            much food as possible while keeping the
+                            snake alive. Every successful food pickup
+                            increases your score and makes the snake
+                            longer.
+                        </p>
+
+                        <p>
+                            Your game can become more difficult as
+                            the snake grows because there is less
+                            available space for movement. The key is
+                            to stay in control and avoid trapping
+                            yourself.
+                        </p>
+
+
+                        <!-- STRATEGIES -->
+
+                        <h2>
+                            🧠 Snake Game Tips and Strategies
+                        </h2>
+
+                        <p>
+                            A good Snake player does more than simply
+                            chase the nearest food. Planning your
+                            movement can help you avoid getting trapped
+                            as the snake becomes longer.
+                        </p>
+
+
+                        <ol class="gameso-snake-list">
+
+                            <li>
+                                <strong>Plan your route:</strong>
+                                Look at the available space before
+                                moving toward food.
+                            </li>
+
+                            <li>
+                                <strong>Avoid sudden turns:</strong>
+                                Keep your movement predictable so
+                                you do not accidentally hit yourself.
+                            </li>
+
+                            <li>
+                                <strong>Leave enough space:</strong>
+                                Avoid creating a situation where the
+                                snake has nowhere to move.
+                            </li>
+
+                            <li>
+                                <strong>Watch your snake's tail:</strong>
+                                Remember that your body becomes longer
+                                after collecting food.
+                            </li>
+
+                            <li>
+                                <strong>Do not rush:</strong>
+                                A quick move is not always the best
+                                move. Think about the next position.
+                            </li>
+
+                            <li>
+                                <strong>Use the open area:</strong>
+                                Try to keep the snake in areas where
+                                several movement options remain.
+                            </li>
+
+                            <li>
+                                <strong>Control the corners:</strong>
+                                Be careful when moving close to walls
+                                because turning options can become
+                                limited.
+                            </li>
+
+                            <li>
+                                <strong>Focus on survival:</strong>
+                                A safe route is often better than
+                                taking a risky shortcut toward food.
+                            </li>
+
+                            <li>
+                                <strong>Practice regularly:</strong>
+                                Playing more rounds helps you become
+                                familiar with movement and spacing.
+                            </li>
+
+                            <li>
+                                <strong>Try to beat your best:</strong>
+                                Use your previous score as a target
+                                and gradually improve your performance.
+                            </li>
+
+                        </ol>
+
+
+                        <!-- FEATURES -->
+
+                        <h2>
+                            ⭐ Snake Game Features
+                        </h2>
+
+
+                        <div class="gameso-snake-feature-grid">
+
+
+                            <div class="gameso-snake-card">
+
+                                <span class="gameso-snake-icon">
+                                    🐍
+                                </span>
+
+                                <h3>
+                                    Classic Snake Gameplay
+                                </h3>
+
+                                <p>
+                                    Enjoy the familiar snake gameplay
+                                    with simple movement and increasing
+                                    difficulty.
+                                </p>
+
+                            </div>
+
+
+                            <div class="gameso-snake-card">
+
+                                <span class="gameso-snake-icon">
+                                    🏆
+                                </span>
+
+                                <h3>
+                                    Score Challenge
+                                </h3>
+
+                                <p>
+                                    Collect food, increase your score
+                                    and try to beat your personal best.
+                                </p>
+
+                            </div>
+
+
+                            <div class="gameso-snake-card">
+
+                                <span class="gameso-snake-icon">
+                                    💻
+                                </span>
+
+                                <h3>
+                                    Browser Gameplay
+                                </h3>
+
+                                <p>
+                                    Play directly in your browser without
+                                    needing to download a separate game.
+                                </p>
+
+                            </div>
+
+
+                            <div class="gameso-snake-card">
+
+                                <span class="gameso-snake-icon">
+                                    📱
+                                </span>
+
+                                <h3>
+                                    Mobile Controls
+                                </h3>
+
+                                <p>
+                                    Use the on-screen controls to play
+                                    Snake on compatible mobile devices.
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- COMMON MISTAKES -->
+
+                        <h2>
+                            ⚠️ Common Snake Game Mistakes
+                        </h2>
+
+                        <p>
+                            New players often focus only on reaching
+                            the food and forget about the snake's
+                            growing body. Avoiding common mistakes can
+                            help you survive longer.
+                        </p>
+
+
+                        <ul class="gameso-snake-bullet-list">
+
+                            <li>
+                                ❌ Moving toward food without checking
+                                the available path.
+                            </li>
+
+                            <li>
+                                ❌ Turning too quickly near the snake's
+                                own body.
+                            </li>
+
+                            <li>
+                                ❌ Moving directly into a wall.
+                            </li>
+
+                            <li>
+                                ❌ Ignoring the snake's increasing length.
+                            </li>
+
+                            <li>
+                                ❌ Taking unnecessary risks when a
+                                safer route is available.
+                            </li>
+
+                        </ul>
+
+
+                        <!-- WHY PLAY -->
+
+                        <h2>
+                            🎯 Why Play Snake Game?
+                        </h2>
+
+                        <p>
+                            Snake is easy to understand and quick to
+                            start, making it a fun choice for short
+                            gaming sessions. At the same time, higher
+                            scores require concentration, planning and
+                            good control.
+                        </p>
+
+                        <p>
+                            Whether you played classic Snake games
+                            before or are trying the game for the first
+                            time, you can start with the basic controls
+                            and gradually improve your score.
+                        </p>
+
+
+                        <!-- FAQ -->
+
+                        <h2>
+                            ❓ Snake Game FAQs
+                        </h2>
+
+
+                        <div class="gameso-snake-faq">
+
+
+                            <details>
+
+                                <summary>
+                                    What is Snake Game?
+                                </summary>
+
+                                <p>
+                                    Snake is a classic arcade game where
+                                    you control a growing snake, collect
+                                    food and try to achieve the highest
+                                    possible score without crashing.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    Can I play Snake Game online for free?
+                                </summary>
+
+                                <p>
+                                    Yes. You can play the Snake Game on
+                                    Gameso directly in your browser for
+                                    free.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    How do I control the Snake Game?
+                                </summary>
+
+                                <p>
+                                    On desktop, use the keyboard arrow
+                                    keys. On mobile devices, use the
+                                    on-screen direction buttons.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    What is the goal of Snake Game?
+                                </summary>
+
+                                <p>
+                                    The goal is to collect food, grow
+                                    the snake and achieve the highest
+                                    score while avoiding collisions.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    How do I get a higher Snake score?
+                                </summary>
+
+                                <p>
+                                    Collect food consistently, avoid
+                                    unnecessary risks and plan your
+                                    movement so you have enough space
+                                    to control the growing snake.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    What happens when the Snake gets longer?
+                                </summary>
+
+                                <p>
+                                    The snake becomes longer after
+                                    collecting food. This makes the
+                                    game more challenging because you
+                                    have less space for movement.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    Can I play Snake on mobile?
+                                </summary>
+
+                                <p>
+                                    Yes. The game includes on-screen
+                                    direction controls for playing
+                                    on compatible mobile devices.
+                                </p>
+
+                            </details>
+
+
+                            <details>
+
+                                <summary>
+                                    How does the Snake Game end?
+                                </summary>
+
+                                <p>
+                                    The game ends when the snake
+                                    collides with the game boundary
+                                    or its own body.
+                                </p>
+
+                            </details>
+
+
+                        </div>
+
+
+                        <!-- FINAL CTA -->
+
+                        <div class="gameso-snake-cta">
+
+                            <h2>
+                                🚀 Ready to Play Snake?
+                            </h2>
+
+                            <p>
+                                Start the game, collect the food,
+                                grow your snake and see how high
+                                you can take your score.
+                            </p>
+
+                            <a
+                                href="#gameCanvas"
+                                class="gameso-snake-button"
+                            >
+                                Play Snake Again ↑
+                            </a>
+
+                        </div>
+
+
+                    </div>
 
                 </section>
 
 
-                <!-- =================================
+                <!-- ======================================
                      RELATED GAMES
-                ================================== -->
+                ======================================= -->
 
                 <section class="related-section">
 
@@ -357,23 +829,8 @@
                         More Games
                     </h2>
 
+
                     <div class="related-grid">
-
-
-                        <a
-                            href="/games/snake/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                🐍
-                            </span>
-
-                            <strong>
-                                Snake Game
-                            </strong>
-
-                        </a>
 
 
                         <a
@@ -387,6 +844,22 @@
 
                             <strong>
                                 2048
+                            </strong>
+
+                        </a>
+
+
+                        <a
+                            href="/games/tic-tac-toe/"
+                            class="related-card"
+                        >
+
+                            <span>
+                                ❌⭕
+                            </span>
+
+                            <strong>
+                                Tic Tac Toe
                             </strong>
 
                         </a>
@@ -407,9 +880,11 @@
 
                         </a>
 
+
                     </div>
 
                 </section>
+
 
             </div>
 
@@ -418,23 +893,401 @@
     </main>
 
 
-    <!-- =========================================
+    <!-- ================================================
          FOOTER
-    ========================================== -->
+    ================================================= -->
 
     <footer>
 
         <p>
+
             ©
+
             <span id="year"></span>
+
             Gameso.
+
             All rights reserved.
+
         </p>
 
     </footer>
 
 
+    <!-- ================================================
+         SNAKE CONTENT CSS
+    ================================================= -->
+
+    <style>
+
+
+        .gameso-snake-guide {
+
+            width: 100%;
+
+            padding: 45px 20px;
+
+            background: #f8fafc;
+
+            box-sizing: border-box;
+
+        }
+
+
+        .gameso-snake-container {
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            padding: 35px;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            box-sizing: border-box;
+
+        }
+
+
+        .gameso-snake-container h2 {
+
+            margin: 32px 0 14px;
+
+            color: #111827;
+
+            font-size: 26px;
+
+            line-height: 1.4;
+
+        }
+
+
+        .gameso-snake-container h2:first-of-type {
+
+            margin-top: 12px;
+
+        }
+
+
+        .gameso-snake-container h3 {
+
+            margin: 10px 0;
+
+            color: #1f2937;
+
+            font-size: 18px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .gameso-snake-container p,
+
+        .gameso-snake-container li {
+
+            color: #4b5563;
+
+            font-size: 16px;
+
+            line-height: 1.85;
+
+        }
+
+
+        .gameso-snake-container p {
+
+            margin: 0 0 16px;
+
+        }
+
+
+        .gameso-snake-label {
+
+            display: inline-block;
+
+            margin-bottom: 4px;
+
+            padding: 7px 12px;
+
+            background: #ecfdf5;
+
+            color: #047857;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        .gameso-snake-list {
+
+            margin: 16px 0 25px;
+
+            padding-left: 24px;
+
+        }
+
+
+        .gameso-snake-list li {
+
+            margin-bottom: 12px;
+
+            padding-left: 5px;
+
+        }
+
+
+        .gameso-snake-control-grid,
+
+        .gameso-snake-feature-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 18px;
+
+            margin: 22px 0;
+
+        }
+
+
+        .gameso-snake-card {
+
+            padding: 22px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+        }
+
+
+        .gameso-snake-card p {
+
+            margin-bottom: 0;
+
+        }
+
+
+        .gameso-snake-icon {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 28px;
+
+        }
+
+
+        .gameso-snake-bullet-list {
+
+            margin: 16px 0 25px;
+
+            padding-left: 24px;
+
+        }
+
+
+        .gameso-snake-bullet-list li {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .gameso-snake-faq {
+
+            margin-top: 18px;
+
+        }
+
+
+        .gameso-snake-faq details {
+
+            margin-bottom: 12px;
+
+            padding: 17px 20px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 10px;
+
+        }
+
+
+        .gameso-snake-faq summary {
+
+            color: #111827;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            line-height: 1.6;
+
+            cursor: pointer;
+
+        }
+
+
+        .gameso-snake-faq details p {
+
+            margin: 12px 0 0;
+
+        }
+
+
+        .gameso-snake-cta {
+
+            margin-top: 35px;
+
+            padding: 28px;
+
+            text-align: center;
+
+            background: #ecfdf5;
+
+            border-radius: 14px;
+
+        }
+
+
+        .gameso-snake-cta h2 {
+
+            margin-top: 0;
+
+        }
+
+
+        .gameso-snake-button {
+
+            display: inline-block;
+
+            margin-top: 10px;
+
+            padding: 13px 22px;
+
+            background: #059669;
+
+            color: #ffffff;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition: background 0.2s ease;
+
+        }
+
+
+        .gameso-snake-button:hover {
+
+            background: #047857;
+
+            color: #ffffff;
+
+        }
+
+
+        @media (max-width: 600px) {
+
+
+            .gameso-snake-guide {
+
+                padding: 25px 12px;
+
+            }
+
+
+            .gameso-snake-container {
+
+                padding: 22px 16px;
+
+                border-radius: 12px;
+
+            }
+
+
+            .gameso-snake-container h2 {
+
+                font-size: 23px;
+
+            }
+
+
+            .gameso-snake-container h3 {
+
+                font-size: 17px;
+
+            }
+
+
+            .gameso-snake-container p,
+
+            .gameso-snake-container li {
+
+                font-size: 15px;
+
+                line-height: 1.8;
+
+            }
+
+
+            .gameso-snake-control-grid,
+
+            .gameso-snake-feature-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+
+            }
+
+
+            .gameso-snake-card {
+
+                padding: 18px;
+
+            }
+
+
+            .gameso-snake-cta {
+
+                padding: 22px 16px;
+
+            }
+
+        }
+
+    </style>
+
+
+    <!-- ================================================
+         JAVASCRIPT
+    ================================================= -->
+
     <script src="script.js"></script>
+
 
 </body>
 
