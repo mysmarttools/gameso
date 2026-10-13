@@ -1,350 +1,1471 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+  <title>Connect 4 Board Game Online | Play Free - Gameso</title>
+  <meta name="description" content="Play Connect 4 board game online for free at Gameso! Challenge the computer or a friend, connect four discs in a row, and enjoy this classic strategy game.">
+  <meta name="keywords" content="connect 4 board game, connect four online, play connect 4 free, four in a row, online board games, connect 4 game">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameso.vercel.app/games/connect-4-board-games/">
+  <meta name="theme-color" content="#101827">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Connect 4 Board Game Online | Gameso">
+  <meta property="og:description" content="Drop your discs, outsmart your opponent, and connect four to win. Play free on Gameso.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/connect-4-board-games/">
 
-    <title>
-        Connect 4 Board Game Online - Play Free | Gameso
-    </title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101827;
+      --panel: #172235;
+      --panel-light: #202f45;
+      --border: #2b3b52;
+      --text: #f4f7fb;
+      --muted: #a6b4c7;
+      --accent: #70e1b0;
+      --red: #ff5265;
+      --yellow: #ffd34f;
+      --blue: #326ce5;
+    }
 
-    <meta
-        name="description"
-        content="Play Connect 4 Board Game online for free on Gameso. Drop your discs, connect four in a row and challenge another player."
-    >
+    * { box-sizing: border-box; }
 
-    <meta
-        name="robots"
-        content="index, follow"
-    >
+    html { scroll-behavior: smooth; }
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/connect-4-board-games/"
-    >
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
 
-    <link
-        rel="stylesheet"
-        href="./style.css"
-    >
+    button, select { font: inherit; }
 
+    button:focus-visible, select:focus-visible, a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: #111b2b;
+    }
+
+    .header-inner, .container {
+      width: min(1100px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    .header-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      color: var(--text);
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -.7px;
+    }
+
+    .brand span { color: var(--accent); }
+
+    .header-tag {
+      color: var(--muted);
+      font-size: .86rem;
+    }
+
+    main { padding: 28px 0 56px; }
+
+    .breadcrumbs {
+      font-size: .84rem;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .breadcrumbs span { margin: 0 8px; color: #64758c; }
+
+    .hero { margin-bottom: 22px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      background: #18372f;
+      border: 1px solid #285846;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    h1 {
+      margin: 13px 0 8px;
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
+
+    .hero p { color: var(--muted); max-width: 680px; margin: 0; }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 285px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .game-panel, .side-card, .content-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 12px 35px #00000014;
+    }
+
+    .game-panel { padding: clamp(12px, 3vw, 24px); }
+
+    .game-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 17px;
+    }
+
+    .game-topbar h2 { margin: 0; font-size: 1.12rem; }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      background: var(--panel-light);
+      color: var(--text);
+      padding: 7px 12px;
+      font-size: .82rem;
+      font-weight: 750;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .status-dot.yellow { background: var(--yellow); }
+    .status-dot.green { background: var(--accent); }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 17px;
+    }
+
+    .player-card {
+      background: #202d40;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .player-card.active { border-color: var(--accent); }
+
+    .player-disc {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: inset -3px -4px 6px #00000022, inset 2px 2px 5px #ffffff55;
+    }
+
+    .player-disc.red { background: var(--red); }
+    .player-disc.yellow { background: var(--yellow); }
+
+    .player-info { min-width: 0; }
+    .player-name { font-weight: 800; font-size: .86rem; }
+    .player-score { color: var(--muted); font-size: .76rem; }
+
+    .versus {
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .board-shell {
+      background: #0b1422;
+      padding: clamp(7px, 1.7vw, 13px);
+      border-radius: 16px;
+      border: 1px solid #354b68;
+      width: 100%;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .column-hints {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: clamp(4px, 1vw, 9px);
+      margin-bottom: 7px;
+    }
+
+    .column-button {
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 3px 0;
+      cursor: pointer;
+      font-weight: 800;
+      transition: background .15s, color .15s;
+    }
+
+    .column-button:hover:not(:disabled),
+    .column-button:focus-visible {
+      background: #20324b;
+      color: var(--accent);
+    }
+
+    .column-button:disabled { opacity: .25; cursor: not-allowed; }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: clamp(4px, 1vw, 9px);
+      background: linear-gradient(145deg, #3477e9, #1d50bb);
+      border: 2px solid #5089ef;
+      border-radius: 11px;
+      padding: clamp(6px, 1.4vw, 11px);
+      box-shadow: inset 0 3px 8px #ffffff18, 0 8px 20px #00000030;
+    }
+
+    .cell {
+      width: 100%;
+      aspect-ratio: 1;
+      min-width: 0;
+      border-radius: 50%;
+      background: #0d192c;
+      box-shadow: inset 0 4px 7px #00000070;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .disc {
+      position: absolute;
+      inset: 5%;
+      border-radius: 50%;
+      background: transparent;
+      transform: translateY(-120%);
+      opacity: 0;
+    }
+
+    .disc.red, .disc.yellow {
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: inset -4px -5px 7px #00000025, inset 3px 3px 6px #ffffff55;
+    }
+
+    .disc.red { background: radial-gradient(circle at 30% 25%, #ff9aa5, #ff5265 58%, #d92842); }
+    .disc.yellow { background: radial-gradient(circle at 30% 25%, #fff0a1, #ffd34f 58%, #e4a51c); }
+
+    .disc.last-move {
+      outline: 3px solid white;
+      outline-offset: -4px;
+    }
+
+    .disc.winner {
+      animation: winning-pulse .65s ease-in-out infinite alternate;
+      outline: 3px solid #fff;
+      outline-offset: -3px;
+    }
+
+    @keyframes winning-pulse {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.3); }
+    }
+
+    .game-message {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--muted);
+      font-size: .92rem;
+      padding: 10px 0 4px;
+    }
+
+    .game-message strong { color: var(--text); }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel-light);
+      color: var(--text);
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: .88rem;
+      cursor: pointer;
+      transition: transform .15s, background .15s;
+    }
+
+    .btn:hover { transform: translateY(-1px); background: #2b3d56; }
+    .btn.primary { background: var(--accent); color: #10251d; border-color: var(--accent); }
+    .btn.primary:hover { background: #8bf0c4; }
+    .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    .settings {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 19px;
+      padding-top: 17px;
+      border-top: 1px solid var(--border);
+    }
+
+    .setting { display: flex; flex-direction: column; gap: 6px; }
+    .setting label { font-size: .8rem; color: var(--muted); font-weight: 750; }
+
+    select {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid var(--border);
+      background: #101b2b;
+      color: var(--text);
+      padding: 10px;
+      border-radius: 9px;
+    }
+
+    .side-column { display: grid; gap: 16px; }
+    .side-card { padding: 18px; }
+    .side-card h3 { margin: 0 0 12px; font-size: 1.03rem; }
+    .side-card p { margin: 0; color: var(--muted); font-size: .88rem; }
+
+    .quick-stat {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .88rem;
+    }
+
+    .quick-stat:last-child { border-bottom: 0; padding-bottom: 0; }
+    .quick-stat span { color: var(--muted); }
+    .quick-stat strong { text-align: right; }
+
+    .tip-list { padding-left: 19px; margin: 0; color: var(--muted); font-size: .88rem; }
+    .tip-list li + li { margin-top: 9px; }
+
+    .content-section { margin-top: 25px; display: grid; gap: 18px; }
+    .content-card { padding: clamp(18px, 3vw, 26px); }
+    .content-card h2 { margin: 0 0 12px; font-size: 1.35rem; }
+    .content-card h3 { margin: 18px 0 6px; font-size: 1.04rem; }
+    .content-card p, .content-card li { color: var(--muted); }
+    .content-card p:last-child { margin-bottom: 0; }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .how-step {
+      background: #202d40;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .step-number { color: var(--accent); font-size: .8rem; font-weight: 900; }
+    .how-step h3 { margin: 5px 0; }
+    .how-step p { font-size: .85rem; margin: 0; }
+
+    details {
+      border-top: 1px solid var(--border);
+      padding: 14px 0;
+    }
+
+    details:first-of-type { border-top: 0; }
+    summary { cursor: pointer; font-weight: 800; }
+    details p { margin: 9px 0 0; font-size: .91rem; }
+
+    .related-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .related-links a {
+      background: #202d40;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 12px;
+      font-size: .88rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 22px 0;
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: center;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 850px) {
+      .game-layout { grid-template-columns: 1fr; }
+      .side-column { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .side-column .side-card:last-child { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 520px) {
+      .header-inner, .container { width: min(100% - 20px, 1100px); }
+      .header-inner { min-height: 58px; }
+      .header-tag { font-size: .75rem; }
+      main { padding-top: 18px; }
+      .breadcrumbs { margin-bottom: 17px; }
+      .game-panel { padding: 10px; border-radius: 14px; }
+      .game-topbar { align-items: flex-start; flex-direction: column; }
+      .scoreboard { gap: 6px; }
+      .player-card { padding: 7px; gap: 6px; }
+      .player-disc { width: 21px; height: 21px; }
+      .player-name { font-size: .76rem; }
+      .player-score { font-size: .69rem; }
+      .board-shell { padding: 6px; }
+      .board { padding: 6px; gap: 4px; }
+      .column-hints { gap: 4px; }
+      .cell { border-radius: 50%; }
+      .controls .btn { flex: 1 1 calc(50% - 9px); }
+      .settings { grid-template-columns: 1fr; }
+      .side-column { grid-template-columns: 1fr; }
+      .side-column .side-card:last-child { grid-column: auto; }
+      .how-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Connect 4 Board Game Online",
+    "url": "https://gameso.vercel.app/games/connect-4-board-games/",
+    "description": "Play Connect 4 online for free. Challenge the computer or a friend in this classic four-in-a-row board game.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Gameso",
+      "url": "https://gameso.vercel.app/"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Connect 4 Board Game",
+    "url": "https://gameso.vercel.app/games/connect-4-board-games/",
+    "gamePlatform": "Web browser",
+    "genre": ["Board game", "Strategy game", "Puzzle game"],
+    "numberOfPlayers": "1-2",
+    "description": "A free browser version of Connect Four with computer and local two-player modes."
+  }
+  </script>
 </head>
 
-
 <body>
-
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<header class="header">
-
+  <header class="site-header">
     <div class="header-inner">
-
-        <a
-            href="/"
-            class="logo"
-        >
-
-            <span>🎮</span>
-
-            <strong>
-                Gameso
-            </strong>
-
-        </a>
-
-
-        <a
-            href="/"
-            class="back-btn"
-        >
-            ← All Games
-        </a>
-
+      <a class="brand" href="https://gameso.vercel.app/" aria-label="Gameso homepage">Game<span>so</span></a>
+      <span class="header-tag">Free Online Board Games</span>
     </div>
+  </header>
 
-</header>
+  <main class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="https://gameso.vercel.app/">Home</a>
+      <span>/</span>
+      <a href="https://gameso.vercel.app/">Games</a>
+      <span>/</span>
+      <span aria-current="page">Connect 4</span>
+    </nav>
 
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<main>
-
-
-    <!-- GAME HEADING -->
-
-    <section class="heading">
-
-        <div class="label">
-            🎲 BOARD GAME
-        </div>
-
-
-        <h1>
-            Connect 4 Board Game
-        </h1>
-
-
-        <p>
-            Play Connect 4 online and connect four discs
-            in a row to win!
-        </p>
-
+    <section class="hero">
+      <span class="eyebrow">🎯 Classic Strategy Game</span>
+      <h1>Connect 4 Board Game Online</h1>
+      <p>Drop your discs, block your opponent, and connect four in a row! Play against the computer or challenge a friend on the same device. Free to play, right in your browser.</p>
     </section>
 
-
-
-    <!-- =========================
-         GAME CARD
-    ========================== -->
-
-    <section class="game-card">
-
-
-        <!-- SCORE -->
-
-        <div class="stats">
-
-
-            <div class="stat red-stat">
-
-                <span>
-                    🔴 PLAYER 1
-                </span>
-
-                <strong id="redScore">
-                    0
-                </strong>
-
-            </div>
-
-
-
-            <div class="stat turn-stat">
-
-                <span>
-                    TURN
-                </span>
-
-                <strong id="turnText">
-                    🔴
-                </strong>
-
-            </div>
-
-
-
-            <div class="stat yellow-stat">
-
-                <span>
-                    🟡 PLAYER 2
-                </span>
-
-                <strong id="yellowScore">
-                    0
-                </strong>
-
-            </div>
-
-
+    <div class="game-layout">
+      <section class="game-panel" aria-label="Connect Four game">
+        <div class="game-topbar">
+          <h2>🔴 Connect Four</h2>
+          <div class="status-pill" aria-live="polite">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="turnLabel">Red's turn</span>
+          </div>
         </div>
 
+        <div class="scoreboard">
+          <div class="player-card active" id="redCard">
+            <span class="player-disc red"></span>
+            <div class="player-info">
+              <div class="player-name" id="redName">You · Red</div>
+              <div class="player-score">Wins: <strong id="redScore">0</strong></div>
+            </div>
+          </div>
 
+          <div class="versus">VS</div>
 
-        <!-- STATUS -->
-
-        <div
-            id="status"
-            class="status"
-        >
-            🔴 Player 1's Turn
+          <div class="player-card" id="yellowCard">
+            <span class="player-disc yellow"></span>
+            <div class="player-info">
+              <div class="player-name" id="yellowName">Computer</div>
+              <div class="player-score">Wins: <strong id="yellowScore">0</strong></div>
+            </div>
+          </div>
         </div>
 
-
-
-        <!-- BOARD -->
-
-        <div class="board-wrapper">
-
-            <div
-                id="board"
-                class="board"
-                aria-label="Connect 4 Board Game"
-            ></div>
-
+        <div class="board-shell">
+          <div class="column-hints" id="columnHints" aria-label="Choose a column"></div>
+          <div class="board" id="board" role="group" aria-label="Connect Four board"></div>
         </div>
 
-
-
-        <!-- BUTTON -->
-
-        <button
-            id="restartBtn"
-            class="restart-btn"
-            type="button"
-        >
-            🔄 New Game
-        </button>
-
-
-
-        <!-- CONTROLS -->
+        <div class="game-message" id="gameMessage" aria-live="polite">
+          <strong>Red starts!</strong>&nbsp; Choose a column to drop your disc.
+        </div>
 
         <div class="controls">
-
-            <span>
-                🖱️ Click a column
-            </span>
-
-            <span>
-                📱 Tap a column
-            </span>
-
-            <span>
-                👥 2 Players
-            </span>
-
+          <button class="btn primary" id="newGameBtn" type="button">↻ New Game</button>
+          <button class="btn" id="undoBtn" type="button">↶ Undo Move</button>
+          <button class="btn" id="soundBtn" type="button" aria-pressed="false">🔇 Sound Off</button>
         </div>
 
+        <div class="settings">
+          <div class="setting">
+            <label for="modeSelect">Game Mode</label>
+            <select id="modeSelect">
+              <option value="computer">Play vs Computer</option>
+              <option value="two">Two Players</option>
+            </select>
+          </div>
+          <div class="setting" id="difficultySetting">
+            <label for="difficultySelect">Computer Difficulty</label>
+            <select id="difficultySelect">
+              <option value="easy">Easy</option>
+              <option value="medium" selected>Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="firstSelect">Who Starts?</label>
+            <select id="firstSelect">
+              <option value="red">Red starts</option>
+              <option value="yellow">Yellow starts</option>
+              <option value="random">Random player</option>
+            </select>
+          </div>
+          <div class="setting">
+            <label for="colorSelect">Your Color (vs Computer)</label>
+            <select id="colorSelect">
+              <option value="red">Red</option>
+              <option value="yellow">Yellow</option>
+            </select>
+          </div>
+        </div>
+      </section>
 
-    </section>
+      <aside class="side-column">
+        <section class="side-card">
+          <h3>📊 Match Stats</h3>
+          <div class="quick-stat"><span>Moves played</span><strong id="movesCount">0 / 42</strong></div>
+          <div class="quick-stat"><span>Current player</span><strong id="currentPlayerStat">Red</strong></div>
+          <div class="quick-stat"><span>Game status</span><strong id="gameStatusStat">In progress</strong></div>
+          <div class="quick-stat"><span>Your best streak</span><strong id="bestStreak">0 wins</strong></div>
+        </section>
 
+        <section class="side-card">
+          <h3>🎮 How to Play</h3>
+          <p>Select a column above the board. Your disc falls to the lowest available space. Connect four of your color to win.</p>
+          <div class="related-links">
+            <a href="#how-to-play">Full Rules ↓</a>
+          </div>
+        </section>
 
+        <section class="side-card">
+          <h3>💡 Winning Tips</h3>
+          <ul class="tip-list">
+            <li>Control the center columns to create more chances.</li>
+            <li>Block an opponent who has three discs in a row.</li>
+            <li>Look for diagonal connections, not just straight lines.</li>
+            <li>Plan ahead before giving your opponent a winning move.</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
 
-    <!-- =========================
-         SEO CONTENT
-    ========================== -->
+    <section class="content-section">
+      <article class="content-card" id="how-to-play">
+        <h2>How to Play Connect 4</h2>
+        <p>Connect 4 is a classic strategy board game for two players. Each player takes turns dropping colored discs into a seven-column board. The first player to connect four discs in a straight line wins.</p>
 
-    <section class="info">
+        <div class="how-grid">
+          <div class="how-step">
+            <span class="step-number">STEP 01</span>
+            <h3>Choose a Column</h3>
+            <p>Click one of the seven numbered buttons above the board to select where your disc will drop.</p>
+          </div>
+          <div class="how-step">
+            <span class="step-number">STEP 02</span>
+            <h3>Make a Line</h3>
+            <p>Connect four of your discs horizontally, vertically, or diagonally before your opponent does.</p>
+          </div>
+          <div class="how-step">
+            <span class="step-number">STEP 03</span>
+            <h3>Win the Match</h3>
+            <p>Block threats, plan your next moves, and use New Game to start another round.</p>
+          </div>
+        </div>
 
-
-        <h2>
-            Play Connect 4 Board Game Online
-        </h2>
-
-
-        <p>
-
-            Enjoy this classic Connect 4 board game online
-            for free on Gameso. Take turns with another player,
-            drop your colored discs into the board and try to
-            connect four discs horizontally, vertically or
-            diagonally.
-
-        </p>
-
-
-
-        <h2>
-            How to Play Connect 4
-        </h2>
-
-
-        <p>
-
-            Connect 4 is a simple and fun two-player board game.
-            Player 1 uses red discs and Player 2 uses yellow
-            discs. Players take turns dropping one disc into
-            any available column.
-
-        </p>
-
-
-
-        <h2>
-            Connect 4 Board Game Rules
-        </h2>
-
-
+        <h3>Game Features</h3>
         <ul>
-
-            <li>
-                🔴 Player 1 starts with red discs.
-            </li>
-
-            <li>
-                🟡 Player 2 uses yellow discs.
-            </li>
-
-            <li>
-                🎯 Connect four discs in a row to win.
-            </li>
-
-            <li>
-                ↔️ Horizontal connections count.
-            </li>
-
-            <li>
-                ↕️ Vertical connections count.
-            </li>
-
-            <li>
-                ↗️ Diagonal connections count.
-            </li>
-
-            <li>
-                🤝 If the board fills without four in a row,
-                the game ends in a draw.
-            </li>
-
+          <li>Play against the computer with Easy, Medium, and Hard settings.</li>
+          <li>Play two-player matches on the same device.</li>
+          <li>Undo moves, track scores, and toggle sound effects.</li>
+          <li>Responsive board for desktop, tablet, and mobile screens.</li>
+          <li>No download or account required.</li>
         </ul>
+      </article>
 
+      <article class="content-card">
+        <h2>Connect 4 Board Game: Strategy Guide</h2>
+        <p>Winning at Connect Four takes more than placing discs quickly. Look at the spaces your move opens up and consider what your opponent can do next.</p>
 
+        <h3>Play Near the Center</h3>
+        <p>The middle columns participate in more possible four-disc lines than the outer columns. Building connections near the center can give you more options for winning.</p>
 
-        <h2>
-            Classic Board Games
-        </h2>
+        <h3>Block Three in a Row</h3>
+        <p>If your opponent has three connected discs with an available winning space, check whether you can block that space immediately. Missing an obvious threat can end the game.</p>
 
+        <h3>Build Multiple Threats</h3>
+        <p>Try to create more than one potential winning line. When two winning opportunities are available at once, your opponent may not be able to stop both.</p>
+      </article>
 
-        <p>
+      <article class="content-card">
+        <h2>Frequently Asked Questions</h2>
 
-            Connect 4 is one of many fun board games that can
-            be enjoyed online. Gameso is building a collection
-            of free board games including strategy, puzzle and
-            classic multiplayer games.
+        <details>
+          <summary>Is Connect 4 free to play on Gameso?</summary>
+          <p>Yes. You can play this browser version for free without downloading an app or creating an account.</p>
+        </details>
 
-        </p>
+        <details>
+          <summary>Can I play Connect 4 against the computer?</summary>
+          <p>Yes. Choose Play vs Computer and select Easy, Medium, or Hard difficulty from the game settings.</p>
+        </details>
 
+        <details>
+          <summary>Can two people play on one device?</summary>
+          <p>Yes. Choose Two Players in Game Mode. Players can take turns using the same screen.</p>
+        </details>
 
+        <details>
+          <summary>How do you win Connect Four?</summary>
+          <p>Connect four of your own discs in an uninterrupted horizontal, vertical, or diagonal line before your opponent does.</p>
+        </details>
+
+        <details>
+          <summary>What happens if the board fills up?</summary>
+          <p>If all 42 spaces are filled and neither player has connected four, the game ends in a draw.</p>
+        </details>
+
+        <details>
+          <summary>Does Connect 4 work on mobile phones?</summary>
+          <p>Yes. The board adjusts to smaller screens, so you can play on compatible smartphones, tablets, and desktop browsers.</p>
+        </details>
+      </article>
+
+      <article class="content-card">
+        <h2>Explore More Games on Gameso</h2>
+        <p>Enjoy more free browser games after your Connect 4 match.</p>
+        <div class="related-links">
+          <a href="https://gameso.vercel.app/games/mini-chess/">♟️ Mini Chess</a>
+          <a href="https://gameso.vercel.app/games/spades-card-game/">🂡 Spades Card Game</a>
+          <a href="https://gameso.vercel.app/games/color-match/">🎨 Color Match</a>
+          <a href="https://gameso.vercel.app/">🎮 All Games</a>
+        </div>
+      </article>
     </section>
+  </main>
 
+  <footer>
+    <div class="container">© <span id="year"></span> Gameso. Play free online games in your browser.</div>
+  </footer>
 
-</main>
+  <script>
+    (() => {
+      "use strict";
 
+      const ROWS = 6;
+      const COLS = 7;
+      const EMPTY = 0;
+      const RED = 1;
+      const YELLOW = 2;
+      const CENTER_ORDER = [3, 2, 4, 1, 5, 0, 6];
 
+      const $ = (id) => document.getElementById(id);
 
-<!-- =========================
-     FOOTER
-========================= -->
+      const boardEl = $("board");
+      const hintsEl = $("columnHints");
+      const messageEl = $("gameMessage");
+      const turnLabel = $("turnLabel");
+      const statusDot = $("statusDot");
 
-<footer>
+      let board = createBoard();
+      let currentPlayer = RED;
+      let gameOver = false;
+      let winner = EMPTY;
+      let winningCells = [];
+      let lastMove = null;
+      let history = [];
+      let thinking = false;
+      let soundEnabled = false;
+      let audioContext = null;
+      let wins = { [RED]: 0, [YELLOW]: 0 };
+      let winStreak = 0;
+      let bestStreak = 0;
+      let computerTimer = null;
+      let moveCount = 0;
 
-    ©
-    <span id="year"></span>
-    Gameso. All rights reserved.
+      function createBoard() {
+        return Array.from({ length: ROWS }, () => Array(COLS).fill(EMPTY));
+      }
 
-</footer>
+      function cloneBoard(source) {
+        return source.map(row => row.slice());
+      }
 
+      function mode() {
+        return $("modeSelect").value;
+      }
 
+      function difficulty() {
+        return $("difficultySelect").value;
+      }
 
-<!-- =========================
-     JAVASCRIPT
-========================= -->
+      function humanPlayer() {
+        return $("colorSelect").value === "red" ? RED : YELLOW;
+      }
 
-<script src="./script.js"></script>
+      function computerPlayer() {
+        return humanPlayer() === RED ? YELLOW : RED;
+      }
 
+      function nameOf(player) {
+        if (player === RED) {
+          return mode() === "computer" && humanPlayer() === RED
+            ? "You · Red" : "Red";
+        }
+        return mode() === "computer" && humanPlayer() === YELLOW
+          ? "You · Yellow"
+          : mode() === "computer" ? "Computer" : "Yellow";
+      }
 
+      function colorName(player) {
+        return player === RED ? "Red" : "Yellow";
+      }
+
+      function saveHistory() {
+        history.push({
+          board: cloneBoard(board),
+          currentPlayer,
+          gameOver,
+          winner,
+          winningCells: winningCells.map(cell => cell.slice()),
+          lastMove: lastMove ? lastMove.slice() : null,
+          moveCount
+        });
+
+        if (history.length > 50) history.shift();
+      }
+
+      function restoreSnapshot(snapshot) {
+        board = cloneBoard(snapshot.board);
+        currentPlayer = snapshot.currentPlayer;
+        gameOver = snapshot.gameOver;
+        winner = snapshot.winner;
+        winningCells = snapshot.winningCells.map(cell => cell.slice());
+        lastMove = snapshot.lastMove ? snapshot.lastMove.slice() : null;
+        moveCount = snapshot.moveCount;
+        thinking = false;
+        render();
+        updateStats();
+        updateMessage();
+      }
+
+      function render() {
+        boardEl.innerHTML = "";
+        hintsEl.innerHTML = "";
+
+        for (let c = 0; c < COLS; c++) {
+          const hint = document.createElement("button");
+          hint.type = "button";
+          hint.className = "column-button";
+          hint.textContent = String(c + 1);
+          hint.setAttribute("aria-label", "Drop disc in column " + (c + 1));
+          hint.disabled = gameOver || thinking || board[0][c] !== EMPTY ||
+            (mode() === "computer" && currentPlayer !== humanPlayer());
+          hint.addEventListener("click", () => makeMove(c, true));
+          hintsEl.appendChild(hint);
+        }
+
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            cell.setAttribute("role", "img");
+
+            const disc = document.createElement("div");
+            disc.className = "disc";
+
+            if (board[r][c] === RED) disc.classList.add("red");
+            if (board[r][c] === YELLOW) disc.classList.add("yellow");
+
+            if (lastMove && lastMove[0] === r && lastMove[1] === c) {
+              disc.classList.add("last-move");
+            }
+
+            if (winningCells.some(([wr, wc]) => wr === r && wc === c)) {
+              disc.classList.add("winner");
+            }
+
+            cell.setAttribute(
+              "aria-label",
+              "Row " + (r + 1) + ", column " + (c + 1) + ": " +
+              (board[r][c] === EMPTY ? "empty" : colorName(board[r][c]))
+            );
+
+            cell.appendChild(disc);
+            boardEl.appendChild(cell);
+          }
+        }
+
+        updateTurnUI();
+        $("undoBtn").disabled = history.length === 0 || thinking;
+      }
+
+      function updateTurnUI() {
+        const redActive = !gameOver && currentPlayer === RED;
+        const yellowActive = !gameOver && currentPlayer === YELLOW;
+
+        $("redCard").classList.toggle("active", redActive);
+        $("yellowCard").classList.toggle("active", yellowActive);
+
+        $("redName").textContent = nameOf(RED);
+        $("yellowName").textContent = nameOf(YELLOW);
+        $("redScore").textContent = wins[RED];
+        $("yellowScore").textContent = wins[YELLOW];
+
+        turnLabel.textContent = gameOver
+          ? winner === EMPTY ? "Draw game" : colorName(winner) + " wins!"
+          : thinking ? "Computer thinking…" : colorName(currentPlayer) + "'s turn";
+
+        statusDot.className = "status-dot";
+        if (gameOver) statusDot.classList.add("green");
+        else if (currentPlayer === YELLOW) statusDot.classList.add("yellow");
+      }
+
+      function updateStats() {
+        $("movesCount").textContent = moveCount + " / 42";
+        $("currentPlayerStat").textContent =
+          gameOver ? "Finished" : colorName(currentPlayer);
+        $("gameStatusStat").textContent =
+          gameOver ? winner === EMPTY ? "Draw" : "Finished" :
+          thinking ? "Computer turn" : "In progress";
+        $("bestStreak").textContent = bestStreak + (bestStreak === 1 ? " win" : " wins");
+      }
+
+      function updateMessage(customText) {
+        if (customText) {
+          messageEl.textContent = customText;
+          return;
+        }
+
+        if (gameOver) {
+          if (winner === EMPTY) {
+            messageEl.textContent = "It's a draw! Start a new game and try again.";
+          } else {
+            messageEl.textContent = nameOf(winner) + " wins! Great game — play another round.";
+          }
+          return;
+        }
+
+        if (thinking) {
+          messageEl.textContent = "Computer is thinking…";
+          return;
+        }
+
+        messageEl.textContent =
+          nameOf(currentPlayer) + "'s turn. Choose a column to drop a disc.";
+      }
+
+      function getAvailableRow(state, col) {
+        for (let r = ROWS - 1; r >= 0; r--) {
+          if (state[r][col] === EMPTY) return r;
+        }
+        return -1;
+      }
+
+      function validColumns(state) {
+        return CENTER_ORDER.filter(c => state[0][c] === EMPTY);
+      }
+
+      function dropDisc(state, col, player) {
+        const row = getAvailableRow(state, col);
+        if (row < 0) return -1;
+        state[row][col] = player;
+        return row;
+      }
+
+      function getWinningLine(state, player) {
+        const directions = [
+          [0, 1], [1, 0], [1, 1], [1, -1]
+        ];
+
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            if (state[r][c] !== player) continue;
+
+            for (const [dr, dc] of directions) {
+              const line = [];
+
+              for (let i = 0; i < 4; i++) {
+                const nr = r + dr * i;
+                const nc = c + dc * i;
+
+                if (
+                  nr < 0 || nr >= ROWS ||
+                  nc < 0 || nc >= COLS ||
+                  state[nr][nc] !== player
+                ) break;
+
+                line.push([nr, nc]);
+              }
+
+              if (line.length === 4) return line;
+            }
+          }
+        }
+        return [];
+      }
+
+      function hasWon(state, player) {
+        return getWinningLine(state, player).length > 0;
+      }
+
+      function boardFull(state) {
+        return state[0].every(cell => cell !== EMPTY);
+      }
+
+      function makeMove(col, fromHuman) {
+        if (gameOver || thinking) return;
+        if (mode() === "computer" && currentPlayer !== humanPlayer()) return;
+        if (col < 0 || col >= COLS || board[0][col] !== EMPTY) return;
+
+        saveHistory();
+
+        const row = dropDisc(board, col, currentPlayer);
+        if (row < 0) {
+          history.pop();
+          return;
+        }
+
+        lastMove = [row, col];
+        moveCount++;
+        playSound(520, .055);
+
+        const line = getWinningLine(board, currentPlayer);
+
+        if (line.length) {
+          gameOver = true;
+          winner = currentPlayer;
+          winningCells = line;
+          wins[winner]++;
+
+          if (mode() === "computer") {
+            if (winner === humanPlayer()) {
+              winStreak++;
+              bestStreak = Math.max(bestStreak, winStreak);
+            } else {
+              winStreak = 0;
+            }
+          } else {
+            winStreak = 0;
+          }
+
+          render();
+          updateStats();
+          updateMessage(nameOf(winner) + " connects four and wins!");
+          playSound(780, .18);
+          return;
+        }
+
+        if (boardFull(board)) {
+          gameOver = true;
+          winner = EMPTY;
+          render();
+          updateStats();
+          updateMessage("It's a draw! No more spaces are available.");
+          return;
+        }
+
+        currentPlayer = currentPlayer === RED ? YELLOW : RED;
+        render();
+        updateStats();
+        updateMessage();
+
+        if (
+          mode() === "computer" &&
+          currentPlayer === computerPlayer() &&
+          !gameOver
+        ) {
+          scheduleComputerMove();
+        }
+      }
+
+      function scheduleComputerMove() {
+        thinking = true;
+        render();
+        updateStats();
+        updateMessage();
+
+        clearTimeout(computerTimer);
+        computerTimer = setTimeout(() => {
+          if (gameOver || mode() !== "computer" ||
+              currentPlayer !== computerPlayer()) {
+            thinking = false;
+            render();
+            updateStats();
+            return;
+          }
+
+          const col = chooseComputerMove();
+          thinking = false;
+
+          if (col !== null && col !== undefined) {
+            // The computer move is committed as a normal move, so Undo
+            // can restore the position before it was played.
+            makeComputerMove(col);
+          } else {
+            render();
+            updateStats();
+          }
+        }, 280);
+      }
+
+      function makeComputerMove(col) {
+        if (gameOver || board[0][col] !== EMPTY) return;
+
+        saveHistory();
+
+        const row = dropDisc(board, col, currentPlayer);
+        if (row < 0) {
+          history.pop();
+          render();
+          return;
+        }
+
+        lastMove = [row, col];
+        moveCount++;
+        playSound(420, .055);
+
+        const line = getWinningLine(board, currentPlayer);
+
+        if (line.length) {
+          gameOver = true;
+          winner = currentPlayer;
+          winningCells = line;
+          wins[winner]++;
+          winStreak = 0;
+          render();
+          updateStats();
+          updateMessage(nameOf(winner) + " connects four and wins!");
+          playSound(680, .2);
+          return;
+        }
+
+        if (boardFull(board)) {
+          gameOver = true;
+          winner = EMPTY;
+          render();
+          updateStats();
+          updateMessage("It's a draw! Start a new game to play again.");
+          return;
+        }
+
+        currentPlayer = currentPlayer === RED ? YELLOW : RED;
+        render();
+        updateStats();
+        updateMessage();
+      }
+
+      function chooseComputerMove() {
+        const valid = validColumns(board);
+        if (!valid.length) return null;
+
+        // Always take an immediate win.
+        for (const col of valid) {
+          const test = cloneBoard(board);
+          dropDisc(test, col, computerPlayer());
+          if (hasWon(test, computerPlayer())) return col;
+        }
+
+        // Block an immediate human win.
+        for (const col of valid) {
+          const test = cloneBoard(board);
+          dropDisc(test, col, humanPlayer());
+          if (hasWon(test, humanPlayer())) return col;
+        }
+
+        if (difficulty() === "easy") {
+          return valid[Math.floor(Math.random() * valid.length)];
+        }
+
+        if (difficulty() === "medium") {
+          let bestScore = -Infinity;
+          let bestMoves = [];
+
+          for (const col of valid) {
+            const test = cloneBoard(board);
+            const row = dropDisc(test, col, computerPlayer());
+            let score = scorePosition(test, computerPlayer());
+
+            if (row >= 0) {
+              // Prefer moves that do not give the opponent an instant win.
+              let givesOpponentWin = false;
+              for (const reply of validColumns(test)) {
+                const replyBoard = cloneBoard(test);
+                dropDisc(replyBoard, reply, humanPlayer());
+                if (hasWon(replyBoard, humanPlayer())) {
+                  givesOpponentWin = true;
+                  break;
+                }
+              }
+              if (givesOpponentWin) score -= 100000;
+            }
+
+            if (score > bestScore) {
+              bestScore = score;
+              bestMoves = [col];
+            } else if (score === bestScore) {
+              bestMoves.push(col);
+            }
+          }
+
+          return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        }
+
+        // Hard mode: a short minimax search with alpha-beta pruning.
+        let bestScore = -Infinity;
+        let bestMoves = [];
+        const depth = 4;
+
+        for (const col of valid) {
+          const test = cloneBoard(board);
+          dropDisc(test, col, computerPlayer());
+
+          let score;
+          if (hasWon(test, computerPlayer())) {
+            score = 100000;
+          } else {
+            score = minimax(
+              test, depth - 1, -Infinity, Infinity, false,
+              computerPlayer(), humanPlayer()
+            );
+          }
+
+          if (score > bestScore) {
+            bestScore = score;
+            bestMoves = [col];
+          } else if (score === bestScore) {
+            bestMoves.push(col);
+          }
+        }
+
+        return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+      }
+
+      function minimax(state, depth, alpha, beta, maximizing, ai, human) {
+        if (hasWon(state, ai)) return 100000 + depth;
+        if (hasWon(state, human)) return -100000 - depth;
+        if (boardFull(state) || depth === 0) {
+          return scorePosition(state, ai);
+        }
+
+        const valid = validColumns(state);
+
+        if (maximizing) {
+          let value = -Infinity;
+          for (const col of valid) {
+            const next = cloneBoard(state);
+            dropDisc(next, col, ai);
+            value = Math.max(
+              value, minimax(next, depth - 1, alpha, beta, false, ai, human)
+            );
+            alpha = Math.max(alpha, value);
+            if (alpha >= beta) break;
+          }
+          return value;
+        }
+
+        let value = Infinity;
+        for (const col of valid) {
+          const next = cloneBoard(state);
+          dropDisc(next, col, human);
+          value = Math.min(
+            value, minimax(next, depth - 1, alpha, beta, true, ai, human)
+          );
+          beta = Math.min(beta, value);
+          if (alpha >= beta) break;
+        }
+        return value;
+      }
+
+      function scorePosition(state, player) {
+        let score = 0;
+        const opponent = player === RED ? YELLOW : RED;
+
+        // The center column is strategically valuable.
+        let centerCount = 0;
+        for (let r = 0; r < ROWS; r++) {
+          if (state[r][3] === player) centerCount++;
+        }
+        score += centerCount * 7;
+
+        const windows = [];
+
+        // Horizontal groups of four.
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c <= COLS - 4; c++) {
+            windows.push([
+              state[r][c], state[r][c + 1],
+              state[r][c + 2], state[r][c + 3]
+            ]);
+          }
+        }
+
+        // Vertical groups of four.
+        for (let c = 0; c < COLS; c++) {
+          for (let r = 0; r <= ROWS - 4; r++) {
+            windows.push([
+              state[r][c], state[r + 1][c],
+              state[r + 2][c], state[r + 3][c]
+            ]);
+          }
+        }
+
+        // Diagonals down-right.
+        for (let r = 0; r <= ROWS - 4; r++) {
+          for (let c = 0; c <= COLS - 4; c++) {
+            windows.push([
+              state[r][c], state[r + 1][c + 1],
+              state[r + 2][c + 2], state[r + 3][c + 3]
+            ]);
+          }
+        }
+
+        // Diagonals down-left.
+        for (let r = 0; r <= ROWS - 4; r++) {
+          for (let c = 3; c < COLS; c++) {
+            windows.push([
+              state[r][c], state[r + 1][c - 1],
+              state[r + 2][c - 2], state[r + 3][c - 3]
+            ]);
+          }
+        }
+
+        for (const window of windows) {
+          const mine = window.filter(v => v === player).length;
+          const theirs = window.filter(v => v === opponent).length;
+          const empty = window.filter(v => v === EMPTY).length;
+
+          if (mine === 4) score += 1000;
+          else if (mine === 3 && empty === 1) score += 35;
+          else if (mine === 2 && empty === 2) score += 7;
+
+          if (theirs === 3 && empty === 1) score -= 45;
+          else if (theirs === 2 && empty === 2) score -= 6;
+        }
+
+        return score;
+      }
+
+      function newGame() {
+        clearTimeout(computerTimer);
+        board = createBoard();
+        gameOver = false;
+        winner = EMPTY;
+        winningCells = [];
+        lastMove = null;
+        history = [];
+        thinking = false;
+        moveCount = 0;
+        winStreak = 0;
+
+        const first = $("firstSelect").value;
+        if (first === "random") {
+          currentPlayer = Math.random() < .5 ? RED : YELLOW;
+        } else {
+          currentPlayer = first === "red" ? RED : YELLOW;
+        }
+
+        render();
+        updateStats();
+        updateMessage("New game! " + nameOf(currentPlayer) + " starts.");
+
+        if (
+          mode() === "computer" &&
+          currentPlayer === computerPlayer()
+        ) {
+          scheduleComputerMove();
+        }
+      }
+
+      function undoMove() {
+        if (!history.length || thinking) return;
+        clearTimeout(computerTimer);
+
+        // Against the computer, undo the computer move and then the
+        // previous human move when possible.
+        if (mode() === "computer") {
+          if (history.length) {
+            const snapshot = history.pop();
+            restoreSnapshot(snapshot);
+          }
+          if (
+            history.length &&
+            !gameOver &&
+            currentPlayer !== humanPlayer()
+          ) {
+            restoreSnapshot(history.pop());
+          }
+        } else {
+          restoreSnapshot(history.pop());
+        }
+
+        thinking = false;
+        render();
+        updateStats();
+        updateMessage();
+      }
+
+      function playSound(frequency, duration) {
+        if (!soundEnabled) return;
+
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+
+          if (!audioContext) audioContext = new AudioContextClass();
+
+          const oscillator = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+
+          oscillator.type = "sine";
+          oscillator.frequency.value = frequency;
+          gain.gain.setValueAtTime(.07, audioContext.currentTime);
+          gain.gain.exponentialRampToValueAtTime(
+            .001, audioContext.currentTime + duration
+          );
+
+          oscillator.connect(gain);
+          gain.connect(audioContext.destination);
+          oscillator.start();
+          oscillator.stop(audioContext.currentTime + duration);
+        } catch (_) {
+          // Sound is optional; gameplay remains functional if audio is blocked.
+        }
+      }
+
+      $("newGameBtn").addEventListener("click", newGame);
+      $("undoBtn").addEventListener("click", undoMove);
+
+      $("soundBtn").addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        $("soundBtn").textContent = soundEnabled ? "🔊 Sound On" : "🔇 Sound Off";
+        $("soundBtn").setAttribute("aria-pressed", String(soundEnabled));
+        if (soundEnabled) playSound(620, .08);
+      });
+
+      $("modeSelect").addEventListener("change", () => {
+        $("difficultySetting").style.display =
+          mode() === "computer" ? "flex" : "none";
+        newGame();
+      });
+
+      $("difficultySelect").addEventListener("change", newGame);
+      $("firstSelect").addEventListener("change", newGame);
+      $("colorSelect").addEventListener("change", newGame);
+
+      $("year").textContent = new Date().getFullYear();
+      $("difficultySetting").style.display =
+        mode() === "computer" ? "flex" : "none";
+
+      render();
+      updateStats();
+      updateMessage();
+    })();
+  </script>
 </body>
-
 </html>
