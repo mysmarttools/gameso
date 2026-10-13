@@ -1,124 +1,844 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Snow Rider 3D - Play Online | Gameso</title>
+  <title>Snow Rider 3D Unblocked – Play Free Snow Sled Game | Gameso</title>
+  <meta name="description" content="Play Snow Rider 3D online for free at Gameso! Ride down snowy mountains, dodge obstacles, collect gifts and beat your high score in this exciting winter adventure.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#080b14">
+  <link rel="canonical" href="https://gameso.vercel.app/games/snow-rider-3d/">
 
-  <meta
-    name="description"
-    content="Play Snow Rider 3D online on Gameso. Ride down the snowy mountain, avoid obstacles, collect gifts and beat your high score."
-  >
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Snow Rider 3D – Play Free Online | Gameso">
+  <meta property="og:description" content="Race down snowy slopes, avoid obstacles and collect gifts in Snow Rider 3D. Play online at Gameso.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/snow-rider-3d/">
+  <meta property="og:site_name" content="Gameso">
 
-  <link rel="stylesheet" href="./style.css">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Snow Rider 3D – Gameso">
+  <meta name="twitter:description" content="Play Snow Rider 3D online and test your reflexes on a snowy mountain.">
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Snow Rider 3D",
+    "url": "https://gameso.vercel.app/games/snow-rider-3d/",
+    "description": "Play Snow Rider 3D online. Ride down snowy slopes, avoid obstacles and collect gifts in this winter arcade game.",
+    "genre": ["Arcade", "Racing", "Winter Sports"],
+    "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
+    "applicationCategory": "Game"
+  }
   </script>
+
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: #121827;
+      --card-hover: #182137;
+      --text: #ffffff;
+      --muted: #9ba4b6;
+      --primary: #6c5ce7;
+      --accent: #00d4ff;
+      --border: rgba(255,255,255,.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .site-header {
+      background: #0c1120;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      min-height: 70px;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .header-link {
+      color: #dce2f1;
+      font-size: 14px;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      padding: 9px 14px;
+      border-radius: 9px;
+    }
+
+    .header-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .container {
+      max-width: 1200px;
+      width: calc(100% - 36px);
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 20px 0 12px;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 15px 0 22px;
+    }
+
+    .game-label {
+      display: inline-block;
+      background: rgba(108,92,231,.15);
+      color: #bdb5ff;
+      border: 1px solid rgba(108,92,231,.35);
+      border-radius: 30px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: .5px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 43px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 15px;
+    }
+
+    .game-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.25);
+      overflow: hidden;
+    }
+
+    .game-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 3px 3px 12px;
+    }
+
+    .game-toolbar strong {
+      font-size: 14px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .action-btn {
+      background: #202a40;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .action-btn:hover {
+      background: var(--primary);
+    }
+
+    .play-frame {
+      position: relative;
+      width: 100%;
+      min-height: 300px;
+      aspect-ratio: 16 / 9;
+      background:
+        radial-gradient(ellipse at 50% 20%, #263d61 0%, #111c32 48%, #090e19 100%);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    .play-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      border: 0;
+      background: #080b14;
+    }
+
+    .frame-fallback {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse at 50% 30%, #263d61 0%, #111c32 48%, #090e19 100%);
+    }
+
+    .frame-fallback.hidden {
+      display: none;
+    }
+
+    .snow-icon {
+      font-size: 62px;
+      margin-bottom: 10px;
+    }
+
+    .frame-fallback h2 {
+      font-size: 25px;
+      margin-bottom: 7px;
+    }
+
+    .frame-fallback p {
+      color: var(--muted);
+      max-width: 450px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--primary), #5141c9);
+      color: #fff;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 7px 22px rgba(108,92,231,.24);
+      transition: transform .2s, filter .2s;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12);
+    }
+
+    .game-note {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 12px 4px 2px;
+    }
+
+    .quick-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0 34px;
+    }
+
+    .info-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+      padding: 16px 10px;
+    }
+
+    .info-box .emoji {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .info-box strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .info-box small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: clamp(20px, 4vw, 30px);
+      margin-bottom: 22px;
+    }
+
+    .content-section h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+
+    .content-section h3 {
+      font-size: 18px;
+      margin: 21px 0 8px;
+    }
+
+    .content-section p {
+      color: #c0c8d8;
+      margin-bottom: 12px;
+    }
+
+    .content-section ul,
+    .content-section ol {
+      padding-left: 22px;
+      color: #c0c8d8;
+      margin: 10px 0 14px;
+    }
+
+    .content-section li {
+      padding: 3px 0;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .control-item {
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .control-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .control-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .faq-item {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-item h3 {
+      font-size: 16px;
+      margin: 0 0 7px;
+    }
+
+    .faq-item p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 17px;
+    }
+
+    .related-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .related-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .related-emoji {
+      font-size: 30px;
+    }
+
+    .related-card strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .related-card small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      padding: 25px 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: calc(100% - 22px);
+      }
+
+      .header-inner {
+        padding: 12px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .header-link {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      .game-card {
+        padding: 7px;
+      }
+
+      .play-frame {
+        aspect-ratio: 4 / 5;
+        min-height: 420px;
+      }
+
+      .play-frame iframe {
+        min-height: 420px;
+      }
+
+      .quick-info {
+        gap: 7px;
+      }
+
+      .info-box {
+        padding: 13px 5px;
+      }
+
+      .info-box strong {
+        font-size: 12px;
+      }
+
+      .info-box small {
+        font-size: 11px;
+      }
+
+      .control-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .frame-fallback h2 {
+        font-size: 21px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<div id="game">
-
-  <!-- HUD -->
-  <div class="hud">
-
-    <div class="hud-box">
-      <span>🎁 Gifts</span>
-      <strong id="gifts">0</strong>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="/" aria-label="Gameso Home">Game<span>so</span></a>
+      <a class="header-link" href="/">← Back to Home</a>
     </div>
+  </header>
 
-    <div class="hud-box">
-      <span>🏆 Score</span>
-      <strong id="score">0</strong>
-    </div>
+  <main class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> /
+      <a href="/#games">Online Games</a> /
+      <span>Snow Rider 3D</span>
+    </nav>
 
-    <div class="hud-box">
-      <span>⚡ Speed</span>
-      <strong id="speed">1.0x</strong>
-    </div>
+    <section class="hero">
+      <span class="game-label">❄️ WINTER ARCADE GAME</span>
+      <h1>Snow Rider 3D – Play Free Online</h1>
+      <p>
+        Jump into a snowy adventure! Ride down icy slopes, dodge trees and
+        obstacles, collect gifts and challenge yourself to beat your best run.
+      </p>
+    </section>
 
-  </div>
-
-  <!-- START SCREEN -->
-  <div id="startScreen" class="screen">
-
-    <div class="panel">
-
-      <div class="emoji">🏂</div>
-
-      <h1>Snow Rider 3D</h1>
-
-      <p>Ride down the snowy mountain!</p>
-
-      <div class="controls">
-
-        <div>⬅️ <b>Left</b></div>
-
-        <div>➡️ <b>Right</b></div>
-
-        <div>🎁 <b>Collect Gifts</b></div>
-
+    <section class="game-card" aria-label="Snow Rider 3D game">
+      <div class="game-toolbar">
+        <strong>🏂 Snow Rider 3D</strong>
+        <div class="toolbar-actions">
+          <button class="action-btn" id="reloadGame" type="button">↻ Reload</button>
+          <button class="action-btn" id="fullscreenGame" type="button">⛶ Fullscreen</button>
+          <a class="action-btn" href="https://snowrider.com/game/" target="_blank" rel="noopener noreferrer">↗ Open Game</a>
+        </div>
       </div>
 
-      <button id="startBtn" type="button">
-        PLAY NOW
-      </button>
+      <div class="play-frame" id="gameFrame">
+        <iframe
+          id="snowGame"
+          src="https://snowrider.com/game/"
+          title="Snow Rider 3D online game"
+          allow="fullscreen; autoplay; gamepad"
+          allowfullscreen
+          loading="eager"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
 
-    </div>
+        <div class="frame-fallback" id="gameFallback">
+          <div class="snow-icon" aria-hidden="true">🏂</div>
+          <h2>Ready for a Snowy Ride?</h2>
+          <p>
+            If the game does not load inside this frame, open the official
+            playable version in a new tab.
+          </p>
+          <a
+            class="primary-btn"
+            href="https://snowrider.com/game/"
+            target="_blank"
+            rel="noopener noreferrer">
+            ▶ Play Snow Rider 3D
+          </a>
+        </div>
+      </div>
 
-  </div>
+      <p class="game-note">
+        Tip: If the game is blocked from loading in this page, use “Open Game”
+        to play it directly on its host website.
+      </p>
+    </section>
 
-  <!-- GAME OVER -->
-  <div id="gameOver" class="screen hidden">
+    <section class="quick-info" aria-label="Game details">
+      <div class="info-box">
+        <span class="emoji">🎮</span>
+        <strong>Arcade Adventure</strong>
+        <small>Fast downhill action</small>
+      </div>
+      <div class="info-box">
+        <span class="emoji">⌨️</span>
+        <strong>Easy Controls</strong>
+        <small>Keyboard and touch options depend on game version</small>
+      </div>
+      <div class="info-box">
+        <span class="emoji">🎁</span>
+        <strong>Collect Gifts</strong>
+        <small>Improve your runs and score</small>
+      </div>
+    </section>
 
-    <div class="panel">
-
-      <div class="emoji">💥</div>
-
-      <h2>Game Over!</h2>
-
-      <p>Your Score</p>
-
-      <strong id="finalScore">0</strong>
-
+    <section class="content-section">
+      <h2>About Snow Rider 3D</h2>
       <p>
-        Best Score:
-        <b id="bestScore">0</b>
+        Snow Rider 3D is a fast-paced winter arcade game where you ride a sled
+        down a snowy mountain. Your goal is to stay on the slope, avoid
+        dangerous obstacles and travel as far as possible without crashing.
+      </p>
+      <p>
+        Each run challenges your timing and reflexes. Keep an eye on the path
+        ahead, steer early when obstacles appear and collect gift boxes whenever
+        you can do so safely.
       </p>
 
-      <button id="restartBtn" type="button">
-        PLAY AGAIN
-      </button>
+      <h3>What makes Snow Rider 3D fun?</h3>
+      <ul>
+        <li>Fast downhill gameplay with challenging obstacles.</li>
+        <li>Snowy environments and a winter adventure atmosphere.</li>
+        <li>Gift collection and high-score challenges.</li>
+        <li>Quick restarts that let you try to beat your previous run.</li>
+        <li>Additional features may vary depending on the game version.</li>
+      </ul>
+    </section>
 
-    </div>
+    <section class="content-section">
+      <h2>How to Play Snow Rider 3D</h2>
+      <ol>
+        <li>Press Play in the game to start your snowy ride.</li>
+        <li>Steer left and right to avoid trees, rocks and other hazards.</li>
+        <li>Use the jump control when you need to clear suitable low obstacles.</li>
+        <li>Collect gifts while keeping a safe path ahead.</li>
+        <li>Try to survive longer and beat your personal best score.</li>
+      </ol>
 
-  </div>
+      <h3>Game Controls</h3>
+      <div class="control-grid">
+        <div class="control-item">
+          <strong>⬅️ ➡️ Steer</strong>
+          <span>Use the left and right arrow keys when supported by the game.</span>
+        </div>
+        <div class="control-item">
+          <strong>⬆️ Jump</strong>
+          <span>Use the jump key shown in the game instructions.</span>
+        </div>
+        <div class="control-item">
+          <strong>📱 Mobile</strong>
+          <span>Use on-screen or touch controls if available in the loaded version.</span>
+        </div>
+      </div>
+    </section>
 
-  <!-- MOBILE CONTROLS -->
-  <div class="mobile-controls">
+    <section class="content-section">
+      <h2>Tips for a Higher Score</h2>
+      <ul>
+        <li><strong>Look ahead:</strong> Watch the upcoming path instead of focusing only on your sled.</li>
+        <li><strong>Steer early:</strong> Make small adjustments before an obstacle gets too close.</li>
+        <li><strong>Choose safety:</strong> Avoid risky gift pickups if they put you on a collision course.</li>
+        <li><strong>Learn the controls:</strong> Check the game's own instructions before your first run.</li>
+        <li><strong>Keep practising:</strong> Better timing and quick decisions help you last longer.</li>
+      </ul>
+    </section>
 
-    <button
-      id="leftBtn"
-      type="button"
-      aria-label="Move Left">
-      ◀
-    </button>
+    <section class="content-section">
+      <h2>Snow Rider 3D – Frequently Asked Questions</h2>
 
-    <button
-      id="rightBtn"
-      type="button"
-      aria-label="Move Right">
-      ▶
-    </button>
+      <div class="faq-item">
+        <h3>1. Can I play Snow Rider 3D online?</h3>
+        <p>
+          Yes. You can try the browser version through the game frame above.
+          If embedding is blocked, open the game directly using the Open Game link.
+        </p>
+      </div>
 
-  </div>
+      <div class="faq-item">
+        <h3>2. Is Snow Rider 3D free to play?</h3>
+        <p>
+          The linked browser game offers online play. Availability and any
+          features or restrictions are determined by its host website.
+        </p>
+      </div>
 
-</div>
+      <div class="faq-item">
+        <h3>3. How do I control the sled?</h3>
+        <p>
+          Controls can vary by version. Many browser versions use the left and
+          right arrow keys for steering and an up-arrow or another key for jumping.
+          Follow the instructions shown in the game.
+        </p>
+      </div>
 
-<script src="./script.js"></script>
+      <div class="faq-item">
+        <h3>4. What is the goal of Snow Rider 3D?</h3>
+        <p>
+          Ride as far as you can, avoid obstacles and collect gifts while trying
+          to beat your previous distance or score.
+        </p>
+      </div>
 
+      <div class="faq-item">
+        <h3>5. Can I play on a mobile phone?</h3>
+        <p>
+          Mobile support depends on the game version and its available touch
+          controls. If the embedded game does not work well, open it directly
+          on its host website.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>6. Why is the game not showing inside Gameso?</h3>
+        <p>
+          Some game websites prevent their games from being embedded on other
+          websites. If that happens, use the Open Game button. A fully integrated
+          game requires permission and compatible game files.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>7. How can I improve my score?</h3>
+        <p>
+          Watch the slope ahead, steer before reaching obstacles and collect
+          gifts only when it is safe. Practising helps improve reaction time.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>8. Do I need to install anything?</h3>
+        <p>
+          The browser version is intended to run online without installing a
+          desktop game. The host website determines its exact requirements.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section" id="related-games">
+      <h2>More Free Online Games</h2>
+      <p>Explore more arcade, puzzle and action games on Gameso.</p>
+
+      <div class="related-grid">
+        <a class="related-card" href="/games/drift-boss/">
+          <span class="related-emoji">🏎️</span>
+          <span>
+            <strong>Drift Boss</strong>
+            <small>Driving and reflexes</small>
+          </span>
+        </a>
+
+        <a class="related-card" href="/games/snake/">
+          <span class="related-emoji">🐍</span>
+          <span>
+            <strong>Snake Game</strong>
+            <small>Classic arcade fun</small>
+          </span>
+        </a>
+
+        <a class="related-card" href="/games/flappy-bird/">
+          <span class="related-emoji">🐦</span>
+          <span>
+            <strong>Flappy Bird</strong>
+            <small>Test your timing</small>
+          </span>
+        </a>
+
+        <a class="related-card" href="/games/2048/">
+          <span class="related-emoji">🔢</span>
+          <span>
+            <strong>2048</strong>
+            <small>Number puzzle</small>
+          </span>
+        </a>
+
+        <a class="related-card" href="/games/pong/">
+          <span class="related-emoji">🏓</span>
+          <span>
+            <strong>Pong</strong>
+            <small>Classic sports arcade</small>
+          </span>
+        </a>
+
+        <a class="related-card" href="/games/minesweeper/">
+          <span class="related-emoji">💣</span>
+          <span>
+            <strong>Minesweeper</strong>
+            <small>Logic and strategy</small>
+          </span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> <a href="/">Gameso</a>. Play, explore and have fun.</p>
+  </footer>
+
+  <script>
+    const gameFrame = document.getElementById("gameFrame");
+    const snowGame = document.getElementById("snowGame");
+    const gameFallback = document.getElementById("gameFallback");
+    const reloadButton = document.getElementById("reloadGame");
+    const fullscreenButton = document.getElementById("fullscreenGame");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /*
+      A cross-origin iframe cannot reliably tell this page whether
+      the game itself has successfully started. Keep the fallback
+      available until the iframe reports a load event.
+    */
+    snowGame.addEventListener("load", function () {
+      gameFallback.classList.add("hidden");
+    });
+
+    reloadButton.addEventListener("click", function () {
+      gameFallback.classList.remove("hidden");
+      snowGame.src = "https://snowrider.com/game/";
+    });
+
+    fullscreenButton.addEventListener("click", async function () {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        } else {
+          await gameFrame.requestFullscreen();
+        }
+      } catch (error) {
+        window.open(
+          "https://snowrider.com/game/",
+          "_blank",
+          "noopener,noreferrer"
+        );
+      }
+    });
+  </script>
 </body>
 </html>
