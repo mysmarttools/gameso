@@ -1,404 +1,1157 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors Online – Play Free | Gameso</title>
+  <meta name="description" content="Play Rock Paper Scissors online for free at Gameso! Choose rock, paper or scissors, challenge the computer, track your score and enjoy this classic game on mobile or desktop.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#080b14">
+  <link rel="canonical" href="https://gameso.vercel.app/games/rock-paper-scissors/">
 
-    <title>Rock Paper Scissors Online - Play Free | Gameso</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rock Paper Scissors Online | Gameso">
+  <meta property="og:description" content="Choose rock, paper or scissors and play this classic free game against the computer.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/rock-paper-scissors/">
 
-    <meta
-        name="description"
-        content="Play Rock Paper Scissors online for free. Choose rock, paper or scissors and challenge the computer. Fast and fun game on Gameso."
-    >
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: #121827;
+      --card-hover: #182137;
+      --text: #ffffff;
+      --muted: #9ba4b6;
+      --primary: #6c5ce7;
+      --accent: #00d4ff;
+      --border: rgba(255,255,255,.08);
+      --green: #39d98a;
+      --red: #ff5263;
+      --gold: #ffd166;
+    }
 
-    <meta name="robots" content="index, follow">
+    * { box-sizing: border-box; }
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/rock-paper-scissors/"
-    >
+    html { scroll-behavior: smooth; }
 
-    <link rel="stylesheet" href="style.css">
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at top left, rgba(108,92,231,.12), transparent 38%),
+        radial-gradient(ellipse at top right, rgba(0,212,255,.06), transparent 32%),
+        var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    button { font: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8,11,20,.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #121827;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: background .2s, border-color .2s;
+    }
+
+    .back-home:hover {
+      background: #202b42;
+      border-color: rgba(0,212,255,.4);
+      color: #fff;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.7px;
+      white-space: nowrap;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      font-size: 20px;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .header-links a { color: var(--muted); }
+    .header-links a:hover { color: #fff; }
+
+    .container {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .breadcrumbs {
+      margin: 22px 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .breadcrumbs a { color: var(--muted); }
+
+    .hero {
+      padding: 15px 0 24px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 12px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(0,212,255,.22);
+      border-radius: 30px;
+      color: var(--accent);
+      background: rgba(0,212,255,.06);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 9px;
+      font-size: clamp(28px, 5vw, 43px);
+      line-height: 1.15;
+      letter-spacing: -1.3px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .game-shell {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      background: #101625;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .score-player { text-align: center; }
+    .score-player .label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .score-number {
+      display: block;
+      margin-top: 2px;
+      font-size: clamp(34px, 6vw, 48px);
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .you-score { color: var(--accent); }
+    .computer-score { color: #c4b5fd; }
+
+    .score-divider {
+      color: var(--muted);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .game-area { padding: clamp(16px, 4vw, 30px); }
+
+    .round-status {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .round-status h2 {
+      margin: 0 0 4px;
+      font-size: clamp(20px, 3vw, 26px);
+    }
+
+    .round-status p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .battle {
+      display: grid;
+      grid-template-columns: 1fr 75px 1fr;
+      align-items: center;
+      gap: 12px;
+      max-width: 640px;
+      margin: 0 auto 24px;
+    }
+
+    .fighter {
+      min-width: 0;
+      padding: 18px 10px;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: #0e1524;
+      text-align: center;
+    }
+
+    .fighter-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .fighter-choice {
+      display: grid;
+      place-items: center;
+      min-height: 100px;
+      font-size: clamp(48px, 9vw, 70px);
+      line-height: 1.2;
+    }
+
+    .fighter-name {
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .versus {
+      color: var(--primary);
+      text-align: center;
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+    .result-banner {
+      max-width: 640px;
+      margin: 0 auto 24px;
+      padding: 13px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #0e1524;
+      color: #c6cfdf;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .result-banner.win {
+      color: var(--green);
+      border-color: rgba(57,217,138,.25);
+      background: rgba(57,217,138,.07);
+    }
+
+    .result-banner.lose {
+      color: var(--red);
+      border-color: rgba(255,82,99,.25);
+      background: rgba(255,82,99,.07);
+    }
+
+    .result-banner.draw {
+      color: var(--gold);
+      border-color: rgba(255,209,102,.25);
+      background: rgba(255,209,102,.06);
+    }
+
+    .choose-title {
+      margin: 0 0 15px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      max-width: 640px;
+      margin: auto;
+    }
+
+    .choice-btn {
+      min-width: 0;
+      padding: 18px 8px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: #182137;
+      color: #fff;
+      cursor: pointer;
+      transition: transform .18s, background .18s, border-color .18s;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,212,255,.45);
+      background: #202c44;
+    }
+
+    .choice-btn:active { transform: scale(.97); }
+
+    .choice-btn:focus-visible,
+    .secondary-btn:focus-visible,
+    .primary-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .choice-emoji {
+      display: block;
+      margin-bottom: 6px;
+      font-size: clamp(36px, 6vw, 48px);
+    }
+
+    .choice-name {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .game-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .primary-btn, .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 43px;
+      padding: 10px 17px;
+      border: 0;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--primary), #5144cb);
+      color: #fff;
+    }
+
+    .primary-btn:hover { filter: brightness(1.12); }
+
+    .secondary-btn {
+      border: 1px solid var(--border);
+      background: #192237;
+      color: #fff;
+    }
+
+    .secondary-btn:hover { background: #24304a; }
+
+    .match-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .match-options label { font-weight: 700; }
+
+    .match-options select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #101625;
+      color: #fff;
+      font: inherit;
+    }
+
+    .history {
+      padding: 18px 22px;
+      border-top: 1px solid var(--border);
+      background: #101625;
+    }
+
+    .history h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .history-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #0e1524;
+      color: #d2d9e5;
+      font-size: 12px;
+    }
+
+    .history-empty {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .content-section {
+      margin-top: 24px;
+      padding: clamp(20px, 4vw, 30px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(18,24,39,.88);
+    }
+
+    .content-section h2 {
+      margin: 0 0 13px;
+      font-size: clamp(22px, 3vw, 29px);
+      line-height: 1.25;
+      letter-spacing: -.5px;
+    }
+
+    .content-section h3 {
+      margin: 22px 0 8px;
+      font-size: 18px;
+    }
+
+    .content-section p { margin: 10px 0; color: #c1c9d8; }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 18px;
+    }
+
+    .rule-card {
+      padding: 18px 12px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #0e1524;
+      text-align: center;
+    }
+
+    .rule-card span {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 38px;
+    }
+
+    .rule-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .rule-card p { margin: 0; font-size: 13px; }
+
+    .info-list { padding-left: 21px; color: #c1c9d8; }
+    .info-list li { margin: 8px 0; }
+
+    .faq-item {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .faq-item h3 { margin: 0 0 6px; font-size: 16px; }
+    .faq-item p { margin: 0; font-size: 14px; }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .related-card {
+      display: block;
+      padding: 18px 12px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #0e1524;
+      color: #fff;
+      text-align: center;
+      transition: transform .15s, background .15s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-3px);
+      background: var(--card-hover);
+    }
+
+    .related-card span { display: block; margin-bottom: 7px; font-size: 29px; }
+    .related-card strong { display: block; font-size: 14px; }
+    .related-card small { color: var(--muted); font-size: 12px; }
+
+    .site-footer {
+      margin-top: 38px;
+      padding: 28px 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .site-footer p { margin: 6px 0; }
+
+    @media (max-width: 700px) {
+      .header-inner { padding: 10px 12px; }
+      .header-left { gap: 8px; }
+      .brand { font-size: 19px; gap: 6px; }
+      .brand-icon { width: 32px; height: 32px; font-size: 17px; }
+      .back-home { min-height: 35px; padding: 7px 9px; font-size: 12px; }
+      .header-links { gap: 10px; font-size: 12px; }
+      .container { width: min(100% - 22px, 1080px); }
+      .breadcrumbs { margin-top: 15px; }
+      .hero { padding-top: 12px; }
+      .scoreboard { padding: 15px 10px; }
+      .game-area { padding: 15px 11px; }
+      .battle { grid-template-columns: 1fr 38px 1fr; gap: 7px; }
+      .fighter { padding: 14px 5px; }
+      .fighter-choice { min-height: 75px; }
+      .versus { font-size: 14px; }
+      .choices { gap: 8px; }
+      .choice-btn { padding: 14px 5px; border-radius: 12px; }
+      .history { padding: 15px 12px; }
+      .rules-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .content-section { margin-top: 16px; padding: 19px; }
+    }
+
+    @media (max-width: 380px) {
+      .header-links { display: none; }
+      .choice-name { font-size: 12px; }
+      .fighter-label { font-size: 10px; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Rock Paper Scissors",
+    "url": "https://gameso.vercel.app/games/rock-paper-scissors/",
+    "description": "A free browser-based Rock Paper Scissors game where players choose rock, paper or scissors and compete against the computer.",
+    "genre": ["Casual", "Strategy", "Party"],
+    "gamePlatform": ["Web Browser", "Mobile Browser"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any"
+  }
+  </script>
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a class="back-home" href="https://gameso.vercel.app/" aria-label="Back to Gameso Home">
+          <span aria-hidden="true">←</span>
+          <span>Back to Home</span>
+        </a>
 
-    <!-- HEADER -->
+        <a class="brand" href="https://gameso.vercel.app/" aria-label="Gameso homepage">
+          <span class="brand-icon">🎮</span>
+          <span>Gameso</span>
+        </a>
+      </div>
 
-    <header class="game-header">
+      <nav class="header-links" aria-label="Main navigation">
+        <a href="https://gameso.vercel.app/">Home</a>
+        <a href="https://gameso.vercel.app/#games">All Games</a>
+      </nav>
+    </div>
+  </header>
 
-        <div class="header-inner">
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="https://gameso.vercel.app/">Home</a> /
+      <a href="https://gameso.vercel.app/#games">Games</a> /
+      Rock Paper Scissors
+    </div>
 
-            <a href="/" class="logo">
-                <span>🎮</span>
-                <strong>Gameso</strong>
-            </a>
+    <section class="hero">
+      <span class="eyebrow">✊ Free Classic Game</span>
+      <h1>Rock Paper Scissors Online</h1>
+      <p>
+        Play Rock Paper Scissors online for free! Choose rock, paper or scissors,
+        challenge the computer and see who wins each round.
+      </p>
+    </section>
 
-            <a href="/" class="back-button">
-                ← All Games
-            </a>
-
+    <section class="game-shell" aria-label="Rock Paper Scissors game">
+      <div class="scoreboard" aria-live="polite">
+        <div class="score-player">
+          <span class="label">You</span>
+          <span class="score-number you-score" id="playerScore">0</span>
         </div>
 
-    </header>
-
-
-    <!-- MAIN -->
-
-    <main>
-
-        <section class="game-page">
-
-            <div class="game-container">
-
-
-                <!-- HEADING -->
-
-                <div class="game-heading">
-
-                    <span class="game-label">
-                        ✊ QUICK CHALLENGE
-                    </span>
-
-                    <h1>
-                        Rock Paper Scissors
-                    </h1>
-
-                    <p>
-                        Choose your move and battle
-                        against the computer!
-                    </p>
-
-                </div>
-
-
-                <!-- GAME BOX -->
-
-                <div class="game-box">
-
-
-                    <!-- SCORE -->
-
-                    <div class="score-board">
-
-                        <div class="score-item">
-
-                            <span>
-                                YOU
-                            </span>
-
-                            <strong id="playerScore">
-                                0
-                            </strong>
-
-                        </div>
-
-
-                        <div class="score-divider">
-                            :
-                        </div>
-
-
-                        <div class="score-item">
-
-                            <span>
-                                COMPUTER
-                            </span>
-
-                            <strong id="computerScore">
-                                0
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- RESULT -->
-
-                    <div
-                        id="result"
-                        class="result-box"
-                    >
-
-                        <strong>
-                            Make your move!
-                        </strong>
-
-                        <span>
-                            Choose Rock, Paper or Scissors
-                        </span>
-
-                    </div>
-
-
-                    <!-- BATTLE AREA -->
-
-                    <div class="battle-area">
-
-                        <div class="player-choice">
-
-                            <span class="choice-label">
-                                YOU
-                            </span>
-
-                            <div
-                                id="playerChoice"
-                                class="choice-display"
-                            >
-                                ❔
-                            </div>
-
-                        </div>
-
-
-                        <div class="vs">
-                            VS
-                        </div>
-
-
-                        <div class="computer-choice">
-
-                            <span class="choice-label">
-                                COMPUTER
-                            </span>
-
-                            <div
-                                id="computerChoice"
-                                class="choice-display"
-                            >
-                                ❔
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- CHOICES -->
-
-                    <div class="choices-title">
-                        Choose your move
-                    </div>
-
-
-                    <div class="choices">
-
-                        <button
-                            class="choice-button"
-                            data-choice="rock"
-                            type="button"
-                            aria-label="Choose Rock"
-                        >
-
-                            <span>
-                                ✊
-                            </span>
-
-                            <strong>
-                                Rock
-                            </strong>
-
-                        </button>
-
-
-                        <button
-                            class="choice-button"
-                            data-choice="paper"
-                            type="button"
-                            aria-label="Choose Paper"
-                        >
-
-                            <span>
-                                ✋
-                            </span>
-
-                            <strong>
-                                Paper
-                            </strong>
-
-                        </button>
-
-
-                        <button
-                            class="choice-button"
-                            data-choice="scissors"
-                            type="button"
-                            aria-label="Choose Scissors"
-                        >
-
-                            <span>
-                                ✌️
-                            </span>
-
-                            <strong>
-                                Scissors
-                            </strong>
-
-                        </button>
-
-                    </div>
-
-
-                    <!-- RESET -->
-
-                    <button
-                        id="resetGame"
-                        class="reset-button"
-                        type="button"
-                    >
-                        🔄 Reset Game
-                    </button>
-
-
-                    <!-- MESSAGE -->
-
-                    <div
-                        id="gameMessage"
-                        class="game-message"
-                    ></div>
-
-                </div>
-
-
-                <!-- INFO -->
-
-                <section class="game-info-section">
-
-                    <h2>
-                        How to Play Rock Paper Scissors
-                    </h2>
-
-                    <p>
-                        Rock Paper Scissors is a classic
-                        two-player game. In this online
-                        version, you play against the
-                        computer.
-                    </p>
-
-                    <p>
-                        Choose one of the three options:
-                        Rock, Paper or Scissors. The
-                        computer will randomly select
-                        its move and the winner will be
-                        displayed instantly.
-                    </p>
-
-
-                    <h2>
-                        Rock Paper Scissors Rules
-                    </h2>
-
-                    <ul>
-
-                        <li>
-                            ✊ Rock beats Scissors.
-                        </li>
-
-                        <li>
-                            ✋ Paper beats Rock.
-                        </li>
-
-                        <li>
-                            ✌️ Scissors beats Paper.
-                        </li>
-
-                        <li>
-                            🤝 Matching choices result
-                            in a draw.
-                        </li>
-
-                    </ul>
-
-                </section>
-
-
-                <!-- RELATED GAMES -->
-
-                <section class="related-section">
-
-                    <h2>
-                        More Games
-                    </h2>
-
-                    <div class="related-grid">
-
-
-                        <a
-                            href="/games/memory/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                🧠
-                            </span>
-
-                            <strong>
-                                Memory Game
-                            </strong>
-
-                        </a>
-
-
-                        <a
-                            href="/games/tic-tac-toe/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                ❌⭕
-                            </span>
-
-                            <strong>
-                                Tic Tac Toe
-                            </strong>
-
-                        </a>
-
-
-                        <a
-                            href="/games/2048/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                🔢
-                            </span>
-
-                            <strong>
-                                2048
-                            </strong>
-
-                        </a>
-
-                    </div>
-
-                </section>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <p>
-            ©
-            <span id="year"></span>
-            Gameso. All rights reserved.
-        </p>
-
-    </footer>
-
-
-    <script src="script.js"></script>
-
+        <div class="score-divider">VS</div>
+
+        <div class="score-player">
+          <span class="label">Computer</span>
+          <span class="score-number computer-score" id="computerScore">0</span>
+        </div>
+      </div>
+
+      <div class="game-area">
+        <div class="round-status">
+          <h2 id="roundTitle">Make Your Choice!</h2>
+          <p id="roundDescription">Pick rock, paper or scissors to start playing.</p>
+        </div>
+
+        <div class="battle">
+          <div class="fighter">
+            <span class="fighter-label">Your Choice</span>
+            <div class="fighter-choice" id="playerChoice" aria-label="Your choice">❔</div>
+            <span class="fighter-name" id="playerChoiceName">Waiting...</span>
+          </div>
+
+          <div class="versus">VS</div>
+
+          <div class="fighter">
+            <span class="fighter-label">Computer Choice</span>
+            <div class="fighter-choice" id="computerChoice" aria-label="Computer choice">❔</div>
+            <span class="fighter-name" id="computerChoiceName">Waiting...</span>
+          </div>
+        </div>
+
+        <div class="result-banner" id="resultBanner" role="status" aria-live="polite">
+          👇 Choose your move below to play!
+        </div>
+
+        <h3 class="choose-title">Choose Your Move</h3>
+
+        <div class="choices">
+          <button class="choice-btn" type="button" data-choice="rock" aria-label="Choose rock">
+            <span class="choice-emoji">✊</span>
+            <span class="choice-name">ROCK</span>
+          </button>
+
+          <button class="choice-btn" type="button" data-choice="paper" aria-label="Choose paper">
+            <span class="choice-emoji">✋</span>
+            <span class="choice-name">PAPER</span>
+          </button>
+
+          <button class="choice-btn" type="button" data-choice="scissors" aria-label="Choose scissors">
+            <span class="choice-emoji">✌️</span>
+            <span class="choice-name">SCISSORS</span>
+          </button>
+        </div>
+
+        <div class="game-actions">
+          <button class="primary-btn" id="resetBtn" type="button">↻ Reset Score</button>
+          <button class="secondary-btn" id="clearRoundBtn" type="button">Clear Round</button>
+        </div>
+
+        <div class="match-options">
+          <label for="matchLength">Match format:</label>
+          <select id="matchLength">
+            <option value="0">Unlimited Rounds</option>
+            <option value="1">First to 1 Win</option>
+            <option value="2">First to 2 Wins</option>
+            <option value="3">First to 3 Wins</option>
+            <option value="5">First to 5 Wins</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="history">
+        <h3>📜 Recent Rounds</h3>
+        <div class="history-list" id="historyList">
+          <span class="history-empty">Your recent results will appear here.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>🎮 About Rock Paper Scissors</h2>
+      <p>
+        Rock Paper Scissors is a classic hand game that you can play in seconds.
+        In this free online version, you compete against the computer by choosing
+        one of three moves: rock, paper or scissors. The computer picks its move
+        at random, and the game instantly reveals the result.
+      </p>
+      <p>
+        The rules are easy to learn. Rock beats scissors, scissors beat paper,
+        and paper beats rock. If both sides choose the same move, the round is
+        a tie. Play as many rounds as you like, track your score and try to win
+        a short match or play without a round limit.
+      </p>
+      <p>
+        This browser game is designed for quick entertainment on desktop,
+        laptop, tablet and mobile devices. You do not need to download an app
+        or create an account to play.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>📖 Rock Paper Scissors Rules</h2>
+      <p>Remember these three simple rules to decide the winner of each round.</p>
+
+      <div class="rules-grid">
+        <div class="rule-card">
+          <span>✊</span>
+          <strong>Rock beats Scissors</strong>
+          <p>Rock breaks or crushes scissors.</p>
+        </div>
+        <div class="rule-card">
+          <span>✋</span>
+          <strong>Paper beats Rock</strong>
+          <p>Paper covers rock.</p>
+        </div>
+        <div class="rule-card">
+          <span>✌️</span>
+          <strong>Scissors beat Paper</strong>
+          <p>Scissors cut paper.</p>
+        </div>
+      </div>
+
+      <h3>What Happens in a Tie?</h3>
+      <p>
+        When you and the computer select the same move, neither side wins the
+        round. The score remains unchanged, and you can choose again immediately.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>🕹️ How to Play Rock Paper Scissors Online</h2>
+      <ol class="info-list">
+        <li>Click the Rock, Paper or Scissors button.</li>
+        <li>The computer randomly selects its own move.</li>
+        <li>Compare both choices to see whether you win, lose or draw.</li>
+        <li>Your score updates automatically after every round.</li>
+        <li>Continue playing or choose a match format to set a winning target.</li>
+        <li>Press Reset Score whenever you want to start a fresh match.</li>
+      </ol>
+
+      <h3>💻 Controls</h3>
+      <ul class="info-list">
+        <li><strong>Mouse:</strong> Click any of the three choice buttons.</li>
+        <li><strong>Touchscreen:</strong> Tap your preferred move.</li>
+        <li><strong>Reset Score:</strong> Reset both scores and round history.</li>
+        <li><strong>Clear Round:</strong> Clear the displayed choices without resetting the scores.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>💡 Tips for Playing Better</h2>
+      <ul class="info-list">
+        <li><strong>Know the rules:</strong> Remember which move beats the other two.</li>
+        <li><strong>Understand randomness:</strong> The computer's choices are random, so no move guarantees a win.</li>
+        <li><strong>Play short matches:</strong> Use a win target to make each match more competitive.</li>
+        <li><strong>Track your results:</strong> Check the scoreboard and recent-round history.</li>
+        <li><strong>Enjoy the ties:</strong> A draw is part of the game and gives you another chance to win.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>✨ Game Features</h2>
+      <ul class="info-list">
+        <li>Free Rock Paper Scissors game online.</li>
+        <li>Play against a computer opponent.</li>
+        <li>Instant results after every selection.</li>
+        <li>Automatic player and computer score tracking.</li>
+        <li>Recent-round history for quick reference.</li>
+        <li>Unlimited play or optional win-target matches.</li>
+        <li>Responsive layout for mobile and desktop browsers.</li>
+        <li>No download, installation or account required.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>❓ Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>1. Can I play Rock Paper Scissors online for free?</h3>
+        <p>Yes. You can play this Rock Paper Scissors game for free on Gameso directly in your browser.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>2. How do you win at Rock Paper Scissors?</h3>
+        <p>Rock beats scissors, scissors beat paper, and paper beats rock. You win a round when your move defeats the computer's move.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>3. What happens if both players choose the same move?</h3>
+        <p>The round is a tie. Neither side earns a point, and you can play another round.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>4. Can I play Rock Paper Scissors against the computer?</h3>
+        <p>Yes. Select one of the three moves, and the computer will randomly choose its move for that round.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>5. Do I need to download the game?</h3>
+        <p>No download is needed. The game runs directly on the Gameso webpage using your browser.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>6. Can I play on my mobile phone?</h3>
+        <p>Yes. The game works with touch controls on compatible mobile phones and tablets.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>7. How do I reset my score?</h3>
+        <p>Click the Reset Score button. Both scores and the recent-round history will be cleared.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>8. Does the computer always choose randomly?</h3>
+        <p>Yes. The computer chooses randomly from rock, paper and scissors each round. Previous results do not affect its next move.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>9. Which move is the strongest?</h3>
+        <p>No move is strongest in every situation. Each move beats one choice and loses to another, so there is no guaranteed winning move against a random opponent.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>10. What does First to 3 Wins mean?</h3>
+        <p>It means the match target is three wins. Select that option to play until you or the computer reaches three wins.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>11. Can I play unlimited rounds?</h3>
+        <p>Yes. Select Unlimited Rounds to continue playing without a win target until you reset the game or leave the page.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>12. Does a tie change the score?</h3>
+        <p>No. A tied round does not increase either player's score.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>13. Can I play without creating an account?</h3>
+        <p>Yes. No account or registration is required to play this browser game.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>14. Is this game suitable for quick breaks?</h3>
+        <p>Yes. Each round takes only a few seconds, making it suitable for a quick casual gaming break.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>15. Where can I find more free games?</h3>
+        <p>Visit the <a href="https://gameso.vercel.app/#games">Gameso games collection</a> to discover more browser-based arcade, puzzle and racing games.</p>
+      </div>
+    </section>
+
+    <section class="content-section" id="related-games">
+      <h2>🎮 More Free Games to Play</h2>
+      <p>Explore more games on Gameso after finishing your match.</p>
+
+      <div class="related-grid">
+        <a class="related-card" href="/games/snake/">
+          <span>🐍</span>
+          <strong>Snake Game</strong>
+          <small>Classic arcade fun</small>
+        </a>
+        <a class="related-card" href="/games/2048/">
+          <span>🔢</span>
+          <strong>2048</strong>
+          <small>Number puzzle challenge</small>
+        </a>
+        <a class="related-card" href="/games/drift-boss/">
+          <span>🏎️</span>
+          <strong>Drift Boss</strong>
+          <small>Racing and drifting</small>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="https://gameso.vercel.app/">Gameso</a> – Play free online games in your browser.</p>
+    <p>© <span id="year"></span> Gameso. All rights reserved.</p>
+    <p><a href="https://gameso.vercel.app/">← Back to Gameso Home</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const moves = {
+        rock: { emoji: "✊", name: "Rock" },
+        paper: { emoji: "✋", name: "Paper" },
+        scissors: { emoji: "✌️", name: "Scissors" }
+      };
+
+      const beats = {
+        rock: "scissors",
+        paper: "rock",
+        scissors: "paper"
+      };
+
+      let playerScore = 0;
+      let computerScore = 0;
+      let roundCount = 0;
+      let history = [];
+      let matchFinished = false;
+
+      const $ = id => document.getElementById(id);
+
+      const playerScoreEl = $("playerScore");
+      const computerScoreEl = $("computerScore");
+      const playerChoiceEl = $("playerChoice");
+      const computerChoiceEl = $("computerChoice");
+      const playerChoiceNameEl = $("playerChoiceName");
+      const computerChoiceNameEl = $("computerChoiceName");
+      const roundTitleEl = $("roundTitle");
+      const roundDescriptionEl = $("roundDescription");
+      const resultBannerEl = $("resultBanner");
+      const historyListEl = $("historyList");
+      const matchLengthEl = $("matchLength");
+
+      function randomMove() {
+        const options = Object.keys(moves);
+
+        if (window.crypto && window.crypto.getRandomValues) {
+          const array = new Uint32Array(1);
+          const limit = Math.floor(4294967296 / options.length) * options.length;
+
+          let value;
+          do {
+            window.crypto.getRandomValues(array);
+            value = array[0];
+          } while (value >= limit);
+
+          return options[value % options.length];
+        }
+
+        return options[Math.floor(Math.random() * options.length)];
+      }
+
+      function determineWinner(player, computer) {
+        if (player === computer) return "draw";
+        if (beats[player] === computer) return "win";
+        return "lose";
+      }
+
+      function updateScoreboard() {
+        playerScoreEl.textContent = playerScore;
+        computerScoreEl.textContent = computerScore;
+      }
+
+      function updateResultBanner(type, message) {
+        resultBannerEl.className = "result-banner" + (type ? " " + type : "");
+        resultBannerEl.textContent = message;
+      }
+
+      function renderHistory() {
+        historyListEl.replaceChildren();
+
+        if (history.length === 0) {
+          const empty = document.createElement("span");
+          empty.className = "history-empty";
+          empty.textContent = "Your recent results will appear here.";
+          historyListEl.appendChild(empty);
+          return;
+        }
+
+        history.slice(0, 6).forEach(item => {
+          const element = document.createElement("div");
+          element.className = "history-item";
+
+          const icon = document.createElement("span");
+          icon.textContent = item.result === "win" ? "✅" :
+            item.result === "lose" ? "❌" : "➖";
+
+          const detail = document.createElement("span");
+          detail.textContent = "#" + item.round + " " +
+            moves[item.player].name + " vs " + moves[item.computer].name +
+            " · " + (item.result === "win" ? "Win" :
+              item.result === "lose" ? "Loss" : "Draw");
+
+          element.append(icon, detail);
+          historyListEl.appendChild(element);
+        });
+      }
+
+      function clearDisplayedRound() {
+        playerChoiceEl.textContent = "❔";
+        computerChoiceEl.textContent = "❔";
+        playerChoiceNameEl.textContent = "Waiting...";
+        computerChoiceNameEl.textContent = "Waiting...";
+        roundTitleEl.textContent = "Make Your Choice!";
+        roundDescriptionEl.textContent = "Pick rock, paper or scissors to play.";
+        updateResultBanner("", "👇 Choose your move below to play!");
+      }
+
+      function playRound(playerMove) {
+        if (matchFinished) {
+          updateResultBanner("draw", "🏁 This match is finished. Reset the score to play again.");
+          return;
+        }
+
+        const computerMove = randomMove();
+        const result = determineWinner(playerMove, computerMove);
+        roundCount++;
+
+        playerChoiceEl.textContent = moves[playerMove].emoji;
+        computerChoiceEl.textContent = moves[computerMove].emoji;
+        playerChoiceNameEl.textContent = moves[playerMove].name;
+        computerChoiceNameEl.textContent = moves[computerMove].name;
+
+        if (result === "win") {
+          playerScore++;
+          roundTitleEl.textContent = "🎉 You Win This Round!";
+          roundDescriptionEl.textContent =
+            moves[playerMove].name + " beats " + moves[computerMove].name + ".";
+          updateResultBanner("win", "🏆 Great move! You won this round.");
+        } else if (result === "lose") {
+          computerScore++;
+          roundTitleEl.textContent = "😅 Computer Wins This Round";
+          roundDescriptionEl.textContent =
+            moves[computerMove].name + " beats " + moves[playerMove].name + ".";
+          updateResultBanner("lose", "💥 The computer won this round. Try again!");
+        } else {
+          roundTitleEl.textContent = "🤝 It's a Draw!";
+          roundDescriptionEl.textContent = "Both sides picked " + moves[playerMove].name + ".";
+          updateResultBanner("draw", "➖ Tie round! No points awarded.");
+        }
+
+        history.unshift({
+          round: roundCount,
+          player: playerMove,
+          computer: computerMove,
+          result
+        });
+
+        updateScoreboard();
+        renderHistory();
+        checkMatchWinner();
+      }
+
+      function checkMatchWinner() {
+        const target = Number(matchLengthEl.value);
+
+        if (!target) return;
+
+        if (playerScore >= target) {
+          matchFinished = true;
+          roundTitleEl.textContent = "🏆 You Won the Match!";
+          roundDescriptionEl.textContent =
+            "You reached " + target + " win" + (target === 1 ? "" : "s") + " first.";
+          updateResultBanner("win", "🎉 Match complete! You are the winner.");
+        } else if (computerScore >= target) {
+          matchFinished = true;
+          roundTitleEl.textContent = "💻 Computer Won the Match";
+          roundDescriptionEl.textContent =
+            "The computer reached " + target + " wins first.";
+          updateResultBanner("lose", "Match over! Reset the score to challenge the computer again.");
+        }
+      }
+
+      function resetGame() {
+        playerScore = 0;
+        computerScore = 0;
+        roundCount = 0;
+        history = [];
+        matchFinished = false;
+
+        updateScoreboard();
+        renderHistory();
+        clearDisplayedRound();
+      }
+
+      document.querySelectorAll("[data-choice]").forEach(button => {
+        button.addEventListener("click", () => {
+          playRound(button.dataset.choice);
+        });
+      });
+
+      $("resetBtn").addEventListener("click", resetGame);
+
+      $("clearRoundBtn").addEventListener("click", () => {
+        clearDisplayedRound();
+      });
+
+      matchLengthEl.addEventListener("change", () => {
+        matchFinished = false;
+        checkMatchWinner();
+
+        if (!matchFinished) {
+          updateResultBanner("", "Match format updated. Choose your next move!");
+        }
+      });
+
+      $("year").textContent = new Date().getFullYear();
+
+      updateScoreboard();
+      renderHistory();
+    })();
+  </script>
 </body>
-
 </html>
