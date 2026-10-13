@@ -1,124 +1,1444 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Battle Arena - Fortnite Inspired Game | Gameso</title>
+  <title>Fortnite Inspired Battle Arena Online | Gameso</title>
+  <meta name="description" content="Play a free Fortnite-inspired Battle Arena game online at Gameso. Move, aim, shoot enemies, survive the arena and beat your high score.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameso.vercel.app/games/fortnite/">
+  <meta name="theme-color" content="#080b14">
 
-    <meta name="description" content="Play a free Fortnite-inspired Battle Arena game online on Gameso. Move, aim, shoot enemies and survive the arena.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Battle Arena Online | Gameso">
+  <meta property="og:description" content="Enter the arena, defeat enemies and survive in this free browser action game.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/fortnite/">
 
-    <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: #121827;
+      --card-hover: #182137;
+      --text: #ffffff;
+      --muted: #9ba4b6;
+      --primary: #6c5ce7;
+      --accent: #00d4ff;
+      --border: rgba(255,255,255,.08);
+      --danger: #ff5263;
+      --success: #39d98a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at top left, rgba(108,92,231,.12), transparent 38%),
+        radial-gradient(ellipse at top right, rgba(0,212,255,.06), transparent 32%),
+        var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    button { font: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8,11,20,.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #121827;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+      transition: background .2s, border-color .2s;
+    }
+
+    .back-home:hover {
+      background: #202b42;
+      border-color: rgba(0,212,255,.4);
+      color: #fff;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -.7px;
+      white-space: nowrap;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      font-size: 20px;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .header-links a { color: var(--muted); }
+    .header-links a:hover { color: #fff; }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .breadcrumbs {
+      margin: 22px 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .breadcrumbs a { color: var(--muted); }
+
+    .game-heading {
+      text-align: center;
+      padding: 15px 0 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 12px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(0,212,255,.22);
+      border-radius: 30px;
+      color: var(--accent);
+      background: rgba(0,212,255,.06);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 5vw, 43px);
+      line-height: 1.15;
+      letter-spacing: -1.4px;
+    }
+
+    .subtitle {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .game-shell {
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat {
+      padding: 13px 8px;
+      text-align: center;
+      background: #101625;
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      display: block;
+      margin-top: 2px;
+      font-size: 23px;
+      font-weight: 900;
+    }
+
+    .health-value { color: var(--success); }
+    .score-value { color: var(--accent); }
+    .kills-value { color: #c4b5fd; }
+
+    .arena-wrap {
+      position: relative;
+      padding: 12px;
+      background: #0c1220;
+    }
+
+    #gameCanvas {
+      display: block;
+      width: 100%;
+      max-height: 590px;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      background: #182b32;
+      outline: none;
+      touch-action: none;
+    }
+
+    .game-overlay {
+      position: absolute;
+      inset: 12px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(5,9,18,.78);
+      backdrop-filter: blur(5px);
+      text-align: center;
+    }
+
+    .overlay-content { width: min(440px, 100%); }
+    .overlay-icon { margin-bottom: 8px; font-size: clamp(40px, 8vw, 66px); line-height: 1.2; }
+    .overlay-content h2 { margin: 0 0 8px; font-size: clamp(25px, 4vw, 36px); line-height: 1.2; }
+    .overlay-content p { margin: 0 auto 20px; color: #c0c8d7; font-size: 14px; }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 25px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #5144cb);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(108,92,231,.25);
+    }
+
+    .primary-btn:hover { filter: brightness(1.12); }
+
+    .game-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 16px;
+      border-top: 1px solid var(--border);
+      background: #101625;
+    }
+
+    .toolbar-help { color: var(--muted); font-size: 12px; }
+
+    .secondary-btn {
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #192237;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .secondary-btn:hover { background: #24304a; }
+
+    .mobile-controls {
+      display: none;
+      padding: 14px;
+      background: #0e1524;
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-controls p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .control-layout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      max-width: 460px;
+      margin: auto;
+    }
+
+    .dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 48px);
+      grid-template-rows: repeat(2, 45px);
+      gap: 5px;
+    }
+
+    .control-btn {
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 10px;
+      background: #1c2740;
+      color: #fff;
+      font-size: 19px;
+      font-weight: 900;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+
+    .control-btn:active { background: var(--primary); }
+    .control-up { grid-column: 2; grid-row: 1; }
+    .control-left { grid-column: 1; grid-row: 2; }
+    .control-down { grid-column: 2; grid-row: 2; }
+    .control-right { grid-column: 3; grid-row: 2; }
+
+    .shoot-btn {
+      min-width: 100px;
+      min-height: 85px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ff5263, #c82f53);
+      font-size: 14px;
+    }
+
+    .content-section {
+      margin-top: 24px;
+      padding: clamp(20px, 4vw, 30px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(18,24,39,.88);
+    }
+
+    .content-section h2 {
+      margin: 0 0 13px;
+      font-size: clamp(22px, 3vw, 29px);
+      line-height: 1.25;
+      letter-spacing: -.5px;
+    }
+
+    .content-section h3 { margin: 22px 0 8px; font-size: 18px; }
+    .content-section p { margin: 10px 0; color: #c1c9d8; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .feature-card {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #0e1524;
+    }
+
+    .feature-icon { font-size: 26px; }
+    .feature-card h3 { margin: 8px 0 5px; font-size: 15px; }
+    .feature-card p { margin: 0; font-size: 13px; }
+
+    .info-list { padding-left: 21px; color: #c1c9d8; }
+    .info-list li { margin: 8px 0; }
+
+    .faq-item { padding: 15px 0; border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .faq-item h3 { margin: 0 0 6px; font-size: 16px; }
+    .faq-item p { margin: 0; font-size: 14px; }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .related-card {
+      display: block;
+      padding: 18px 12px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #0e1524;
+      color: #fff;
+      text-align: center;
+      transition: transform .15s, background .15s;
+    }
+
+    .related-card:hover { transform: translateY(-3px); background: var(--card-hover); }
+    .related-card span { display: block; margin-bottom: 7px; font-size: 29px; }
+    .related-card strong { display: block; font-size: 14px; }
+    .related-card small { color: var(--muted); font-size: 12px; }
+
+    .site-footer {
+      margin-top: 38px;
+      padding: 28px 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .site-footer p { margin: 6px 0; }
+
+    @media (max-width: 700px) {
+      .header-inner { padding: 10px 12px; }
+      .header-left { gap: 8px; }
+      .brand { font-size: 19px; gap: 6px; }
+      .brand-icon { width: 32px; height: 32px; font-size: 17px; }
+      .back-home { min-height: 35px; padding: 7px 9px; font-size: 12px; }
+      .header-links { gap: 10px; font-size: 12px; }
+      .container { width: min(100% - 22px, 1120px); }
+      .breadcrumbs { margin-top: 15px; }
+      .game-heading { padding-top: 12px; }
+      .arena-wrap { padding: 7px; }
+      #gameCanvas { aspect-ratio: 4 / 3; }
+      .game-overlay { inset: 7px; padding: 12px; }
+      .game-toolbar { padding: 11px; }
+      .toolbar-help { flex: 1 1 100%; }
+      .mobile-controls { display: block; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .content-section { margin-top: 16px; padding: 19px; }
+    }
+
+    @media (max-width: 380px) {
+      .header-links { display: none; }
+      .dpad { grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(2, 42px); }
+      .shoot-btn { min-width: 82px; min-height: 76px; font-size: 12px; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Battle Arena",
+    "url": "https://gameso.vercel.app/games/fortnite/",
+    "description": "A free Fortnite-inspired browser survival game. Move around the arena, shoot enemies and try to achieve a high score.",
+    "genre": ["Action", "Survival", "Arcade"],
+    "gamePlatform": ["Web Browser", "Mobile Browser"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any"
+  }
+  </script>
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a class="back-home" href="https://gameso.vercel.app/" aria-label="Back to Gameso Home">
+          <span aria-hidden="true">←</span>
+          <span>Back to Home</span>
+        </a>
 
-<div class="game-wrapper">
+        <a class="brand" href="https://gameso.vercel.app/" aria-label="Gameso homepage">
+          <span class="brand-icon">🎮</span>
+          <span>Gameso</span>
+        </a>
+      </div>
 
-    <header class="game-header">
+      <nav class="header-links" aria-label="Main navigation">
+        <a href="https://gameso.vercel.app/">Home</a>
+        <a href="https://gameso.vercel.app/#games">All Games</a>
+      </nav>
+    </div>
+  </header>
 
-        <div>
-            <h1>🎯 Battle Arena</h1>
-            <p>Fortnite-Inspired Survival Challenge</p>
-        </div>
-
-        <div class="stats">
-            <span>❤️ <b id="health">100</b></span>
-            <span>🎯 <b id="score">0</b></span>
-            <span>👾 <b id="enemyCount">0</b></span>
-        </div>
-
-    </header>
-
-
-    <main class="game-container">
-
-        <canvas id="gameCanvas"></canvas>
-
-
-        <div id="startScreen" class="overlay">
-
-            <div class="menu-box">
-
-                <h2>🎯 Battle Arena</h2>
-
-                <p>
-                    Survive the arena, defeat enemies
-                    and get the highest score!
-                </p>
-
-                <button id="startBtn">
-                    Start Game
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div id="gameOverScreen" class="overlay hidden">
-
-            <div class="menu-box">
-
-                <h2>💥 Game Over</h2>
-
-                <p>
-                    Your Score:
-                    <strong id="finalScore">0</strong>
-                </p>
-
-                <button id="restartBtn">
-                    🔄 Play Again
-                </button>
-
-            </div>
-
-        </div>
-
-    </main>
-
-
-    <div class="mobile-controls">
-
-        <div class="movement">
-
-            <button id="upBtn">⬆️</button>
-
-            <div>
-                <button id="leftBtn">⬅️</button>
-                <button id="downBtn">⬇️</button>
-                <button id="rightBtn">➡️</button>
-            </div>
-
-        </div>
-
-        <button id="shootBtn" class="shoot-button">
-            🔥 SHOOT
-        </button>
-
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="https://gameso.vercel.app/">Home</a> /
+      <a href="https://gameso.vercel.app/#games">Action Games</a> /
+      Battle Arena
     </div>
 
-
-    <section class="instructions">
-
-        <h2>How to Play</h2>
-
-        <p>
-            Use <strong>W A S D</strong> or arrow keys to move.
-            Move your mouse to aim and click to shoot.
-        </p>
-
-        <p>
-            On mobile, use the movement buttons and
-            <strong>SHOOT</strong> button.
-        </p>
-
+    <section class="game-heading">
+      <span class="eyebrow">🎯 Free Browser Game</span>
+      <h1>Battle Arena – Fortnite Inspired Game</h1>
+      <p class="subtitle">
+        Enter the arena, take aim, defeat enemies and survive as long as you can.
+        Play instantly in your browser on Gameso.
+      </p>
     </section>
 
-</div>
+    <section class="game-shell" aria-label="Battle Arena game">
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">❤️ Health</span>
+          <span class="stat-value health-value" id="healthValue">100</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">🎯 Score</span>
+          <span class="stat-value score-value" id="scoreValue">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">👾 Eliminations</span>
+          <span class="stat-value kills-value" id="killsValue">0</span>
+        </div>
+      </div>
 
+      <div class="arena-wrap">
+        <canvas id="gameCanvas" width="960" height="540" tabindex="0"
+          aria-label="Battle Arena game area"></canvas>
 
-<script src="script.js"></script>
+        <div class="game-overlay" id="gameOverlay">
+          <div class="overlay-content">
+            <div class="overlay-icon" id="overlayIcon">🎯</div>
+            <h2 id="overlayTitle">Battle Arena</h2>
+            <p id="overlayText">
+              Survive the arena, defeat enemies and get the highest score.
+              Move with WASD or arrow keys, aim with your mouse and shoot.
+            </p>
+            <button class="primary-btn" id="startBtn" type="button">▶ Start Game</button>
+          </div>
+        </div>
+      </div>
 
+      <div class="game-toolbar">
+        <span class="toolbar-help">
+          Keyboard: WASD / Arrow Keys · Aim: Mouse · Shoot: Click or Space
+        </span>
+        <button class="secondary-btn" id="restartBtn" type="button">↻ Restart Game</button>
+      </div>
+
+      <div class="mobile-controls">
+        <p>Mobile controls: move with the arrows and tap SHOOT to fire.</p>
+        <div class="control-layout">
+          <div class="dpad" aria-label="Movement controls">
+            <button class="control-btn control-up" data-control="up" aria-label="Move up">▲</button>
+            <button class="control-btn control-left" data-control="left" aria-label="Move left">◀</button>
+            <button class="control-btn control-down" data-control="down" aria-label="Move down">▼</button>
+            <button class="control-btn control-right" data-control="right" aria-label="Move right">▶</button>
+          </div>
+          <button class="control-btn shoot-btn" id="shootBtn" aria-label="Shoot">🔥<br>SHOOT</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>🎮 About Battle Arena</h2>
+      <p>
+        Battle Arena is a Fortnite-inspired survival challenge available to play
+        online at Gameso. Move around the arena, aim at incoming enemies and
+        shoot to earn points. Every elimination increases your score, but
+        enemies can also damage you, so keep moving and watch your health.
+      </p>
+      <p>
+        This lightweight browser game is designed for quick action sessions.
+        There is no installation required. Start a round, improve your aim,
+        survive for as long as possible and try to beat your previous score.
+        This is an independent mini game, not the official Fortnite game.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Aim and Shoot</h3>
+          <p>Use your mouse or mobile shoot button to target approaching enemies.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">❤️</div>
+          <h3>Manage Your Health</h3>
+          <p>Dodge incoming enemies and stay alive for a higher score.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3>Beat Your Score</h3>
+          <p>Earn points for eliminations and challenge yourself each round.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>🕹️ How to Play Battle Arena</h2>
+      <p>
+        Your goal is to survive while eliminating as many enemies as possible.
+        Start the game and use movement controls to avoid contact with enemies.
+        Aim carefully and shoot before they reach you.
+      </p>
+      <h3>⌨️ PC and Laptop Controls</h3>
+      <ul class="info-list">
+        <li><strong>W, A, S, D:</strong> Move up, left, down and right.</li>
+        <li><strong>Arrow keys:</strong> Move around the arena.</li>
+        <li><strong>Mouse:</strong> Aim in the direction of your cursor.</li>
+        <li><strong>Left mouse button:</strong> Shoot at enemies.</li>
+        <li><strong>Spacebar:</strong> Shoot.</li>
+        <li><strong>Restart Game:</strong> Begin a new round at any time.</li>
+      </ul>
+      <h3>📱 Mobile Controls</h3>
+      <ul class="info-list">
+        <li>Tap the directional arrows to move your character.</li>
+        <li>Press and hold the SHOOT button to fire.</li>
+        <li>Watch your health and keep moving to avoid enemies.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>💡 Tips to Get a Higher Score</h2>
+      <ul class="info-list">
+        <li><strong>Keep moving:</strong> Staying in one place makes it easier for enemies to reach you.</li>
+        <li><strong>Aim ahead:</strong> Point toward the direction an enemy is moving.</li>
+        <li><strong>Watch your health:</strong> Avoid close contact with enemies whenever possible.</li>
+        <li><strong>Use the full arena:</strong> Move around the open space to create distance.</li>
+        <li><strong>Shoot consistently:</strong> Keep firing when enemies are within range.</li>
+        <li><strong>Practice your controls:</strong> Smooth movement and aiming can help you survive longer.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>✨ Game Features</h2>
+      <ul class="info-list">
+        <li>Free browser-based action and survival gameplay.</li>
+        <li>Keyboard and mouse controls for desktop players.</li>
+        <li>On-screen movement and shooting controls for mobile devices.</li>
+        <li>Health, score and enemy elimination counters.</li>
+        <li>Enemy waves that keep the action going as you survive.</li>
+        <li>Instant restart to try for a better score.</li>
+        <li>Original arcade-style visuals without external game assets.</li>
+        <li>No game download or installation needed.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>❓ Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>1. Can I play Battle Arena online for free?</h3>
+        <p>Yes. Battle Arena is free to play on Gameso in your web browser. Open this page and press Start Game to begin.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>2. Is this the official Fortnite game?</h3>
+        <p>No. This is an independent Fortnite-inspired mini survival game. It is not the official Fortnite game and is not affiliated with Epic Games.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>3. Do I need to download Battle Arena?</h3>
+        <p>No download is required. The game runs directly in a modern web browser on a compatible device.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>4. How do I move my character?</h3>
+        <p>On a computer, use W, A, S, D or the arrow keys. On a phone or tablet, use the on-screen directional buttons.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>5. How do I shoot enemies?</h3>
+        <p>On desktop, move your mouse to aim and click the left mouse button or press Space to shoot. On mobile, press the SHOOT button.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>6. Can I play this game on my phone?</h3>
+        <p>Yes. Open Gameso in your mobile browser. The game includes touch-friendly movement and shooting controls.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>7. What is the objective of the game?</h3>
+        <p>Survive for as long as possible, eliminate enemies and earn points. Your round ends when your health reaches zero.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>8. How do I earn points?</h3>
+        <p>You earn points by eliminating enemies. Try to stay alive and maintain accurate shooting to improve your score.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>9. What happens when my health reaches zero?</h3>
+        <p>The round ends and your final score is displayed. You can restart the game and try to achieve a better result.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>10. Can I restart the game?</h3>
+        <p>Yes. Use the Restart Game button below the arena to start a fresh round whenever you want.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>11. Does Battle Arena support a keyboard?</h3>
+        <p>Yes. The game supports WASD movement, arrow-key movement, mouse aiming and shooting with the left mouse button or Spacebar.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>12. Is an internet connection required?</h3>
+        <p>You need an internet connection to open the Gameso page. After the page loads, the core gameplay runs in your browser.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>13. Is Battle Arena suitable for quick gaming breaks?</h3>
+        <p>Yes. Each round is designed for quick arcade-style play, so you can jump in, play for a few minutes and try to beat your score.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>14. Why is my game not responding?</h3>
+        <p>Make sure you have pressed Start Game. On desktop, click the game area if keyboard input is not responding. On mobile, use the on-screen controls and refresh the page if needed.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>15. Where can I find more free online games?</h3>
+        <p>Visit the <a href="https://gameso.vercel.app/#games">Gameso games collection</a> to explore more browser games, including puzzles, racing games and arcade challenges.</p>
+      </div>
+    </section>
+
+    <section class="content-section" id="related-games">
+      <h2>🎮 More Free Games to Play</h2>
+      <p>Looking for another challenge? Try these free games on Gameso.</p>
+
+      <div class="related-grid">
+        <a class="related-card" href="/games/snake/">
+          <span>🐍</span>
+          <strong>Snake Game</strong>
+          <small>Classic arcade action</small>
+        </a>
+        <a class="related-card" href="/games/drift-boss/">
+          <span>🏎️</span>
+          <strong>Drift Boss</strong>
+          <small>Driving and drifting</small>
+        </a>
+        <a class="related-card" href="/games/2048/">
+          <span>🔢</span>
+          <strong>2048</strong>
+          <small>Number puzzle challenge</small>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="https://gameso.vercel.app/">Gameso</a> – Play free online games in your browser.</p>
+    <p>© <span id="year"></span> Gameso. All rights reserved.</p>
+    <p>Battle Arena is an independent fan-inspired browser game and is not affiliated with or endorsed by Epic Games or Fortnite.</p>
+    <p><a href="https://gameso.vercel.app/">← Back to Gameso Home</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const overlay = document.getElementById("gameOverlay");
+      const overlayIcon = document.getElementById("overlayIcon");
+      const overlayTitle = document.getElementById("overlayTitle");
+      const overlayText = document.getElementById("overlayText");
+      const startBtn = document.getElementById("startBtn");
+
+      const healthValue = document.getElementById("healthValue");
+      const scoreValue = document.getElementById("scoreValue");
+      const killsValue = document.getElementById("killsValue");
+
+      const W = canvas.width;
+      const H = canvas.height;
+
+      let running = false;
+      let gameOver = false;
+      let animationId = null;
+      let lastTime = 0;
+      let elapsed = 0;
+      let spawnTimer = 0;
+      let shotCooldown = 0;
+      let score = 0;
+      let kills = 0;
+      let health = 100;
+
+      const keys = Object.create(null);
+      const touch = {
+        up: false,
+        down: false,
+        left: false,
+        right: false,
+        shoot: false
+      };
+
+      const player = {
+        x: W / 2,
+        y: H / 2,
+        radius: 15,
+        speed: 245,
+        angle: 0,
+        invulnerable: 0
+      };
+
+      let enemies = [];
+      let bullets = [];
+      let particles = [];
+      let obstacles = [];
+      let stars = [];
+      let mouse = { x: W / 2 + 100, y: H / 2, active: false };
+
+      function makeArena() {
+        obstacles = [
+          { x: 130, y: 110, w: 100, h: 48 },
+          { x: 385, y: 85, w: 62, h: 90 },
+          { x: 700, y: 115, w: 105, h: 48 },
+          { x: 255, y: 340, w: 65, h: 82 },
+          { x: 565, y: 345, w: 105, h: 48 },
+          { x: 770, y: 375, w: 55, h: 82 }
+        ];
+
+        stars = [];
+        for (let i = 0; i < 65; i++) {
+          stars.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            size: Math.random() * 2 + .5,
+            alpha: Math.random() * .3 + .1
+          });
+        }
+      }
+
+      function resetGame() {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+
+        running = false;
+        gameOver = false;
+        elapsed = 0;
+        spawnTimer = .7;
+        shotCooldown = 0;
+        score = 0;
+        kills = 0;
+        health = 100;
+
+        player.x = W / 2;
+        player.y = H / 2;
+        player.angle = 0;
+        player.invulnerable = 0;
+
+        enemies = [];
+        bullets = [];
+        particles = [];
+
+        Object.keys(keys).forEach(key => keys[key] = false);
+        Object.keys(touch).forEach(key => touch[key] = false);
+
+        makeArena();
+        updateStats();
+      }
+
+      function updateStats() {
+        healthValue.textContent = Math.max(0, Math.ceil(health));
+        scoreValue.textContent = score;
+        killsValue.textContent = kills;
+        healthValue.style.color = health <= 30 ? "#ff5263" : "#39d98a";
+      }
+
+      function showOverlay(icon, title, text, buttonText) {
+        overlayIcon.textContent = icon;
+        overlayTitle.textContent = title;
+        overlayText.textContent = text;
+        startBtn.textContent = buttonText;
+        overlay.style.display = "flex";
+      }
+
+      function startGame() {
+        if (running) return;
+
+        if (gameOver) resetGame();
+
+        running = true;
+        gameOver = false;
+        overlay.style.display = "none";
+        lastTime = performance.now();
+
+        if (animationId) cancelAnimationFrame(animationId);
+        animationId = requestAnimationFrame(loop);
+        canvas.focus({ preventScroll: true });
+      }
+
+      function endGame() {
+        running = false;
+        gameOver = true;
+
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+          animationId = null;
+        }
+
+        showOverlay(
+          "💥",
+          "Game Over!",
+          "Final score: " + score + " · Eliminations: " + kills +
+          ". Start another round and try to beat your score.",
+          "↻ Play Again"
+        );
+
+        draw();
+      }
+
+      function pointInRect(x, y, rect, padding = 0) {
+        return x > rect.x - padding &&
+          x < rect.x + rect.w + padding &&
+          y > rect.y - padding &&
+          y < rect.y + rect.h + padding;
+      }
+
+      function circleHitsObstacle(x, y, radius) {
+        for (const obstacle of obstacles) {
+          const closestX = Math.max(obstacle.x, Math.min(x, obstacle.x + obstacle.w));
+          const closestY = Math.max(obstacle.y, Math.min(y, obstacle.y + obstacle.h));
+          const dx = x - closestX;
+          const dy = y - closestY;
+
+          if (dx * dx + dy * dy < radius * radius) return true;
+        }
+        return false;
+      }
+
+      function movePlayer(dx, dy) {
+        const nextX = Math.max(player.radius, Math.min(W - player.radius, player.x + dx));
+        if (!circleHitsObstacle(nextX, player.y, player.radius)) player.x = nextX;
+
+        const nextY = Math.max(player.radius, Math.min(H - player.radius, player.y + dy));
+        if (!circleHitsObstacle(player.x, nextY, player.radius)) player.y = nextY;
+      }
+
+      function spawnEnemy() {
+        const side = Math.floor(Math.random() * 4);
+        let x, y;
+
+        if (side === 0) { x = Math.random() * W; y = -25; }
+        else if (side === 1) { x = W + 25; y = Math.random() * H; }
+        else if (side === 2) { x = Math.random() * W; y = H + 25; }
+        else { x = -25; y = Math.random() * H; }
+
+        const strong = elapsed > 35 && Math.random() < .25;
+
+        enemies.push({
+          x, y,
+          radius: strong ? 17 : 13,
+          speed: (strong ? 48 : 65) + Math.random() * 22 + Math.min(elapsed * .45, 40),
+          health: strong ? 3 : 1,
+          maxHealth: strong ? 3 : 1,
+          damage: strong ? 17 : 11,
+          color: strong ? "#ff9f43" : "#ff5263"
+        });
+      }
+
+      function shoot() {
+        if (!running || shotCooldown > 0) return;
+
+        shotCooldown = .19;
+
+        const angle = player.angle;
+        const startX = player.x + Math.cos(angle) * (player.radius + 7);
+        const startY = player.y + Math.sin(angle) * (player.radius + 7);
+
+        bullets.push({
+          x: startX,
+          y: startY,
+          vx: Math.cos(angle) * 540,
+          vy: Math.sin(angle) * 540,
+          radius: 4,
+          life: 1.15
+        });
+
+        addParticles(startX, startY, "#00d4ff", 3, 75);
+      }
+
+      function addParticles(x, y, color, count = 8, speed = 100) {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const velocity = Math.random() * speed + 20;
+
+          particles.push({
+            x, y,
+            vx: Math.cos(angle) * velocity,
+            vy: Math.sin(angle) * velocity,
+            life: Math.random() * .35 + .2,
+            maxLife: .55,
+            size: Math.random() * 3 + 1,
+            color
+          });
+        }
+      }
+
+      function update(dt) {
+        elapsed += dt;
+        shotCooldown = Math.max(0, shotCooldown - dt);
+        player.invulnerable = Math.max(0, player.invulnerable - dt);
+
+        let dx = 0, dy = 0;
+
+        if (keys["w"] || keys["arrowup"] || touch.up) dy -= 1;
+        if (keys["s"] || keys["arrowdown"] || touch.down) dy += 1;
+        if (keys["a"] || keys["arrowleft"] || touch.left) dx -= 1;
+        if (keys["d"] || keys["arrowright"] || touch.right) dx += 1;
+
+        const length = Math.hypot(dx, dy);
+        if (length > 0) {
+          dx /= length;
+          dy /= length;
+          movePlayer(dx * player.speed * dt, dy * player.speed * dt);
+        }
+
+        if (mouse.active) {
+          player.angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
+        } else if (dx || dy) {
+          player.angle = Math.atan2(dy, dx);
+        }
+
+        if (keys[" "] || touch.shoot) shoot();
+
+        spawnTimer -= dt;
+        const spawnInterval = Math.max(.42, 1.15 - elapsed * .008);
+
+        if (spawnTimer <= 0 && enemies.length < 24) {
+          spawnEnemy();
+          spawnTimer = spawnInterval;
+        }
+
+        for (let i = bullets.length - 1; i >= 0; i--) {
+          const bullet = bullets[i];
+
+          bullet.x += bullet.vx * dt;
+          bullet.y += bullet.vy * dt;
+          bullet.life -= dt;
+
+          const outside = bullet.x < -10 || bullet.x > W + 10 ||
+            bullet.y < -10 || bullet.y > H + 10;
+
+          let blocked = false;
+
+          for (const obstacle of obstacles) {
+            if (pointInRect(bullet.x, bullet.y, obstacle, 2)) {
+              blocked = true;
+              addParticles(bullet.x, bullet.y, "#a9b4c7", 3, 35);
+              break;
+            }
+          }
+
+          if (bullet.life <= 0 || outside || blocked) {
+            bullets.splice(i, 1);
+            continue;
+          }
+
+          let hit = false;
+
+          for (let j = enemies.length - 1; j >= 0; j--) {
+            const enemy = enemies[j];
+            const distance = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
+
+            if (distance < bullet.radius + enemy.radius) {
+              enemy.health -= 1;
+              addParticles(bullet.x, bullet.y, enemy.color, 5, 70);
+              bullets.splice(i, 1);
+              hit = true;
+
+              if (enemy.health <= 0) {
+                addParticles(enemy.x, enemy.y, enemy.color, 15, 130);
+                enemies.splice(j, 1);
+                kills += 1;
+                score += 100;
+              }
+              break;
+            }
+          }
+
+          if (hit) continue;
+        }
+
+        for (let i = enemies.length - 1; i >= 0; i--) {
+          const enemy = enemies[i];
+
+          let vx = player.x - enemy.x;
+          let vy = player.y - enemy.y;
+          const distance = Math.hypot(vx, vy) || 1;
+
+          vx /= distance;
+          vy /= distance;
+
+          const nextX = enemy.x + vx * enemy.speed * dt;
+          const nextY = enemy.y + vy * enemy.speed * dt;
+
+          if (!circleHitsObstacle(nextX, enemy.y, enemy.radius)) {
+            enemy.x = nextX;
+          } else if (!circleHitsObstacle(enemy.x + vy * enemy.speed * dt, enemy.y, enemy.radius)) {
+            enemy.x += vy * enemy.speed * dt;
+          }
+
+          if (!circleHitsObstacle(enemy.x, nextY, enemy.radius)) {
+            enemy.y = nextY;
+          } else if (!circleHitsObstacle(enemy.x, enemy.y - vx * enemy.speed * dt, enemy.radius)) {
+            enemy.y -= vx * enemy.speed * dt;
+          }
+
+          const playerDistance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+
+          if (playerDistance < player.radius + enemy.radius) {
+            if (player.invulnerable <= 0) {
+              health -= enemy.damage;
+              player.invulnerable = .7;
+              addParticles(player.x, player.y, "#ff5263", 10, 100);
+              updateStats();
+
+              if (health <= 0) {
+                health = 0;
+                updateStats();
+                endGame();
+                return;
+              }
+            }
+
+            const pushX = (enemy.x - player.x) / (playerDistance || 1);
+            const pushY = (enemy.y - player.y) / (playerDistance || 1);
+            enemy.x += pushX * 14;
+            enemy.y += pushY * 14;
+          }
+        }
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.vx *= Math.pow(.08, dt);
+          p.vy *= Math.pow(.08, dt);
+          p.life -= dt;
+
+          if (p.life <= 0) particles.splice(i, 1);
+        }
+
+        updateStats();
+      }
+
+      function drawBackground() {
+        ctx.fillStyle = "#182b32";
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.strokeStyle = "rgba(156,214,195,.07)";
+        ctx.lineWidth = 1;
+
+        for (let x = 0; x < W; x += 40) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, H);
+          ctx.stroke();
+        }
+
+        for (let y = 0; y < H; y += 40) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(W, y);
+          ctx.stroke();
+        }
+
+        for (const star of stars) {
+          ctx.globalAlpha = star.alpha;
+          ctx.fillStyle = "#c4f3e5";
+          ctx.fillRect(star.x, star.y, star.size, star.size);
+        }
+
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = "rgba(0,212,255,.32)";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(10, 10, W - 20, H - 20);
+      }
+
+      function drawObstacles() {
+        for (const obstacle of obstacles) {
+          ctx.fillStyle = "#263b43";
+          ctx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
+
+          ctx.strokeStyle = "rgba(0,212,255,.2)";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
+
+          ctx.fillStyle = "rgba(255,255,255,.04)";
+          ctx.fillRect(obstacle.x + 5, obstacle.y + 5,
+            Math.max(0, obstacle.w - 10), 4);
+        }
+      }
+
+      function drawPlayer() {
+        if (player.invulnerable > 0 && Math.floor(elapsed * 18) % 2 === 0) return;
+
+        ctx.save();
+        ctx.translate(player.x, player.y);
+        ctx.rotate(player.angle);
+
+        ctx.fillStyle = "rgba(0,212,255,.17)";
+        ctx.beginPath();
+        ctx.arc(0, 0, player.radius + 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#00d4ff";
+        ctx.beginPath();
+        ctx.arc(0, 0, player.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(4, -4, 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#d9fbff";
+        ctx.fillRect(5, -5, 25, 10);
+
+        ctx.fillStyle = "#6c5ce7";
+        ctx.fillRect(10, -3, 15, 6);
+
+        ctx.restore();
+      }
+
+      function drawEnemies() {
+        for (const enemy of enemies) {
+          ctx.fillStyle = "rgba(255,82,99,.14)";
+          ctx.beginPath();
+          ctx.arc(enemy.x, enemy.y, enemy.radius + 7, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = enemy.color;
+          ctx.beginPath();
+          ctx.arc(enemy.x, enemy.y, enemy.radius, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = "#fff";
+          ctx.beginPath();
+          ctx.arc(enemy.x - 4, enemy.y - 3, 2.2, 0, Math.PI * 2);
+          ctx.arc(enemy.x + 4, enemy.y - 3, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (enemy.maxHealth > 1) {
+            const barWidth = 34;
+            const barY = enemy.y - enemy.radius - 10;
+
+            ctx.fillStyle = "#341a24";
+            ctx.fillRect(enemy.x - barWidth / 2, barY, barWidth, 4);
+
+            ctx.fillStyle = "#ff9f43";
+            ctx.fillRect(enemy.x - barWidth / 2, barY,
+              barWidth * (enemy.health / enemy.maxHealth), 4);
+          }
+        }
+      }
+
+      function drawBullets() {
+        for (const bullet of bullets) {
+          ctx.fillStyle = "#00d4ff";
+          ctx.shadowColor = "#00d4ff";
+          ctx.shadowBlur = 12;
+
+          ctx.beginPath();
+          ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.shadowBlur = 0;
+      }
+
+      function drawParticles() {
+        for (const p of particles) {
+          ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.globalAlpha = 1;
+      }
+
+      function draw() {
+        drawBackground();
+        drawObstacles();
+        drawBullets();
+        drawEnemies();
+        drawParticles();
+        drawPlayer();
+
+        ctx.fillStyle = "rgba(5,9,18,.65)";
+        ctx.fillRect(20, 20, 155, 37);
+
+        ctx.fillStyle = "#dce6f2";
+        ctx.font = "bold 14px Arial";
+        ctx.fillText("⏱ " + Math.floor(elapsed) + " sec", 32, 43);
+
+        ctx.fillStyle = "rgba(5,9,18,.65)";
+        ctx.fillRect(W - 165, 20, 145, 37);
+
+        ctx.fillStyle = "#00d4ff";
+        ctx.textAlign = "right";
+        ctx.fillText("SCORE " + score, W - 31, 43);
+        ctx.textAlign = "left";
+      }
+
+      function loop(timestamp) {
+        if (!running) return;
+
+        const dt = Math.min((timestamp - lastTime) / 1000, .033);
+        lastTime = timestamp;
+
+        update(dt);
+        draw();
+
+        if (running) animationId = requestAnimationFrame(loop);
+      }
+
+      function getCanvasPosition(event) {
+        const rect = canvas.getBoundingClientRect();
+
+        return {
+          x: (event.clientX - rect.left) * (W / rect.width),
+          y: (event.clientY - rect.top) * (H / rect.height)
+        };
+      }
+
+      canvas.addEventListener("pointermove", event => {
+        if (event.pointerType === "mouse") {
+          const position = getCanvasPosition(event);
+          mouse.x = position.x;
+          mouse.y = position.y;
+          mouse.active = true;
+        }
+      });
+
+      canvas.addEventListener("pointerdown", event => {
+        if (event.pointerType === "mouse") {
+          event.preventDefault();
+
+          const position = getCanvasPosition(event);
+          mouse.x = position.x;
+          mouse.y = position.y;
+          mouse.active = true;
+
+          if (!running && !gameOver) startGame();
+          if (running) shoot();
+        }
+      });
+
+      canvas.addEventListener("contextmenu", event => event.preventDefault());
+
+      window.addEventListener("keydown", event => {
+        const key = event.key.toLowerCase();
+        const supported = [
+          "w", "a", "s", "d", "arrowup", "arrowdown",
+          "arrowleft", "arrowright", " "
+        ];
+
+        if (supported.includes(key)) event.preventDefault();
+
+        keys[key] = true;
+
+        if ((key === " " || key === "enter") && !running) startGame();
+      });
+
+      window.addEventListener("keyup", event => {
+        keys[event.key.toLowerCase()] = false;
+      });
+
+      window.addEventListener("blur", () => {
+        Object.keys(keys).forEach(key => keys[key] = false);
+        Object.keys(touch).forEach(key => touch[key] = false);
+      });
+
+      document.querySelectorAll("[data-control]").forEach(button => {
+        const direction = button.dataset.control;
+
+        const press = event => {
+          event.preventDefault();
+          touch[direction] = true;
+          if (!running && !gameOver) startGame();
+        };
+
+        const release = event => {
+          event.preventDefault();
+          touch[direction] = false;
+        };
+
+        button.addEventListener("pointerdown", press);
+        button.addEventListener("pointerup", release);
+        button.addEventListener("pointercancel", release);
+        button.addEventListener("pointerleave", release);
+        button.addEventListener("contextmenu", event => event.preventDefault());
+      });
+
+      const shootBtn = document.getElementById("shootBtn");
+
+      const pressShoot = event => {
+        event.preventDefault();
+        touch.shoot = true;
+        if (!running && !gameOver) startGame();
+      };
+
+      const releaseShoot = event => {
+        event.preventDefault();
+        touch.shoot = false;
+      };
+
+      shootBtn.addEventListener("pointerdown", pressShoot);
+      shootBtn.addEventListener("pointerup", releaseShoot);
+      shootBtn.addEventListener("pointercancel", releaseShoot);
+      shootBtn.addEventListener("pointerleave", releaseShoot);
+      shootBtn.addEventListener("contextmenu", event => event.preventDefault());
+
+      startBtn.addEventListener("click", startGame);
+
+      document.getElementById("restartBtn").addEventListener("click", () => {
+        resetGame();
+        startGame();
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      resetGame();
+      draw();
+    })();
+  </script>
 </body>
 </html>
