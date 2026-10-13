@@ -1,286 +1,1248 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Blocky Blast Puzzle - Play Free Online | Gameso</title>
+<title>Blocky Blast Puzzle Online – Play Free Block Game | Gameso</title>
+<meta name="description" content="Play Blocky Blast Puzzle online for free at Gameso! Place colorful blocks, clear full rows and columns, create combos and beat your high score in this relaxing puzzle game.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gameso.vercel.app/games/blocky-blast-puzzle/">
+<meta property="og:title" content="Blocky Blast Puzzle – Play Free Online | Gameso">
+<meta property="og:description" content="Place colorful blocks, clear rows and columns, and beat your high score in this free online block puzzle game.">
+<meta property="og:url" content="https://gameso.vercel.app/games/blocky-blast-puzzle/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#080b14">
 
-  <meta
-    name="description"
-    content="Play Blocky Blast Puzzle online for free. Place colorful blocks, clear rows and columns, make combos, and beat your high score. No download required."
-  >
-
-  <meta
-    name="keywords"
-    content="Blocky Blast Puzzle, block puzzle game, block blast game, puzzle game, online puzzle game, free block game"
-  >
-
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#090d18">
-
-  <link rel="canonical" href="https://gameso.vercel.app/blocky-blast-puzzle/">
-
-  <link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --bg:#080b14;
+  --card:#121827;
+  --card-hover:#182137;
+  --text:#fff;
+  --muted:#9ba4b6;
+  --primary:#6c5ce7;
+  --accent:#00d4ff;
+  --green:#55edac;
+  --border:rgba(255,255,255,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(108,92,231,.16),transparent 40%),
+    var(--bg);
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.game-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:70px;
+  background:rgba(8,11,20,.92);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(18px);
+}
+.header-inner{
+  width:min(1100px,calc(100% - 32px));
+  height:100%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:20px;
+  font-weight:800;
+}
+.logo-icon{
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  font-size:18px;
+}
+.logo strong{
+  background:linear-gradient(90deg,#fff,#bdb9ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.back-button{
+  padding:11px 15px;
+  color:var(--muted);
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+}
+.back-button:hover{
+  color:#fff;
+  background:rgba(255,255,255,.08);
+}
+.game-page{padding:48px 0 75px}
+.game-container{
+  width:min(900px,calc(100% - 32px));
+  margin:auto;
+}
+.game-heading{
+  text-align:center;
+  margin-bottom:27px;
+}
+.game-label{
+  display:inline-block;
+  color:#9b93ff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+h1{
+  margin-top:10px;
+  font-size:clamp(32px,5vw,46px);
+  letter-spacing:-1.3px;
+  line-height:1.15;
+}
+.game-heading p{
+  max-width:620px;
+  margin:12px auto 0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+}
+.game-box{
+  padding:18px;
+  background:linear-gradient(145deg,#141b2b,#0e1422);
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+.game-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:15px;
+}
+.stat-box{
+  padding:10px;
+  text-align:center;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+.stat-box span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+.stat-box strong{
+  display:block;
+  margin-top:4px;
+  font-size:19px;
+}
+#gameCanvas{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:800/650;
+  background:#101827;
+  border:3px solid #20283a;
+  border-radius:14px;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.game-message{
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:600;
+  line-height:1.5;
+  padding:5px 0;
+}
+.game-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.game-button,.secondary-button{
+  min-height:44px;
+  padding:0 19px;
+  border-radius:11px;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  transition:transform .2s,background .2s;
+}
+.game-button{
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),#5144d7);
+  border:0;
+}
+.secondary-button{
+  color:var(--muted);
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+}
+.game-button:hover,.secondary-button:hover{
+  transform:translateY(-2px);
+}
+.game-button:focus-visible,.secondary-button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+.game-info,.related-section{
+  max-width:760px;
+  margin:55px auto 0;
+}
+.game-info h2,.related-section h2{
+  font-size:23px;
+  margin-bottom:13px;
+  line-height:1.4;
+}
+.game-info h2:not(:first-child){margin-top:32px}
+.game-info h3{
+  font-size:17px;
+  line-height:1.5;
+  margin:23px 0 8px;
+}
+.game-info p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.85;
+  margin-bottom:13px;
+}
+.game-info ul{
+  padding-left:21px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:2;
+}
+.game-info li{
+  padding-left:2px;
+  margin-bottom:3px;
+}
+.game-info strong{color:#e5e9f2}
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.related-card{
+  min-height:100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  transition:.2s;
+}
+.related-card:hover{
+  transform:translateY(-3px);
+  background:var(--card-hover);
+  border-color:rgba(108,92,231,.4);
+}
+.related-card span{font-size:30px}
+.related-card strong{font-size:12px}
+footer{
+  margin-top:65px;
+  padding:22px 15px;
+  text-align:center;
+  color:#697284;
+  background:#060810;
+  border-top:1px solid var(--border);
+  font-size:11px;
+}
+@media(max-width:700px){
+  .game-page{padding:35px 0 55px}
+  .game-box{padding:10px;border-radius:16px}
+  .related-grid{grid-template-columns:1fr}
+  .related-card{
+    min-height:68px;
+    flex-direction:row;
+    justify-content:flex-start;
+    padding:0 20px;
+  }
+}
+@media(max-width:420px){
+  .game-header{height:62px}
+  .header-inner{width:calc(100% - 22px)}
+  .logo{font-size:17px}
+  .logo-icon{width:32px;height:32px}
+  .back-button{padding:10px;font-size:11px}
+  .game-container{width:calc(100% - 20px)}
+  h1{font-size:29px}
+  .game-heading p{font-size:12px}
+  .stat-box{padding:8px 4px}
+  .stat-box strong{font-size:17px}
+  .game-info h2,.related-section h2{font-size:21px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important}
+}
+</style>
 </head>
 
 <body>
+<header class="game-header">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="Gameso home">
+      <span class="logo-icon">🎮</span>
+      <strong>Gameso</strong>
+    </a>
+    <a href="/" class="back-button">← All Games</a>
+  </div>
+</header>
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="header-inner">
+<main class="game-page">
+<div class="game-container">
 
-      <a href="/" class="logo" aria-label="Gameso Home">
-        GAME<span>SO</span>
-      </a>
+  <section class="game-heading">
+    <span class="game-label">FREE ONLINE PUZZLE GAME</span>
+    <h1>Blocky Blast Puzzle – Play Free Online</h1>
+    <p>Place colorful blocks, clear complete rows and columns, and beat your high score in this relaxing block puzzle game on Gameso.</p>
+  </section>
 
-      <nav class="main-nav">
-        <a href="/">Home</a>
-        <a href="/games/">Games</a>
-        <a href="#how-to-play">How to Play</a>
-      </nav>
-
+  <section class="game-box" aria-label="Playable block puzzle">
+    <div class="game-stats">
+      <div class="stat-box">
+        <span>SCORE</span>
+        <strong id="score">0</strong>
+      </div>
+      <div class="stat-box">
+        <span>BEST SCORE</span>
+        <strong id="best">0</strong>
+      </div>
+      <div class="stat-box">
+        <span>LINES CLEARED</span>
+        <strong id="lines">0</strong>
+      </div>
     </div>
-  </header>
 
-
-  <!-- MAIN -->
-  <main>
-
-    <!-- HERO -->
-    <section class="hero-section">
-
-      <div class="hero-content">
-
-        <div class="game-label">
-          🧩 BLOCK PUZZLE
-        </div>
-
-        <h1>Blocky Blast Puzzle</h1>
-
-        <p>
-          Place colorful blocks, complete full rows and columns,
-          create powerful combos, and beat your highest score.
-        </p>
-
-      </div>
-
-
-      <!-- GAME -->
-      <div class="game-card">
-
-        <!-- TOP BAR -->
-        <div class="game-topbar">
-
-          <div class="score-box">
-            <span>SCORE</span>
-            <strong id="score">0</strong>
-          </div>
-
-          <div class="score-box">
-            <span>BEST</span>
-            <strong id="bestScore">0</strong>
-          </div>
-
-          <button
-            id="newGameButton"
-            class="restart-button"
-            type="button"
-            aria-label="Start new game"
-            title="New Game"
-          >
-            ↻
-          </button>
-
-        </div>
-
-
-        <!-- BOARD -->
-        <div class="board-container">
-
-          <div
-            id="gameBoard"
-            class="game-board"
-            aria-label="Blocky Blast Puzzle game board"
-          ></div>
-
-
-          <!-- GAME OVER -->
-          <div
-            id="gameOver"
-            class="game-over"
-            hidden
-          >
-
-            <div class="game-over-box">
-
-              <div class="game-over-icon">
-                💥
-              </div>
-
-              <h2>Game Over</h2>
-
-              <p>Your Score</p>
-
-              <strong id="finalScore">
-                0
-              </strong>
-
-              <button
-                id="playAgainButton"
-                class="primary-button"
-                type="button"
-              >
-                Play Again
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- PIECES TITLE -->
-        <div class="pieces-heading">
-
-          <span>
-            CHOOSE A BLOCK
-          </span>
-
-          <span id="piecesCounter">
-            3 / 3
-          </span>
-
-        </div>
-
-
-        <!-- PIECES -->
-        <div
-          id="piecesContainer"
-          class="pieces-container"
-        ></div>
-
-
-        <!-- MESSAGE -->
-        <div
-          id="gameMessage"
-          class="game-message"
-        >
-          Complete a row or column to blast blocks!
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- INFORMATION -->
-    <section
-      id="how-to-play"
-      class="information-section"
-    >
-
-      <div class="information-card">
-
-        <h2>
-          How to Play Blocky Blast Puzzle
-        </h2>
-
-        <p>
-          Choose one of the colorful blocks at the bottom and place it
-          anywhere on the 8×8 board. Fill an entire row or column to
-          clear it and earn points. Plan your moves carefully because
-          the game ends when none of your available blocks can fit.
-        </p>
-
-
-        <div class="steps">
-
-          <div class="step">
-
-            <div class="step-number">
-              1
-            </div>
-
-            <span>
-              Choose a block.
-            </span>
-
-          </div>
-
-
-          <div class="step">
-
-            <div class="step-number">
-              2
-            </div>
-
-            <span>
-              Place it on the grid.
-            </span>
-
-          </div>
-
-
-          <div class="step">
-
-            <div class="step-number">
-              3
-            </div>
-
-            <span>
-              Complete rows or columns.
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="information-card">
-
-        <h2>
-          Build Your High Score
-        </h2>
-
-        <p>
-          Think ahead before placing each block. Clearing multiple
-          lines at once gives you more points, while consecutive
-          clears can create powerful combos.
-        </p>
-
-
-        <div class="feature-tags">
-
-          <span>Free to Play</span>
-          <span>No Download</span>
-          <span>Mobile Friendly</span>
-          <span>Endless Mode</span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-
-    <p>
-      © <span id="currentYear"></span>
-      Gameso. Play free online games.
-    </p>
-
-  </footer>
-
-
-  <script src="script.js"></script>
-
+    <canvas id="gameCanvas" width="800" height="650" tabindex="0"
+      aria-label="Blocky Blast Puzzle. Select a block from the bottom tray and place it on the grid. Complete full rows or columns to clear them.">
+    </canvas>
+
+    <div class="game-message" id="message" role="status" aria-live="polite">
+      Choose a block below, then tap an empty position on the board.
+    </div>
+
+    <div class="game-actions">
+      <button class="game-button" id="newGame" type="button">↻ New Game</button>
+      <button class="secondary-button" id="soundButton" type="button">🔊 Sound On</button>
+    </div>
+  </section>
+
+  <section class="game-info">
+
+    <h2>🧩 What Is Blocky Blast Puzzle?</h2>
+    <p>Blocky Blast Puzzle is a casual block placement game that combines colorful shapes with strategic thinking. Place different pieces on the grid, complete full horizontal rows or vertical columns, and clear those lines to create more space.</p>
+    <p>Unlike a traditional falling-block game, you choose where each piece goes. There is no countdown timer in this version, so you can think about your next move before placing a shape. The challenge is to keep the board open for new pieces while earning as many points as possible.</p>
+
+    <h2>🎮 How to Play Blocky Blast Puzzle</h2>
+    <p>Select one of the three available shapes and choose a position on the board. The piece must fit completely inside the grid without overlapping existing blocks. Fill a complete row or column to clear it and score points.</p>
+    <ul>
+      <li>Choose one of the three shapes shown below the board.</li>
+      <li>Tap or click an empty grid position to place the selected shape.</li>
+      <li>Complete a full horizontal row to clear it.</li>
+      <li>Complete a full vertical column to clear it.</li>
+      <li>Clear multiple lines with one placement for a bigger reward.</li>
+      <li>Place all three available pieces to receive a new set.</li>
+      <li>Keep enough empty space for future shapes to continue playing.</li>
+    </ul>
+
+    <h2>🖱️ Blocky Blast Puzzle Controls</h2>
+    <p>The game supports mouse and touch controls, making it easy to play on computers, tablets and mobile phones.</p>
+    <ul>
+      <li><strong>Select a block:</strong> Click or tap a piece in the tray.</li>
+      <li><strong>Place a block:</strong> Click or tap a valid position on the grid.</li>
+      <li><strong>Change selection:</strong> Select a different available piece.</li>
+      <li><strong>Cancel selection:</strong> Tap the selected piece again or click an empty area outside the board.</li>
+      <li><strong>New Game:</strong> Start a fresh puzzle and reset the current score.</li>
+    </ul>
+
+    <h2>🏆 Tips to Get a High Score</h2>
+    <p>Good planning helps you keep the board clear for longer. Before placing a piece, look at all three available shapes and consider how each placement will affect the remaining space.</p>
+    <ul>
+      <li><strong>Plan ahead:</strong> Look at all available pieces before making your first move.</li>
+      <li><strong>Clear lines:</strong> Completing rows and columns opens space for future shapes.</li>
+      <li><strong>Keep large spaces open:</strong> Larger shapes need connected empty cells.</li>
+      <li><strong>Avoid isolated gaps:</strong> Single empty cells can be difficult to fill.</li>
+      <li><strong>Use the edges:</strong> Edges and corners can be useful for L-shaped and straight pieces.</li>
+      <li><strong>Look for double clears:</strong> A single piece can complete a row and column together.</li>
+      <li><strong>Choose the right order:</strong> Consider which shape has the fewest possible placements.</li>
+    </ul>
+
+    <h2>🌟 Features of This Free Block Puzzle</h2>
+    <ul>
+      <li>Free browser-based puzzle gameplay.</li>
+      <li>8×8 block placement board.</li>
+      <li>Three selectable pieces at a time.</li>
+      <li>Multiple colorful block shapes.</li>
+      <li>Automatic row and column clearing.</li>
+      <li>Score and lines-cleared counters.</li>
+      <li>Best-score tracking when browser storage is available.</li>
+      <li>Keyboard-free mouse and touch gameplay.</li>
+      <li>Responsive layout for desktop and mobile devices.</li>
+      <li>No separate game installation required.</li>
+    </ul>
+
+    <h2>📱 Can You Play Blocky Blast Puzzle on Mobile?</h2>
+    <p>Yes. This version is designed to work with touch input on compatible mobile browsers. Tap a shape from the tray, then tap the position where you want to place it. The board and controls adapt to smaller screens, so you can enjoy the puzzle on a phone or tablet.</p>
+
+    <h2>🆓 Is Blocky Blast Puzzle Free to Play?</h2>
+    <p>Yes. This independent block puzzle on Gameso is free to play in your browser. You can start a game without installing a separate application or creating an account.</p>
+
+    <h2>❓ Frequently Asked Questions</h2>
+
+    <h3>1. What is Blocky Blast Puzzle?</h3>
+    <p>It is a block placement puzzle in which you fit shapes into a grid, complete full rows or columns, and try to achieve a high score before the board becomes too crowded.</p>
+
+    <h3>2. How do you score points?</h3>
+    <p>You earn points for placing blocks and clearing completed rows or columns. Clearing multiple lines in one move gives a larger reward.</p>
+
+    <h3>3. Can I rotate the blocks?</h3>
+    <p>This version uses the shapes as they are presented. Choose a position that fits the available shape without rotating it.</p>
+
+    <h3>4. Can I play Blocky Blast Puzzle on my phone?</h3>
+    <p>Yes. Tap a piece in the tray and then tap a valid position on the board. Use a compatible, updated mobile browser for the best experience.</p>
+
+    <h3>5. What happens when a row is full?</h3>
+    <p>A completed horizontal row disappears and creates more space on the board. The same rule applies to a fully occupied vertical column.</p>
+
+    <h3>6. Do the blocks fall automatically?</h3>
+    <p>No. You select the position for each piece. This lets you plan your moves instead of reacting to falling blocks.</p>
+
+    <h3>7. How many pieces do I get at a time?</h3>
+    <p>You receive three available pieces. After all three are placed, a new set appears if the game can continue.</p>
+
+    <h3>8. What happens when no piece fits?</h3>
+    <p>The game ends when none of the remaining pieces can be placed in the available empty cells. Start a new game to try again.</p>
+
+    <h3>9. How can I make more space?</h3>
+    <p>Complete rows and columns whenever possible. Try to preserve large connected empty areas and avoid leaving too many isolated gaps.</p>
+
+    <h3>10. Does this game have a timer?</h3>
+    <p>No. This version focuses on planning and placement rather than speed. You can take your time to decide where a piece should go.</p>
+
+    <h3>11. Is this the official Blocky Blast game?</h3>
+    <p>No. This is an independent browser-based block puzzle made for Gameso. It is not represented as the official product of another game developer.</p>
+
+    <h3>12. Can I restart the puzzle?</h3>
+    <p>Yes. Select New Game to reset the board and start a new run.</p>
+
+    <h3>13. Does the game save my best score?</h3>
+    <p>The game attempts to store your best score in your browser. This depends on browser storage being available and enabled.</p>
+
+    <h3>14. Do I need to create an account?</h3>
+    <p>No account is required to play this browser-based puzzle game on Gameso.</p>
+
+    <h3>15. How do I improve my strategy?</h3>
+    <p>Check all three pieces before placing one, keep room for larger shapes, and look for placements that can clear a row and a column together.</p>
+
+    <h2>🎯 Play More Free Online Games</h2>
+    <p>Enjoy more games on Gameso. Try driving challenges, obstacle courses and classic number puzzles whenever you want another quick gaming break.</p>
+
+  </section>
+
+  <section class="related-section">
+    <h2>🎮 More Free Online Games</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/games/2048/">
+        <span>🔢</span>
+        <strong>2048 Puzzle</strong>
+      </a>
+      <a class="related-card" href="/games/snake/">
+        <span>🐍</span>
+        <strong>Snake Game</strong>
+      </a>
+      <a class="related-card" href="/games/drift-boss/">
+        <span>🏎️</span>
+        <strong>Drift Boss</strong>
+      </a>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>© <span id="year"></span> Gameso · Play Free Online Games</footer>
+
+<script>
+(() => {
+  "use strict";
+
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  const $ = id => document.getElementById(id);
+
+  $("year").textContent = new Date().getFullYear();
+
+  const SIZE = 8;
+  const W = 800;
+  const H = 650;
+
+  const board = Array.from(
+    {length:SIZE},
+    () => Array(SIZE).fill(null)
+  );
+
+  const COLORS = [
+    "#6c5ce7",
+    "#00bfe8",
+    "#ffb347",
+    "#ff6384",
+    "#48d597",
+    "#f16bff",
+    "#f4d35e",
+    "#548cff",
+    "#ff865e"
+  ];
+
+  const SHAPES = [
+    [[0,0]],
+    [[0,0],[1,0]],
+    [[0,0],[0,1]],
+    [[0,0],[1,0],[2,0]],
+    [[0,0],[0,1],[0,2]],
+    [[0,0],[1,0],[0,1],[1,1]],
+    [[0,0],[1,0],[2,0],[3,0]],
+    [[0,0],[0,1],[0,2],[0,3]],
+    [[0,0],[1,0],[2,0],[0,1]],
+    [[0,0],[1,0],[2,0],[2,1]],
+    [[0,0],[0,1],[1,1],[2,1]],
+    [[2,0],[0,1],[1,1],[2,1]],
+    [[0,0],[0,1],[1,1],[1,2]],
+    [[1,0],[1,1],[0,1],[0,2]],
+    [[0,0],[1,0],[2,0],[1,1]],
+    [[1,0],[0,1],[1,1],[2,1],[1,2]],
+    [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1]],
+    [[0,0],[1,0],[0,1],[0,2]],
+    [[0,0],[1,0],[1,1],[1,2]],
+    [[0,0],[0,1],[0,2],[1,2]],
+    [[1,0],[1,1],[1,2],[0,2]],
+    [[0,0],[1,0],[2,0],[3,0],[4,0]],
+    [[0,0],[0,1],[0,2],[0,3],[0,4]],
+    [[0,0],[1,0],[2,0],[0,1],[1,1]],
+    [[0,0],[1,0],[2,0],[1,1],[1,2]]
+  ];
+
+  let score = 0;
+  let best = 0;
+  let lines = 0;
+  let pieces = [];
+  let selected = -1;
+  let gameOver = false;
+  let soundOn = true;
+  let audio = null;
+  let hoverCell = null;
+  let effects = [];
+  let dragging = false;
+  let pointer = {x:0,y:0};
+  let dragStart = null;
+  let invalidFlash = 0;
+  let animationId = 0;
+
+  const BOARD_X = 202;
+  const BOARD_Y = 42;
+  const CELL = 47;
+  const BOARD_SIZE = CELL * SIZE;
+
+  const TRAY_Y = 485;
+  const TRAY_CENTERS = [145,400,655];
+  const TRAY_BOX_W = 210;
+  const TRAY_BOX_H = 125;
+
+  try {
+    best = Number(localStorage.getItem("gameso-blocky-blast-best") || 0);
+  } catch (error) {
+    best = 0;
+  }
+
+  $("best").textContent = best;
+
+  function setMessage(text) {
+    $("message").textContent = text;
+  }
+
+  function updateStats() {
+    $("score").textContent = Math.floor(score);
+    $("best").textContent = best;
+    $("lines").textContent = lines;
+  }
+
+  function beep(freq=500,duration=0.09) {
+    if (!soundOn) return;
+
+    try {
+      audio ||= new (window.AudioContext || window.webkitAudioContext)();
+
+      if (audio.state === "suspended") audio.resume();
+
+      const osc = audio.createOscillator();
+      const gain = audio.createGain();
+
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      gain.gain.value = 0.035;
+
+      osc.connect(gain);
+      gain.connect(audio.destination);
+
+      osc.start();
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audio.currentTime + duration
+      );
+      osc.stop(audio.currentTime + duration + 0.01);
+    } catch (error) {}
+  }
+
+  function rand(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function makePiece() {
+    const shape = SHAPES[rand(SHAPES.length)];
+    const color = COLORS[rand(COLORS.length)];
+
+    return {
+      shape: shape.map(cell => [...cell]),
+      color,
+      used:false
+    };
+  }
+
+  function newPieces() {
+    pieces = [makePiece(),makePiece(),makePiece()];
+    selected = -1;
+  }
+
+  function newGame() {
+    for (let r=0;r<SIZE;r++) {
+      board[r].fill(null);
+    }
+
+    score = 0;
+    lines = 0;
+    gameOver = false;
+    selected = -1;
+    dragging = false;
+    effects = [];
+    invalidFlash = 0;
+
+    newPieces();
+    updateStats();
+    setMessage("Choose a block below, then tap an empty position on the board.");
+    draw();
+  }
+
+  function shapeBounds(shape) {
+    let maxX = 0;
+    let maxY = 0;
+
+    for (const [x,y] of shape) {
+      maxX = Math.max(maxX,x);
+      maxY = Math.max(maxY,y);
+    }
+
+    return {w:maxX+1,h:maxY+1};
+  }
+
+  function canPlace(shape,row,col) {
+    for (const [dx,dy] of shape) {
+      const r = row + dy;
+      const c = col + dx;
+
+      if (r<0 || r>=SIZE || c<0 || c>=SIZE) return false;
+      if (board[r][c] !== null) return false;
+    }
+
+    return true;
+  }
+
+  function hasAnyMove() {
+    for (const piece of pieces) {
+      if (!piece || piece.used) continue;
+
+      for (let r=0;r<SIZE;r++) {
+        for (let c=0;c<SIZE;c++) {
+          if (canPlace(piece.shape,r,c)) return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  function createEffect(x,y,color) {
+    effects.push({
+      x,y,
+      color,
+      life:1,
+      size:3 + Math.random()*5,
+      vx:(Math.random()-.5)*3,
+      vy:(Math.random()-.5)*3
+    });
+  }
+
+  function placePiece(index,row,col) {
+    if (gameOver) return false;
+
+    const piece = pieces[index];
+    if (!piece || piece.used) return false;
+
+    if (!canPlace(piece.shape,row,col)) {
+      invalidFlash = 0.22;
+      beep(170,0.06);
+      setMessage("That position is occupied or outside the board. Try another spot.");
+      draw();
+      return false;
+    }
+
+    // Place every cell of the selected shape.
+    for (const [dx,dy] of piece.shape) {
+      const r = row + dy;
+      const c = col + dx;
+
+      board[r][c] = piece.color;
+      createEffect(
+        BOARD_X + c*CELL + CELL/2,
+        BOARD_Y + r*CELL + CELL/2,
+        piece.color
+      );
+
+      score += 1;
+    }
+
+    piece.used = true;
+    selected = -1;
+    dragging = false;
+
+    // Identify all full rows and columns before clearing.
+    const fullRows = [];
+    const fullCols = [];
+
+    for (let r=0;r<SIZE;r++) {
+      if (board[r].every(cell => cell !== null)) {
+        fullRows.push(r);
+      }
+    }
+
+    for (let c=0;c<SIZE;c++) {
+      let full = true;
+
+      for (let r=0;r<SIZE;r++) {
+        if (board[r][c] === null) {
+          full = false;
+          break;
+        }
+      }
+
+      if (full) fullCols.push(c);
+    }
+
+    // Count intersections only once for scoring and clearing.
+    const clearSet = new Set();
+
+    for (const r of fullRows) {
+      for (let c=0;c<SIZE;c++) {
+        clearSet.add(r*SIZE+c);
+      }
+    }
+
+    for (const c of fullCols) {
+      for (let r=0;r<SIZE;r++) {
+        clearSet.add(r*SIZE+c);
+      }
+    }
+
+    const cleared = clearSet.size;
+
+    if (cleared > 0) {
+      for (const key of clearSet) {
+        const r = Math.floor(key/SIZE);
+        const c = key%SIZE;
+
+        createEffect(
+          BOARD_X + c*CELL + CELL/2,
+          BOARD_Y + r*CELL + CELL/2,
+          board[r][c] || "#ffffff"
+        );
+
+        board[r][c] = null;
+      }
+
+      const completedLines = fullRows.length + fullCols.length;
+      lines += completedLines;
+
+      // Award extra points for completing rows and columns.
+      score += cleared*2 + completedLines*10;
+
+      if (completedLines >= 2) {
+        setMessage("💥 Combo! You cleared " + completedLines + " lines at once!");
+        beep(850,0.18);
+      } else {
+        setMessage("✨ Line cleared! Great move. Keep the board open.");
+        beep(680,0.12);
+      }
+    } else {
+      setMessage("Nice placement! Choose your next block.");
+      beep(420,0.06);
+    }
+
+    if (score > best) {
+      best = score;
+
+      try {
+        localStorage.setItem("gameso-blocky-blast-best",String(best));
+      } catch (error) {}
+    }
+
+    // Refill the tray when every piece has been used.
+    if (pieces.every(p => p.used)) {
+      newPieces();
+    }
+
+    updateStats();
+
+    if (!hasAnyMove()) {
+      gameOver = true;
+      selected = -1;
+      setMessage("Game over! No available block fits. Select New Game to try again.");
+      beep(180,0.25);
+    }
+
+    draw();
+    return true;
+  }
+
+  function roundedRect(x,y,w,h,r,fill,stroke) {
+    ctx.beginPath();
+    ctx.roundRect(x,y,w,h,r);
+
+    if (fill) {
+      ctx.fillStyle = fill;
+      ctx.fill();
+    }
+
+    if (stroke) {
+      ctx.strokeStyle = stroke;
+      ctx.stroke();
+    }
+  }
+
+  function drawBlock(x,y,size,color,ghost=false) {
+    const gap = Math.max(2,size*0.07);
+    const s = size-gap;
+
+    if (ghost) {
+      roundedRect(
+        x+gap/2,y+gap/2,s,s,Math.max(3,size*.13),
+        color,"rgba(255,255,255,.3)"
+      );
+      ctx.fillStyle = "rgba(255,255,255,.18)";
+      ctx.fillRect(x+gap+3,y+gap+3,Math.max(1,s*.42),Math.max(1,s*.09));
+      return;
+    }
+
+    roundedRect(
+      x+gap/2+1,y+gap/2+3,s,s,
+      Math.max(3,size*.13),
+      "rgba(0,0,0,.2)"
+    );
+
+    const grad = ctx.createLinearGradient(x,y,x+size,y+size);
+    grad.addColorStop(0,color);
+    grad.addColorStop(1,shadeColor(color,-30));
+
+    roundedRect(
+      x+gap/2,y+gap/2,s,s,
+      Math.max(3,size*.13),
+      grad,
+      "rgba(255,255,255,.17)"
+    );
+
+    ctx.fillStyle = "rgba(255,255,255,.22)";
+    roundedRect(
+      x+gap+3,y+gap+3,
+      Math.max(2,s*.43),Math.max(2,s*.09),
+      2,"rgba(255,255,255,.22)"
+    );
+  }
+
+  function shadeColor(hex,amount) {
+    const value = hex.replace("#","");
+    const num = parseInt(value,16);
+
+    let r = (num>>16)+amount;
+    let g = ((num>>8)&255)+amount;
+    let b = (num&255)+amount;
+
+    r = Math.max(0,Math.min(255,r));
+    g = Math.max(0,Math.min(255,g));
+    b = Math.max(0,Math.min(255,b));
+
+    return "#" + ((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+  }
+
+  function drawBackground() {
+    const grad = ctx.createLinearGradient(0,0,0,H);
+    grad.addColorStop(0,"#111b2c");
+    grad.addColorStop(1,"#0b1120");
+
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,W,H);
+
+    ctx.fillStyle = "rgba(108,92,231,.06)";
+    ctx.beginPath();
+    ctx.arc(400,230,250,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 22px Arial";
+    ctx.fillText("BLOCKY BLAST",W/2,25);
+    ctx.textAlign = "left";
+  }
+
+  function drawBoard() {
+    roundedRect(
+      BOARD_X-9,BOARD_Y-9,
+      BOARD_SIZE+18,BOARD_SIZE+18,
+      16,"#171f31","#2c3750"
+    );
+
+    for (let r=0;r<SIZE;r++) {
+      for (let c=0;c<SIZE;c++) {
+        const x = BOARD_X+c*CELL;
+        const y = BOARD_Y+r*CELL;
+
+        roundedRect(
+          x+2,y+2,CELL-4,CELL-4,6,
+          "#202a3e","#29354b"
+        );
+
+        if (board[r][c]) {
+          drawBlock(x+2,y+2,CELL-4,board[r][c]);
+        }
+      }
+    }
+
+    // Preview a valid placement while dragging or hovering.
+    if (selected >= 0 && pieces[selected] && !pieces[selected].used &&
+        hoverCell && !gameOver) {
+      const shape = pieces[selected].shape;
+      const row = hoverCell.r;
+      const col = hoverCell.c;
+      const valid = canPlace(shape,row,col);
+
+      for (const [dx,dy] of shape) {
+        const r = row+dy;
+        const c = col+dx;
+
+        if (r<0 || r>=SIZE || c<0 || c>=SIZE) continue;
+
+        drawBlock(
+          BOARD_X+c*CELL+2,
+          BOARD_Y+r*CELL+2,
+          CELL-4,
+          valid ? pieces[selected].color : "#ff5268",
+          true
+        );
+      }
+    }
+
+    if (invalidFlash > 0) {
+      ctx.strokeStyle = "#ff5268";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(
+        BOARD_X-5,BOARD_Y-5,
+        BOARD_SIZE+10,BOARD_SIZE+10
+      );
+    }
+  }
+
+  function pieceLayout(piece,centerX,centerY,maxCell=29) {
+    const bounds = shapeBounds(piece.shape);
+    const cell = Math.min(
+      maxCell,
+      105/bounds.w,
+      77/bounds.h
+    );
+
+    return {
+      cell,
+      startX:centerX-(bounds.w*cell)/2,
+      startY:centerY-(bounds.h*cell)/2
+    };
+  }
+
+  function drawTray() {
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#9ba4b6";
+    ctx.font = "800 12px Arial";
+    ctx.fillText("CHOOSE YOUR NEXT BLOCK",W/2,467);
+
+    for (let i=0;i<3;i++) {
+      const center = TRAY_CENTERS[i];
+      const piece = pieces[i];
+      const x = center-TRAY_BOX_W/2;
+      const y = TRAY_Y;
+
+      const isSelected = selected === i;
+
+      roundedRect(
+        x,y,TRAY_BOX_W,TRAY_BOX_H,14,
+        piece.used ? "rgba(255,255,255,.015)" :
+          isSelected ? "#25274b" : "#151e30",
+        isSelected ? "#8e83ff" : "#2b354b"
+      );
+
+      if (piece.used) {
+        ctx.fillStyle = "#697284";
+        ctx.font = "bold 13px Arial";
+        ctx.fillText("PLACED",center,y+68);
+        continue;
+      }
+
+      const layout = pieceLayout(piece,center,y+61);
+
+      for (const [dx,dy] of piece.shape) {
+        drawBlock(
+          layout.startX+dx*layout.cell,
+          layout.startY+dy*layout.cell,
+          layout.cell,
+          piece.color
+        );
+      }
+
+      ctx.fillStyle = isSelected ? "#bdb9ff" : "#7e8aa0";
+      ctx.font = "bold 10px Arial";
+      ctx.fillText(isSelected ? "SELECTED" : "PIECE "+(i+1),center,y+111);
+    }
+
+    ctx.textAlign = "left";
+  }
+
+  function drawEffects() {
+    for (const e of effects) {
+      ctx.globalAlpha = Math.max(0,e.life);
+      ctx.fillStyle = e.color;
+      ctx.beginPath();
+      ctx.arc(e.x,e.y,e.size*e.life,0,Math.PI*2);
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+  }
+
+  function drawGameOver() {
+    ctx.fillStyle = "rgba(5,9,18,.82)";
+    ctx.fillRect(BOARD_X-9,BOARD_Y-9,BOARD_SIZE+18,BOARD_SIZE+18);
+
+    ctx.textAlign = "center";
+
+    ctx.fillStyle = "#ff8290";
+    ctx.font = "800 30px Arial";
+    ctx.fillText("GAME OVER",W/2,195);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 22px Arial";
+    ctx.fillText("Score: "+Math.floor(score),W/2,235);
+
+    ctx.fillStyle = "#bdb9ff";
+    ctx.font = "15px Arial";
+    ctx.fillText("Try a new board and beat your record!",W/2,269);
+
+    ctx.textAlign = "left";
+  }
+
+  function draw() {
+    drawBackground();
+    drawBoard();
+    drawTray();
+    drawEffects();
+
+    if (gameOver) drawGameOver();
+  }
+
+  function getCanvasPoint(event) {
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+      x:(event.clientX-rect.left)*(W/rect.width),
+      y:(event.clientY-rect.top)*(H/rect.height)
+    };
+  }
+
+  function findTrayPiece(x,y) {
+    for (let i=0;i<3;i++) {
+      const left = TRAY_CENTERS[i]-TRAY_BOX_W/2;
+      const top = TRAY_Y;
+
+      if (
+        x>=left && x<=left+TRAY_BOX_W &&
+        y>=top && y<=top+TRAY_BOX_H
+      ) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  function findBoardCell(x,y) {
+    const col = Math.floor((x-BOARD_X)/CELL);
+    const row = Math.floor((y-BOARD_Y)/CELL);
+
+    if (row<0 || row>=SIZE || col<0 || col>=SIZE) return null;
+
+    return {r:row,c:col};
+  }
+
+  canvas.addEventListener("pointerdown",event => {
+    event.preventDefault();
+
+    const point = getCanvasPoint(event);
+    pointer = point;
+
+    if (gameOver) return;
+
+    const trayIndex = findTrayPiece(point.x,point.y);
+
+    if (trayIndex >= 0) {
+      if (pieces[trayIndex].used) {
+        setMessage("That piece has already been placed. Choose another piece.");
+        return;
+      }
+
+      if (selected === trayIndex) {
+        selected = -1;
+        dragging = false;
+        hoverCell = null;
+      } else {
+        selected = trayIndex;
+        dragging = true;
+        dragStart = point;
+        hoverCell = findBoardCell(point.x,point.y);
+        setMessage("Now tap an empty position on the board to place your block.");
+      }
+
+      try {
+        canvas.setPointerCapture(event.pointerId);
+      } catch (error) {}
+
+      draw();
+      return;
+    }
+
+    const cell = findBoardCell(point.x,point.y);
+
+    if (cell) {
+      if (selected < 0) {
+        setMessage("First choose a block from the tray below the board.");
+        return;
+      }
+
+      placePiece(selected,cell.r,cell.c);
+      return;
+    }
+
+    if (selected >= 0 && point.y < BOARD_Y) {
+      selected = -1;
+      dragging = false;
+      hoverCell = null;
+      draw();
+    }
+  });
+
+  canvas.addEventListener("pointermove",event => {
+    const point = getCanvasPoint(event);
+    pointer = point;
+
+    if (selected >= 0 && !gameOver) {
+      hoverCell = findBoardCell(point.x,point.y);
+      draw();
+    }
+  });
+
+  canvas.addEventListener("pointerup",event => {
+    if (selected < 0 || gameOver) {
+      dragging = false;
+      return;
+    }
+
+    const point = getCanvasPoint(event);
+    const cell = findBoardCell(point.x,point.y);
+
+    // A drag from the tray onto the board places the piece.
+    if (dragging && cell) {
+      placePiece(selected,cell.r,cell.c);
+    }
+
+    dragging = false;
+    draw();
+  });
+
+  canvas.addEventListener("pointercancel",() => {
+    dragging = false;
+  });
+
+  $("newGame").addEventListener("click",() => {
+    newGame();
+    beep(500);
+  });
+
+  $("soundButton").addEventListener("click",() => {
+    soundOn = !soundOn;
+    $("soundButton").textContent = soundOn ? "🔊 Sound On" : "🔇 Sound Off";
+
+    if (soundOn) beep(500);
+  });
+
+  function animate() {
+    for (const e of effects) {
+      e.x += e.vx;
+      e.y += e.vy;
+      e.life -= 0.035;
+    }
+
+    effects = effects.filter(e => e.life>0);
+
+    if (invalidFlash>0) invalidFlash -= 0.016;
+
+    draw();
+    animationId = requestAnimationFrame(animate);
+  }
+
+  newGame();
+  animationId = requestAnimationFrame(animate);
+})();
+</script>
 </body>
 </html>
+```
