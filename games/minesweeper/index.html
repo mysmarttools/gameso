@@ -1,326 +1,1583 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minesweeper Online – Play Free Minesweeper Game | Gameso</title>
+  <meta name="description" content="Play Minesweeper online for free at Gameso! Find hidden mines, solve number clues, and challenge yourself with Easy, Medium, and Hard difficulty levels.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#080b14">
+  <link rel="canonical" href="https://gameso.vercel.app/games/minesweeper/">
 
-    <title>Play Minesweeper Game Free Online | Classic Puzzle Game | Gameso</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Minesweeper Online – Play Free | Gameso">
+  <meta property="og:description" content="Enjoy free Minesweeper online. Reveal safe squares, flag hidden mines, and test your logic skills.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/minesweeper/">
+  <meta property="og:site_name" content="Gameso">
 
-    <meta
-        name="description"
-        content="Play Minesweeper game free online on gameso and test your logic and focus. Find hidden mines, use number clues, and clear the board in this classic puzzle game.Find safe cells, avoid hidden mines, place flags and clear the board to win."
-    >
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Minesweeper Online | Gameso">
+  <meta name="twitter:description" content="Play free Minesweeper online with Easy, Medium, and Hard modes.">
 
-    <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Minesweeper",
+    "url": "https://gameso.vercel.app/games/minesweeper/",
+    "description": "Play Minesweeper online for free. Reveal safe squares, use number clues, and avoid hidden mines.",
+    "genre": ["Puzzle", "Logic", "Casual"],
+    "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any",
+    "isAccessibleForFree": true,
+    "author": {
+      "@type": "Organization",
+      "name": "Gameso",
+      "url": "https://gameso.vercel.app/"
+    }
+  }
+  </script>
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/minesweeper/"
-    >
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: #121827;
+      --card-hover: #182137;
+      --text: #ffffff;
+      --muted: #9ba4b6;
+      --primary: #6c5ce7;
+      --accent: #00d4ff;
+      --border: rgba(255,255,255,.08);
+      --success: #2ed573;
+      --danger: #ff4757;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at top left, rgba(108,92,231,.10), transparent 36%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #8ceaff;
+    }
+
+    button, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,11,20,.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 23px;
+      letter-spacing: -.7px;
+      white-space: nowrap;
+    }
+
+    .brand:hover {
+      color: #fff;
+    }
+
+    .brand-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      font-size: 21px;
+      box-shadow: 0 5px 20px rgba(108,92,231,.2);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 23px;
+    }
+
+    .header-nav a {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .header-nav a:hover {
+      color: #fff;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 10px 15px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: #fff;
+      background: var(--card);
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: .2s;
+    }
+
+    .back-home:hover {
+      background: var(--card-hover);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    /* MAIN */
+
+    main {
+      padding: 30px 0 60px;
+    }
+
+    .breadcrumb {
+      margin-bottom: 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .breadcrumb span {
+      padding: 0 7px;
+      color: #5e6880;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 20px 0 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border: 1px solid rgba(108,92,231,.3);
+      border-radius: 30px;
+      background: rgba(108,92,231,.10);
+      color: #c4bbff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.2;
+      letter-spacing: -1.4px;
+    }
+
+    .gradient-text {
+      color: var(--accent);
+      background: linear-gradient(90deg, var(--accent), #a79aff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    /* GAME */
+
+    .game-shell {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(18,24,39,.96);
+      box-shadow: 0 18px 65px rgba(0,0,0,.22);
+    }
+
+    .game-topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .game-topline h2 {
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    .game-badge {
+      padding: 5px 10px;
+      border: 1px solid rgba(46,213,115,.22);
+      border-radius: 20px;
+      background: rgba(46,213,115,.08);
+      color: #73efaa;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .toolbar label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .difficulty-select {
+      max-width: 100%;
+      padding: 9px 32px 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      background: #0b1020;
+      color: #fff;
+    }
+
+    .tool-button {
+      min-height: 39px;
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #1a2235;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .tool-button:hover {
+      background: #26314a;
+      border-color: rgba(108,92,231,.6);
+    }
+
+    .tool-button.active {
+      border-color: var(--primary);
+      background: rgba(108,92,231,.25);
+      color: #ded8ff;
+    }
+
+    .primary-button {
+      border: 0;
+      background: linear-gradient(135deg, var(--primary), #5141cf);
+      color: #fff;
+    }
+
+    .primary-button:hover {
+      background: linear-gradient(135deg, #8274ff, #6555e8);
+    }
+
+    .game-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 17px;
+    }
+
+    .stat-box {
+      padding: 12px 8px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #0b1020;
+      text-align: center;
+    }
+
+    .stat-label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      display: block;
+      color: #fff;
+      font-family: monospace;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .stat-value.mines-value {
+      color: #ff777f;
+    }
+
+    .stat-value.time-value {
+      color: var(--accent);
+    }
+
+    .status-message {
+      min-height: 43px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1020;
+      color: #c6cee0;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .status-message.win {
+      border-color: rgba(46,213,115,.3);
+      color: #73efaa;
+      background: rgba(46,213,115,.07);
+    }
+
+    .status-message.lose {
+      border-color: rgba(255,71,87,.3);
+      color: #ff939c;
+      background: rgba(255,71,87,.07);
+    }
+
+    .board-viewport {
+      width: 100%;
+      overflow: auto;
+      padding: 4px 0 10px;
+      overscroll-behavior: contain;
+      scrollbar-color: #39445d #0b1020;
+      scrollbar-width: thin;
+    }
+
+    .board {
+      display: grid;
+      width: max-content;
+      margin: 0 auto;
+      gap: 3px;
+      padding: 7px;
+      border: 1px solid #29344c;
+      border-radius: 10px;
+      background: #0b1020;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .cell {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      padding: 0;
+      border: 1px solid #38445f;
+      border-radius: 4px;
+      background: linear-gradient(145deg, #29344c, #202a40);
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .cell:hover:not(.revealed) {
+      border-color: var(--accent);
+      background: #35435f;
+    }
+
+    .cell:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      z-index: 1;
+    }
+
+    .cell.revealed {
+      border-color: #273147;
+      background: #121a2a;
+      cursor: default;
+    }
+
+    .cell.flagged {
+      color: #ff6b7a;
+    }
+
+    .cell.exploded {
+      border-color: #ff4757;
+      background: #7f1d2a;
+    }
+
+    .cell.mine-shown {
+      background: #3b2530;
+    }
+
+    .cell.wrong-flag {
+      color: #ff4757;
+      background: #3b2530;
+    }
+
+    .cell.n1 { color: #6da9ff; }
+    .cell.n2 { color: #2ed573; }
+    .cell.n3 { color: #ff6b7a; }
+    .cell.n4 { color: #b29bff; }
+    .cell.n5 { color: #ffad66; }
+    .cell.n6 { color: #55e5dc; }
+    .cell.n7 { color: #f2f5ff; }
+    .cell.n8 { color: #a0a8ba; }
+
+    .mobile-hint {
+      margin-top: 11px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .game-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .game-bottom .tool-button {
+      min-width: 125px;
+    }
+
+    /* RELATED GAMES */
+
+    .related-section {
+      max-width: 850px;
+      margin: 28px auto 0;
+    }
+
+    .section-heading {
+      margin-bottom: 14px;
+      font-size: 22px;
+      line-height: 1.3;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .related-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+      color: #fff;
+      transition: .2s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      background: var(--card-hover);
+      color: #fff;
+    }
+
+    .related-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      flex-shrink: 0;
+      place-items: center;
+      border-radius: 11px;
+      background: rgba(108,92,231,.16);
+      font-size: 23px;
+    }
+
+    .related-card strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .related-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* SEO CONTENT */
+
+    .content-section {
+      max-width: 850px;
+      margin: 35px auto 0;
+      padding: 27px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(18,24,39,.72);
+    }
+
+    .content-section h2 {
+      margin: 0 0 14px;
+      font-size: 25px;
+      line-height: 1.35;
+      letter-spacing: -.4px;
+    }
+
+    .content-section h3 {
+      margin: 23px 0 8px;
+      font-size: 18px;
+      line-height: 1.4;
+      color: #e7eaff;
+    }
+
+    .content-section p {
+      margin-bottom: 13px;
+      color: #b0b9ca;
+      font-size: 15px;
+    }
+
+    .content-section ul,
+    .content-section ol {
+      padding-left: 22px;
+      margin: 10px 0 16px;
+      color: #b0b9ca;
+      font-size: 15px;
+    }
+
+    .content-section li {
+      margin-bottom: 8px;
+      padding-left: 3px;
+    }
+
+    .tip-box {
+      margin: 18px 0;
+      padding: 15px 17px;
+      border-left: 3px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      background: rgba(108,92,231,.09);
+      color: #d6d0ff;
+    }
+
+    .faq-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-item h3 {
+      margin: 0 0 7px;
+      font-size: 16px;
+    }
+
+    .faq-item p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: rgba(8,11,20,.85);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 25px 0;
+    }
+
+    .footer-inner p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 17px;
+      font-size: 13px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: calc(100% - 22px);
+      }
+
+      .header-inner {
+        min-height: 64px;
+        gap: 8px;
+      }
+
+      .brand {
+        gap: 7px;
+        font-size: 20px;
+      }
+
+      .brand-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+      }
+
+      .header-nav {
+        display: none;
+      }
+
+      .back-home {
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+
+      main {
+        padding-top: 18px;
+      }
+
+      .hero {
+        padding: 15px 0 22px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .game-shell {
+        padding: 14px 10px;
+        border-radius: 16px;
+      }
+
+      .game-topline {
+        margin-bottom: 13px;
+      }
+
+      .game-topline h2 {
+        font-size: 17px;
+      }
+
+      .toolbar {
+        gap: 7px;
+      }
+
+      .tool-button {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      .difficulty-select {
+        padding: 8px 22px 8px 8px;
+        font-size: 12px;
+      }
+
+      .game-stats {
+        gap: 7px;
+      }
+
+      .stat-box {
+        padding: 9px 4px;
+      }
+
+      .stat-label {
+        font-size: 9px;
+      }
+
+      .stat-value {
+        font-size: 20px;
+      }
+
+      .board {
+        gap: 2px;
+        padding: 5px;
+      }
+
+      .cell {
+        width: 29px;
+        height: 29px;
+        font-size: 14px;
+        border-radius: 3px;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .related-card {
+        padding: 12px;
+      }
+
+      .content-section {
+        padding: 19px 15px;
+        margin-top: 25px;
+      }
+
+      .content-section h2 {
+        font-size: 22px;
+      }
+
+      .content-section p,
+      .content-section ul,
+      .content-section ol {
+        font-size: 14px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .cell {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+      }
+
+      .game-shell {
+        padding: 12px 7px;
+      }
+
+      .game-badge {
+        font-size: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://gameso.vercel.app/" aria-label="Gameso Home">
+        <span class="brand-icon">🎮</span>
+        <span>Gameso</span>
+      </a>
 
-    <!-- HEADER -->
+      <nav class="header-nav" aria-label="Main navigation">
+        <a href="https://gameso.vercel.app/">Home</a>
+        <a href="https://gameso.vercel.app/#games">All Games</a>
+      </nav>
 
-    <header class="game-header">
+      <a class="back-home" href="https://gameso.vercel.app/">
+        ← Back to Home
+      </a>
+    </div>
+  </header>
 
-        <div class="header-inner">
+  <main class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://gameso.vercel.app/">Home</a>
+      <span>›</span>
+      <a href="https://gameso.vercel.app/#games">Games</a>
+      <span>›</span>
+      <span aria-current="page">Minesweeper</span>
+    </nav>
 
-            <a href="/" class="logo">
-                <span>🎮</span>
-                <strong>Gameso</strong>
-            </a>
+    <section class="hero">
+      <div class="eyebrow">🧠 Free Logic Puzzle</div>
+      <h1>Play <span class="gradient-text">Minesweeper Online</span></h1>
+      <p>
+        Test your logic, uncover safe squares, and avoid hidden mines in this
+        classic puzzle game. Choose your difficulty and see how quickly you
+        can clear the board!
+      </p>
+    </section>
 
-            <a href="/" class="back-button">
-                ← All Games
-            </a>
+    <section class="game-shell" aria-label="Minesweeper game">
+      <div class="game-topline">
+        <h2>💣 Minesweeper</h2>
+        <span class="game-badge">FREE TO PLAY</span>
+      </div>
 
+      <div class="toolbar">
+        <label for="difficulty">Difficulty:</label>
+        <select class="difficulty-select" id="difficulty">
+          <option value="easy">Easy · 9 × 9</option>
+          <option value="medium">Medium · 16 × 16</option>
+          <option value="hard">Hard · 16 × 30</option>
+        </select>
+
+        <button class="tool-button primary-button" id="newGame" type="button">
+          ↻ New Game
+        </button>
+      </div>
+
+      <div class="game-stats">
+        <div class="stat-box">
+          <span class="stat-label">💣 Mines Left</span>
+          <span class="stat-value mines-value" id="mineCounter">010</span>
         </div>
 
-    </header>
-
-
-    <!-- MAIN -->
-
-    <main>
-
-        <section class="game-page">
-
-            <div class="game-container">
-
-
-                <!-- HEADING -->
-
-                <div class="game-heading">
-
-                    <span class="game-label">
-                        💣 PUZZLE CHALLENGE
-                    </span>
-
-                    <h1>
-                        Play Minesweeper Game Free Online
-
-                    </h1>
-
-                    <p>
-Play Minesweeper game free online and challenge your logic, focus, and problem-solving skills! Find hidden mines, use numbers as clues, and clear the board safely. Enjoy this classic puzzle game online for free with simple gameplay that is easy to learn but challenging to master.
-                    </p>
-
-                </div>
-
-
-                <!-- GAME BOX -->
-
-                <div class="game-box">
-
-
-                    <!-- STATS -->
-
-                    <div class="game-stats">
-
-                        <div class="stat-box">
-
-                            <span>
-                                MINES
-                            </span>
-
-                            <strong id="mineCount">
-                                10
-                            </strong>
-
-                        </div>
-
-
-                        <div class="stat-box">
-
-                            <span>
-                                FLAGS
-                            </span>
-
-                            <strong id="flagCount">
-                                0
-                            </strong>
-
-                        </div>
-
-
-                        <div class="stat-box">
-
-                            <span>
-                                TIME
-                            </span>
-
-                            <strong id="timer">
-                                00:00
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- CONTROLS -->
-
-                    <div class="game-controls">
-
-                        <div class="game-tip">
-
-                            <strong>
-                                How to play
-                            </strong>
-
-                            <span>
-                                Click safe cells. Right-click
-                                or use Flag Mode for mines.
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            id="newGame"
-                            class="new-game-button"
-                            type="button"
-                        >
-                            🔄 New Game
-                        </button>
-
-                    </div>
-
-
-                    <!-- MOBILE FLAG MODE -->
-
-                    <button
-                        id="flagMode"
-                        class="flag-mode"
-                        type="button"
-                    >
-                        🚩 Flag Mode: OFF
-                    </button>
-
-
-                    <!-- BOARD -->
-
-                    <div
-                        id="mineBoard"
-                        class="mine-board"
-                        aria-label="Minesweeper board"
-                    ></div>
-
-
-                    <!-- MESSAGE -->
-
-                    <div
-                        id="gameMessage"
-                        class="game-message"
-                    ></div>
-
-                </div>
-
-
-                <!-- INFO -->
-
-                <section class="game-info-section">
-
-                    <h2>
-                        How to Play Minesweeper
-                    </h2>
-
-                    <p>
-                        Minesweeper is a classic puzzle game
-                        where you need to clear the board
-                        without clicking on a hidden mine.
-                    </p>
-
-                    <p>
-                        Each revealed number tells you how
-                        many mines are located in the
-                        surrounding cells. Use these clues
-                        to find the safe cells.
-                    </p>
-
-
-                    <h2>
-                        Minesweeper Rules
-                    </h2>
-
-                    <ul>
-
-                        <li>
-                            💣 Avoid all hidden mines.
-                        </li>
-
-                        <li>
-                            🔢 Numbers show nearby mines.
-                        </li>
-
-                        <li>
-                            🚩 Flag cells you believe
-                            contain mines.
-                        </li>
-
-                        <li>
-                            🏆 Clear every safe cell to win.
-                        </li>
-
-                        <li>
-                            ⏱️ Try to complete the board
-                            as quickly as possible.
-                        </li>
-
-                    </ul>
-
-                </section>
-
-
-                <!-- RELATED GAMES -->
-
-                <section class="related-section">
-
-                    <h2>
-                        More Games
-                    </h2>
-
-                    <div class="related-grid">
-
-                        <a
-                            href="/games/memory/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                🧠
-                            </span>
-
-                            <strong>
-                                Memory Game
-                            </strong>
-
-                        </a>
-
-
-                        <a
-                            href="/games/rock-paper-scissors/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                ✊
-                            </span>
-
-                            <strong>
-                                Rock Paper Scissors
-                            </strong>
-
-                        </a>
-
-
-                        <a
-                            href="/games/2048/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                🔢
-                            </span>
-
-                            <strong>
-                                2048
-                            </strong>
-
-                        </a>
-
-                    </div>
-
-                </section>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-
-    <footer>
-
-        <p>
-            ©
-            <span id="year"></span>
-            Gameso. All rights reserved.
-        </p>
-
-    </footer>
-
-
-    <script src="script.js"></script>
-
+        <div class="stat-box">
+          <span class="stat-label">⏱ Time</span>
+          <span class="stat-value time-value" id="timer">000</span>
+        </div>
+
+        <div class="stat-box">
+          <span class="stat-label">🏆 Best Time</span>
+          <span class="stat-value" id="bestTime">---</span>
+        </div>
+      </div>
+
+      <div class="status-message" id="status" role="status" aria-live="polite">
+        Choose a square to begin. Your first click is always safe!
+      </div>
+
+      <div class="toolbar">
+        <button class="tool-button active" id="openMode" type="button" aria-pressed="true">
+          👆 Open Mode
+        </button>
+        <button class="tool-button" id="flagMode" type="button" aria-pressed="false">
+          🚩 Flag Mode
+        </button>
+      </div>
+
+      <div class="board-viewport">
+        <div
+          class="board"
+          id="board"
+          role="group"
+          aria-label="Minesweeper board"
+        ></div>
+      </div>
+
+      <p class="mobile-hint">
+        Desktop: click to open, right-click to flag. Mobile: use Flag Mode and tap a square.
+      </p>
+
+      <div class="game-bottom">
+        <button class="tool-button" id="resetButton" type="button">
+          🔄 Restart
+        </button>
+        <button class="tool-button" id="hintButton" type="button">
+          💡 How to Play
+        </button>
+      </div>
+    </section>
+
+    <section class="related-section" aria-labelledby="related-heading">
+      <h2 class="section-heading" id="related-heading">🎮 More Free Games</h2>
+      <div class="related-grid">
+        <a class="related-card" href="https://gameso.vercel.app/games/2048/">
+          <span class="related-icon">🔢</span>
+          <span>
+            <strong>2048 Puzzle</strong>
+            <small>Number matching game</small>
+          </span>
+        </a>
+
+        <a class="related-card" href="https://gameso.vercel.app/games/snake/">
+          <span class="related-icon">🐍</span>
+          <span>
+            <strong>Snake Game</strong>
+            <small>Classic arcade fun</small>
+          </span>
+        </a>
+
+        <a class="related-card" href="https://gameso.vercel.app/games/spider-solitaire/">
+          <span class="related-icon">🃏</span>
+          <span>
+            <strong>Spider Solitaire</strong>
+            <small>Cards and strategy</small>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <article class="content-section">
+      <h2>What Is Minesweeper?</h2>
+
+      <p>
+        Minesweeper is a classic logic and puzzle game where players uncover
+        squares on a grid while avoiding hidden mines. Every safe square can
+        reveal a number that tells you how many mines are touching it,
+        including diagonally. You must use these clues to decide which squares
+        are safe and which should be marked with a flag.
+      </p>
+
+      <p>
+        This free Minesweeper online game runs directly in your browser. There
+        is no installation or account required. Play on a computer, tablet, or
+        compatible mobile device, and choose an easier or more challenging
+        board whenever you want.
+      </p>
+
+      <h2>How to Play Minesweeper</h2>
+
+      <ol>
+        <li><strong>Start the game:</strong> Choose Easy, Medium, or Hard and open a square. Your first square is always safe.</li>
+        <li><strong>Read the numbers:</strong> A number shows how many mines are in the eight neighboring squares.</li>
+        <li><strong>Mark hidden mines:</strong> Use right-click on a computer or turn on Flag Mode on a phone to mark suspected mines.</li>
+        <li><strong>Find safe squares:</strong> Use the numbers and flags to work out which unopened squares can be revealed safely.</li>
+        <li><strong>Clear the board:</strong> Reveal every square that does not contain a mine to win.</li>
+      </ol>
+
+      <div class="tip-box">
+        💡 <strong>Beginner tip:</strong> If a revealed square shows 1 and only
+        one of its neighboring squares remains unopened, that unopened square
+        must contain a mine. Use clues like this to solve the board logically.
+      </div>
+
+      <h2>Minesweeper Difficulty Levels</h2>
+
+      <h3>Easy Minesweeper</h3>
+      <p>
+        The Easy board is 9 × 9 with 10 mines. It is a good starting point for
+        beginners who want to understand number clues, learn how to flag mines,
+        and practise safe moves.
+      </p>
+
+      <h3>Medium Minesweeper</h3>
+      <p>
+        The Medium board is 16 × 16 with 40 mines. More squares and clues create
+        a bigger challenge, so careful observation and planning become more
+        important.
+      </p>
+
+      <h3>Hard Minesweeper</h3>
+      <p>
+        The Hard board is 30 columns wide and 16 rows tall, with 99 mines.
+        It provides a larger field that rewards patience, logical deduction,
+        and accurate flag placement.
+      </p>
+
+      <h2>Useful Minesweeper Tips and Strategies</h2>
+
+      <ul>
+        <li><strong>Study every number:</strong> Each number is a clue about the surrounding eight squares.</li>
+        <li><strong>Use flags carefully:</strong> Mark a square when the available clues support your decision.</li>
+        <li><strong>Look for overlapping clues:</strong> Nearby numbers often help you identify safe squares.</li>
+        <li><strong>Explore empty areas:</strong> Squares with no neighboring mines automatically reveal nearby safe squares.</li>
+        <li><strong>Avoid random clicking:</strong> Use the information already visible on the board before taking a risk.</li>
+        <li><strong>Watch your timer:</strong> Focus on accuracy first, then work on improving your completion time.</li>
+      </ul>
+
+      <h2>Why Play Minesweeper on Gameso?</h2>
+
+      <ul>
+        <li>Free Minesweeper gameplay in your browser.</li>
+        <li>Three difficulty settings for different skill levels.</li>
+        <li>A safe first move to help you get started.</li>
+        <li>Mine counter and game timer.</li>
+        <li>Flag Mode for touchscreen devices.</li>
+        <li>Responsive layout for desktop and mobile screens.</li>
+        <li>No game download or registration required.</li>
+      </ul>
+
+      <p>
+        Whether you are discovering Minesweeper for the first time or returning
+        for a quick logic challenge, Gameso gives you a simple way to practise
+        deduction and enjoy a classic puzzle game online.
+      </p>
+    </article>
+
+    <section class="content-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">❓ Minesweeper FAQs</h2>
+
+      <div class="faq-item">
+        <h3>1. Is Minesweeper free to play online?</h3>
+        <p>Yes. You can play this browser-based Minesweeper game on Gameso for free without downloading a separate game application.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>2. How do you win Minesweeper?</h3>
+        <p>Reveal every square that does not contain a mine. You do not have to flag every mine to win.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>3. What do the numbers mean in Minesweeper?</h3>
+        <p>Each number tells you how many mines are in the eight surrounding squares, including diagonal neighbors.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>4. Is the first click always safe?</h3>
+        <p>Yes. This version places mines after your first move and protects the first square you open.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>5. How do I place a flag?</h3>
+        <p>On a desktop, right-click an unopened square. On a touchscreen, select Flag Mode and tap the square you want to mark.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>6. Can I play Minesweeper on my phone?</h3>
+        <p>Yes. The game supports touch input and adjusts its layout for smaller screens. You can scroll the board when necessary.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>7. What are the Easy, Medium, and Hard settings?</h3>
+        <p>Easy uses a 9 × 9 board with 10 mines, Medium uses a 16 × 16 board with 40 mines, and Hard uses a 30 × 16 board with 99 mines.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>8. What happens when I click a mine?</h3>
+        <p>The game ends in a loss, and the board reveals the mine locations so you can see what happened.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>9. What is the mine counter?</h3>
+        <p>The counter starts with the total number of mines and decreases when you place flags. It tracks your flags rather than confirming whether each flag is correct.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>10. Does Minesweeper improve logic skills?</h3>
+        <p>Minesweeper encourages logical deduction, pattern recognition, careful observation, and planning. Regular play can provide practice in these skills.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>11. Can I restart a Minesweeper game?</h3>
+        <p>Yes. Select Restart to begin a fresh board with the same difficulty, or New Game to start a new board.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>12. Do I need to install anything to play?</h3>
+        <p>No installation is needed. Open the game page in a modern browser and start playing.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Gameso. Play, Think, Enjoy!</p>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="https://gameso.vercel.app/">Home</a>
+        <a href="https://gameso.vercel.app/#games">All Games</a>
+        <a href="#faq-heading">FAQs</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const boardElement = document.getElementById("board");
+      const difficultyElement = document.getElementById("difficulty");
+      const mineCounterElement = document.getElementById("mineCounter");
+      const timerElement = document.getElementById("timer");
+      const bestTimeElement = document.getElementById("bestTime");
+      const statusElement = document.getElementById("status");
+      const openModeButton = document.getElementById("openMode");
+      const flagModeButton = document.getElementById("flagMode");
+
+      const difficulties = {
+        easy: { rows: 9, cols: 9, mines: 10 },
+        medium: { rows: 16, cols: 16, mines: 40 },
+        hard: { rows: 16, cols: 30, mines: 99 }
+      };
+
+      let rows = 9;
+      let cols = 9;
+      let totalMines = 10;
+      let cells = [];
+      let gameStarted = false;
+      let gameOver = false;
+      let flagMode = false;
+      let elapsed = 0;
+      let timerInterval = null;
+      let revealedCount = 0;
+      let flagCount = 0;
+      let explodedIndex = -1;
+      let touchPressTimer = null;
+
+      const bestTimes = {};
+
+      try {
+        const saved = JSON.parse(
+          localStorage.getItem("gameso-minesweeper-best") || "{}"
+        );
+
+        if (saved && typeof saved === "object") {
+          Object.assign(bestTimes, saved);
+        }
+      } catch (error) {
+        // The game still works if browser storage is unavailable.
+      }
+
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+
+        if (mins > 99) return "999";
+
+        return mins > 0
+          ? String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0")
+          : String(secs).padStart(3, "0");
+      }
+
+      function setStatus(message, state = "") {
+        statusElement.textContent = message;
+        statusElement.className = "status-message" + (state ? " " + state : "");
+      }
+
+      function updateStats() {
+        mineCounterElement.textContent =
+          String(totalMines - flagCount).padStart(3, "0");
+
+        timerElement.textContent = formatTime(elapsed);
+
+        const best = bestTimes[difficultyElement.value];
+        bestTimeElement.textContent =
+          Number.isFinite(best) ? formatTime(best) : "---";
+      }
+
+      function stopTimer() {
+        if (timerInterval !== null) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+      }
+
+      function startTimer() {
+        if (timerInterval !== null || gameOver) return;
+
+        timerInterval = setInterval(() => {
+          elapsed++;
+          updateStats();
+        }, 1000);
+      }
+
+      function getNeighbors(index) {
+        const r = Math.floor(index / cols);
+        const c = index % cols;
+        const result = [];
+
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            if (dr === 0 && dc === 0) continue;
+
+            const nr = r + dr;
+            const nc = c + dc;
+
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+              result.push(nr * cols + nc);
+            }
+          }
+        }
+
+        return result;
+      }
+
+      function placeMines(safeIndex) {
+        const protectedCells = new Set([
+          safeIndex,
+          ...getNeighbors(safeIndex)
+        ]);
+
+        let available = [];
+
+        for (let i = 0; i < cells.length; i++) {
+          if (!protectedCells.has(i)) available.push(i);
+        }
+
+        // Keep the first click and its immediate neighbors safe whenever
+        // the selected board size allows it.
+        if (available.length < totalMines) {
+          available = cells
+            .map((_, index) => index)
+            .filter(index => index !== safeIndex);
+        }
+
+        for (let i = available.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [available[i], available[j]] = [available[j], available[i]];
+        }
+
+        for (let i = 0; i < totalMines; i++) {
+          cells[available[i]].mine = true;
+        }
+
+        cells.forEach((cell, index) => {
+          if (cell.mine) return;
+
+          cell.adjacent = getNeighbors(index).filter(
+            neighbor => cells[neighbor].mine
+          ).length;
+        });
+      }
+
+      function createBoard() {
+        boardElement.innerHTML = "";
+        boardElement.style.gridTemplateColumns =
+          `repeat(${cols}, var(--unused, 32px))`;
+
+        // Create real buttons so the board remains keyboard accessible.
+        cells.forEach((cell, index) => {
+          const button = document.createElement("button");
+
+          button.type = "button";
+          button.className = "cell";
+          button.dataset.index = String(index);
+          button.setAttribute(
+            "aria-label",
+            `Row ${Math.floor(index / cols) + 1}, column ${index % cols + 1}, hidden square`
+          );
+
+          button.addEventListener("click", () => {
+            if (gameOver) return;
+
+            if (flagMode) {
+              toggleFlag(index);
+            } else {
+              openCell(index);
+            }
+          });
+
+          button.addEventListener("contextmenu", event => {
+            event.preventDefault();
+            if (!gameOver) toggleFlag(index);
+          });
+
+          // Long press on touchscreens to flag without enabling Flag Mode.
+          button.addEventListener("touchstart", () => {
+            touchPressTimer = setTimeout(() => {
+              if (!gameOver) toggleFlag(index);
+              touchPressTimer = null;
+            }, 500);
+          }, { passive: true });
+
+          ["touchend", "touchmove", "touchcancel"].forEach(type => {
+            button.addEventListener(type, () => {
+              if (touchPressTimer !== null) {
+                clearTimeout(touchPressTimer);
+                touchPressTimer = null;
+              }
+            }, { passive: true });
+          });
+
+          boardElement.appendChild(button);
+          cell.element = button;
+        });
+      }
+
+      function renderCell(index) {
+        const cell = cells[index];
+        const element = cell.element;
+
+        element.className = "cell";
+        element.textContent = "";
+        element.disabled = false;
+
+        const row = Math.floor(index / cols) + 1;
+        const col = index % cols + 1;
+
+        if (cell.revealed) {
+          element.classList.add("revealed");
+          element.disabled = true;
+
+          if (cell.mine) {
+            element.textContent = "💣";
+            element.classList.add("mine-shown");
+            element.setAttribute("aria-label", `Row ${row}, column ${col}, mine`);
+          } else if (cell.adjacent > 0) {
+            element.textContent = String(cell.adjacent);
+            element.classList.add("n" + cell.adjacent);
+            element.setAttribute(
+              "aria-label",
+              `Row ${row}, column ${col}, ${cell.adjacent} neighboring mines`
+            );
+          } else {
+            element.setAttribute("aria-label", `Row ${row}, column ${col}, empty safe square`);
+          }
+
+          if (index === explodedIndex) {
+            element.classList.add("exploded");
+          }
+
+          return;
+        }
+
+        if (cell.flagged) {
+          element.textContent = "🚩";
+          element.classList.add("flagged");
+          element.setAttribute("aria-label", `Row ${row}, column ${col}, flagged`);
+        } else {
+          element.setAttribute("aria-label", `Row ${row}, column ${col}, hidden square`);
+        }
+
+        if (gameOver) {
+          element.disabled = true;
+
+          if (cell.mine && !cell.flagged) {
+            element.textContent = "💣";
+            element.classList.add("mine-shown");
+            element.setAttribute("aria-label", `Row ${row}, column ${col}, mine`);
+          } else if (!cell.mine && cell.flagged) {
+            element.textContent = "✕";
+            element.classList.add("wrong-flag");
+            element.setAttribute("aria-label", `Row ${row}, column ${col}, incorrect flag`);
+          }
+        }
+      }
+
+      function renderAll() {
+        cells.forEach((_, index) => renderCell(index));
+        updateStats();
+      }
+
+      function toggleFlag(index) {
+        const cell = cells[index];
+
+        if (gameOver || cell.revealed) return;
+
+        if (!gameStarted) {
+          // Allow flagging before the first reveal without starting the timer.
+        }
+
+        cell.flagged = !cell.flagged;
+        flagCount += cell.flagged ? 1 : -1;
+
+        renderCell(index);
+        updateStats();
+
+        if (flagMode) {
+          setStatus("🚩 Flag placed or removed. Keep reading the number clues.");
+        }
+      }
+
+      function openCell(index) {
+        const cell = cells[index];
+
+        if (gameOver || cell.revealed || cell.flagged) return;
+
+        if (!gameStarted) {
+          gameStarted = true;
+          placeMines(index);
+          startTimer();
+        }
+
+        if (cell.mine) {
+          explodedIndex = index;
+          cell.revealed = true;
+          renderAll();
+          endGame(false);
+          return;
+        }
+
+        revealSafeCells(index);
+        renderAll();
+
+        if (revealedCount === cells.length - totalMines) {
+          endGame(true);
+        } else {
+          setStatus("Keep going! Use the numbers to identify safe squares.");
+        }
+      }
+
+      function revealSafeCells(startIndex) {
+        const stack = [startIndex];
+
+        while (stack.length) {
+          const index = stack.pop();
+          const cell = cells[index];
+
+          if (cell.revealed || cell.flagged || cell.mine) continue;
+
+          cell.revealed = true;
+          revealedCount++;
+
+          if (cell.adjacent === 0) {
+            getNeighbors(index).forEach(neighbor => {
+              const neighborCell = cells[neighbor];
+
+              if (!neighborCell.revealed && !neighborCell.flagged && !neighborCell.mine) {
+                stack.push(neighbor);
+              }
+            });
+          }
+        }
+      }
+
+      function endGame(won) {
+        gameOver = true;
+        stopTimer();
+
+        if (won) {
+          setStatus("🎉 You win! You cleared every safe square in " + formatTime(elapsed) + ".", "win");
+
+          const key = difficultyElement.value;
+          if (!Number.isFinite(bestTimes[key]) || elapsed < bestTimes[key]) {
+            bestTimes[key] = elapsed;
+
+            try {
+              localStorage.setItem(
+                "gameso-minesweeper-best",
+                JSON.stringify(bestTimes)
+              );
+            } catch (error) {
+              // Best times are optional if storage is disabled.
+            }
+          }
+        } else {
+          setStatus("💥 Boom! You hit a mine. Start a new game and try again.", "lose");
+        }
+
+        renderAll();
+      }
+
+      function newGame() {
+        stopTimer();
+
+        const settings = difficulties[difficultyElement.value];
+
+        rows = settings.rows;
+        cols = settings.cols;
+        totalMines = settings.mines;
+        cells = Array.from({ length: rows * cols }, () => ({
+          mine: false,
+          adjacent: 0,
+          revealed: false,
+          flagged: false,
+          element: null
+        }));
+
+        gameStarted = false;
+        gameOver = false;
+        flagMode = false;
+        elapsed = 0;
+        revealedCount = 0;
+        flagCount = 0;
+        explodedIndex = -1;
+
+        openModeButton.classList.add("active");
+        openModeButton.setAttribute("aria-pressed", "true");
+        flagModeButton.classList.remove("active");
+        flagModeButton.setAttribute("aria-pressed", "false");
+
+        createBoard();
+        updateStats();
+
+        setStatus("Choose a square to begin. Your first click is always safe!");
+      }
+
+      openModeButton.addEventListener("click", () => {
+        flagMode = false;
+
+        openModeButton.classList.add("active");
+        openModeButton.setAttribute("aria-pressed", "true");
+        flagModeButton.classList.remove("active");
+        flagModeButton.setAttribute("aria-pressed", "false");
+
+        setStatus("👆 Open Mode: tap or click a hidden square to reveal it.");
+      });
+
+      flagModeButton.addEventListener("click", () => {
+        flagMode = true;
+
+        flagModeButton.classList.add("active");
+        flagModeButton.setAttribute("aria-pressed", "true");
+        openModeButton.classList.remove("active");
+        openModeButton.setAttribute("aria-pressed", "false");
+
+        setStatus("🚩 Flag Mode: tap or click hidden squares to mark suspected mines.");
+      });
+
+      document.getElementById("newGame").addEventListener("click", newGame);
+      document.getElementById("resetButton").addEventListener("click", newGame);
+
+      difficultyElement.addEventListener("change", newGame);
+
+      document.getElementById("hintButton").addEventListener("click", () => {
+        document.getElementById("faq-heading").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      newGame();
+    })();
+  </script>
 </body>
-
 </html>
