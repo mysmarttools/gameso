@@ -3,553 +3,1005 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Play Spades Card Game Online Free | Gameso</title>
-<meta name="description" content="Play Spades Card Game online for free at Gameso. Bid your tricks, play cards, beat computer opponents and enjoy this classic strategy card game.">
+<title>Drift Boss – Play Free Online Drifting Game | Gameso</title>
+<meta name="description" content="Play Drift Boss online for free on Gameso! Hold and release to drift around sharp turns, collect coins, avoid falling off the road, and beat your best score.">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://gameso.vercel.app/games/spades-card-game/">
-<meta name="theme-color" content="#080b14">
-  
+<link rel="canonical" href="https://gameso.vercel.app/games/drift-boss/">
+
+<meta property="og:title" content="Drift Boss – Free Online Drifting Game | Gameso">
+<meta property="og:description" content="Master sharp turns in Drift Boss. Play this free drifting game on desktop or mobile.">
+<meta property="og:url" content="https://gameso.vercel.app/games/drift-boss/">
+<meta property="og:type" content="website">
 
 <style>
 :root {
   --bg:#080b14;
   --card:#121827;
-  --hover:#182137;
-  --text:#fff;
+  --card-hover:#182137;
+  --text:#ffffff;
   --muted:#9ba4b6;
   --primary:#6c5ce7;
   --accent:#00d4ff;
-  --border:rgba(255,255,255,.09);
-  --green:#087b55;
+  --border:rgba(255,255,255,.08);
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;line-height:1.5}
-button{font:inherit}
-a{color:var(--accent);text-decoration:none}
-.container{width:min(1050px,94%);margin:auto}
-header{background:#0d1220;border-bottom:1px solid var(--border);padding:15px 0}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font-size:26px;font-weight:900;color:white}
-.logo span{color:var(--primary)}
-.nav a:last-child{font-size:14px}
-.hero{text-align:center;padding:26px 0 20px}
-.hero h1{font-size:clamp(27px,5vw,39px);margin:0 0 8px}
-.hero p{color:var(--muted);max-width:680px;margin:8px auto}
-.tag{display:inline-block;color:#d1caff;background:#211b48;border:1px solid #5144a2;border-radius:30px;padding:4px 12px;font-size:12px;margin-bottom:10px}
-.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:18px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.toolbar h2{margin:0;font-size:20px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--primary);color:white;font-weight:bold;cursor:pointer}
-.btn.secondary{background:#202a40;border:1px solid var(--border)}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.scores{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.score{background:#0b1020;border:1px solid var(--border);border-radius:11px;padding:12px}
-.score label{display:block;color:var(--muted);font-size:12px;font-weight:bold}
-.score strong{font-size:27px}
-.score small{display:block;color:var(--muted);font-size:12px}
-.table{position:relative;background:radial-gradient(ellipse,#147653,#07513b 72%);border:5px solid #202a3d;border-radius:18px;min-height:390px;overflow:hidden;padding:10px}
-.table:after{content:"";position:absolute;inset:8px;border:1px solid #ffffff26;border-radius:12px;pointer-events:none}
-.seat{position:absolute;z-index:1;background:#08111de8;border:1px solid #ffffff22;border-radius:9px;text-align:center;padding:6px 10px;min-width:95px;font-size:12px}
-.seat b{display:block;font-size:13px}
-.seat small{color:#d0d7e4}
-.seat.active{border-color:var(--accent);box-shadow:0 0 0 2px #00d4ff30}
-.north{top:12px;left:50%;transform:translateX(-50%)}
-.south{bottom:12px;left:50%;transform:translateX(-50%)}
-.west{left:8px;top:50%;transform:translateY(-50%)}
-.east{right:8px;top:50%;transform:translateY(-50%)}
-.backcards{display:flex;justify-content:center;margin-top:3px}
-.back{width:10px;height:14px;border-radius:2px;background:repeating-linear-gradient(45deg,#6c5ce7,#6c5ce7 3px,#33277d 3px,#33277d 6px);border:1px solid white;margin-left:-3px}
-.center{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(2,62px);gap:8px}
-.played{height:83px;width:62px;border-radius:7px;background:#fff;color:#171717;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 8px #0005;font-size:22px;font-weight:bold;line-height:1.1}
-.played small{font-size:10px}
-.red{color:#d83249!important}
-.status{margin:12px 0;background:#0b1020;border:1px solid var(--border);padding:11px 13px;border-radius:10px;font-size:14px;min-height:45px}
-.bidbox{background:#0b1020;border:1px solid var(--border);border-radius:11px;padding:13px;margin:12px 0}
-.bidbox h3{font-size:16px;margin:0 0 4px}
-.bidbox p{color:var(--muted);font-size:13px;margin:0 0 10px}
-.bidbuttons{display:flex;flex-wrap:wrap;gap:6px}
-.bidbuttons button{background:#202a40;color:white;border:1px solid var(--border);border-radius:7px;padding:8px 10px;cursor:pointer}
-.bidbuttons button:hover{background:var(--primary)}
-.handheading{display:flex;justify-content:space-between;gap:10px;margin:15px 0 8px;font-weight:bold}
-.handheading small{color:var(--muted);font-weight:normal}
-.hand{display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;gap:5px;padding:12px 5px;background:#0b1020;border:1px solid var(--border);border-radius:11px;min-height:100px}
-.card{height:72px;width:47px;flex:0 0 47px;border:1px solid #ddd;border-radius:7px;background:#fff;color:#151515;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:4px 2px;cursor:pointer;box-shadow:0 2px 5px #0003;transition:transform .12s}
-.card .rank{align-self:flex-start;margin-left:3px;font-size:13px;font-weight:900;line-height:1}
-.card .symbol{font-size:24px;line-height:1}
-.card:hover:not(:disabled){transform:translateY(-7px);outline:2px solid var(--accent)}
-.card:disabled{opacity:.35;cursor:not-allowed}
-.hint{font-size:12px;color:var(--muted);margin-top:8px}
-.content{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:20px;margin-top:18px}
-.content h2{font-size:23px;margin:0 0 10px}
-.content h3{font-size:17px;margin:17px 0 5px}
-.content p,.content li{color:#c1c9d8}
-.content li{margin-bottom:5px}
-.related{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.related a{padding:13px;background:#0b1020;border:1px solid var(--border);border-radius:9px;font-weight:bold}
-.faq{border-bottom:1px solid var(--border);padding:12px 0}
-.faq:last-child{border:0}
-.faq h3{margin:0 0 5px}
-.faq p{margin:0}
-footer{text-align:center;color:var(--muted);border-top:1px solid var(--border);margin-top:28px;padding:24px 0;font-size:13px}
-@media(max-width:600px){
- .panel{padding:10px}
- .table{min-height:350px}
- .seat{min-width:75px;padding:5px;font-size:11px}
- .seat b{font-size:12px}
- .west{left:4px}.east{right:4px}
- .center{grid-template-columns:repeat(2,53px);gap:6px}
- .played{width:53px;height:73px}
- .card{width:39px;flex-basis:39px;height:63px}
- .card .symbol{font-size:21px}
- .card .rank{font-size:12px}
- .hand{gap:3px;padding:9px 3px}
- .related{grid-template-columns:1fr}
- .content{padding:15px}
+
+* { box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.6;
+}
+
+a {
+  color:var(--accent);
+  text-decoration:none;
+}
+
+a:hover { text-decoration:underline; }
+
+.site-header {
+  border-bottom:1px solid var(--border);
+  background:#0b1020;
+}
+
+.nav {
+  max-width:1100px;
+  margin:auto;
+  padding:15px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.logo {
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:.4px;
+  color:#fff;
+}
+
+.logo span { color:var(--accent); }
+
+.nav-links {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  font-size:14px;
+  color:var(--muted);
+}
+
+main {
+  max-width:1100px;
+  margin:0 auto;
+  padding:22px 16px 50px;
+}
+
+.breadcrumb {
+  font-size:13px;
+  color:var(--muted);
+  margin:0 0 12px;
+}
+
+.hero {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+
+h1 {
+  font-size:clamp(27px,4vw,38px);
+  line-height:1.15;
+  margin:0 0 7px;
+}
+
+.subtitle {
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+}
+
+.pill {
+  display:inline-block;
+  background:rgba(108,92,231,.18);
+  border:1px solid rgba(108,92,231,.45);
+  color:#d8d2ff;
+  padding:5px 11px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.game-shell {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 18px 55px rgba(0,0,0,.22);
+}
+
+.game-toolbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+}
+
+.stats {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.stat {
+  background:#0b1020;
+  border:1px solid var(--border);
+  padding:6px 11px;
+  border-radius:9px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.stat strong {
+  color:#fff;
+  margin-left:4px;
+}
+
+.actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+button {
+  font:inherit;
+  cursor:pointer;
+  border:0;
+  border-radius:9px;
+  padding:9px 13px;
+  font-weight:700;
+  color:#fff;
+  background:var(--primary);
+}
+
+button:hover { filter:brightness(1.1); }
+
+button.secondary {
+  background:#202a3e;
+  border:1px solid var(--border);
+}
+
+#gameArea {
+  position:relative;
+  background:#0a1420;
+  touch-action:none;
+  user-select:none;
+}
+
+canvas {
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  max-height:620px;
+  touch-action:none;
+}
+
+.overlay {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(4,8,17,.52);
+  text-align:center;
+}
+
+.overlay.hidden { display:none; }
+
+.overlay-card {
+  max-width:360px;
+  width:100%;
+  padding:24px 20px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:16px;
+  background:rgba(13,19,35,.94);
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+
+.overlay-card h2 {
+  margin:0 0 8px;
+  font-size:27px;
+}
+
+.overlay-card p {
+  margin:0 0 17px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.primary-btn {
+  background:linear-gradient(135deg,var(--primary),#4a8bff);
+  padding:11px 22px;
+}
+
+#gameMessage {
+  font-size:12px;
+  color:#dce6f8;
+  margin-top:12px;
+}
+
+.howto {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin:17px 0;
+}
+
+.info-card,
+.content-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:17px;
+}
+
+.info-card strong {
+  display:block;
+  margin-bottom:5px;
+}
+
+.info-card p {
+  color:var(--muted);
+  font-size:14px;
+  margin:0;
+}
+
+.content-card {
+  margin-top:17px;
+  padding:22px;
+}
+
+h2 {
+  font-size:23px;
+  margin:0 0 10px;
+}
+
+h3 {
+  font-size:17px;
+  margin:18px 0 6px;
+}
+
+.content-card p,
+.content-card li {
+  color:#c2cad8;
+  font-size:15px;
+}
+
+.content-card ul { padding-left:22px; }
+
+.faq details {
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.faq details:last-child { border-bottom:0; }
+
+.faq summary {
+  font-weight:700;
+  cursor:pointer;
+}
+
+.faq details p { margin:8px 0 0; }
+
+.more-games {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.more-games a {
+  display:inline-block;
+  background:#0b1020;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:9px 12px;
+}
+
+footer {
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  text-align:center;
+  padding:22px 14px;
+  font-size:13px;
+}
+
+@media(max-width:650px) {
+  .nav {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .nav-links { gap:12px; }
+
+  .howto { grid-template-columns:1fr; }
+
+  .content-card { padding:17px; }
+
+  canvas { aspect-ratio:4/3; }
+
+  .game-toolbar { align-items:flex-start; }
+
+  .stat { padding:5px 8px; }
 }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"VideoGame",
+  "name":"Drift Boss",
+  "url":"https://gameso.vercel.app/games/drift-boss/",
+  "description":"A free browser drifting game where players steer along a winding road and try to beat their best score.",
+  "genre":["Arcade","Racing"],
+  "gamePlatform":["Web browser","Mobile browser"],
+  "applicationCategory":"Game"
+}
+</script>
 </head>
+
 <body>
-<header>
- <div class="container nav">
-  <a class="logo" href="/">Game<span>so</span></a>
-  <a href="/">← All Games</a>
- </div>
+<header class="site-header">
+  <nav class="nav" aria-label="Main navigation">
+    <a class="logo" href="/" aria-label="Gameso home">Game<span>so</span></a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/#games">All Games</a>
+      <a href="/games/snake/">Snake</a>
+      <a href="/games/2048/">2048</a>
+    </div>
+  </nav>
 </header>
 
-<main class="container">
- <section class="hero">
-  <span class="tag">♠ FREE CARD GAME</span>
-  <h1>Spades Card Game Online</h1>
-  <p>Bid your tricks, play your best cards, and beat the computer opponents in this classic four-player card game.</p>
- </section>
-
- <section class="panel">
-  <div class="toolbar">
-   <h2>♠ Spades Table</h2>
-   <div class="actions">
-    <button class="btn secondary" id="rulesBtn">How to Play</button>
-    <button class="btn" id="restartBtn">New Game</button>
-   </div>
+<main>
+  <div class="breadcrumb">
+    <a href="/">Home</a> /
+    <a href="/#games">Racing Games</a> /
+    Drift Boss
   </div>
 
-  <div class="scores">
-   <div class="score">
-    <label>YOUR TEAM · YOU + NORTH</label>
-    <strong id="score0">0</strong>
-    <small id="detail0">Bid: — · Tricks: 0 · Bags: 0</small>
-   </div>
-   <div class="score">
-    <label>OPPONENTS · WEST + EAST</label>
-    <strong id="score1">0</strong>
-    <small id="detail1">Bid: — · Tricks: 0 · Bags: 0</small>
-   </div>
+  <div class="hero">
+    <div>
+      <h1>Drift Boss</h1>
+      <p class="subtitle">Hold, release, drift — how far can you go?</p>
+    </div>
+    <span class="pill">🏁 FREE ARCADE GAME</span>
   </div>
 
-  <div class="table" aria-label="Spades playing table">
-   <div class="seat north" id="seat2"><b>North · Partner</b><small id="info2">13 cards</small><div class="backcards" id="backs2"></div></div>
-   <div class="seat west" id="seat1"><b>West · CPU</b><small id="info1">13 cards</small><div class="backcards" id="backs1"></div></div>
-   <div class="seat east" id="seat3"><b>East · CPU</b><small id="info3">13 cards</small><div class="backcards" id="backs3"></div></div>
-   <div class="seat south" id="seat0"><b>You · South</b><small id="info0">13 cards</small></div>
-   <div class="center" id="center" aria-live="polite"></div>
+  <section class="game-shell" aria-label="Drift Boss game">
+    <div class="game-toolbar">
+      <div class="stats">
+        <div class="stat">🏆 Score <strong id="score">0</strong></div>
+        <div class="stat">🪙 Coins <strong id="coins">0</strong></div>
+        <div class="stat">⭐ Best <strong id="best">0</strong></div>
+      </div>
+
+      <div class="actions">
+        <button class="secondary" id="soundBtn" type="button">🔊 Sound: Off</button>
+        <button class="secondary" id="restartBtn" type="button">↻ Restart</button>
+        <button class="secondary" id="fullBtn" type="button">⛶ Fullscreen</button>
+      </div>
+    </div>
+
+    <div id="gameArea">
+      <canvas id="game" width="960" height="540" aria-label="Drift Boss game canvas"></canvas>
+
+      <div class="overlay" id="overlay">
+        <div class="overlay-card">
+          <h2 id="overlayTitle">Ready to Drift?</h2>
+          <p id="overlayText">Stay on the winding road. Hold to steer right and release to steer left.</p>
+          <button class="primary-btn" id="startBtn" type="button">▶ Play Now</button>
+          <div id="gameMessage">Desktop: hold SPACE or click · Mobile: touch and hold</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="howto">
+    <div class="info-card">
+      <strong>🖱️ Hold to drift</strong>
+      <p>Hold Space, left-click, or touch the game area to steer right.</p>
+    </div>
+    <div class="info-card">
+      <strong>↩️ Release to turn</strong>
+      <p>Release your control to steer left. Change direction before the next bend.</p>
+    </div>
+    <div class="info-card">
+      <strong>🪙 Beat your best</strong>
+      <p>Stay on the road, collect coins, and try to set a new high score.</p>
+    </div>
   </div>
 
-  <div class="status" id="status" role="status" aria-live="polite">Choose your bid to begin the game.</div>
+  <article class="content-card">
+    <h2>How to Play Drift Boss</h2>
+    <p>Drift Boss is a one-button arcade driving game about timing and quick reactions. Your car keeps moving while the road bends from side to side. Your task is to keep the car on the track for as long as possible. One mistimed turn can send you off the edge, so watch the road ahead and make small corrections.</p>
 
-  <div class="bidbox" id="bidbox">
-   <h3>Make Your Bid</h3>
-   <p>How many tricks do you expect to win? Choose 0 for Nil.</p>
-   <div class="bidbuttons" id="bidbuttons"></div>
-  </div>
+    <h3>Game Controls</h3>
+    <ul>
+      <li><strong>PC:</strong> Hold the Spacebar or left mouse button to steer right.</li>
+      <li><strong>Phone or tablet:</strong> Touch and hold the game area to steer right.</li>
+      <li><strong>Release:</strong> Let go to steer left.</li>
+      <li><strong>Restart:</strong> Use the Restart button to try again at any time.</li>
+    </ul>
 
-  <div class="handheading"><div>Your Cards</div><small id="cardCount">13 cards</small></div>
-  <div class="hand" id="hand"></div>
-  <div class="hint" id="hint">Choose your bid first. Then click a card when it is your turn.</div>
- </section>
+    <h3>Tips for a Higher Score</h3>
+    <ul>
+      <li>Look ahead at the upcoming curve instead of focusing only on the car.</li>
+      <li>Use short holds when the road changes direction quickly.</li>
+      <li>Keep your car near the middle of the road before a difficult bend.</li>
+      <li>Collect coins when they are on a safe path; avoid risky moves near the edge.</li>
+      <li>Practice the hold-and-release rhythm to improve your personal best.</li>
+    </ul>
 
- <section class="content" id="instructions">
-  <h2>How to Play Spades</h2>
-  <p>Spades is a trick-taking card game for four players. You and your North partner form one team, while West and East form the opposing team. Each player receives 13 cards from a standard 52-card deck.</p>
-  <h3>1. Make a bid</h3>
-  <p>Predict how many tricks you can win. Your bid combines with your partner's bid to make your team's target. A Nil bid means you aim to win zero tricks.</p>
-  <h3>2. Follow suit</h3>
-  <p>The first card played sets the suit for the trick. If you have a card in that suit, you must play it. If you do not, you may play another suit or use a Spade.</p>
-  <h3>3. Spades are trump</h3>
-  <p>The highest Spade wins when a Spade is played. Otherwise, the highest card in the suit led wins. Aces are high.</p>
-  <h3>4. Score points</h3>
-  <p>Meeting your team's bid earns 10 points per bid trick plus one point per extra trick. Missing your bid costs 10 points per bid trick. Extra tricks count as bags; every 10 bags results in a 100-point penalty in this version. A successful Nil earns 100 points; a failed Nil costs 100.</p>
-  <h3>Helpful tips</h3>
-  <ul>
-   <li>Count your high cards and Spades before bidding.</li>
-   <li>Save powerful Spades for tricks that matter.</li>
-   <li>Follow suit whenever possible.</li>
-   <li>Watch your team's target and avoid unnecessary bags.</li>
-  </ul>
- </section>
+    <h3>Why Play Drift Boss on Gameso?</h3>
+    <p>Play this lightweight browser version directly on Gameso without installing a separate app. The controls work with a keyboard, mouse, or touchscreen, making it easy to try a quick run on desktop and mobile devices.</p>
+  </article>
 
- <section class="content">
-  <h2>More Free Games</h2>
-  <div class="related">
-   <a href="/games/2048/">🔢 Play 2048</a>
-   <a href="/games/snake/">🐍 Play Snake</a>
-   <a href="/games/pacman/">🟡 Play Maze Chase</a>
-  </div>
- </section>
+  <section class="content-card faq">
+    <h2>Frequently Asked Questions</h2>
 
- <section class="content">
-  <h2>Spades Card Game FAQs</h2>
-  <div class="faq"><h3>Is this Spades game free?</h3><p>Yes. Play directly in your browser without downloading or installing anything.</p></div>
-  <div class="faq"><h3>Can I play against computer opponents?</h3><p>Yes. Three computer-controlled players take part, including your North partner.</p></div>
-  <div class="faq"><h3>How many cards does each player get?</h3><p>Each player gets 13 cards from a standard 52-card deck.</p></div>
-  <div class="faq"><h3>What does Nil mean?</h3><p>Nil means you predict that you will win no tricks. This version awards 100 points for a successful Nil and deducts 100 for a failed Nil.</p></div>
-  <div class="faq"><h3>How can I win?</h3><p>The first team to reach 500 points wins, if its score is higher than the opposing team's score at the end of the hand.</p></div>
- </section>
+    <details>
+      <summary>Is Drift Boss free to play?</summary>
+      <p>Yes. This Gameso browser version is free to play, with no account or download required.</p>
+    </details>
+
+    <details>
+      <summary>How do I control Drift Boss on a computer?</summary>
+      <p>Hold the Spacebar or left mouse button to steer right. Release to steer left. Make sure the game area is active before using the Spacebar.</p>
+    </details>
+
+    <details>
+      <summary>Can I play Drift Boss on mobile?</summary>
+      <p>Yes. Open the game in a mobile browser and touch and hold the game area to steer. Lift your finger to change direction.</p>
+    </details>
+
+    <details>
+      <summary>What is the goal of Drift Boss?</summary>
+      <p>Stay on the winding road for as long as possible, collect coins along the way, and beat your best score.</p>
+    </details>
+
+    <details>
+      <summary>Does Drift Boss save my high score?</summary>
+      <p>Your best score is stored locally in this browser on your device. Clearing browser site data may remove it.</p>
+    </details>
+  </section>
+
+  <section class="content-card">
+    <h2>More Free Games</h2>
+    <div class="more-games">
+      <a href="/games/snake/">🐍 Snake</a>
+      <a href="/games/2048/">🔢 2048</a>
+      <a href="/games/pacman/">👾 Pac-Man</a>
+      <a href="/games/flappy-bird/">🐦 Flappy Bird</a>
+      <a href="/games/rock-paper-scissors/">✊ Rock Paper Scissors</a>
+    </div>
+  </section>
 </main>
 
-<footer><div class="container">© <span id="year"></span> Gameso · <a href="/">Explore More Games</a></div></footer>
+<footer>© <span id="year"></span> Gameso · Free browser games</footer>
 
 <script>
-"use strict";
-
 (() => {
-  const SUITS = ["♣","♦","♥","♠"];
-  const NAMES = ["You","West","North","East"];
+  "use strict";
+
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
   const $ = id => document.getElementById(id);
+  const overlay = $("overlay");
 
-  let hands, bids, tricks, scores, bags, currentTrick;
-  let turn, dealer, spadesBroken, phase, busy, timer;
-  let lastTrickWinner;
+  const scoreEl = $("score");
+  const coinsEl = $("coins");
+  const bestEl = $("best");
 
-  function makeDeck() {
-    const cards = [];
-    const ranks = [
-      ["2",2],["3",3],["4",4],["5",5],["6",6],["7",7],
-      ["8",8],["9",9],["10",10],["J",11],["Q",12],["K",13],["A",14]
-    ];
-    SUITS.forEach(suit => ranks.forEach(([rank,value]) => cards.push({suit,rank,value})));
-    return cards;
+  const W = canvas.width;
+  const H = canvas.height;
+  const roadWidth = 230;
+  const playerY = H * 0.72;
+
+  let running = false;
+  let holding = false;
+  let score = 0;
+  let coins = 0;
+  let best = 0;
+  let road = [];
+  let carX = W / 2;
+  let speed = 3.2;
+  let frame = 0;
+  let coinItems = [];
+  let raf = 0;
+  let soundOn = false;
+  let audioCtx = null;
+
+  try {
+    best = Number(localStorage.getItem("gamesoDriftBossBest") || 0) || 0;
+  } catch (e) {}
+
+  bestEl.textContent = best;
+  $("year").textContent = new Date().getFullYear();
+
+  function rand(min, max) {
+    return min + Math.random() * (max - min);
   }
 
-  function shuffle(cards) {
-    for(let i=cards.length-1;i>0;i--){
-      const j=Math.floor(Math.random()*(i+1));
-      [cards[i],cards[j]]=[cards[j],cards[i]];
+  function newRoad() {
+    road = [];
+    let center = W / 2;
+
+    for (let y = -80; y <= H + 100; y += 12) {
+      center += rand(-1, 1) * 8;
+      center = Math.max(W * 0.31, Math.min(W * 0.69, center));
+      road.push({ y, x: center, w: roadWidth });
     }
-    return cards;
+
+    carX = W / 2;
   }
 
-  function sortHand(hand) {
-    hand.sort((a,b)=>SUITS.indexOf(a.suit)-SUITS.indexOf(b.suit)||b.value-a.value);
+  function resetGame() {
+    score = 0;
+    coins = 0;
+    speed = 3.2;
+    frame = 0;
+    coinItems = [];
+    holding = false;
+    running = true;
+
+    newRoad();
+    overlay.classList.add("hidden");
+    updateStats();
+
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(loop);
   }
 
-  function deal() {
-    hands=[[],[],[],[]];
-    const deck=shuffle(makeDeck());
-    deck.forEach((card,i)=>hands[i%4].push(card));
-    hands.forEach(sortHand);
+  function updateStats() {
+    scoreEl.textContent = score;
+    coinsEl.textContent = coins;
+    bestEl.textContent = best;
   }
 
-  function team(player){return player===0||player===2?0:1}
-  function teamPlayers(t){return t===0?[0,2]:[1,3]}
-  function teamBid(t){return teamPlayers(t).reduce((s,p)=>s+(bids[p]||0),0)}
-  function teamTricks(t){return teamPlayers(t).reduce((s,p)=>s+tricks[p],0)}
-
-  function estimateBid(hand) {
-    let n=0;
-    const spades=hand.filter(c=>c.suit==="♠");
-    hand.forEach(c=>{
-      if(c.value===14)n++;
-      else if(c.value===13 && hand.some(x=>x.suit===c.suit&&x.value===14))n++;
-      else if(c.suit==="♠"&&c.value>=12)n++;
-      else if(c.suit==="♠"&&c.value>=10)n+=0.5;
-    });
-    if(spades.length>=5)n+=0.5;
-    return Math.max(0,Math.min(13,Math.round(n)));
-  }
-
-  function newGame() {
-    clearTimeout(timer);
-    scores=[0,0];
-    bags=[0,0];
-    dealer=0;
-    startHand();
-  }
-
-  function startHand() {
-    clearTimeout(timer);
-    deal();
-    bids=[null,null,null,null];
-    tricks=[0,0,0,0];
-    currentTrick=[];
-    spadesBroken=false;
-    busy=false;
-    phase="bidding";
-    turn=(dealer+1)%4;
-    lastTrickWinner=null;
-    render();
-    setStatus("Hand started. Choose your bid from 0 to 13.");
-    if(turn!==0)runAI();
-  }
-
-  function setStatus(message){$("status").textContent=message}
-
-  function legalCards(player) {
-    const hand=hands[player];
-    if(!hand.length)return [];
-    if(currentTrick.length){
-      const lead=currentTrick[0].card.suit;
-      const follow=hand.filter(c=>c.suit===lead);
-      if(follow.length)return follow;
-      return hand.slice();
+  function saveBest() {
+    if (score > best) {
+      best = score;
+      try {
+        localStorage.setItem("gamesoDriftBossBest", String(best));
+      } catch (e) {}
     }
-    if(!spadesBroken&&hand.some(c=>c.suit!=="♠")){
-      return hand.filter(c=>c.suit!=="♠");
+    updateStats();
+  }
+
+  function addRoadSegment() {
+    const last = road[0];
+    const delta = rand(-1, 1) * 18;
+    const x = Math.max(W * 0.27, Math.min(W * 0.73, last.x + delta));
+    road.unshift({ y: -12, x, w: roadWidth });
+  }
+
+  function roadAt(y) {
+    for (let i = 0; i < road.length - 1; i++) {
+      const a = road[i];
+      const b = road[i + 1];
+
+      if (y >= a.y && y <= b.y) {
+        const t = (y - a.y) / (b.y - a.y || 1);
+        return {
+          x: a.x + (b.x - a.x) * t,
+          w: a.w + (b.w - a.w) * t
+        };
+      }
     }
-    return hand.slice();
+
+    return road[road.length - 1] || { x: W / 2, w: roadWidth };
   }
 
-  function same(a,b){return a&&b&&a.suit===b.suit&&a.value===b.value}
+  function drawBackground() {
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, "#10283a");
+    sky.addColorStop(1, "#07111d");
 
-  function chooseBid(amount) {
-    if(phase!=="bidding"||bids[0]!==null)return;
-    bids[0]=amount;
-    for(let p=1;p<4;p++)bids[p]=estimateBid(hands[p]);
-    phase="playing";
-    turn=(dealer+1)%4;
-    render();
-    setStatus("Bids complete. Your team bid "+teamBid(0)+" tricks; opponents bid "+teamBid(1)+".");
-    if(turn===0)setStatus("Your turn. Choose a legal card.");
-    else runAI();
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = "rgba(0,212,255,.06)";
+    for (let i = 0; i < 12; i++) {
+      ctx.fillRect((i * 113 + frame * 0.15) % W, 0, 1, H);
+    }
+
+    ctx.fillStyle = "#0b241f";
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(W * 0.24, 0);
+    ctx.lineTo(W * 0.18, H);
+    ctx.lineTo(0, H);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(W, 0);
+    ctx.lineTo(W * 0.76, 0);
+    ctx.lineTo(W * 0.82, H);
+    ctx.lineTo(W, H);
+    ctx.fill();
   }
 
-  function playCard(player,card) {
-    if(phase!=="playing"||busy||turn!==player)return;
-    if(!legalCards(player).some(c=>same(c,card)))return;
-    const idx=hands[player].findIndex(c=>same(c,card));
-    if(idx<0)return;
+  function drawRoad() {
+    for (let i = road.length - 2; i >= 0; i--) {
+      const a = road[i];
+      const b = road[i + 1];
 
-    hands[player].splice(idx,1);
-    currentTrick.push({player,card});
-    if(card.suit==="♠"&&currentTrick.some(x=>x.card.suit!=="♠"))spadesBroken=true;
+      const leftA = a.x - a.w / 2;
+      const rightA = a.x + a.w / 2;
+      const leftB = b.x - b.w / 2;
+      const rightB = b.x + b.w / 2;
 
-    if(currentTrick.length===4){
-      busy=true;
-      render();
-      setStatus("All four cards played. Counting the trick...");
-      timer=setTimeout(resolveTrick,500);
+      ctx.fillStyle = (Math.floor((a.y + frame) % 48 / 24) % 2 === 0)
+        ? "#353f50"
+        : "#30394a";
+
+      ctx.beginPath();
+      ctx.moveTo(leftA, a.y);
+      ctx.lineTo(rightA, a.y);
+      ctx.lineTo(rightB, b.y);
+      ctx.lineTo(leftB, b.y);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = "#e6edf7";
+      ctx.lineWidth = 4;
+
+      ctx.beginPath();
+      ctx.moveTo(leftA, a.y);
+      ctx.lineTo(leftB, b.y);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(rightA, a.y);
+      ctx.lineTo(rightB, b.y);
+      ctx.stroke();
+
+      if (Math.floor((a.y + frame) % 60 / 30) === 0) {
+        ctx.strokeStyle = "rgba(0,212,255,.34)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  function drawCoin(c) {
+    ctx.save();
+    ctx.translate(c.x, c.y);
+    ctx.shadowColor = "#ffc857";
+    ctx.shadowBlur = 12;
+
+    ctx.fillStyle = "#ffcc4d";
+    ctx.beginPath();
+    ctx.arc(0, 0, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = "#fff0a3";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.fillStyle = "#8b5a00";
+    ctx.font = "bold 12px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("$", 0, 1);
+    ctx.restore();
+  }
+
+  function roundRect(c, x, y, w, h, r) {
+    c.beginPath();
+    c.moveTo(x + r, y);
+    c.arcTo(x + w, y, x + w, y + h, r);
+    c.arcTo(x + w, y + h, x, y + h, r);
+    c.arcTo(x, y + h, x, y, r);
+    c.arcTo(x, y, x + w, y, r);
+    c.closePath();
+  }
+
+  function drawCar() {
+    ctx.save();
+    ctx.translate(carX, playerY);
+    ctx.rotate(holding ? 0.16 : -0.16);
+
+    ctx.shadowColor = "#00d4ff";
+    ctx.shadowBlur = 18;
+    ctx.fillStyle = "#111827";
+    roundRect(ctx, -24, -34, 48, 70, 11);
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = "#00d4ff";
+    roundRect(ctx, -19, -29, 38, 59, 8);
+    ctx.fill();
+
+    ctx.fillStyle = "#12213a";
+    roundRect(ctx, -15, -19, 30, 20, 5);
+    ctx.fill();
+
+    ctx.fillStyle = "#a5f3fc";
+    roundRect(ctx, -14, -17, 28, 9, 3);
+    ctx.fill();
+
+    ctx.fillStyle = "#182238";
+    roundRect(ctx, -15, 5, 30, 15, 4);
+    ctx.fill();
+
+    ctx.fillStyle = "#f8fafc";
+    ctx.fillRect(-17, -28, 8, 4);
+    ctx.fillRect(9, -28, 8, 4);
+
+    ctx.fillStyle = "#ff5263";
+    ctx.fillRect(-17, 25, 8, 4);
+    ctx.fillRect(9, 25, 8, 4);
+
+    ctx.fillStyle = "#080b14";
+    ctx.fillRect(-27, -21, 5, 15);
+    ctx.fillRect(22, -21, 5, 15);
+    ctx.fillRect(-27, 13, 5, 15);
+    ctx.fillRect(22, 13, 5, 15);
+
+    ctx.restore();
+  }
+
+  function drawHUD() {
+    ctx.fillStyle = "rgba(5,10,20,.72)";
+    roundRect(ctx, 18, 17, 185, 42, 10);
+    ctx.fill();
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 17px Arial";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText("DISTANCE  " + score, 31, 38);
+
+    ctx.fillStyle = "#ffcc4d";
+    ctx.fillText("COINS " + coins, W - 105, 38);
+
+    if (running && frame < 180) {
+      ctx.fillStyle = "rgba(4,8,17,.65)";
+      roundRect(ctx, W / 2 - 158, H - 48, 316, 31, 9);
+      ctx.fill();
+
+      ctx.fillStyle = "#e6f3ff";
+      ctx.font = "14px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText("HOLD SPACE / CLICK / TOUCH TO DRIFT", W / 2, H - 28);
+    }
+  }
+
+  function soundBeep(freq = 500, duration = 0.06) {
+    if (!soundOn) return;
+
+    try {
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+
+      const oscillator = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      oscillator.frequency.value = freq;
+      oscillator.type = "sine";
+      gain.gain.value = 0.045;
+
+      oscillator.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      oscillator.start();
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioCtx.currentTime + duration
+      );
+      oscillator.stop(audioCtx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  function endGame() {
+    running = false;
+    holding = false;
+    saveBest();
+    soundBeep(150, 0.2);
+
+    $("overlayTitle").textContent = "Run Over!";
+    $("overlayText").textContent =
+      "Score: " + score + " · Coins: " + coins + " · Best: " + best +
+      ". Ready for another run?";
+
+    $("startBtn").textContent = "↻ Play Again";
+    $("gameMessage").textContent =
+      "Tip: watch the next bend and change direction early.";
+
+    overlay.classList.remove("hidden");
+  }
+
+  function update() {
+    frame++;
+
+    const scroll = speed;
+
+    for (const segment of road) {
+      segment.y += scroll;
+    }
+
+    while (road.length && road[road.length - 1].y > H + 20) {
+      road.pop();
+    }
+
+    while (road[0].y > -12) {
+      addRoadSegment();
+    }
+
+    // Hold to steer right; release to steer left.
+    carX += holding ? 2.35 : -2.05;
+
+    const lane = roadAt(playerY);
+    const margin = 24;
+
+    if (
+      carX < lane.x - lane.w / 2 + margin ||
+      carX > lane.x + lane.w / 2 - margin
+    ) {
+      endGame();
       return;
     }
 
-    turn=(player+1)%4;
-    render();
-    if(turn===0)setStatus("Your turn. Follow suit if you have a card in the suit led.");
-    else runAI();
-  }
+    if (frame % 9 === 0) {
+      score++;
 
-  function winnerOf(plays) {
-    const lead=plays[0].card.suit;
-    let best=plays[0];
-    for(const play of plays.slice(1)){
-      const a=play.card,b=best.card;
-      if(a.suit==="♠"&&b.suit!=="♠")best=play;
-      else if(a.suit===b.suit&&a.value>b.value)best=play;
-      else if(b.suit!=="♠"&&a.suit===lead&&b.suit!==lead)best=play;
-    }
-    return best.player;
-  }
-
-  function resolveTrick() {
-    if(currentTrick.length!==4)return;
-    const winner=winnerOf(currentTrick);
-    tricks[winner]++;
-    lastTrickWinner=winner;
-    currentTrick=[];
-    turn=winner;
-    busy=false;
-
-    if(hands.every(h=>h.length===0)){
-      render();
-      scoreHand();
-      return;
+      if (score % 30 === 0) {
+        speed = Math.min(5.4, speed + 0.15);
+      }
     }
 
-    render();
-    setStatus(NAMES[winner]+" won the trick. "+(winner===0?"You lead next.":NAMES[winner]+" leads next."));
-    if(turn!==0)runAI();
-  }
-
-  function aiCard(player) {
-    const legal=legalCards(player);
-    if(!legal.length)return null;
-
-    if(currentTrick.length){
-      const currentWinner=winnerOf(currentTrick);
-      const currentWinningTeam=team(currentWinner);
-      const needsTricks=teamTricks(team(player))<teamBid(team(player));
-      const winningCards=legal.filter(card=>{
-        const test=currentTrick.concat([{player,card}]);
-        return winnerOf(test)===player;
+    if (frame % 52 === 0) {
+      const segment = roadAt(-15);
+      coinItems.push({
+        x: segment.x + rand(-segment.w * 0.27, segment.w * 0.27),
+        y: -10
       });
-
-      if(currentWinningTeam===team(player)){
-        legal.sort((a,b)=>a.value-b.value);
-        return legal[0];
-      }
-      if(needsTricks&&winningCards.length){
-        winningCards.sort((a,b)=>a.value-b.value);
-        return winningCards[0];
-      }
-      if(winningCards.length){
-        winningCards.sort((a,b)=>a.value-b.value);
-        return winningCards[0];
-      }
-      legal.sort((a,b)=>a.value-b.value);
-      return legal[0];
     }
 
-    const need=teamTricks(team(player))<teamBid(team(player));
-    if(need){
-      const high=legal.filter(c=>c.value>=13);
-      if(high.length){
-        high.sort((a,b)=>b.value-a.value);
-        return high[0];
-      }
-    }
-    legal.sort((a,b)=>a.value-b.value);
-    return legal[0];
-  }
-
-  function runAI() {
-    clearTimeout(timer);
-    if(phase!=="playing"||busy||turn===0)return;
-    timer=setTimeout(()=>{
-      if(phase!=="playing"||busy||turn===0)return;
-      const card=aiCard(turn);
-      if(card)playCard(turn,card);
-    },350);
-  }
-
-  function scoreHand() {
-    phase="roundEnd";
-    const details=[];
-    for(let t=0;t<2;t++){
-      const bid=teamBid(t);
-      const won=teamTricks(t);
-      if(won>=bid){
-        const extra=won-bid;
-        scores[t]+=bid*10+extra;
-        bags[t]+=extra;
-        details.push((t===0?"Your team":"Opponents")+" made its bid: +"+(bid*10+extra)+".");
-      }else{
-        scores[t]-=bid*10;
-        details.push((t===0?"Your team":"Opponents")+" missed its bid: -"+(bid*10)+".");
-      }
-      if(bags[t]>=10){
-        const penalty=Math.floor(bags[t]/10);
-        scores[t]-=penalty*100;
-        bags[t]%=10;
-        details.push((t===0?"Your team":"Opponents")+" received a 100-point bag penalty.");
-      }
+    for (const coin of coinItems) {
+      coin.y += scroll;
     }
 
-    for(let p=0;p<4;p++){
-      if(bids[p]===0){
-        if(tricks[p]===0){
-          scores[team(p)]+=100;
-          details.push(NAMES[p]+" made Nil: +100.");
-        }else{
-          scores[team(p)]-=100;
-          details.push(NAMES[p]+" failed Nil: -100.");
-        }
+    coinItems = coinItems.filter(coin => {
+      if (
+        Math.abs(coin.x - carX) < 28 &&
+        Math.abs(coin.y - playerY) < 32
+      ) {
+        coins++;
+        score += 5;
+        soundBeep(850, 0.05);
+        return false;
       }
-    }
 
-    dealer=(dealer+1)%4;
-    const won=scores[0]>=500||scores[1]>=500;
-    if(won)phase="over";
-    render();
-    $("bidbox").hidden=false;
-    $("bidbox").innerHTML=
-      "<h3>"+(won?"Game Over":"Hand Complete")+"</h3>"+
-      "<p>"+details.map(escapeHTML).join(" ")+"</p>"+
-      '<button class="btn" id="continueBtn">'+(won?"Play Again":"Next Hand")+"</button>";
-    $("continueBtn").addEventListener("click",()=>{
-      if(won)newGame();
-      else startHand();
-    },{once:true});
+      return coin.y < H + 20;
+    });
 
-    if(won){
-      setStatus(scores[0]>scores[1]?"🏆 Your team wins! Start a new game to play again.":"The opponents win this game. Start a new game to try again.");
-    }else{
-      setStatus("Hand finished. Check the updated scores, then select Next Hand.");
-    }
-  }
-
-  function escapeHTML(s){
-    return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    updateStats();
   }
 
   function render() {
-    $("score0").textContent=scores[0];
-    $("score1").textContent=scores[1];
-    $("detail0").textContent="Bid: "+(phase==="bidding"?"—":teamBid(0))+" · Tricks: "+teamTricks(0)+" · Bags: "+bags[0];
-    $("detail1").textContent="Bid: "+(phase==="bidding"?"—":teamBid(1))+" · Tricks: "+teamTricks(1)+" · Bags: "+bags[1];
+    drawBackground();
+    drawRoad();
 
-    for(let p=0;p<4;p++){
-      $("seat"+p).classList.toggle("active",phase==="playing"&&turn===p);
-      $("info"+p).textContent=hands[p].length+" cards"+(bids[p]!==null&&bids[p]!==undefined?" · Bid "+bids[p]:"");
-      if(p!==0){
-        $("backs"+p).innerHTML=Array.from({length:Math.min(13,hands[p].length)},()=>'<span class="back"></span>').join("");
-      }
+    for (const coin of coinItems) {
+      drawCoin(coin);
     }
 
-    $("center").innerHTML="";
-    currentTrick.forEach(play=>{
-      const el=document.createElement("div");
-      el.className="played"+(["♥","♦"].includes(play.card.suit)?" red":"");
-      el.innerHTML="<small>"+escapeHTML(NAMES[play.player])+"</small><div>"+escapeHTML(play.card.rank)+"</div><div>"+escapeHTML(play.card.suit)+"</div>";
-      $("center").appendChild(el);
-    });
+    drawCar();
+    drawHUD();
+  }
 
-    $("hand").innerHTML="";
-    $("cardCount").textContent=hands[0].length+" cards";
-    hands[0].forEach(card=>{
-      const legal=phase==="playing"&&turn===0&&!busy&&legalCards(0).some(c=>same(c,card));
-      const btn=document.createElement("button");
-      btn.type="button";
-      btn.className="card"+(["♥","♦"].includes(card.suit)?" red":"");
-      btn.disabled=!legal;
-      btn.setAttribute("aria-label",card.rank+" of "+({ "♣":"Clubs","♦":"Diamonds","♥":"Hearts","♠":"Spades"}[card.suit]));
-      btn.innerHTML='<span class="rank">'+card.rank+'</span><span class="symbol">'+card.suit+'</span>';
-      btn.addEventListener("click",()=>playCard(0,card));
-      $("hand").appendChild(btn);
-    });
+  function loop() {
+    if (!running) return;
 
-    if(phase==="bidding"){
-      $("bidbox").hidden=false;
-      $("bidbox").innerHTML='<h3>Make Your Bid</h3><p>Choose the number of tricks you expect to win. Zero is Nil.</p><div class="bidbuttons" id="bidbuttons"></div>';
-      for(let n=0;n<=13;n++){
-        const btn=document.createElement("button");
-        btn.type="button";
-        btn.textContent=n===0?"0 · Nil":String(n);
-        btn.addEventListener("click",()=>chooseBid(n));
-        $("bidbuttons").appendChild(btn);
-      }
-      $("hint").textContent="Choose your bid first. Then click a legal card when it is your turn.";
-    }else if(phase==="playing"){
-      $("bidbox").hidden=true;
-      $("hint").textContent=turn===0?"Your turn: click a bright card to play.":"Computer players are taking their turns...";
-    }else{
-      $("hint").textContent="This hand is complete.";
+    update();
+    render();
+
+    if (running) {
+      raf = requestAnimationFrame(loop);
     }
   }
 
-  $("restartBtn").addEventListener("click",newGame);
-  $("rulesBtn").addEventListener("click",()=> $("instructions").scrollIntoView({behavior:"smooth"}));
-  $("year").textContent=new Date().getFullYear();
-  newGame();
+  function start() {
+    resetGame();
+    render();
+  }
+
+  $("startBtn").addEventListener("click", start);
+  $("restartBtn").addEventListener("click", start);
+
+  $("soundBtn").addEventListener("click", () => {
+    soundOn = !soundOn;
+
+    $("soundBtn").textContent = soundOn
+      ? "🔊 Sound: On"
+      : "🔊 Sound: Off";
+
+    if (soundOn) soundBeep(650, 0.06);
+  });
+
+  $("fullBtn").addEventListener("click", () => {
+    const gameArea = $("gameArea");
+
+    if (!document.fullscreenElement) {
+      if (gameArea.requestFullscreen) {
+        gameArea.requestFullscreen().catch(() => {});
+      }
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  });
+
+  function setHold(value) {
+    if (!running) return;
+    holding = value;
+  }
+
+  canvas.addEventListener("pointerdown", event => {
+    event.preventDefault();
+    if (!running) return;
+
+    if (canvas.setPointerCapture) {
+      canvas.setPointerCapture(event.pointerId);
+    }
+
+    setHold(true);
+  });
+
+  window.addEventListener("pointerup", () => setHold(false));
+  window.addEventListener("pointercancel", () => setHold(false));
+  window.addEventListener("blur", () => setHold(false));
+
+  window.addEventListener("keydown", event => {
+    if (event.code === "Space") {
+      event.preventDefault();
+      if (!running) return;
+      setHold(true);
+    }
+
+    if (event.key.toLowerCase() === "r") {
+      start();
+    }
+  });
+
+  window.addEventListener("keyup", event => {
+    if (event.code === "Space") {
+      setHold(false);
+    }
+  });
+
+  // Show the road behind the starting screen.
+  newRoad();
+  render();
 })();
 </script>
 </body>
