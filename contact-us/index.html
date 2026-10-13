@@ -1,1 +1,483 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact Us | Gameso - Online Games Support</title>
+  <meta name="description" content="Contact Gameso for help with online games, technical issues, website feedback, corrections, and general inquiries. We welcome your suggestions.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameso.vercel.app/contact">
+
+  <meta property="og:title" content="Contact Us | Gameso">
+  <meta property="og:description" content="Questions, feedback, or a problem with a game? Contact the Gameso team.">
+  <meta property="og:url" content="https://gameso.vercel.app/contact">
+  <meta property="og:type" content="website">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      color-scheme: dark;
+      --background: #070911;
+      --surface: #101522;
+      --surface-light: #151d2d;
+      --text: #f5f7fb;
+      --muted: #a8b1c3;
+      --accent: #55a7ff;
+      --border: #252e40;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: #080b13;
+    }
+
+    .nav {
+      max-width: 1100px;
+      min-height: 70px;
+      margin: auto;
+      padding: 14px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #ffffff;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: #c0c8d7;
+    }
+
+    .hero {
+      padding: 66px 20px 46px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at top, #14233e 0%, transparent 68%);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: #8bc5ff;
+      background: #12223b;
+      border: 1px solid #243d60;
+      border-radius: 30px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 22px 70px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 35px;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px;
+    }
+
+    .card-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #172944;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 25px;
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 19px;
+      line-height: 1.4;
+      margin-bottom: 9px;
+    }
+
+    p {
+      color: #c0c8d7;
+      margin-bottom: 14px;
+    }
+
+    .email-link {
+      display: inline-block;
+      overflow-wrap: anywhere;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+
+    .content-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 30px;
+      margin-bottom: 22px;
+    }
+
+    .content-section h2 {
+      color: #ffffff;
+    }
+
+    .content-section h3 {
+      color: #e7edf7;
+      margin-top: 24px;
+    }
+
+    .content-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      padding-left: 23px;
+      margin: 10px 0 18px;
+      color: #c0c8d7;
+    }
+
+    li {
+      padding: 4px 0;
+    }
+
+    .notice {
+      padding: 16px 18px;
+      background: var(--surface-light);
+      border-left: 3px solid var(--accent);
+      border-radius: 5px;
+      margin-top: 15px;
+    }
+
+    .notice p {
+      margin: 0;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: #06080e;
+      padding: 30px 22px;
+    }
+
+    .footer-inner {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      margin-top: 8px;
+      max-width: 330px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-links a {
+      color: #a8b1c3;
+      font-size: 13px;
+    }
+
+    .copyright {
+      max-width: 1000px;
+      margin: 22px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: #788397;
+      font-size: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav-links {
+        gap: 15px;
+      }
+
+      .hero {
+        padding: 48px 20px 32px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-card,
+      .content-section {
+        padding: 22px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="logo" href="/" aria-label="Gameso home">
+        Game<span>so</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/games/arcade/">Arcade Games</a>
+        <a href="/about-us">About Us</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">We're Here to Help</span>
+    <h1>Contact Gameso</h1>
+    <p>
+      Have a question, found a problem with a game, or want to share
+      a suggestion? We welcome your feedback and inquiries.
+    </p>
+  </section>
+
+  <main>
+    <section class="contact-grid" aria-label="Contact options">
+
+      <div class="contact-card">
+        <div class="card-icon" aria-hidden="true">✉</div>
+        <h2>Email Us</h2>
+        <p>
+          Contact us about website questions, technical issues,
+          corrections, suggestions, or general inquiries.
+        </p>
+
+        <!-- Replace this placeholder with your real email address -->
+        <a class="email-link"
+           href="mailto:your-email@example.com">
+          your-email@example.com
+        </a>
+      </div>
+
+      <div class="contact-card">
+        <div class="card-icon" aria-hidden="true">🎮</div>
+        <h2>Game Support</h2>
+        <p>
+          If a game is not loading or its controls are not working,
+          tell us which game you tried and explain what happened.
+        </p>
+        <a href="/games/arcade/">Explore Games</a>
+      </div>
+
+    </section>
+
+    <section class="content-section">
+      <h2>How Can We Help You?</h2>
+
+      <h3>Game Issues and Technical Support</h3>
+      <p>
+        If a game does not load, freezes, or does not respond to your
+        controls, please contact us with the game name and page URL.
+        You can also mention your device, browser, and the steps that
+        caused the problem. This information may help us investigate.
+      </p>
+
+      <h3>Suggestions and Feedback</h3>
+      <p>
+        We welcome ideas for new games, improvements to existing pages,
+        and suggestions that could make Gameso easier to use. Although
+        we cannot guarantee that every suggestion will be implemented,
+        your feedback helps us understand what visitors want.
+      </p>
+
+      <h3>Website Content and Corrections</h3>
+      <p>
+        If you find a broken link, incorrect game information, or
+        another content issue, please send us the page URL and explain
+        what needs to be reviewed.
+      </p>
+
+      <h3>Business and General Inquiries</h3>
+      <p>
+        For general questions about Gameso or relevant business
+        inquiries, use the email address listed above. Please provide
+        a clear subject and enough context for us to understand
+        your message.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>What to Include in Your Message</h2>
+      <p>
+        To help us understand your inquiry, please include the
+        following details when relevant:
+      </p>
+
+      <ul>
+        <li>The name or URL of the game or page.</li>
+        <li>A clear description of your question or problem.</li>
+        <li>Your device and browser if reporting a technical issue.</li>
+        <li>Any steps that may help us reproduce the issue.</li>
+      </ul>
+
+      <div class="notice">
+        <p>
+          <strong>Privacy reminder:</strong> Do not include passwords,
+          payment card details, or other sensitive personal information
+          in your message.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>Third-Party Games and Services</h2>
+      <p>
+        Some games or features available on Gameso may be provided
+        through third-party developers or services. If your inquiry
+        concerns an externally hosted or embedded game, mention the
+        relevant game and page so we can better understand your request.
+      </p>
+      <p>
+        Third-party services may have their own support channels,
+        terms, and privacy practices. We will review messages related
+        to our website and assist where reasonably possible.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>Response Time</h2>
+      <p>
+        We aim to review messages and respond as soon as reasonably
+        possible. Response times may vary depending on the nature
+        and number of inquiries we receive. Sending a message does
+        not guarantee an immediate response or a particular outcome.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>Thank You for Contacting Gameso</h2>
+      <p>
+        We appreciate you taking the time to contact us. Your questions,
+        feedback, and reports help us identify areas for improvement
+        and work toward a more useful online gaming experience.
+      </p>
+      <p>
+        To discover available games, visit our
+        <a href="/">Gameso homepage</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="/">Game<span>so</span></a>
+        <p>
+          Discover browser-based games, enjoy casual challenges,
+          and find your next game on Gameso.
+        </p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about-us">About Us</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+      </nav>
+    </div>
+
+    <div class="copyright">
+      &copy; <span id="currentYear">2026</span> Gameso.
+      All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
+
