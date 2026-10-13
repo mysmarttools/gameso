@@ -1,270 +1,1221 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Spades Card Game Online - Play Free | Gameso</title>
+  <title>Spades Card Game Online – Play Free | Gameso</title>
+  <meta name="description" content="Play Spades Card Game online for free at Gameso! Bid your tricks, play cards strategically, beat computer opponents, and learn classic Spades rules.">
+  <meta name="keywords" content="spades card game, spades card game online, play spades online free, free card games, spades rules, online spades game">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameso.vercel.app/games/spades-card-game/">
+  <meta name="theme-color" content="#080b14">
 
-    <meta
-        name="description"
-        content="Play Spades Card Game online for free on Gameso. Bid your tricks, play cards, beat the AI opponents and enjoy this classic card game."
-    >
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: #121827;
+      --card-hover: #182137;
+      --text: #ffffff;
+      --muted: #9ba4b6;
+      --primary: #6c5ce7;
+      --accent: #00d4ff;
+      --border: rgba(255,255,255,.08);
+      --green: #20c997;
+      --red: #ff647c;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    button { font: inherit; }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      background: #0d1220;
+      border-bottom: 1px solid var(--border);
+      padding: 15px 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.8px;
+    }
+
+    .logo span { color: var(--primary); }
+
+    .nav-link {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 28px 0 20px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(27px, 5vw, 39px);
+      line-height: 1.2;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 690px;
+      margin: 10px auto;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(108,92,231,.16);
+      border: 1px solid rgba(108,92,231,.4);
+      color: #c6bdff;
+      padding: 4px 11px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .game-shell {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    }
+
+    .game-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .game-top h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn {
+      cursor: pointer;
+      color: white;
+      background: var(--primary);
+      border: 1px solid transparent;
+      border-radius: 9px;
+      padding: 9px 13px;
+      font-weight: 700;
+      transition: .15s;
+    }
+
+    .btn:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+    }
+
+    .btn.secondary {
+      background: #202a40;
+      border-color: var(--border);
+    }
+
+    .btn:disabled {
+      opacity: .38;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      margin-bottom: 13px;
+    }
+
+    .score-box {
+      background: #0b1020;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px;
+    }
+
+    .score-box strong {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .score-number {
+      font-size: 25px;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
+    .score-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .table-area {
+      position: relative;
+      min-height: 375px;
+      border-radius: 16px;
+      overflow: hidden;
+      padding: 12px;
+      background:
+        radial-gradient(ellipse at center, rgba(18,118,89,.95), rgba(7,62,49,.98) 70%),
+        #084c3a;
+      border: 4px solid #1c2638;
+    }
+
+    .table-area::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .seat {
+      position: absolute;
+      z-index: 1;
+      background: rgba(5,13,23,.85);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      padding: 5px 9px;
+      text-align: center;
+      min-width: 90px;
+      font-size: 12px;
+    }
+
+    .seat b { display: block; font-size: 13px; }
+    .seat small { color: #d0d7e4; }
+
+    .seat.north { top: 13px; left: 50%; transform: translateX(-50%); }
+    .seat.west { top: 50%; left: 10px; transform: translateY(-50%); }
+    .seat.east { top: 50%; right: 10px; transform: translateY(-50%); }
+    .seat.south { bottom: 12px; left: 50%; transform: translateX(-50%); }
+
+    .seat.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(0,212,255,.13);
+    }
+
+    .seat .mini-cards {
+      display: flex;
+      justify-content: center;
+      margin-top: 3px;
+    }
+
+    .back-card {
+      display: inline-block;
+      width: 12px;
+      height: 17px;
+      background: repeating-linear-gradient(45deg,#6c5ce7,#6c5ce7 3px,#2f276d 3px,#2f276d 6px);
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      margin-left: -4px;
+    }
+
+    .trick-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      display: grid;
+      grid-template-columns: repeat(2, 65px);
+      gap: 9px;
+      min-width: 140px;
+      min-height: 100px;
+      justify-content: center;
+      align-content: center;
+    }
+
+    .played-card {
+      width: 65px;
+      height: 91px;
+      border-radius: 8px;
+      background: #fff;
+      color: #151515;
+      box-shadow: 0 5px 12px rgba(0,0,0,.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.05;
+      font-weight: 800;
+      font-size: 22px;
+      position: relative;
+    }
+
+    .played-card small {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .red-suit { color: #d83249 !important; }
+
+    .status {
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin: 12px 0;
+      padding: 10px 12px;
+      color: #e5e9f3;
+      font-size: 14px;
+      min-height: 43px;
+    }
+
+    .bid-panel {
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px;
+      margin: 12px 0;
+    }
+
+    .bid-panel h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .bid-panel p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .bid-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .bid-btn {
+      background: #202a40;
+      color: white;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      min-width: 39px;
+      padding: 8px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .bid-btn:hover {
+      background: var(--primary);
+    }
+
+    .bid-btn:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+    }
+
+    .hand-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 15px 0 8px;
+      font-weight: 800;
+    }
+
+    .hand-title span {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .hand {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 12px 7px;
+      background: #0b1020;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      min-height: 105px;
+    }
+
+    .playing-card {
+      width: 48px;
+      height: 70px;
+      flex: 0 0 48px;
+      background: #fdfdfd;
+      border: 1px solid #d8dce4;
+      border-radius: 7px;
+      color: #171717;
+      padding: 4px 2px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 3px 5px rgba(0,0,0,.2);
+      transition: transform .12s, opacity .12s;
+    }
+
+    .playing-card .rank {
+      align-self: flex-start;
+      margin-left: 3px;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .playing-card .suit {
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .playing-card:hover:not(:disabled) {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+    }
+
+    .playing-card:disabled {
+      cursor: not-allowed;
+      opacity: .38;
+    }
+
+    .hand-help {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .section {
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .section h2 {
+      font-size: 23px;
+      margin: 0 0 10px;
+    }
+
+    .section h3 {
+      font-size: 17px;
+      margin: 18px 0 5px;
+    }
+
+    .section p, .section li {
+      color: #c1c9d8;
+    }
+
+    .section ul { padding-left: 22px; }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 10px;
+    }
+
+    .related-card {
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px;
+      font-weight: 700;
+    }
+
+    .faq-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child { border-bottom: 0; }
+    .faq-item h3 { margin: 0 0 5px; }
+    .faq-item p { margin: 0; }
+
+    footer {
+      margin-top: 28px;
+      padding: 23px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .game-shell { padding: 10px; }
+      .table-area { min-height: 340px; padding: 6px; }
+      .seat { min-width: 73px; padding: 4px 5px; font-size: 11px; }
+      .seat b { font-size: 12px; }
+      .seat.west { left: 5px; }
+      .seat.east { right: 5px; }
+      .trick-center { grid-template-columns: repeat(2,55px); gap: 6px; }
+      .played-card { width: 55px; height: 78px; font-size: 19px; }
+      .playing-card { width: 41px; height: 64px; flex-basis: 41px; }
+      .playing-card .suit { font-size: 22px; }
+      .playing-card .rank { font-size: 12px; }
+      .hand { gap: 4px; padding: 9px 4px; }
+      .related-grid { grid-template-columns: 1fr; }
+      .section { padding: 15px; }
+      .hero { padding-top: 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Spades Card Game",
+    "url": "https://gameso.vercel.app/games/spades-card-game/",
+    "description": "Play a free browser-based Spades card game against computer opponents.",
+    "genre": ["Card Game", "Strategy Game"],
+    "gamePlatform": "Web Browser",
+    "applicationCategory": "Game"
+  }
+  </script>
 </head>
 
 <body>
-
-<header class="header">
-
-    <div class="header-inner">
-
-        <a href="/" class="logo">
-            <span>🎮</span>
-            <strong>Gameso</strong>
-        </a>
-
-        <a href="/" class="back-btn">
-            ← All Games
-        </a>
-
-    </div>
-
+<header>
+  <div class="container nav">
+    <a class="logo" href="/">Game<span>so</span></a>
+    <a class="nav-link" href="/">← Back to Games</a>
+  </div>
 </header>
 
-
-<main>
-
-    <section class="heading">
-
-        <div class="label">
-            🃏 CARD GAME
-        </div>
-
-        <h1>
-Spades Card Game Online – Play Free        </h1>
-
-        <p>
-            Play Spades Card Game Online for free and enjoy the classic four-player trick-taking card game directly in your browser. Bid your tricks, play your free spades online cards strategically, beat the AI, and try to score more points than your opponents. play spades free online no download or registration required.  
-        </p>
-
-    </section>
-
-
-    <section class="game-card">
-
-        <!-- SCORE -->
-
-        <div class="score-board">
-
-            <div class="team">
-                <span>Your Team</span>
-                <strong id="playerScore">0</strong>
-            </div>
-
-            <div class="tricks">
-                <span>TRICKS</span>
-                <strong id="trickCount">0 / 13</strong>
-            </div>
-
-            <div class="team enemy">
-                <span>Opponents</span>
-                <strong id="aiScore">0</strong>
-            </div>
-
-        </div>
-
-
-        <!-- TABLE -->
-
-        <div class="table" id="gameTable">
-
-            <!-- NORTH -->
-
-            <div class="player north">
-
-                <div class="player-name">
-                    🤖 North
-                </div>
-
-                <div
-                    class="card-back-row"
-                    id="northCards"
-                ></div>
-
-            </div>
-
-
-            <!-- WEST -->
-
-            <div class="player west">
-
-                <div class="player-name">
-                    🤖 West
-                </div>
-
-                <div
-                    class="vertical-cards"
-                    id="westCards"
-                ></div>
-
-            </div>
-
-
-            <!-- EAST -->
-
-            <div class="player east">
-
-                <div class="player-name">
-                    🤖 East
-                </div>
-
-                <div
-                    class="vertical-cards"
-                    id="eastCards"
-                ></div>
-
-            </div>
-
-
-            <!-- CENTER -->
-
-            <div class="center-area">
-
-                <div
-                    id="status"
-                    class="status"
-                >
-                    Deal cards to start
-                </div>
-
-                <div
-                    id="trickArea"
-                    class="trick-area"
-                ></div>
-
-            </div>
-
-
-            <!-- SOUTH -->
-
-            <div class="player south">
-
-                <div class="player-name">
-                    👤 You
-                </div>
-
-                <div
-                    id="playerCards"
-                    class="player-cards"
-                ></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- BIDDING -->
-
-        <div
-            id="bidPanel"
-            class="bid-panel"
-        >
-
-            <h2>
-                🎯 Make Your Bid
-            </h2>
-
-            <p>
-                How many tricks do you think you can win?
-            </p>
-
-            <div
-                id="bidButtons"
-                class="bid-buttons"
-            ></div>
-
-        </div>
-
-
-        <!-- CONTROLS -->
-
-        <div class="game-controls">
-
-            <button
-                id="newGameBtn"
-                class="primary-btn"
-            >
-                🔄 New Game
-            </button>
-
-        </div>
-
-
-    </section>
-
-
-    <!-- INFO -->
-
-    <section class="info">
-
-        <h2>
-            How to Play Spades Card Game
-        </h2>
-
-        <p>
-            Spades is a classic four-player partnership card game.
-            Each player receives 13 cards and bids how many tricks
-            they expect to win. Spades are always trump.
-        </p>
-
-        <h2>
-            Spades Card Game Rules
-        </h2>
-
-        <ul>
-
-            <li>
-                🃏 52 cards are dealt between four players.
-            </li>
-
-            <li>
-                🎯 Players bid the number of tricks they expect to win.
-            </li>
-
-            <li>
-                ♠️ Spades are always the trump suit.
-            </li>
-
-            <li>
-                🃏 You must follow the suit that was led if possible.
-            </li>
-
-            <li>
-                🏆 The highest spade wins when a spade is played.
-            </li>
-
-            <li>
-                ⭐ First team to reach the target score wins.
-            </li>
-
-        </ul>
-
-    </section>
-
+<main class="container">
+  <section class="hero">
+    <span class="tag">♠ FREE ONLINE CARD GAME</span>
+    <h1>Spades Card Game Online</h1>
+    <p>Play Spades for free against computer opponents. Make your bid, follow suit, use your trump cards wisely, and help your team reach 500 points.</p>
+  </section>
+
+  <section class="game-shell" aria-label="Playable Spades card game">
+    <div class="game-top">
+      <h2>♠ Spades Table</h2>
+      <div class="top-actions">
+        <button class="btn secondary" id="rulesBtn" type="button">Quick Rules</button>
+        <button class="btn" id="newGameBtn" type="button">New Game</button>
+      </div>
+    </div>
+
+    <div class="scoreboard">
+      <div class="score-box">
+        <strong>YOUR TEAM · YOU + NORTH</strong>
+        <div class="score-number" id="teamScore">0</div>
+        <div class="score-meta" id="teamMeta">Bid: — · Tricks: 0 · Bags: 0</div>
+      </div>
+      <div class="score-box">
+        <strong>OPPONENTS · WEST + EAST</strong>
+        <div class="score-number" id="oppScore">0</div>
+        <div class="score-meta" id="oppMeta">Bid: — · Tricks: 0 · Bags: 0</div>
+      </div>
+    </div>
+
+    <div class="table-area" id="tableArea">
+      <div class="seat north" id="seat2">
+        <b>North · Partner</b>
+        <small id="seatInfo2">13 cards</small>
+        <div class="mini-cards" id="backs2"></div>
+      </div>
+
+      <div class="seat west" id="seat1">
+        <b>West · CPU</b>
+        <small id="seatInfo1">13 cards</small>
+        <div class="mini-cards" id="backs1"></div>
+      </div>
+
+      <div class="seat east" id="seat3">
+        <b>East · CPU</b>
+        <small id="seatInfo3">13 cards</small>
+        <div class="mini-cards" id="backs3"></div>
+      </div>
+
+      <div class="seat south" id="seat0">
+        <b>You · South</b>
+        <small id="seatInfo0">13 cards</small>
+      </div>
+
+      <div class="trick-center" id="trickCenter" aria-live="polite"></div>
+    </div>
+
+    <div class="status" id="status" role="status" aria-live="polite">
+      Welcome! Review your cards and choose your bid to start.
+    </div>
+
+    <div class="bid-panel" id="bidPanel">
+      <h3>Make Your Bid</h3>
+      <p>How many tricks do you think you can win? Choose from 0 (Nil) to 13.</p>
+      <div class="bid-buttons" id="bidButtons"></div>
+    </div>
+
+    <div class="hand-title">
+      <div>Your Hand</div>
+      <span id="handCount">13 cards</span>
+    </div>
+    <div class="hand" id="playerHand"></div>
+    <div class="hand-help" id="handHelp">Choose a bid to begin. When it is your turn, select a legal card.</div>
+  </section>
+
+  <section class="section" id="howToPlay">
+    <h2>How to Play Spades</h2>
+    <p>Spades is a classic trick-taking card game for four players. You and your North partner play against West and East. The goal is to predict how many tricks your team can win and then meet that contract.</p>
+
+    <h3>1. Bid before playing</h3>
+    <p>Each player predicts the number of tricks they expect to win. Your bid and your partner's bid form your team's target. A bid of zero is called Nil: the player aims to win no tricks.</p>
+
+    <h3>2. Follow suit</h3>
+    <p>The first card played sets the suit for that trick. If you have a card of that suit, you must play it. If you do not have one, you can play another suit or use a Spade.</p>
+
+    <h3>3. Spades are trump</h3>
+    <p>If a Spade is played, the highest Spade usually wins the trick. If no Spade is played, the highest card in the suit that was led wins. Aces are high.</p>
+
+    <h3>4. Break Spades</h3>
+    <p>Normally, you cannot lead with a Spade until a player has used one to trump another suit. You can lead a Spade earlier if your remaining cards are all Spades.</p>
+
+    <h3>5. Score points</h3>
+    <p>If your team meets its bid, it earns 10 points for each trick bid, plus one point for each extra trick. Extra tricks are called bags. If your team misses its bid, it loses 10 points per trick bid. Collecting 10 bags causes a 100-point penalty in this version.</p>
+
+    <h3>Beginner strategy tips</h3>
+    <ul>
+      <li>Count your Aces and high Spades before choosing a bid.</li>
+      <li>Follow suit whenever you can; the game enforces this rule.</li>
+      <li>Save high Spades for important tricks when possible.</li>
+      <li>Keep an eye on your team's target and avoid unnecessary extra tricks.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>More Free Games</h2>
+    <p>Try another game from Gameso after your Spades match.</p>
+    <div class="related-grid">
+      <a class="related-card" href="/games/2048/">🔢 Play 2048</a>
+      <a class="related-card" href="/games/snake/">🐍 Play Snake</a>
+      <a class="related-card" href="/games/pacman/">🟡 Play Maze Chase</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Spades Card Game FAQs</h2>
+
+    <div class="faq-item">
+      <h3>Is this Spades card game free to play?</h3>
+      <p>Yes. You can play this browser-based version for free without downloading an app or creating an account.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can I play Spades against the computer?</h3>
+      <p>Yes. This version includes three computer-controlled opponents and a computer-controlled partner.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How many cards does each player get?</h3>
+      <p>Each of the four players receives 13 cards from a standard 52-card deck.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What does Nil mean in Spades?</h3>
+      <p>Nil is a bid of zero tricks. In this version, a successful Nil earns 100 points, while taking a trick after bidding Nil costs 100 points.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How does a team win?</h3>
+      <p>The first team to reach 500 points wins, provided it has more points than the opposing team at the end of the hand.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Do I need to install anything?</h3>
+      <p>No. Open the game in a modern browser on a desktop, tablet, or mobile device and play directly on the page.</p>
+    </div>
+  </section>
 </main>
 
-
 <footer>
-
-    © <span id="year"></span>
-    Gameso. All rights reserved.
-
+  <div class="container">
+    <p>© <span id="year"></span> Gameso · Free browser games for everyone.</p>
+    <a href="/">Explore More Games</a>
+  </div>
 </footer>
 
+<script>
+(() => {
+  "use strict";
 
-<script src="script.js"></script>
+  const SUITS = ["♣", "♦", "♥", "♠"];
+  const SUIT_NAMES = {"♣":"Clubs","♦":"Diamonds","♥":"Hearts","♠":"Spades"};
+  const RANKS = [
+    {name:"2", value:2}, {name:"3", value:3}, {name:"4", value:4},
+    {name:"5", value:5}, {name:"6", value:6}, {name:"7", value:7},
+    {name:"8", value:8}, {name:"9", value:9}, {name:"10", value:10},
+    {name:"J", value:11}, {name:"Q", value:12}, {name:"K", value:13},
+    {name:"A", value:14}
+  ];
 
+  const $ = id => document.getElementById(id);
+  let hands, bids, tricks, scores, bags, currentTrick;
+  let turn, phase, spadesBroken, handNumber, dealer;
+  let busy, gameOver, lastTrickWinner, roundMessage;
+  let trickHistory = [];
+
+  const playerNames = ["You","West","North","East"];
+  const partnerTeam = [0,2];
+  const opponentTeam = [1,3];
+
+  function createDeck() {
+    const deck = [];
+    for (const suit of SUITS) {
+      for (const rank of RANKS) {
+        deck.push({suit, rank:rank.name, value:rank.value});
+      }
+    }
+    return deck;
+  }
+
+  function shuffle(deck) {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+  }
+
+  function sortHand(hand) {
+    hand.sort((a,b) => {
+      const suitDifference = SUITS.indexOf(a.suit) - SUITS.indexOf(b.suit);
+      return suitDifference || b.value - a.value;
+    });
+  }
+
+  function dealHand() {
+    const deck = shuffle(createDeck());
+    hands = [[],[],[],[]];
+    for (let i = 0; i < deck.length; i++) {
+      hands[i % 4].push(deck[i]);
+    }
+    hands.forEach(sortHand);
+  }
+
+  function newGame() {
+    scores = [0,0];
+    bags = [0,0];
+    handNumber = 0;
+    dealer = 0;
+    gameOver = false;
+    roundMessage = "";
+    trickHistory = [];
+    startHand();
+  }
+
+  function startHand() {
+    if (scores[0] >= 500 || scores[1] >= 500) {
+      gameOver = true;
+      phase = "over";
+      render();
+      setStatus(scores[0] > scores[1]
+        ? "🏆 Your team wins the game! Start a new game to play again."
+        : "The opponents win this game. Start a new game to try again.");
+      return;
+    }
+
+    handNumber++;
+    dealHand();
+    bids = [null,null,null,null];
+    tricks = [0,0,0,0];
+    currentTrick = [];
+    spadesBroken = false;
+    lastTrickWinner = null;
+    busy = false;
+    phase = "bidding";
+    turn = (dealer + 1) % 4;
+    roundMessage = "";
+    render();
+    setStatus("Hand " + handNumber + ": choose your bid from 0 to 13. A bid of 0 is Nil.");
+    $("bidPanel").hidden = false;
+    $("handHelp").textContent = "Choose a bid to begin. Your cards are sorted by suit.";
+  }
+
+  function setStatus(message) {
+    $("status").textContent = message;
+  }
+
+  function teamOf(player) {
+    return (player === 0 || player === 2) ? 0 : 1;
+  }
+
+  function teamBid(team) {
+    return [0,2].includes(team) ? 0 : 0;
+  }
+
+  function getTeamBid(team) {
+    const members = team === 0 ? partnerTeam : opponentTeam;
+    return members.reduce((sum,p) => sum + (bids[p] || 0), 0);
+  }
+
+  function getTeamTricks(team) {
+    const members = team === 0 ? partnerTeam : opponentTeam;
+    return members.reduce((sum,p) => sum + tricks[p], 0);
+  }
+
+  function estimateBid(hand) {
+    let bid = 0;
+    const spades = hand.filter(c => c.suit === "♠");
+    for (const card of hand) {
+      if (card.value === 14) bid += 1;
+      else if (card.value === 13 && hand.some(c => c.suit === card.suit && c.value === 14)) bid += .5;
+      else if (card.suit === "♠" && card.value >= 12) bid += 1;
+      else if (card.suit === "♠" && card.value >= 10) bid += .5;
+    }
+    if (spades.length >= 5) bid += .5;
+    return Math.max(0, Math.min(13, Math.round(bid)));
+  }
+
+  function makeBid(player, amount) {
+    if (phase !== "bidding" || turn !== player || bids[player] !== null) return;
+    bids[player] = amount;
+    render();
+
+    if (bids.every(b => b !== null)) {
+      phase = "playing";
+      turn = (dealer + 1) % 4;
+      render();
+      setStatus("Bids are in! Your team bid " + getTeamBid(0) +
+        "; opponents bid " + getTeamBid(1) + ". Play a legal card when it is your turn.");
+      runTurn();
+      return;
+    }
+
+    turn = (turn + 1) % 4;
+    runTurn();
+  }
+
+  function legalCards(player) {
+    const hand = hands[player];
+    if (!hand || hand.length === 0) return [];
+
+    let legal = hand.slice();
+    if (currentTrick.length > 0) {
+      const leadSuit = currentTrick[0].card.suit;
+      const follow = hand.filter(c => c.suit === leadSuit);
+      if (follow.length) legal = follow;
+    } else {
+      if (!spadesBroken && hand.some(c => c.suit !== "♠")) {
+        legal = hand.filter(c => c.suit !== "♠");
+      }
+    }
+    return legal;
+  }
+
+  function canPlay(player, card) {
+    return legalCards(player).some(c => sameCard(c, card));
+  }
+
+  function sameCard(a,b) {
+    return a && b && a.suit === b.suit && a.value === b.value;
+  }
+
+  function playCard(player, card) {
+    if (phase !== "playing" || busy || turn !== player || !canPlay(player, card)) return;
+
+    const index = hands[player].findIndex(c => sameCard(c, card));
+    if (index < 0) return;
+
+    hands[player].splice(index,1);
+    currentTrick.push({player, card});
+
+    if (card.suit === "♠" && currentTrick.some(play => play.card.suit !== "♠")) {
+      spadesBroken = true;
+    }
+
+    if (currentTrick.length < 4) {
+      turn = (turn + 1) % 4;
+      render();
+      if (turn !== 0) {
+        busy = true;
+        window.setTimeout(() => {
+          busy = false;
+          aiPlay();
+        }, 450);
+      } else {
+        setStatus("Your turn. Choose a card that follows suit if possible.");
+      }
+    } else {
+      render();
+      busy = true;
+      window.setTimeout(resolveTrick, 650);
+    }
+  }
+
+  function trickWinner(plays) {
+    const leadSuit = plays[0].card.suit;
+    let winner = plays[0];
+
+    for (const play of plays.slice(1)) {
+      const a = play.card;
+      const b = winner.card;
+      const aIsTrump = a.suit === "♠";
+      const bIsTrump = b.suit === "♠";
+
+      if (aIsTrump && !bIsTrump) {
+        winner = play;
+      } else if (aIsTrump === bIsTrump) {
+        if (a.suit === b.suit && a.value > b.value) {
+          winner = play;
+        } else if (!aIsTrump && a.suit === leadSuit && b.suit !== leadSuit) {
+          winner = play;
+        }
+      }
+    }
+    return winner.player;
+  }
+
+  function resolveTrick() {
+    if (currentTrick.length !== 4) {
+      busy = false;
+      return;
+    }
+
+    const winner = trickWinner(currentTrick);
+    tricks[winner]++;
+    lastTrickWinner = winner;
+    trickHistory.push({plays:currentTrick.slice(), winner});
+    const winningName = playerNames[winner];
+
+    currentTrick = [];
+    turn = winner;
+    busy = false;
+    render();
+
+    if (hands.every(hand => hand.length === 0)) {
+      scoreHand();
+      return;
+    }
+
+    setStatus(winningName + " won the trick. " +
+      (winner === 0 ? "You lead next." : winningName + " leads next."));
+    if (turn !== 0) {
+      busy = true;
+      window.setTimeout(() => {
+        busy = false;
+        aiPlay();
+      }, 450);
+    }
+  }
+
+  function aiChooseCard(player) {
+    const legal = legalCards(player);
+    if (!legal.length) return null;
+
+    const leadSuit = currentTrick.length ? currentTrick[0].card.suit : null;
+
+    // AI tries to win when it needs tricks, otherwise it often plays low.
+    if (currentTrick.length > 0) {
+      const winnerSoFar = trickWinner(currentTrick);
+      const winningPlay = currentTrick.find(p => p.player === winnerSoFar);
+      const winningCard = winningPlay.card;
+      const winningTeam = teamOf(winnerSoFar);
+      const needTricks = getTeamTricks(teamOf(player)) < getTeamBid(teamOf(player));
+      const winningOptions = legal.filter(c => {
+        const test = currentTrick.concat([{player,card:c}]);
+        return trickWinner(test) === player;
+      });
+
+      if (needTricks && winningOptions.length) {
+        winningOptions.sort((a,b) => a.value - b.value);
+        return winningOptions[0];
+      }
+
+      if (winningTeam === teamOf(player) && !winningOptions.length) {
+        legal.sort((a,b) => a.value - b.value);
+        return legal[0];
+      }
+
+      if (winningTeam === teamOf(player) && winningOptions.length) {
+        legal.sort((a,b) => a.value - b.value);
+        return legal[0];
+      }
+
+      if (winningOptions.length) {
+        winningOptions.sort((a,b) => a.value - b.value);
+        return winningOptions[0];
+      }
+
+      legal.sort((a,b) => a.value - b.value);
+      return legal[0];
+    }
+
+    // When leading, use strong cards if the team still needs tricks.
+    const need = getTeamTricks(teamOf(player)) < getTeamBid(teamOf(player));
+    if (need) {
+      const strong = legal.filter(c => c.value >= 13);
+      if (strong.length) {
+        strong.sort((a,b) => b.value - a.value);
+        return strong[0];
+      }
+    }
+
+    // Prefer low cards for a safe lead.
+    legal.sort((a,b) => a.value - b.value);
+    return legal[0];
+  }
+
+  function aiPlay() {
+    if (phase !== "playing" || turn === 0 || busy) return;
+    const card = aiChooseCard(turn);
+    if (!card) {
+      busy = false;
+      return;
+    }
+    playCard(turn, card);
+  }
+
+  function scoreHand() {
+    const teamBids = [getTeamBid(0), getTeamBid(1)];
+    const teamTricks = [getTeamTricks(0), getTeamTricks(1)];
+    const oldScores = scores.slice();
+    const details = [];
+
+    for (let team = 0; team < 2; team++) {
+      const bid = teamBids[team];
+      const won = teamTricks[team];
+      if (won >= bid) {
+        const extra = won - bid;
+        scores[team] += bid * 10 + extra;
+        bags[team] += extra;
+        details.push((team === 0 ? "Your team" : "Opponents") +
+          " made " + bid + " and scored +" + (bid * 10 + extra) + ".");
+      } else {
+        scores[team] -= bid * 10;
+        details.push((team === 0 ? "Your team" : "Opponents") +
+          " missed " + bid + " and scored -" + (bid * 10) + ".");
+      }
+
+      if (bags[team] >= 10) {
+        const penalties = Math.floor(bags[team] / 10);
+        scores[team] -= penalties * 100;
+        bags[team] -= penalties * 10;
+        details.push((team === 0 ? "Your team" : "Opponents") +
+          " received a 100-point bag penalty.");
+      }
+    }
+
+    // Nil is scored separately. Tricks taken by a nil bidder still count
+    // toward their team's overall tricks in this simplified version.
+    for (const player of [0,1,2,3]) {
+      if (bids[player] === 0) {
+        const team = teamOf(player);
+        if (tricks[player] === 0) {
+          scores[team] += 100;
+          details.push(playerNames[player] + " made Nil: +100 points.");
+        } else {
+          scores[team] -= 100;
+          details.push(playerNames[player] + " failed Nil: -100 points.");
+        }
+      }
+    }
+
+    render();
+    phase = "roundEnd";
+    dealer = (dealer + 1) % 4;
+
+    const winner = scores[0] >= 500 || scores[1] >= 500;
+    if (winner) {
+      gameOver = true;
+      phase = "over";
+    }
+
+    const summary = details.join(" ");
+    roundMessage = summary;
+    setStatus("Hand complete! " + summary +
+      (gameOver ? (scores[0] > scores[1] ? " Your team wins!" : " The opponents win!") :
+        " Press Next Hand to continue."));
+
+    $("bidPanel").hidden = false;
+    $("bidPanel").innerHTML =
+      '<h3>' + (gameOver ? 'Game Over' : 'Hand Complete') + '</h3>' +
+      '<p>' + escapeHtml(summary) + '</p>' +
+      '<button class="btn" id="nextHandBtn" type="button">' +
+      (gameOver ? 'New Game' : 'Next Hand') + '</button>';
+
+    $("nextHandBtn").addEventListener("click", () => {
+      if (gameOver) newGame();
+      else startHand();
+    }, {once:true});
+
+    $("handHelp").textContent = "Hand finished. Check the score above.";
+  }
+
+  function escapeHtml(text) {
+    return String(text).replace(/[&<>"']/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[c]));
+  }
+
+  function cardMarkup(card, extraClass) {
+    const red = card.suit === "♥" || card.suit === "♦";
+    return '<div class="' + extraClass + (red ? ' red-suit' : '') + '">' +
+      '<small>' + card.rank + '</small>' +
+      '<span>' + card.suit + '</span></div>';
+  }
+
+  function renderTrick() {
+    const center = $("trickCenter");
+    center.innerHTML = "";
+    for (const play of currentTrick) {
+      const card = play.card;
+      const red = card.suit === "♥" || card.suit === "♦";
+      const el = document.createElement("div");
+      el.className = "played-card" + (red ? " red-suit" : "");
+      el.innerHTML = '<small>' + escapeHtml(playerNames[play.player]) + '</small>' +
+        '<div>' + escapeHtml(card.rank) + '</div>' +
+        '<div>' + escapeHtml(card.suit) + '</div>';
+      center.appendChild(el);
+    }
+  }
+
+  function renderSeats() {
+    for (let p = 0; p < 4; p++) {
+      const seat = $("seat" + p);
+      seat.classList.toggle("active", phase === "playing" && turn === p);
+      $("seatInfo" + p).textContent =
+        hands[p].length + " cards" +
+        (bids[p] !== null && bids[p] !== undefined ? " · Bid " + bids[p] : "");
+      if (p !== 0) {
+        $("backs" + p).innerHTML = Array.from({length:Math.min(hands[p].length,13)},() =>
+          '<span class="back-card"></span>').join("");
+      }
+    }
+  }
+
+  function renderHand() {
+    const handBox = $("playerHand");
+    handBox.innerHTML = "";
+    $("handCount").textContent = hands[0].length + " cards";
+
+    for (const card of hands[0]) {
+      const legal = phase === "playing" && turn === 0 && !busy && canPlay(0,card);
+      const red = card.suit === "♥" || card.suit === "♦";
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "playing-card" + (red ? " red-suit" : "");
+      button.disabled = !legal;
+      button.setAttribute("aria-label", card.rank + " of " + SUIT_NAMES[card.suit]);
+      button.innerHTML = '<span class="rank">' + card.rank + '</span>' +
+        '<span class="suit">' + card.suit + '</span>';
+      button.addEventListener("click", () => playCard(0,card));
+      handBox.appendChild(button);
+    }
+
+    if (phase === "bidding") {
+      $("handHelp").textContent = "Choose a bid above. Your hand is sorted by suit.";
+    } else if (phase === "playing" && turn === 0) {
+      $("handHelp").textContent = "Your turn! Click a bright card to play it. Dark cards are not legal on this turn.";
+    } else if (phase === "playing") {
+      $("handHelp").textContent = "Waiting for the computer players...";
+    } else {
+      $("handHelp").textContent = "This hand is complete.";
+    }
+  }
+
+  function renderBids() {
+    const panel = $("bidPanel");
+    if (phase !== "bidding") {
+      if (!panel.querySelector("#nextHandBtn")) panel.hidden = true;
+      return;
+    }
+
+    panel.hidden = false;
+    panel.innerHTML =
+      '<h3>Make Your Bid</h3>' +
+      '<p>Choose the number of tricks you expect to win. Zero is Nil.</p>' +
+      '<div class="bid-buttons" id="bidButtons"></div>';
+
+    const buttons = $("bidButtons");
+    for (let i = 0; i <= 13; i++) {
+      const button = document.createElement("button");
+      button.className = "bid-btn";
+      button.type = "button";
+      button.textContent = i === 0 ? "0 · Nil" : String(i);
+      button.disabled = bids[0] !== null;
+      button.addEventListener("click", () => makeBid(0,i));
+      buttons.appendChild(button);
+    }
+
+    if (bids[0] !== null) {
+      buttons.innerHTML = '<span class="score-meta">Your bid: ' + bids[0] +
+        '. Waiting for the other players.</span>';
+    }
+  }
+
+  function render() {
+    if (!hands) return;
+    $("teamScore").textContent = scores[0];
+    $("oppScore").textContent = scores[1];
+    $("teamMeta").textContent =
+      "Bid: " + (phase === "bidding" ? "—" : getTeamBid(0)) +
+      " · Tricks: " + getTeamTricks(0) + " · Bags: " + bags[0];
+    $("oppMeta").textContent =
+      "Bid: " + (phase === "bidding" ? "—" : getTeamBid(1)) +
+      " · Tricks: " + getTeamTricks(1) + " · Bags: " + bags[1];
+
+    renderSeats();
+    renderTrick();
+    renderHand();
+    renderBids();
+  }
+
+  function showRules() {
+    $("howToPlay").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  $("newGameBtn").addEventListener("click", newGame);
+  $("rulesBtn").addEventListener("click", showRules);
+  $("year").textContent = new Date().getFullYear();
+
+  newGame();
+})();
+</script>
 </body>
 </html>
