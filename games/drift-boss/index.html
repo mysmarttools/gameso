@@ -1,863 +1,1112 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101522">
-<title>Drift Boss - Play Free Online | Gameso</title>
-<meta name="description" content="Play Drift Boss online for free at Gameso! Drift around challenging corners, master your timing, collect coins and beat your high score.">
+
+<title>Drift Boss Online – Play Free Car Drifting Game | Gameso</title>
+<meta name="description" content="Play Drift Boss online on Gameso! Drive along a narrow road, time your turns, avoid falling and beat your high score in this free drifting game.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gameso.vercel.app/games/drift-boss/">
+<meta property="og:title" content="Drift Boss Online – Play Free Drifting Game | Gameso">
+<meta property="og:description" content="Test your timing in this free Drift Boss-style driving game. Turn at the right moment, stay on the road and beat your best score.">
+<meta property="og:url" content="https://gameso.vercel.app/games/drift-boss/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#080b14">
+
 <style>
-/* GAME STYLES — website background outside the game is unchanged */
-#driftboss {
-  --db-bg:#101522;
-  --db-panel:#192235;
-  --db-orange:#ff9d32;
-  color:#fff;
-  width:100%;
-  max-width:1100px;
-  margin:20px auto;
-  font-family:Arial,Helvetica,sans-serif;
+:root{
+  --bg:#080b14;
+  --card:#121827;
+  --card-hover:#182137;
+  --text:#ffffff;
+  --muted:#9ba4b6;
+  --primary:#6c5ce7;
+  --accent:#00d4ff;
+  --green:#55edac;
+  --border:rgba(255,255,255,.08);
 }
-#driftboss * {box-sizing:border-box}
-#driftboss .db-shell {
-  background:var(--db-bg);
-  border:1px solid #303b51;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 12px 35px #0002;
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(108,92,231,.16),transparent 40%),
+    var(--bg);
+  overflow-x:hidden;
 }
-#driftboss .db-top {
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.game-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:70px;
+  background:rgba(8,11,20,.92);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(18px);
+}
+.header-inner{
+  width:min(1100px,calc(100% - 32px));
+  height:100%;
+  margin:auto;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:12px;
-  padding:14px 18px;
-  background:#151e30;
-  border-bottom:1px solid #303b51;
 }
-#driftboss .db-brand {
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
   font-size:20px;
-  font-weight:900;
+  font-weight:800;
+}
+.logo-icon{
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  font-size:18px;
+}
+.logo strong{
+  background:linear-gradient(90deg,#fff,#bdb9ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.back-button{
+  padding:11px 15px;
+  color:var(--muted);
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+}
+.back-button:hover{
+  color:#fff;
+  background:rgba(255,255,255,.08);
+}
+.game-page{padding:48px 0 75px}
+.game-container{
+  width:min(900px,calc(100% - 32px));
+  margin:auto;
+}
+.game-heading{
+  text-align:center;
+  margin-bottom:27px;
+}
+.game-label{
+  display:inline-block;
+  color:#9b93ff;
+  font-size:11px;
+  font-weight:800;
   letter-spacing:1px;
 }
-#driftboss .db-brand span {color:var(--db-orange)}
-#driftboss .db-status {
-  font-size:11px;
-  color:#9caec9;
-  letter-spacing:1.4px;
-  font-weight:bold;
-}
-#driftboss .db-stats {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:8px;
-  padding:12px;
-  background:#111827;
-}
-#driftboss .db-stat {
-  text-align:center;
-  padding:10px 5px;
-  border-radius:9px;
-  background:#1b263a;
-  border:1px solid #2c3a51;
-}
-#driftboss .db-stat small {
-  display:block;
-  color:#aab8ce;
-  font-size:10px;
-  font-weight:bold;
-  letter-spacing:1.1px;
-  margin-bottom:5px;
-}
-#driftboss .db-stat strong {
-  display:block;
-  font-size:clamp(19px,4vw,27px);
-  line-height:1;
-  font-variant-numeric:tabular-nums;
-}
-#driftboss .db-stat:first-child strong {color:#ffc05c}
-#driftboss .db-screen {
-  position:relative;
-  background:#b6d9ef;
-  overflow:hidden;
-  line-height:0;
-  touch-action:none;
-  user-select:none;
-  -webkit-user-select:none;
-}
-#driftboss canvas {
-  display:block;
-  width:100%;
-  aspect-ratio:16/9;
-  min-height:230px;
-  max-height:570px;
-  object-fit:contain;
-  background:#b6d9ef;
-  outline:none;
-  touch-action:none;
-}
-#driftboss .db-overlay {
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:linear-gradient(#10152238,#10152272);
-  line-height:normal;
-}
-#driftboss .db-overlay[hidden] {display:none}
-#driftboss .db-modal {
-  width:min(360px,100%);
-  padding:25px 20px;
-  border:1px solid #ffffff36;
-  border-radius:17px;
-  text-align:center;
-  background:#111827ed;
-  box-shadow:0 14px 50px #0004;
-  backdrop-filter:blur(8px);
-}
-#driftboss .db-modal .db-icon {
-  font-size:39px;
-  margin-bottom:8px;
-}
-#driftboss .db-modal h2 {
-  font-size:clamp(25px,5vw,34px);
-  margin:0 0 9px;
+h1{
+  margin-top:10px;
+  font-size:clamp(32px,5vw,46px);
+  letter-spacing:-1.3px;
   line-height:1.15;
-  font-weight:900;
 }
-#driftboss .db-modal p {
-  color:#c0cce0;
+.game-heading p{
+  max-width:620px;
+  margin:12px auto 0;
+  color:var(--muted);
   font-size:14px;
-  line-height:1.6;
-  margin:0 0 17px;
+  line-height:1.7;
 }
-#driftboss .db-primary {
-  display:inline-block;
+.game-box{
+  padding:18px;
+  background:linear-gradient(145deg,#141b2b,#0e1422);
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+.game-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:15px;
+}
+.stat-box{
+  padding:10px;
+  text-align:center;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+.stat-box span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+.stat-box strong{
+  display:block;
+  margin-top:4px;
+  font-size:19px;
+}
+#gameCanvas{
+  display:block;
   width:100%;
-  padding:14px 20px;
-  border:0;
-  border-radius:9px;
-  background:var(--db-orange);
-  color:#171a21;
-  font-weight:900;
-  font-size:15px;
-  cursor:pointer;
+  height:auto;
+  aspect-ratio:800/440;
+  background:#182b3b;
+  border:3px solid #20283a;
+  border-radius:14px;
+  touch-action:manipulation;
 }
-#driftboss .db-primary:hover {background:#ffb65d}
-#driftboss .db-bottom {
-  padding:14px;
+.game-message{
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:600;
+  line-height:1.5;
+  padding:5px 0;
+}
+.game-actions{
   display:flex;
   justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
   gap:10px;
-  background:#151e30;
-  border-top:1px solid #303b51;
+  flex-wrap:wrap;
 }
-#driftboss .db-btn {
-  padding:10px 14px;
-  border-radius:8px;
-  border:1px solid #3a4963;
-  background:#202c42;
-  color:white;
+.game-button,.secondary-button{
+  min-height:44px;
+  padding:0 19px;
+  border-radius:11px;
   font-size:12px;
-  font-weight:bold;
+  font-weight:800;
   cursor:pointer;
+  transition:transform .2s,opacity .2s;
 }
-#driftboss .db-btn:hover {background:#30405a}
-#driftboss .db-help {
-  color:#aebbd0;
-  font-size:12px;
-  line-height:1.7;
-  text-align:center;
-  padding:12px 16px 16px;
+.game-button{
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),#5144d7);
+  border:0;
 }
-#driftboss .db-help strong {color:#fff}
-#driftboss .db-article {
-  color:inherit;
-  margin-top:22px;
-  padding:18px 0;
-  line-height:1.75;
+.secondary-button{
+  color:var(--muted);
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
 }
-#driftboss .db-article h2 {
+.game-button:hover,.secondary-button:hover{
+  transform:translateY(-2px);
+}
+.game-button:focus-visible,.secondary-button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+.mobile-controls{
+  display:none;
+  justify-content:center;
+  align-items:center;
+  margin-top:14px;
+}
+.mobile-controls button{
+  width:min(100%,280px);
+  min-height:55px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:13px;
+  color:#fff;
+  background:linear-gradient(135deg,#6c5ce7,#5144d7);
+  font-size:14px;
+  font-weight:900;
+  touch-action:manipulation;
+}
+.game-info,.related-section{
+  max-width:760px;
+  margin:55px auto 0;
+}
+.game-info h2,.related-section h2{
   font-size:23px;
-  line-height:1.3;
-  margin:24px 0 10px;
+  margin-bottom:13px;
+  line-height:1.4;
 }
-#driftboss .db-article h3 {
-  font-size:18px;
-  margin:18px 0 7px;
+.game-info h2:not(:first-child){margin-top:32px}
+.game-info h3{
+  font-size:17px;
+  line-height:1.5;
+  margin:23px 0 8px;
 }
-#driftboss .db-article p,
-#driftboss .db-article li {font-size:15px}
-#driftboss .db-article a {color:#e58a22}
-@media(max-width:600px) {
-  #driftboss {margin:10px auto}
-  #driftboss .db-top {padding:12px}
-  #driftboss .db-brand {font-size:17px}
-  #driftboss .db-status {font-size:9px}
-  #driftboss .db-stats {gap:5px;padding:8px}
-  #driftboss .db-stat {padding:9px 3px}
-  #driftboss .db-stat small {font-size:9px}
-  #driftboss canvas {min-height:230px;aspect-ratio:4/3}
-  #driftboss .db-modal {padding:18px 15px}
-  #driftboss .db-bottom {gap:7px}
-  #driftboss .db-btn {padding:10px}
+.game-info p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.85;
+  margin-bottom:13px;
+}
+.game-info ul{
+  padding-left:21px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:2;
+}
+.game-info li{
+  padding-left:2px;
+  margin-bottom:3px;
+}
+.game-info strong{color:#e5e9f2}
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.related-card{
+  min-height:100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  transition:.2s;
+}
+.related-card:hover{
+  transform:translateY(-3px);
+  background:var(--card-hover);
+  border-color:rgba(108,92,231,.4);
+}
+.related-card span{font-size:30px}
+.related-card strong{font-size:12px}
+footer{
+  margin-top:65px;
+  padding:22px 15px;
+  text-align:center;
+  color:#697284;
+  background:#060810;
+  border-top:1px solid var(--border);
+  font-size:11px;
+}
+@media(max-width:700px){
+  .game-page{padding:35px 0 55px}
+  .game-box{padding:11px;border-radius:16px}
+  .related-grid{grid-template-columns:1fr}
+  .related-card{
+    min-height:68px;
+    flex-direction:row;
+    justify-content:flex-start;
+    padding:0 20px;
+  }
+  .mobile-controls{display:flex}
+}
+@media(max-width:420px){
+  .game-header{height:62px}
+  .header-inner{width:calc(100% - 22px)}
+  .logo{font-size:17px}
+  .logo-icon{width:32px;height:32px}
+  .back-button{padding:10px;font-size:11px}
+  .game-container{width:calc(100% - 20px)}
+  h1{font-size:29px}
+  .game-heading p{font-size:12px}
+  .stat-box{padding:8px 4px}
+  .stat-box strong{font-size:17px}
+  .game-info h2,.related-section h2{font-size:21px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important}
 }
 </style>
 </head>
+
 <body>
+<header class="game-header">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="Gameso home">
+      <span class="logo-icon">🎮</span>
+      <strong>Gameso</strong>
+    </a>
+    <a href="/" class="back-button">← All Games</a>
+  </div>
+</header>
 
-<main id="driftboss">
-  <section class="db-shell" aria-label="Drift Boss game">
-    <header class="db-top">
-      <div class="db-brand">GAMESO <span>RACING</span></div>
-      <div class="db-status">● ARCADE MODE</div>
-    </header>
+<main class="game-page">
+<div class="game-container">
 
-    <div class="db-stats">
-      <div class="db-stat">
-        <small>SCORE</small>
-        <strong id="db-score">0</strong>
+  <section class="game-heading">
+    <span class="game-label">FREE ONLINE DRIVING GAME</span>
+    <h1>Drift Boss – Play Free Online</h1>
+    <p>Drive along a narrow road, time your turns and keep your car from falling. Play this free Drift Boss-style driving challenge on Gameso and try to beat your high score.</p>
+  </section>
+
+  <section class="game-box" aria-label="Playable drifting game">
+    <div class="game-stats">
+      <div class="stat-box">
+        <span>SCORE</span>
+        <strong id="score">0</strong>
       </div>
-      <div class="db-stat">
-        <small>BEST</small>
-        <strong id="db-best">0</strong>
+      <div class="stat-box">
+        <span>BEST SCORE</span>
+        <strong id="best">0</strong>
       </div>
-      <div class="db-stat">
-        <small>COINS</small>
-        <strong id="db-coins">0</strong>
-      </div>
-    </div>
-
-    <div class="db-screen" id="db-screen">
-      <canvas id="db-canvas" tabindex="0"
-        aria-label="Drift Boss game. Hold Space or touch the game to steer right; release to steer left.">
-      </canvas>
-
-      <div class="db-overlay" id="db-overlay">
-        <div class="db-modal">
-          <div class="db-icon" id="db-modal-icon">🏎️</div>
-          <h2 id="db-modal-title">DRIFT BOSS</h2>
-          <p id="db-modal-text">Master every turn. Stay on the road. Chase the ultimate high score.</p>
-          <button class="db-primary" id="db-start">▶ START RACING</button>
-        </div>
+      <div class="stat-box">
+        <span>ROAD</span>
+        <strong id="roadStatus">READY</strong>
       </div>
     </div>
 
-    <div class="db-bottom">
-      <button class="db-btn" id="db-restart">↻ RESTART</button>
-      <button class="db-btn" id="db-sound">🔊 SOUND ON</button>
-      <button class="db-btn" id="db-fullscreen">⛶ FULLSCREEN</button>
+    <canvas id="gameCanvas" width="800" height="440" tabindex="0"
+      aria-label="Drifting driving game. Press Space, Enter, or click the Drift button to start and turn at corners.">
+    </canvas>
+
+    <div class="game-message" id="message" role="status" aria-live="polite">
+      Press SPACE or tap DRIFT to start. Turn when the arrow appears!
     </div>
 
-    <div class="db-help">
-      <strong>HOW TO DRIVE:</strong> Hold <strong>SPACE</strong> or press and hold the game to turn right.
-      Release to turn left. Stay on the road and collect coins!
+    <div class="game-actions">
+      <button class="game-button" id="startButton" type="button">▶ Start Game</button>
+      <button class="secondary-button" id="restartButton" type="button">↻ Restart</button>
+      <button class="secondary-button" id="soundButton" type="button">🔊 Sound On</button>
+    </div>
+
+    <div class="mobile-controls" aria-label="Mobile game controls">
+      <button id="driftButton" type="button">↪ DRIFT / TURN</button>
     </div>
   </section>
 
-  <section class="db-article">
-    <h2>🏁 Play Drift Boss Online for Free</h2>
-    <p>Ready to test your driving skills? Drift Boss is an arcade drifting challenge where timing, quick reactions and careful steering help you stay on a winding road. Drive as far as possible, collect coins and try to beat your personal best on Gameso.</p>
+  <section class="game-info">
 
-    <h2>🎮 How to Play Drift Boss</h2>
+    <h2>🏎️ What Is Drift Boss?</h2>
+    <p>Drift Boss is a popular style of casual driving game built around timing, sharp turns and staying on a narrow road. In this independent Drift Boss-style browser game on Gameso, your car keeps moving forward while you watch for upcoming corners and react at the right moment.</p>
+    <p>The challenge is simple: stay on the road for as long as possible. A mistimed turn can send your car off the edge, so pay attention to the direction indicator and act when the corner arrives. Each successful turn adds to your score and brings another challenge.</p>
+
+    <h2>🕹️ How to Play Drift Boss Online</h2>
+    <p>Start the game and watch the road ahead. When a turn indicator appears, press the Drift button or use your keyboard. Successful turns earn points. If you miss a corner, your car falls and the run ends.</p>
     <ul>
-      <li><strong>Desktop:</strong> Hold the Spacebar or your left mouse button to steer right.</li>
-      <li><strong>Mobile:</strong> Press and hold the game screen to steer right.</li>
-      <li><strong>Release:</strong> Release your input to steer back left.</li>
-      <li><strong>Objective:</strong> Stay on the track, collect coins and achieve the highest score you can.</li>
+      <li>Start the game using the Start Game button.</li>
+      <li>Watch the road and look for the turn indicator.</li>
+      <li>Press Space, Enter, or tap the Drift button when prompted.</li>
+      <li>Complete each turn to keep driving and increase your score.</li>
+      <li>Avoid falling off the road.</li>
+      <li>Restart and try to beat your best score.</li>
     </ul>
 
-    <h2>🔥 Tips for a Higher Score</h2>
-    <p>Watch the upcoming bends instead of focusing only on your car. Make small, timely steering adjustments, avoid the road edges and collect coins whenever it is safe. Practise regularly to improve your timing and keep your run going longer.</p>
+    <h2>⌨️ Drift Boss Controls</h2>
+    <p>This browser game supports keyboard input on desktop computers and a large touch button on compatible mobile devices.</p>
+    <ul>
+      <li><strong>Start:</strong> Spacebar, Enter or the Start Game button.</li>
+      <li><strong>Drift / Turn:</strong> Spacebar, Enter, click the canvas or tap the Drift button.</li>
+      <li><strong>Restart:</strong> Select the Restart button to begin a new run.</li>
+      <li><strong>Mobile:</strong> Tap the on-screen Drift / Turn button when the indicator appears.</li>
+      <li><strong>Sound:</strong> Use the Sound button to turn game sounds on or off.</li>
+    </ul>
+
+    <h2>🏆 Tips to Get a High Score</h2>
+    <p>Good timing is the key to lasting longer in a drifting game. Use these tips to improve your results.</p>
+    <ul>
+      <li><strong>Watch the indicator:</strong> Look for the arrow that signals an upcoming turn.</li>
+      <li><strong>React at the right moment:</strong> Press when the turn prompt appears rather than repeatedly pressing the button.</li>
+      <li><strong>Stay focused:</strong> Keep your attention on the road ahead.</li>
+      <li><strong>Practise the timing:</strong> Each run gives you another opportunity to improve your reaction.</li>
+      <li><strong>Learn from a fall:</strong> Notice whether you missed the turn prompt or reacted too early.</li>
+      <li><strong>Beat your best:</strong> Try to improve your previous score on every run.</li>
+    </ul>
+
+    <h2>🌟 Features of This Free Drifting Game</h2>
+    <ul>
+      <li>Free browser-based driving gameplay.</li>
+      <li>Responsive canvas game with a moving road.</li>
+      <li>Timed turn prompts and a score counter.</li>
+      <li>Best-score tracking on supported browsers.</li>
+      <li>Keyboard, mouse and mobile touch controls.</li>
+      <li>Optional sound effects.</li>
+      <li>Restart option for another attempt.</li>
+      <li>No separate game installation required.</li>
+    </ul>
+
+    <h2>📱 Can You Play Drift Boss on Mobile?</h2>
+    <p>Yes. This Gameso page includes a touch-friendly Drift button for compatible mobile browsers. Open the page on your phone, start the game and tap the button when the turn indicator appears. For the best experience, use an updated browser and keep the game page open while playing.</p>
+
+    <h2>🆓 Is Drift Boss Free to Play?</h2>
+    <p>This Drift Boss-style game on Gameso is free to play directly in your browser. You do not need to install a separate game application or create an account to start a run.</p>
 
     <h2>❓ Frequently Asked Questions</h2>
-    <h3>Can I play Drift Boss on mobile?</h3>
-    <p>Yes. This custom Gameso version supports touch controls on phones and tablets, as well as keyboard and mouse controls on desktop computers.</p>
-    <h3>Is Drift Boss free to play?</h3>
-    <p>Yes. This custom version runs directly in your browser without requiring a separate download.</p>
-    <h3>How do I save my best score?</h3>
-    <p>Your best score and collected coins are saved locally in your browser when storage is available. Clearing browser data may erase this progress.</p>
+
+    <h3>1. What is Drift Boss?</h3>
+    <p>Drift Boss is a style of driving game that challenges players to navigate narrow roads and make turns with precise timing. This Gameso page contains an independent browser game inspired by that gameplay style.</p>
+
+    <h3>2. Can I play Drift Boss online for free?</h3>
+    <p>You can play this Drift Boss-style browser game on Gameso for free. Open the page and press Start Game to begin.</p>
+
+    <h3>3. How do I turn in this game?</h3>
+    <p>Wait for the turn indicator to appear, then press Space or Enter, click the game canvas, or tap the Drift / Turn button on your mobile device.</p>
+
+    <h3>4. Can I play the game on my phone?</h3>
+    <p>Yes. The page adapts to smaller screens and provides a touch button for turning. Performance can vary depending on your device and browser.</p>
+
+    <h3>5. How do I increase my score?</h3>
+    <p>Complete the turn prompts successfully and keep your car on the road. Your score increases as you make progress through the driving challenge.</p>
+
+    <h3>6. What happens if my car falls?</h3>
+    <p>The current run ends and your final score is displayed. Select Restart to begin another attempt.</p>
+
+    <h3>7. Does this game save my best score?</h3>
+    <p>The game attempts to store your best score in your browser. This feature depends on browser storage being available and enabled on your device.</p>
+
+    <h3>8. Do I need to download anything?</h3>
+    <p>No separate download is required for this browser-based game. You can play directly on the Gameso website using a compatible browser.</p>
+
+    <h3>9. Does the game have sound?</h3>
+    <p>Yes. The game includes optional simple sound effects. Use the Sound On or Sound Off button to control them.</p>
+
+    <h3>10. Is this the official Drift Boss game?</h3>
+    <p>No. This is an independent browser-based game inspired by drifting and timed-turn gameplay. It is not represented as the official Drift Boss game.</p>
+
+    <h3>11. Why did my car fall off the road?</h3>
+    <p>You may have missed the turn prompt or pressed at the wrong time. Watch the indicator closely and practise responding when the prompt becomes active.</p>
+
+    <h3>12. Can I restart after losing?</h3>
+    <p>Yes. Press Restart to begin a fresh run. Your best score remains available if browser storage is supported.</p>
+
+    <h3>13. Can I play on a computer?</h3>
+    <p>Yes. Use a compatible desktop browser and press Space or Enter when the game asks you to turn.</p>
+
+    <h3>14. Does this game require an account?</h3>
+    <p>No account is required to play this browser game on Gameso.</p>
+
+    <h3>15. How can I improve my reaction time?</h3>
+    <p>Keep your eyes on the road, avoid unnecessary button presses and practise responding to the turn indicator. Repeated attempts can help you become more familiar with the timing.</p>
+
+    <h2>🎯 Play More Free Online Games</h2>
+    <p>Looking for more browser games? Explore other Gameso favourites, including Snake and 2048, for more casual gaming challenges.</p>
+
   </section>
+
+  <section class="related-section">
+    <h2>🎮 More Free Online Games</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/games/snake/">
+        <span>🐍</span>
+        <strong>Snake Game</strong>
+      </a>
+      <a class="related-card" href="/games/roblox-obby/">
+        <span>🧗</span>
+        <strong>Roblox Obby</strong>
+      </a>
+      <a class="related-card" href="/games/2048/">
+        <span>🔢</span>
+        <strong>2048 Puzzle</strong>
+      </a>
+    </div>
+  </section>
+
+</div>
 </main>
+
+<footer>© <span id="year"></span> Gameso · Play Free Online Games</footer>
 
 <script>
 (() => {
   "use strict";
 
-  const root = document.getElementById("driftboss");
-  if (!root || root.dataset.initialized) return;
-  root.dataset.initialized = "true";
-
-  const canvas = root.querySelector("#db-canvas");
+  const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
-  const screen = root.querySelector("#db-screen");
-  const overlay = root.querySelector("#db-overlay");
-  const startBtn = root.querySelector("#db-start");
-  const restartBtn = root.querySelector("#db-restart");
-  const soundBtn = root.querySelector("#db-sound");
-  const fullscreenBtn = root.querySelector("#db-fullscreen");
+  const $ = id => document.getElementById(id);
 
-  const scoreEl = root.querySelector("#db-score");
-  const bestEl = root.querySelector("#db-best");
-  const coinsEl = root.querySelector("#db-coins");
-  const modalIcon = root.querySelector("#db-modal-icon");
-  const modalTitle = root.querySelector("#db-modal-title");
-  const modalText = root.querySelector("#db-modal-text");
+  $("year").textContent = new Date().getFullYear();
 
-  let W = 960, H = 540, DPR = 1;
-  let running = false, gameOver = false, steering = false;
-  let score = 0, coins = 0, best = 0, bankedCoins = 0;
-  let playerX = 0, lateralSpeed = 0;
-  let distance = 0, roadOffset = 0, speed = 1;
-  let frame = 0, lastTime = 0, animationId = 0;
-  let soundEnabled = true, audio = null;
-  let particles = [], pickups = [];
-  let turn = 1, turnLength = 160, turnProgress = 0;
-  let roadPoints = [];
+  const W = canvas.width;
+  const H = canvas.height;
+
+  let state = "ready";
+  let score = 0;
+  let best = 0;
+  let soundOn = true;
+  let audio = null;
+  let lastTime = 0;
+  let elapsed = 0;
+  let nextTurnAt = 3.5;
+  let turnActive = false;
+  let turnHandled = false;
+  let turnDirection = 1;
+  let roadOffset = 0;
+  let carLean = 0;
+  let particles = [];
+  let shake = 0;
+  let animationId = 0;
 
   try {
-    best = Number(localStorage.getItem("gameso-drift-best")) || 0;
-    bankedCoins = Number(localStorage.getItem("gameso-drift-coins")) || 0;
-  } catch (_) {}
-
-  bestEl.textContent = best;
-  coinsEl.textContent = bankedCoins;
-
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    W = Math.max(320, rect.width || 960);
-    H = Math.max(230, rect.height || W * 9 / 16);
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(W * DPR);
-    canvas.height = Math.round(H * DPR);
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    render();
+    best = Number(localStorage.getItem("gameso-drift-boss-best") || 0);
+  } catch (error) {
+    best = 0;
   }
 
-  function roadWidthAt(t) {
-    return W * (0.075 + 0.36 * t);
+  $("best").textContent = best;
+
+  function message(text) {
+    $("message").textContent = text;
   }
 
-  function centerAt(t) {
-    const perspective = t * t;
-    return W / 2 + roadOffset * perspective * W * 0.30;
+  function updateStats() {
+    $("score").textContent = score;
+    $("best").textContent = best;
+    $("roadStatus").textContent =
+      state === "ready" ? "READY" :
+      state === "playing" ? (turnActive ? "TURN!" : "DRIVING") :
+      state === "over" ? "CRASHED" : "FINISHED";
   }
 
-  function polygon(points, fill, stroke, lineWidth = 1) {
-    if (!points.length) return;
+  function beep(frequency = 500, duration = 0.11) {
+    if (!soundOn) return;
+
+    try {
+      audio ||= new (window.AudioContext || window.webkitAudioContext)();
+
+      if (audio.state === "suspended") {
+        audio.resume();
+      }
+
+      const oscillator = audio.createOscillator();
+      const gain = audio.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.value = frequency;
+      gain.gain.value = 0.035;
+
+      oscillator.connect(gain);
+      gain.connect(audio.destination);
+
+      oscillator.start();
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audio.currentTime + duration
+      );
+      oscillator.stop(audio.currentTime + duration + 0.01);
+    } catch (error) {
+      // The game remains playable if audio is unavailable.
+    }
+  }
+
+  function roadCenterAt(y, offset = roadOffset) {
+    const perspective = 1 - y / H;
+    const curve = Math.sin(offset * 0.7 + perspective * 3.2) * 55;
+    const bend = Math.sin(offset * 0.31) * 28;
+    return W / 2 + curve * perspective + bend * perspective;
+  }
+
+  function roadWidthAt(y) {
+    const perspective = 1 - y / H;
+    return 125 + perspective * 300;
+  }
+
+  function polygon(points, fill) {
     ctx.beginPath();
     ctx.moveTo(points[0][0], points[0][1]);
+
     for (let i = 1; i < points.length; i++) {
       ctx.lineTo(points[i][0], points[i][1]);
     }
-    ctx.closePath();
-    if (fill) {
-      ctx.fillStyle = fill;
-      ctx.fill();
-    }
-    if (stroke) {
-      ctx.strokeStyle = stroke;
-      ctx.lineWidth = lineWidth;
-      ctx.stroke();
-    }
-  }
 
-  function roundedRect(x, y, w, h, r, fill) {
-    ctx.beginPath();
-    ctx.roundRect(x, y, w, h, r);
+    ctx.closePath();
     ctx.fillStyle = fill;
     ctx.fill();
   }
 
   function drawBackground() {
-    const sky = ctx.createLinearGradient(0, 0, 0, H * 0.65);
-    sky.addColorStop(0, "#83c6ec");
-    sky.addColorStop(1, "#d5e9e9");
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, "#16263d");
+    sky.addColorStop(0.58, "#294653");
+    sky.addColorStop(1, "#354b45");
+
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, W, H);
 
-    // Distant mountain silhouettes
-    polygon([
-      [0,H*.46],[W*.09,H*.22],[W*.19,H*.42],
-      [W*.31,H*.19],[W*.44,H*.43],[W*.57,H*.26],
-      [W*.70,H*.43],[W*.84,H*.20],[W,H*.42],
-      [W,H*.62],[0,H*.62]
-    ], "#8faeb9");
+    // Distant skyline.
+    for (let i = 0; i < 17; i++) {
+      const x = i * 54 - 10;
+      const buildingH = 25 + ((i * 37) % 58);
 
-    polygon([
-      [0,H*.49],[W*.16,H*.36],[W*.27,H*.48],
-      [W*.44,H*.32],[W*.60,H*.47],[W*.80,H*.34],
-      [W,H*.47],[W,H*.67],[0,H*.67]
-    ], "#6c998d");
+      ctx.fillStyle = i % 2 ? "#1c3040" : "#203748";
+      ctx.fillRect(x, 205 - buildingH, 35, buildingH);
 
-    // Checkerboard-like green ground
-    ctx.fillStyle = "#5eaa72";
-    ctx.fillRect(0, H*.46, W, H*.54);
+      ctx.fillStyle = "rgba(114,206,219,.16)";
 
-    const tile = Math.max(22, W / 22);
-    for (let y = H*.46; y < H; y += tile) {
-      for (let x = 0; x < W; x += tile) {
-        if ((Math.floor(x/tile)+Math.floor(y/tile)) % 2 === 0) {
-          ctx.fillStyle = "#69b67a";
-          ctx.fillRect(x,y,tile,tile);
-        }
+      for (let row = 0; row < 3; row++) {
+        ctx.fillRect(x + 7, 215 - buildingH + row * 12, 5, 4);
+        ctx.fillRect(x + 20, 215 - buildingH + row * 12, 5, 4);
       }
+    }
+
+    // Ground.
+    ctx.fillStyle = "#354e48";
+    ctx.fillRect(0, 230, W, H - 230);
+
+    // Grass markings create a sense of movement.
+    for (let i = 0; i < 26; i++) {
+      const x = (i * 97 + 23) % W;
+      const y = 245 + ((i * 53 + roadOffset * 12) % 190);
+
+      ctx.fillStyle = i % 2 ? "#3e5b4d" : "#2e4843";
+      ctx.fillRect(x, y, 13, 3);
     }
   }
 
   function drawRoad() {
-    const horizon = H * 0.40;
-    const bottom = H * 0.92;
-    const steps = 80;
-    const left = [], right = [], shoulderL = [], shoulderR = [];
+    const rows = 30;
+    const step = H / rows;
 
-    for (let i=0;i<=steps;i++) {
-      const t = i/steps;
-      const y = horizon + (bottom-horizon)*t;
-      const curve = Math.sin((t*2.6 + roadOffset*0.14) * Math.PI) *
-        (W*0.035) * t*t;
-      const c = centerAt(t) + curve;
-      const rw = roadWidthAt(t);
-      left.push([c-rw/2,y]);
-      right.push([c+rw/2,y]);
-      shoulderL.push([c-rw/2-rw*.075,y]);
-      shoulderR.push([c+rw/2+rw*.075,y]);
-    }
+    // Draw road sections from far away toward the player.
+    for (let i = 0; i < rows; i++) {
+      const y1 = i * step;
+      const y2 = (i + 1) * step + 1;
 
-    polygon(shoulderL.concat(shoulderR.slice().reverse()), "#e8e7db");
-    polygon(left.concat(right.slice().reverse()), "#3a414b");
+      const c1 = roadCenterAt(y1);
+      const c2 = roadCenterAt(y2);
 
-    // Asphalt surface shading
-    polygon([
-      [W/2-W*.012,horizon],[W/2+W*.012,horizon],
-      [W/2+W*.21,bottom],[W/2-W*.21,bottom]
-    ], "#454c57");
+      const w1 = roadWidthAt(y1);
+      const w2 = roadWidthAt(y2);
 
-    // Road edge markings and dashed center line
-    for (let i=0;i<steps;i++) {
-      const t = i/steps;
-      const t2 = (i+1)/steps;
-      if (Math.floor((t*steps + distance*.12)/5)%2===0) {
-        const y1=horizon+(bottom-horizon)*t;
-        const y2=horizon+(bottom-horizon)*t2;
-        const c1=centerAt(t)+Math.sin((t*2.6+roadOffset*.14)*Math.PI)*W*.035*t*t;
-        const c2=centerAt(t2)+Math.sin((t2*2.6+roadOffset*.14)*Math.PI)*W*.035*t2*t2;
-        const w1=roadWidthAt(t), w2=roadWidthAt(t2);
+      const stripe = Math.floor((i + roadOffset * 3) / 2) % 2 === 0;
 
-        polygon([[c1-w1*.46,y1],[c1-w1*.43,y1],
-          [c2-w2*.43,y2],[c2-w2*.46,y2]], "#f1d2a0");
+      polygon([
+        [c1 - w1 / 2, y1],
+        [c1 + w1 / 2, y1],
+        [c2 + w2 / 2, y2],
+        [c2 - w2 / 2, y2]
+      ], stripe ? "#3a414f" : "#343b49");
 
-        polygon([[c1+w1*.43,y1],[c1+w1*.46,y1],
-          [c2+w2*.46,y2],[c2+w2*.43,y2]], "#f1d2a0");
+      // Road edges.
+      ctx.strokeStyle = "#dbe4ef";
+      ctx.lineWidth = 2 + (y2 / H) * 3;
+      ctx.beginPath();
+      ctx.moveTo(c1 - w1 / 2, y1);
+      ctx.lineTo(c2 - w2 / 2, y2);
+      ctx.moveTo(c1 + w1 / 2, y1);
+      ctx.lineTo(c2 + w2 / 2, y2);
+      ctx.stroke();
 
-        if (Math.floor((i+distance*.7)/8)%2===0) {
-          polygon([
-            [c1-W*.0025,y1],[c1+W*.0025,y1],
-            [c2+W*.0025,y2],[c2-W*.0025,y2]
-          ], "#d4d7d9");
-        }
+      // Dashed center line.
+      if (stripe) {
+        ctx.strokeStyle = "rgba(255,255,255,.45)";
+        ctx.lineWidth = 2 + (y2 / H) * 2;
+        ctx.beginPath();
+        ctx.moveTo(c1, y1);
+        ctx.lineTo(c2, y2);
+        ctx.stroke();
       }
     }
 
-    // Road perspective guide
-    ctx.globalAlpha = .10;
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 1;
-    for (let i=-4;i<=4;i++) {
-      ctx.beginPath();
-      ctx.moveTo(W/2+i*W*.015,horizon);
-      ctx.lineTo(W/2+i*W*.11,bottom);
-      ctx.stroke();
+    // Small roadside markers.
+    for (let i = 0; i < 10; i++) {
+      const y = ((i * 61 + roadOffset * 50) % 440);
+      const center = roadCenterAt(y);
+      const width = roadWidthAt(y);
+
+      for (const side of [-1, 1]) {
+        const x = center + side * (width / 2 + 15 + y * 0.04);
+        const markerH = 5 + y * 0.035;
+
+        ctx.fillStyle = "#e8f2f4";
+        ctx.fillRect(x - 2, y - markerH, 4, markerH);
+
+        ctx.fillStyle = "#ff8c70";
+        ctx.fillRect(x - 2, y - markerH, 4, markerH * 0.4);
+      }
     }
-    ctx.globalAlpha=1;
   }
 
-  function drawCar(x,y,scale,tilt) {
-    ctx.save();
-    ctx.translate(x,y);
-    ctx.rotate(tilt);
-    ctx.scale(scale,scale);
+  function drawCar() {
+    const x = W / 2 + carLean * 4;
+    const y = 322;
 
-    // Shadow
-    ctx.fillStyle="#14192275";
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(carLean * 0.035);
+
+    // Shadow.
+    ctx.fillStyle = "rgba(0,0,0,.35)";
     ctx.beginPath();
-    ctx.ellipse(3,13,31,43,0,0,Math.PI*2);
+    ctx.ellipse(0, 31, 35, 13, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Wheels
-    roundedRect(-29,-25,12,27,4,"#171a20");
-    roundedRect(17,-25,12,27,4,"#171a20");
-    roundedRect(-29,24,12,27,4,"#171a20");
-    roundedRect(17,24,12,27,4,"#171a20");
+    // Wheels.
+    ctx.fillStyle = "#111722";
+    ctx.fillRect(-27, -7, 9, 23);
+    ctx.fillRect(18, -7, 9, 23);
 
-    // Main body
-    polygon([
-      [-20,-42],[-13,-50],[13,-50],[20,-42],
-      [27,-16],[26,27],[17,45],[-17,45],
-      [-26,27],[-27,-16]
-    ],"#e94942","#9e2929",2);
+    // Body.
+    const bodyGradient = ctx.createLinearGradient(-24, -20, 24, 25);
+    bodyGradient.addColorStop(0, "#ff786e");
+    bodyGradient.addColorStop(0.55, "#f03d55");
+    bodyGradient.addColorStop(1, "#b8203c");
 
-    // Side highlights
-    polygon([[-19,-26],[-24,-10],[-22,24],[-16,34],[-13,0]],
-      "#ff7662");
-    polygon([[19,-26],[24,-10],[22,24],[16,34],[13,0]],
-      "#b92c31");
+    ctx.fillStyle = bodyGradient;
+    ctx.beginPath();
+    ctx.moveTo(-23, 20);
+    ctx.lineTo(-25, -7);
+    ctx.lineTo(-17, -25);
+    ctx.lineTo(17, -25);
+    ctx.lineTo(25, -7);
+    ctx.lineTo(23, 20);
+    ctx.closePath();
+    ctx.fill();
 
-    // Windshield and windows
-    polygon([[-16,-32],[-10,-43],[10,-43],[16,-32],[13,-13],[-13,-13]],
-      "#203449","#182532",2);
-    polygon([[-12,-30],[0,-39],[8,-39],[12,-30]],"#7ec7e5");
-    polygon([[-13,-9],[13,-9],[17,14],[-17,14]],
-      "#253c51","#172b3e",2);
-    polygon([[-10,-5],[8,-5],[12,9],[-12,9]],"#47758d");
+    // Windows.
+    ctx.fillStyle = "#9de6f4";
+    ctx.beginPath();
+    ctx.moveTo(-15, -8);
+    ctx.lineTo(-11, -20);
+    ctx.lineTo(11, -20);
+    ctx.lineTo(15, -8);
+    ctx.closePath();
+    ctx.fill();
 
-    // Racing stripe
-    polygon([[-4,-42],[4,-42],[5,35],[0,43],[-5,35]],"#f9c15c");
+    ctx.fillStyle = "#24445b";
+    ctx.fillRect(-13, -6, 26, 10);
 
-    // Headlights
-    roundedRect(-21,-34,9,8,3,"#fff1bb");
-    roundedRect(12,-34,9,8,3,"#fff1bb");
+    // Rear lights.
+    ctx.fillStyle = "#ffecb0";
+    ctx.fillRect(-20, 13, 7, 4);
+    ctx.fillRect(13, 13, 7, 4);
 
-    // Rear lights
-    roundedRect(-21,35,8,5,2,"#ffb2a1");
-    roundedRect(13,35,8,5,2,"#ffb2a1");
+    // Small spoiler.
+    ctx.fillStyle = "#262b3b";
+    ctx.fillRect(-25, 19, 50, 4);
+    ctx.fillRect(-20, 15, 4, 7);
+    ctx.fillRect(16, 15, 4, 7);
 
     ctx.restore();
   }
 
-  function drawCoin(x,y,r) {
+  function drawTurnPrompt() {
+    if (!turnActive || state !== "playing") return;
+
+    const pulse = 1 + Math.sin(performance.now() / 100) * 0.06;
+
     ctx.save();
-    ctx.translate(x,y);
-    ctx.fillStyle="#9b5b15";
+    ctx.translate(W / 2, 90);
+    ctx.scale(pulse, pulse);
+
+    ctx.fillStyle = "rgba(7,12,24,.83)";
     ctx.beginPath();
-    ctx.ellipse(2,3,r*1.1,r,0,0,Math.PI*2);
+    ctx.roundRect(-115, -40, 230, 80, 17);
     ctx.fill();
-    ctx.fillStyle="#ffbd32";
-    ctx.beginPath();
-    ctx.ellipse(0,0,r*1.1,r,0,0,Math.PI*2);
-    ctx.fill();
-    ctx.strokeStyle="#ffe9a2";
-    ctx.lineWidth=Math.max(1,r*.12);
+
+    ctx.strokeStyle = "#55edac";
+    ctx.lineWidth = 2;
     ctx.stroke();
-    ctx.fillStyle="#a56613";
-    ctx.font=`bold ${r*1.25}px Arial`;
-    ctx.textAlign="center";
-    ctx.textBaseline="middle";
-    ctx.fillText("$",0,1);
+
+    ctx.fillStyle = "#55edac";
+    ctx.textAlign = "center";
+    ctx.font = "800 14px Arial";
+    ctx.fillText("TURN NOW!", 0, -12);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 32px Arial";
+    ctx.fillText(turnDirection === 1 ? "↪ RIGHT" : "↩ LEFT", 0, 24);
+
     ctx.restore();
   }
 
-  function makePickups() {
-    pickups = [];
-    for (let i=0;i<5;i++) {
-      pickups.push({
-        t:.25+i*.145,
-        side:(Math.random()-.5)*.35,
-        collected:false
+  function drawReadyOverlay() {
+    ctx.fillStyle = "rgba(6,10,20,.52)";
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 38px Arial";
+    ctx.fillText("DRIFT BOSS", W / 2, 170);
+
+    ctx.fillStyle = "#b8c4d8";
+    ctx.font = "17px Arial";
+    ctx.fillText("Watch the arrow. Time your turn.", W / 2, 205);
+
+    ctx.fillStyle = "#55edac";
+    ctx.font = "bold 15px Arial";
+    ctx.fillText("PRESS SPACE OR TAP DRIFT", W / 2, 246);
+
+    ctx.textAlign = "left";
+  }
+
+  function drawGameOver() {
+    ctx.fillStyle = "rgba(6,10,20,.78)";
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.textAlign = "center";
+
+    ctx.fillStyle = "#ff7b83";
+    ctx.font = "800 38px Arial";
+    ctx.fillText("RUN OVER!", W / 2, 170);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 22px Arial";
+    ctx.fillText("Score: " + score, W / 2, 212);
+
+    ctx.fillStyle = "#b8c4d8";
+    ctx.font = "16px Arial";
+    ctx.fillText("Can you beat your best score?", W / 2, 247);
+
+    ctx.fillStyle = "#55edac";
+    ctx.font = "bold 14px Arial";
+    ctx.fillText("PRESS RESTART TO TRY AGAIN", W / 2, 282);
+
+    ctx.textAlign = "left";
+  }
+
+  function drawParticles() {
+    for (const p of particles) {
+      ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function draw() {
+    ctx.save();
+
+    if (shake > 0) {
+      ctx.translate(
+        (Math.random() - 0.5) * shake,
+        (Math.random() - 0.5) * shake
+      );
+    }
+
+    drawBackground();
+    drawRoad();
+    drawParticles();
+    drawCar();
+    drawTurnPrompt();
+
+    if (state === "ready") drawReadyOverlay();
+    if (state === "over") drawGameOver();
+
+    ctx.restore();
+  }
+
+  function startGame() {
+    if (state === "playing") return;
+
+    score = 0;
+    elapsed = 0;
+    roadOffset = 0;
+    carLean = 0;
+    particles = [];
+    shake = 0;
+    turnActive = false;
+    turnHandled = false;
+    nextTurnAt = 3.5;
+    turnDirection = Math.random() < 0.5 ? -1 : 1;
+
+    state = "playing";
+    updateStats();
+    message("Driving! Watch for the turn arrow and press at the right moment.");
+    beep(560);
+    draw();
+  }
+
+  function addCrashParticles() {
+    for (let i = 0; i < 28; i++) {
+      particles.push({
+        x: W / 2 + (Math.random() - 0.5) * 50,
+        y: 345 + (Math.random() - 0.5) * 25,
+        vx: (Math.random() - 0.5) * 6,
+        vy: -Math.random() * 5,
+        size: 2 + Math.random() * 5,
+        life: 35 + Math.random() * 20,
+        maxLife: 55,
+        color: ["#ff7b83", "#ffbd69", "#ffffff"][i % 3]
       });
     }
   }
 
-  function drawPickups() {
-    pickups.forEach(p => {
-      if (p.collected) return;
-      const t=p.t;
-      const y=H*.40+(H*.52)*t;
-      const cx=centerAt(t);
-      const rw=roadWidthAt(t);
-      const x=cx+p.side*rw;
-      drawCoin(x,y,4+t*12);
-    });
-  }
+  function gameOver() {
+    if (state !== "playing") return;
 
-  function drawParticles() {
-    particles.forEach(p => {
-      ctx.globalAlpha=Math.max(0,p.life);
-      ctx.fillStyle=p.color;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-      ctx.fill();
-    });
-    ctx.globalAlpha=1;
-  }
+    state = "over";
+    turnActive = false;
+    shake = 9;
+    addCrashParticles();
 
-  function render() {
-    if (!ctx) return;
-    drawBackground();
-    drawRoad();
-    drawPickups();
-    drawParticles();
-
-    const t=.83;
-    const roadCenter=centerAt(t);
-    const rw=roadWidthAt(t);
-    const carX=roadCenter+playerX*rw*.45;
-    const carY=H*.75;
-    const scale=Math.min(W/600,1.25)*.85;
-    drawCar(carX,carY,scale,lateralSpeed*.10);
-
-    if (running && Math.abs(lateralSpeed)>.2) {
-      ctx.strokeStyle="#ffffff55";
-      ctx.lineWidth=2;
-      for (let i=0;i<4;i++) {
-        const yy=carY+18+i*8;
-        ctx.beginPath();
-        ctx.moveTo(carX-15-i*2,yy);
-        ctx.lineTo(carX-25-i*4,yy+6);
-        ctx.stroke();
+    if (score > best) {
+      best = score;
+      try {
+        localStorage.setItem("gameso-drift-boss-best", String(best));
+      } catch (error) {
+        // Best score remains available for this session.
       }
-    }
-  }
-
-  function updateHUD() {
-    scoreEl.textContent=score;
-    bestEl.textContent=best;
-    coinsEl.textContent=bankedCoins+coins;
-  }
-
-  function playSound(freq=400,duration=.07) {
-    if (!soundEnabled) return;
-    try {
-      audio=audio || new (window.AudioContext || window.webkitAudioContext)();
-      if (audio.state==="suspended") audio.resume();
-      const osc=audio.createOscillator();
-      const gain=audio.createGain();
-      osc.type="sine";
-      osc.frequency.value=freq;
-      gain.gain.setValueAtTime(.045,audio.currentTime);
-      gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);
-      osc.connect(gain);
-      gain.connect(audio.destination);
-      osc.start();
-      osc.stop(audio.currentTime+duration);
-    } catch (_) {}
-  }
-
-  function saveProgress() {
-    try {
-      localStorage.setItem("gameso-drift-best",String(best));
-      localStorage.setItem("gameso-drift-coins",String(bankedCoins+coins));
-    } catch (_) {}
-  }
-
-  function startGame() {
-    cancelAnimationFrame(animationId);
-    running=true;
-    gameOver=false;
-    steering=false;
-    score=0;
-    coins=0;
-    playerX=0;
-    lateralSpeed=0;
-    distance=0;
-    roadOffset=0;
-    speed=1;
-    frame=0;
-    turn=1;
-    turnLength=150;
-    turnProgress=0;
-    particles=[];
-    makePickups();
-    overlay.hidden=true;
-    lastTime=performance.now();
-    updateHUD();
-    canvas.focus({preventScroll:true});
-    animationId=requestAnimationFrame(loop);
-  }
-
-  function endGame() {
-    if (!running) return;
-    running=false;
-    gameOver=true;
-    steering=false;
-    if (score>best) best=score;
-    saveProgress();
-    updateHUD();
-    playSound(130,.25);
-
-    modalIcon.textContent="💥";
-    modalTitle.textContent="RACE OVER!";
-    modalText.textContent=`Score: ${score} · Best: ${best}. Try again and beat your record!`;
-    startBtn.textContent="↻ RACE AGAIN";
-    overlay.hidden=false;
-  }
-
-  function loop(now) {
-    if (!running) return;
-    const dt=Math.min((now-lastTime)/16.667,2);
-    lastTime=now;
-    frame+=dt;
-
-    speed=Math.min(2.25,1+score*.002);
-    distance+=speed*dt;
-    turnProgress+=speed*dt;
-
-    if (turnProgress>turnLength) {
-      turnProgress=0;
-      turnLength=125+Math.random()*100;
-      turn=Math.random()>.5?1:-1;
+      message("New best score! Press Restart to play again.");
+    } else {
+      message("You left the road! Press Restart and try again.");
     }
 
-    // Responsive one-button drift physics
-    const steeringForce=steering?1:-1;
-    lateralSpeed+=steeringForce*.0018*dt;
-    lateralSpeed*=Math.pow(.985,dt);
-    lateralSpeed=Math.max(-.075,Math.min(.075,lateralSpeed));
-    playerX+=lateralSpeed*dt*1.6;
+    updateStats();
+    beep(160, 0.25);
+    draw();
+  }
 
-    // Gentle road bends; the road scrolls beneath the car
-    roadOffset+=turn*.0017*speed*dt;
-    roadOffset=Math.max(-.65,Math.min(.65,roadOffset));
-
-    // Move coins towards the player
-    pickups.forEach(p => {
-      p.t+=.0028*speed*dt;
-      if (!p.collected && p.t>.76 && p.t<.91) {
-        const dx=playerX-p.side;
-        if (Math.abs(dx)<.23) {
-          p.collected=true;
-          coins++;
-          playSound(700,.05);
-          for (let i=0;i<7;i++) {
-            particles.push({
-              x:W/2+(Math.random()-.5)*40,
-              y:H*.72,
-              size:2+Math.random()*3,
-              life:1,
-              color:"#ffd166",
-              vx:(Math.random()-.5)*3,
-              vy:-Math.random()*3
-            });
-          }
-        }
-      }
-      if (p.t>1.1) {
-        p.t=-.2-Math.random()*.1;
-        p.side=(Math.random()-.5)*.35;
-        p.collected=false;
-      }
-    });
-
-    particles.forEach(p => {
-      p.x+=p.vx||0;
-      p.y+=p.vy||0;
-      p.life-=.025*dt;
-    });
-    particles=particles.filter(p=>p.life>0);
-
-    // Falling off the road ends the run
-    const roadCenter=centerAt(.83);
-    const carWorldX=roadCenter+playerX*roadWidthAt(.83)*.45;
-    if (carWorldX<W/2-roadWidthAt(.83)*.55 ||
-        carWorldX>W/2+roadWidthAt(.83)*.55) {
-      endGame();
-      render();
+  function makeTurn() {
+    if (state === "ready" || state === "over") {
+      startGame();
       return;
     }
 
-    if (Math.floor(distance/12)>score) {
-      score=Math.floor(distance/12);
-      updateHUD();
+    if (state !== "playing") return;
+
+    // Only accept a turn while the prompt is active.
+    if (!turnActive || turnHandled) {
+      return;
     }
 
-    render();
-    animationId=requestAnimationFrame(loop);
+    turnHandled = true;
+    turnActive = false;
+    score += 1;
+
+    roadOffset += turnDirection * 1.25;
+    carLean = turnDirection * 1.7;
+
+    // Successful turn particles.
+    for (let i = 0; i < 10; i++) {
+      particles.push({
+        x: W / 2 + (Math.random() - 0.5) * 45,
+        y: 355,
+        vx: (Math.random() - 0.5) * 3,
+        vy: -Math.random() * 3,
+        size: 2 + Math.random() * 3,
+        life: 22,
+        maxLife: 22,
+        color: "#55edac"
+      });
+    }
+
+    nextTurnAt = elapsed + Math.max(2.6, 3.8 - score * 0.035);
+    turnDirection = Math.random() < 0.5 ? -1 : 1;
+
+    updateStats();
+    message("Nice turn! Keep going and watch for the next arrow.");
+    beep(650 + Math.min(score * 12, 250));
   }
 
-  function setSteering(value) {
-    if (!running) return;
-    steering=value;
+  function update(dt) {
+    if (state !== "playing") {
+      shake = Math.max(0, shake - dt * 0.5);
+      updateParticles(dt);
+      return;
+    }
+
+    elapsed += dt;
+    roadOffset += dt * 0.23;
+    carLean *= Math.pow(0.08, dt);
+
+    // A new turn prompt appears at the scheduled time.
+    if (!turnActive && !turnHandled && elapsed >= nextTurnAt) {
+      turnActive = true;
+      turnHandled = false;
+      updateStats();
+      message("TURN NOW! Press Space, Enter or tap the Drift button!");
+      beep(760, 0.12);
+    }
+
+    // The player has a short window to react to each corner.
+    if (turnActive && elapsed >= nextTurnAt + 1.25) {
+      gameOver();
+      return;
+    }
+
+    // Score advances gradually as the car continues along the road.
+    if (!turnActive) {
+      score += dt * 0.4;
+      $("score").textContent = Math.floor(score);
+    }
+
+    score = Math.floor(score);
+
+    if (score > best) {
+      best = score;
+      $("best").textContent = best;
+      try {
+        localStorage.setItem("gameso-drift-boss-best", String(best));
+      } catch (error) {}
+    }
+
+    updateParticles(dt);
+    updateStats();
   }
 
-  startBtn.addEventListener("click",startGame);
-  restartBtn.addEventListener("click",startGame);
+  function updateParticles(dt) {
+    particles = particles.filter(p => p.life > 0);
 
-  canvas.addEventListener("pointerdown",e => {
-    e.preventDefault();
-    if (!running) {
+    for (const p of particles) {
+      p.x += p.vx * dt * 60;
+      p.y += p.vy * dt * 60;
+      p.vy += 0.12 * dt * 60;
+      p.life -= dt * 60;
+    }
+
+    shake = Math.max(0, shake - dt * 15);
+  }
+
+  function frame(time) {
+    if (!lastTime) lastTime = time;
+
+    const dt = Math.min((time - lastTime) / 1000, 0.035);
+    lastTime = time;
+
+    update(dt);
+    draw();
+
+    animationId = requestAnimationFrame(frame);
+  }
+
+  document.addEventListener("keydown", event => {
+    if (["Space", "ArrowLeft", "ArrowRight", "ArrowUp"].includes(event.code)) {
+      event.preventDefault();
+    }
+
+    if (event.repeat) return;
+
+    if (event.code === "Space" || event.code === "Enter") {
+      makeTurn();
+    }
+  });
+
+  $("startButton").addEventListener("click", () => {
+    if (state === "playing") {
+      makeTurn();
+    } else {
       startGame();
     }
-    steering=true;
-    try {canvas.setPointerCapture(e.pointerId);} catch (_) {}
   });
 
-  function releaseSteering() {
-    steering=false;
-  }
-
-  canvas.addEventListener("pointerup",releaseSteering);
-  canvas.addEventListener("pointercancel",releaseSteering);
-  canvas.addEventListener("lostpointercapture",releaseSteering);
-  window.addEventListener("pointerup",releaseSteering);
-  window.addEventListener("blur",releaseSteering);
-
-  window.addEventListener("keydown",e => {
-    if (e.code==="Space" || e.code==="ArrowRight" ||
-        e.code==="ArrowLeft") {
-      e.preventDefault();
-      if (!running && !e.repeat) {
-        startGame();
-      }
-      if (e.code==="Space" || e.code==="ArrowRight") {
-        setSteering(true);
-      } else {
-        setSteering(false);
-      }
-    }
-    if (e.code==="KeyR" && !e.repeat) startGame();
+  $("restartButton").addEventListener("click", startGame);
+  $("driftButton").addEventListener("pointerdown", event => {
+    event.preventDefault();
+    makeTurn();
   });
 
-  window.addEventListener("keyup",e => {
-    if (e.code==="Space" || e.code==="ArrowRight" ||
-        e.code==="ArrowLeft") {
-      releaseSteering();
-    }
+  canvas.addEventListener("click", makeTurn);
+
+  $("soundButton").addEventListener("click", () => {
+    soundOn = !soundOn;
+    $("soundButton").textContent = soundOn ? "🔊 Sound On" : "🔇 Sound Off";
+    if (soundOn) beep(500);
   });
 
-  soundBtn.addEventListener("click",() => {
-    soundEnabled=!soundEnabled;
-    soundBtn.textContent=soundEnabled?"🔊 SOUND ON":"🔇 SOUND OFF";
-    if (soundEnabled) playSound(500,.08);
+  // Ensure the game keeps working if the tab returns from the background.
+  document.addEventListener("visibilitychange", () => {
+    lastTime = performance.now();
   });
 
-  fullscreenBtn.addEventListener("click",async() => {
-    try {
-      if (!document.fullscreenElement) {
-        await root.querySelector(".db-shell").requestFullscreen();
-      } else {
-        await document.exitFullscreen();
-      }
-    } catch (_) {
-      modalIcon.textContent="ℹ️";
-      modalTitle.textContent="FULLSCREEN UNAVAILABLE";
-      modalText.textContent="Your browser may not allow fullscreen mode here.";
-      startBtn.textContent=running?"RESUME":"PLAY AGAIN";
-      overlay.hidden=false;
-    }
-  });
-
-  document.addEventListener("fullscreenchange",() => {
-    fullscreenBtn.textContent=document.fullscreenElement?
-      "⛶ EXIT FULLSCREEN":"⛶ FULLSCREEN";
-    resize();
-  });
-
-  if ("ResizeObserver" in window) {
-    new ResizeObserver(resize).observe(screen);
-  } else {
-    window.addEventListener("resize",resize);
-  }
-
-  // Initial preview
-  resize();
-  makePickups();
-  render();
+  updateStats();
+  draw();
+  animationId = requestAnimationFrame(frame);
 })();
 </script>
 </body>
 </html>
+```
