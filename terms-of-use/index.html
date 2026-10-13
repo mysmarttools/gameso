@@ -1,1 +1,692 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Terms of Use | Gameso</title>
+  <meta name="description" content="Read the Gameso Terms of Use to understand the rules for using our website, playing online games, accessing third-party content, and contacting us.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameso.vercel.app/terms-of-use">
+
+  <meta property="og:title" content="Terms of Use | Gameso">
+  <meta property="og:description" content="Review the terms and guidelines for using the Gameso website and its online games.">
+  <meta property="og:url" content="https://gameso.vercel.app/terms-of-use">
+  <meta property="og:type" content="website">
+
+  <style>
+    /* ===== RESET ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #080b14;
+      --header: #090d18;
+      --card: #111827;
+      --text: #f5f7fb;
+      --muted: #c0c9d8;
+      --blue: #59a9ff;
+      --border: #273247;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    a:hover {
+      color: #9acbff;
+      text-decoration: underline;
+    }
+
+    p {
+      color: var(--muted);
+      margin-bottom: 17px;
+    }
+
+    h1, h2, h3 {
+      color: var(--text);
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      background: var(--header);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      min-height: 72px;
+      margin: 0 auto;
+      padding: 15px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .logo:hover {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 21px;
+    }
+
+    .nav-links a {
+      color: #d0d7e4;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      text-align: center;
+      padding: 65px 20px 45px;
+      background:
+        radial-gradient(
+          ellipse at top,
+          #172a48 0%,
+          #0b1120 48%,
+          var(--bg) 82%
+        );
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 17px;
+      padding: 5px 14px;
+      border: 1px solid #2d496c;
+      border-radius: 30px;
+      background: #13233a;
+      color: #9bceff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 46px);
+      letter-spacing: -1px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 16px;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 35px 24px 70px;
+    }
+
+    .terms-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 38px 40px;
+      overflow-wrap: anywhere;
+    }
+
+    .updated {
+      display: inline-block;
+      margin-bottom: 25px;
+      padding: 7px 12px;
+      background: #17243a;
+      border-radius: 6px;
+      color: #b5d8ff;
+      font-size: 13px;
+    }
+
+    .terms-card h2 {
+      font-size: 23px;
+      margin-top: 34px;
+      margin-bottom: 13px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .terms-card h2:first-of-type {
+      margin-top: 26px;
+    }
+
+    .terms-card h3 {
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    .terms-card p {
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .terms-card ul {
+      margin: 10px 0 20px;
+      padding-left: 25px;
+      color: var(--muted);
+    }
+
+    .terms-card li {
+      padding: 4px 0;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .terms-card li::marker {
+      color: var(--blue);
+    }
+
+    .terms-card strong {
+      color: #ffffff;
+    }
+
+    .terms-note {
+      margin-top: 18px;
+      padding: 20px;
+      background: #131f32;
+      border-left: 4px solid var(--blue);
+      border-radius: 7px;
+    }
+
+    .terms-note p {
+      margin-bottom: 6px;
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: #06080f;
+      border-top: 1px solid var(--border);
+      padding: 32px 24px 20px;
+    }
+
+    .footer-inner {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 35px;
+    }
+
+    .footer-brand {
+      max-width: 400px;
+    }
+
+    .footer-brand p {
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 140px;
+    }
+
+    .footer-links a {
+      color: #b5bfd0;
+      font-size: 14px;
+    }
+
+    .copyright {
+      max-width: 1000px;
+      margin: 25px auto 0;
+      padding-top: 17px;
+      border-top: 1px solid var(--border);
+      color: #8d98aa;
+      font-size: 12px;
+    }
+
+    /* ===== TABLET ===== */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        gap: 12px 16px;
+      }
+
+      .hero {
+        padding: 50px 20px 35px;
+      }
+
+      main {
+        padding: 25px 18px 50px;
+      }
+
+      .terms-card {
+        padding: 28px;
+      }
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 600px) {
+      body {
+        font-size: 15px;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+
+      .logo {
+        font-size: 25px;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 10px 17px;
+      }
+
+      .nav-links a {
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 42px 18px 30px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      main {
+        padding: 20px 13px 40px;
+      }
+
+      .terms-card {
+        padding: 22px 18px;
+        border-radius: 10px;
+      }
+
+      .terms-card h2 {
+        font-size: 21px;
+        margin-top: 28px;
+      }
+
+      .terms-card h3 {
+        font-size: 17px;
+      }
+
+      .terms-card p,
+      .terms-card li {
+        font-size: 14px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .site-footer {
+        padding: 27px 18px 18px;
+      }
+
+      .footer-links {
+        gap: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="logo" href="/">Game<span>so</span></a>
+
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/games/arcade/">Arcade Games</a>
+        <a href="/about-us">About Us</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Website Guidelines</span>
+    <h1>Terms of Use</h1>
+    <p>
+      Please read these terms before using Gameso.
+      They explain the general rules and conditions for accessing
+      our website and available online games.
+    </p>
+  </section>
+
+  <main>
+    <article class="terms-card">
+
+      <div class="updated">
+        Last updated: October 13, 2026
+      </div>
+
+      <p>
+        Welcome to Gameso. These Terms of Use apply to your access
+        to and use of
+        <a href="https://gameso.vercel.app/">gameso.vercel.app</a>,
+        including the website's pages, features, and available games.
+      </p>
+
+      <p>
+        By accessing or using Gameso, you agree to follow these
+        terms and applicable laws. If you do not agree with these
+        terms, please stop using the website.
+      </p>
+
+      <h2>1. About Gameso</h2>
+
+      <p>
+        Gameso is an online gaming website that provides access
+        to browser-based games and related information. Available
+        content may include arcade games, puzzle games, classic
+        games, casual challenges, instructions, and gameplay tips.
+      </p>
+
+      <p>
+        Game availability and website features may change over time.
+        We may add, update, suspend, or remove content as needed.
+      </p>
+
+      <h2>2. Acceptable Use</h2>
+
+      <p>
+        You agree to use Gameso responsibly and in accordance
+        with applicable laws. You must not:
+      </p>
+
+      <ul>
+        <li>Use the website for unlawful or fraudulent activities.</li>
+        <li>Attempt to disrupt, damage, or compromise website security.</li>
+        <li>Interfere with the website's normal operation or other visitors' access.</li>
+        <li>Attempt unauthorized access to systems, accounts, or services.</li>
+        <li>Use automated methods to abuse or overload the website.</li>
+        <li>Misrepresent your identity when contacting us.</li>
+      </ul>
+
+      <p>
+        We may take reasonable steps to protect the website and
+        its visitors if misuse or suspicious activity is identified.
+      </p>
+
+      <h2>3. Games and Third-Party Content</h2>
+
+      <p>
+        Some games available through Gameso may be provided,
+        hosted, or embedded by third-party developers or services.
+        Such games and services may be subject to separate terms,
+        licenses, and privacy policies.
+      </p>
+
+      <p>
+        Gameso does not claim ownership of third-party games
+        unless explicitly stated. Ownership and intellectual
+        property rights remain with their respective owners.
+      </p>
+
+      <p>
+        We cannot guarantee that every third-party game or service
+        will remain available, function without interruption,
+        or work on every device.
+      </p>
+
+      <h2>4. Intellectual Property</h2>
+
+      <p>
+        Unless otherwise stated, original website elements such
+        as Gameso branding, written descriptions, page layouts,
+        and original graphics may be protected by applicable
+        intellectual property laws.
+      </p>
+
+      <p>
+        You may access the website for personal, lawful use.
+        You must not copy, republish, sell, or redistribute
+        original Gameso content in a way that violates applicable
+        law or the rights of its owner.
+      </p>
+
+      <p>
+        Third-party games, logos, names, and other materials
+        belong to their respective owners and may be subject
+        to separate restrictions.
+      </p>
+
+      <h2>5. Website Availability</h2>
+
+      <p>
+        We aim to keep Gameso accessible, but uninterrupted
+        availability cannot be guaranteed. The website or
+        individual games may occasionally be unavailable because
+        of maintenance, technical problems, hosting issues,
+        or third-party service interruptions.
+      </p>
+
+      <p>
+        We may change or discontinue parts of the website
+        when reasonably necessary.
+      </p>
+
+      <h2>6. No Guarantee of Game Performance</h2>
+
+      <p>
+        Game performance can depend on your device, browser,
+        internet connection, and the software used by a game
+        provider. We do not guarantee that every game will work
+        on every device or browser.
+      </p>
+
+      <p>
+        If a game does not work as expected, you may contact us
+        with the game URL and a description of the issue.
+      </p>
+
+      <h2>7. External Links and Services</h2>
+
+      <p>
+        Gameso may contain links to external websites or services
+        for convenience or additional information. We do not
+        control all external websites and are not responsible
+        for their content, availability, terms, or privacy practices.
+      </p>
+
+      <p>
+        Visiting an external website is your choice. We encourage
+        you to review its terms and privacy policy before using it.
+      </p>
+
+      <h2>8. Advertising</h2>
+
+      <p>
+        Gameso may display advertising if advertising services
+        are enabled. Advertisements may be supplied by third-party
+        providers that have their own policies and technologies.
+      </p>
+
+      <p>
+        The presence of an advertisement does not automatically
+        mean that Gameso endorses the advertised product or service.
+        Any transaction with an advertiser is subject to the terms
+        provided by that advertiser.
+      </p>
+
+      <h2>9. Privacy</h2>
+
+      <p>
+        Your use of Gameso is also subject to our
+        <a href="/privacy-policy">Privacy Policy</a>, which
+        explains how information may be handled and describes
+        cookies, advertising, and third-party services.
+      </p>
+
+      <p>
+        Please review the Privacy Policy to understand the
+        practices applicable to your use of the website.
+      </p>
+
+      <h2>10. Disclaimer</h2>
+
+      <p>
+        Gameso is provided on an "as is" and "as available"
+        basis to the extent permitted by applicable law.
+        We make no guarantee that the website will always be
+        error-free, uninterrupted, secure, or compatible with
+        every device.
+      </p>
+
+      <p>
+        Information such as game descriptions, instructions,
+        and tips is provided for general informational and
+        entertainment purposes. You are responsible for how
+        you use the website and its content.
+      </p>
+
+      <h2>11. Limitation of Liability</h2>
+
+      <p>
+        To the extent permitted by applicable law, Gameso and
+        the people responsible for operating it will not be
+        liable for indirect or consequential losses arising
+        from your use of, or inability to use, the website.
+      </p>
+
+      <p>
+        Nothing in these terms excludes or limits any liability
+        that cannot lawfully be excluded or limited under
+        applicable law.
+      </p>
+
+      <h2>12. Changes to These Terms</h2>
+
+      <p>
+        We may update these Terms of Use as the website develops
+        or our services and legal obligations change. Updated
+        terms will be published on this page with a revised
+        "Last updated" date.
+      </p>
+
+      <p>
+        Your continued use of the website after changes are
+        published constitutes use under the updated terms,
+        to the extent permitted by applicable law.
+      </p>
+
+      <h2>13. Contact Us</h2>
+
+      <p>
+        If you have questions about these Terms of Use or need
+        to report a problem related to the website, please contact us.
+      </p>
+
+      <div class="terms-note">
+        <p><strong>Gameso</strong></p>
+        <p>
+          Email:
+          <a href="mailto:gameso.contact@gmail.com">
+            gameso.contact@gmail.com
+          </a>
+        </p>
+        <p>
+          Website:
+          <a href="https://gameso.vercel.app/">
+            gameso.vercel.app
+          </a>
+        </p>
+      </div>
+
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="/">Game<span>so</span></a>
+        <p>
+          Discover browser-based games, enjoy casual challenges,
+          and find your next game on Gameso.
+        </p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/about-us">About Us</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-use">Terms of Use</a>
+      </nav>
+    </div>
+
+    <div class="copyright">
+      &copy; <span id="currentYear">2026</span> Gameso.
+      All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
