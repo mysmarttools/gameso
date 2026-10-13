@@ -1374,39 +1374,40 @@ Free Online Games – Play Games Online Anytime </h1>
     </main>
 
 
-    <!-- ================= FOOTER ================= -->
+   
 
-    ```html
+
 <!-- ==============================
-     GAMESO PROFESSIONAL FOOTER
+      GAMESO PROFESSIONAL FOOTER
 ================================= -->
 
 <footer class="gameso-footer">
   <div class="gameso-footer-container">
 
-    <!-- GAMESO SECTION -->
-    <div class="gameso-footer-column gameso-about">
+    <!-- COLUMN 1: BRAND INFO -->
+    <div class="gameso-footer-column gameso-brand">
       <a href="/" class="gameso-footer-logo">Gameso<span>.</span></a>
-
       <p class="gameso-about-text">
-        Welcome to Gameso, your destination for fun and free online games.
-        Discover exciting arcade, puzzle, racing, and classic games that
-        you can enjoy directly in your browser. Explore new challenges,
-        improve your skills, and find your next favorite game on Gameso.
+        Welcome to Gameso, your destination for fun and free online games. Discover exciting arcade, puzzle, racing, and classic games that you can enjoy directly in your browser.
       </p>
+      <div class="gameso-badges">
+        <span class="gameso-badge">🎮 Instant Play</span>
+        <span class="gameso-badge">⚡ No Download</span>
+      </div>
+    </div>
 
-      <h3>Gameso</h3>
+    <!-- COLUMN 2: NAVIGATION -->
+    <div class="gameso-footer-column">
+      <h3>Navigation</h3>
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/about-us/">About Us</a></li>
         <li><a href="/contact-us/">Contact Us</a></li>
         <li><a href="/blog/">Blog</a></li>
-        <li><a href="/privacy-policy/">Privacy Policy</a></li>
-        <li><a href="/terms-of-use/">Terms of Use</a></li>
       </ul>
     </div>
 
-    <!-- TOP GAMES SECTION -->
+    <!-- COLUMN 3: TOP GAMES -->
     <div class="gameso-footer-column">
       <h3>Top Games</h3>
       <ul>
@@ -1418,11 +1419,20 @@ Free Online Games – Play Games Online Anytime </h1>
       </ul>
     </div>
 
+    <!-- COLUMN 4: LEGAL & POLICY -->
+    <div class="gameso-footer-column">
+      <h3>Legal</h3>
+      <ul>
+        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+        <li><a href="/terms-of-use/">Terms of Use</a></li>
+      </ul>
+    </div>
+
   </div>
 
   <div class="gameso-footer-bottom">
     <p>© <span id="gameso-footer-year"></span> Gameso. All rights reserved.</p>
-    <p>Play, Explore & Enjoy!</p>
+    <p>Play, Explore & Enjoy! 🎮</p>
   </div>
 </footer>
 
@@ -1432,11 +1442,12 @@ Free Online Games – Play Games Online Anytime </h1>
 ================================= */
 
 .gameso-footer {
-  background: #111827;
-  color: #d1d5db;
+  background: #0b0f19;
+  color: #94a3b8;
   font-family: Arial, Helvetica, sans-serif;
-  margin-top: 50px;
-  padding: 48px 20px 0;
+  margin-top: 60px;
+  padding: 60px 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .gameso-footer * {
@@ -1444,41 +1455,56 @@ Free Online Games – Play Games Online Anytime </h1>
 }
 
 .gameso-footer-container {
-  max-width: 1150px;
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 70px;
-  padding-bottom: 38px;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
 }
 
 .gameso-footer-logo {
   display: inline-block;
   color: #ffffff;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 800;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   margin-bottom: 16px;
 }
 
 .gameso-footer-logo span {
-  color: #60a5fa;
+  color: #6366f1;
 }
 
 .gameso-about-text {
-  max-width: 500px;
-  color: #b9c2d0;
+  color: #94a3b8;
   font-size: 14px;
-  line-height: 1.9;
-  margin: 0 0 24px;
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+.gameso-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gameso-badge {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #cbd5e1;
 }
 
 .gameso-footer-column h3 {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   margin: 0 0 20px;
+  letter-spacing: 0.3px;
 }
 
 .gameso-footer-column ul {
@@ -1488,71 +1514,68 @@ Free Online Games – Play Games Online Anytime </h1>
 }
 
 .gameso-footer-column li {
-  margin: 0 0 13px;
+  margin: 0 0 12px;
 }
 
 .gameso-footer-column li a {
-  color: #cbd5e1;
+  color: #94a3b8;
   font-size: 14px;
-  line-height: 1.6;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  display: inline-block;
 }
 
 .gameso-footer-column li a:hover {
-  color: #60a5fa;
+  color: #6366f1;
+  transform: translateX(3px);
 }
 
 .gameso-footer-bottom {
-  max-width: 1150px;
+  max-width: 1200px;
   margin: 0 auto;
-  border-top: 1px solid #374151;
-  min-height: 65px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 15px;
   flex-wrap: wrap;
-  padding: 16px 0;
+  padding: 20px 0;
 }
 
 .gameso-footer-bottom p {
-  color: #9ca3af;
+  color: #64748b;
   font-size: 13px;
   margin: 0;
-  line-height: 1.7;
 }
 
-/* TABLET & MOBILE */
+/* TABLET & MOBILE RESPONSIVE */
 
-@media (max-width: 650px) {
-  .gameso-footer {
-    padding: 35px 20px 0;
-    margin-top: 35px;
+@media (max-width: 992px) {
+  .gameso-footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
   }
+  .gameso-brand {
+    grid-column: span 2;
+  }
+}
 
+@media (max-width: 576px) {
+  .gameso-footer {
+    padding: 40px 16px 0;
+  }
   .gameso-footer-container {
     grid-template-columns: 1fr;
     gap: 30px;
-    padding-bottom: 25px;
   }
-
-  .gameso-footer-logo {
-    font-size: 27px;
+  .gameso-brand {
+    grid-column: span 1;
   }
-
-  .gameso-about-text {
-    font-size: 14px;
-  }
-
-  .gameso-footer-column h3 {
-    margin-bottom: 16px;
-  }
-
   .gameso-footer-bottom {
-    align-items: flex-start;
     flex-direction: column;
-    gap: 7px;
+    text-align: center;
+    justify-content: center;
   }
 }
 </style>
@@ -1567,7 +1590,6 @@ Free Online Games – Play Games Online Anytime </h1>
 </script>
 
 <!-- END GAMESO FOOTER -->
-```
 
 
     <!-- ================= JAVASCRIPT ================= -->
