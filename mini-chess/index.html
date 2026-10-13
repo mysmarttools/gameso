@@ -1,1 +1,1469 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Mini Chess Online – Play Free Chess Game | Gameso</title>
+  <meta name="description" content="Play Mini Chess online for free at Gameso! Challenge the computer, make smart moves, capture pieces and improve your chess strategy on a mobile-friendly chessboard.">
+  <meta name="keywords" content="mini chess, mini chess game online, play chess online free, chess against computer, free chess game, Gameso">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameso.vercel.app/games/mini-chess/">
+  <meta name="theme-color" content="#101321">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mini Chess Online | Gameso">
+  <meta property="og:description" content="Play a free game of chess against the computer. Make your moves, capture pieces and checkmate the king.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/mini-chess/">
+
+  <!-- Chess rules library. Requires an internet connection. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #101321;
+      --panel: #191e31;
+      --panel2: #202740;
+      --text: #f5f7ff;
+      --muted: #a8b0c9;
+      --accent: #8b7cff;
+      --green: #52e0a0;
+      --border: rgba(255,255,255,.09);
+      --light-square: #e8dfcb;
+      --dark-square: #77917f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(115,93,255,.17), transparent 45%),
+        var(--bg);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    button, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(16,19,33,.96);
+    }
+
+    .header-inner {
+      max-width: 1150px;
+      min-height: 72px;
+      margin: auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span { color: #a69aff; }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav a:hover { color: #fff; }
+
+    .container {
+      width: min(100% - 30px, 1040px);
+      margin-inline: auto;
+    }
+
+    .breadcrumb {
+      padding-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .breadcrumb a { color: #b6aaff; }
+
+    .hero {
+      text-align: center;
+      padding: 22px 0 25px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 13px;
+      border: 1px solid rgba(139,124,255,.24);
+      background: rgba(139,124,255,.12);
+      border-radius: 30px;
+      color: #c5bdff;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      margin: 14px 0 8px;
+      font-size: clamp(31px, 5vw, 45px);
+      line-height: 1.15;
+      letter-spacing: -1.4px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .game-panel, .side-panel {
+      background: linear-gradient(145deg, #1b2036, #151a2b);
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 17px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-heading strong { font-size: 15px; }
+
+    .status-pill {
+      border-radius: 30px;
+      padding: 5px 10px;
+      background: rgba(82,224,160,.11);
+      color: #78edb7;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status-pill.thinking {
+      background: rgba(139,124,255,.15);
+      color: #c7bdff;
+    }
+
+    .status-pill.finished {
+      background: rgba(255,100,124,.12);
+      color: #ff9baa;
+    }
+
+    .board-wrap {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 17px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 5px solid #4c594f;
+      border-radius: 5px;
+      box-shadow: 0 14px 32px rgba(0,0,0,.25);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .square {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      min-width: 0;
+      aspect-ratio: 1;
+      cursor: pointer;
+      line-height: 1;
+      overflow: hidden;
+    }
+
+    .square.light { background: var(--light-square); }
+    .square.dark { background: var(--dark-square); }
+
+    .square.last-move {
+      box-shadow: inset 0 0 0 100px rgba(255,220,90,.25);
+    }
+
+    .square.selected {
+      box-shadow: inset 0 0 0 4px #ffe36b;
+    }
+
+    .square:focus-visible {
+      outline: 3px solid #8b7cff;
+      outline-offset: -4px;
+      z-index: 3;
+    }
+
+    .piece {
+      position: relative;
+      z-index: 1;
+      display: block;
+      font-family: "Segoe UI Symbol", "Noto Sans Symbols 2", "DejaVu Sans", serif;
+      font-size: clamp(25px, 5.1vw, 51px);
+      line-height: 1;
+      transform: translateY(-1px);
+      pointer-events: none;
+    }
+
+    .piece.white {
+      color: #fffdf4;
+      text-shadow:
+        0 2px 1px #343b39,
+        1px 0 #59625b,
+        -1px 0 #59625b,
+        0 -1px #59625b;
+    }
+
+    .piece.black {
+      color: #252d2b;
+      text-shadow: 0 1px 0 rgba(255,255,255,.25);
+    }
+
+    .move-dot {
+      position: absolute;
+      z-index: 2;
+      width: 25%;
+      height: 25%;
+      border-radius: 50%;
+      background: rgba(29,43,38,.3);
+      pointer-events: none;
+    }
+
+    .square.capture-hint::after {
+      content: "";
+      position: absolute;
+      inset: 4%;
+      border: 4px solid rgba(190,65,70,.68);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .coordinate {
+      position: absolute;
+      z-index: 3;
+      left: 3px;
+      bottom: 2px;
+      font-size: clamp(8px, 1.5vw, 11px);
+      line-height: 1;
+      font-weight: 800;
+      opacity: .8;
+      pointer-events: none;
+    }
+
+    .light .coordinate { color: #506556; }
+    .dark .coordinate { color: #f5eddb; }
+
+    .board-caption {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 11px;
+    }
+
+    .controls {
+      padding: 0 17px 17px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 9px;
+    }
+
+    .btn {
+      min-height: 43px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: white;
+      background: rgba(255,255,255,.05);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .15s, background .15s;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.1);
+    }
+
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    .btn-primary {
+      grid-column: 1 / -1;
+      border-color: transparent;
+      background: linear-gradient(135deg, #8877ff, #6756ec);
+    }
+
+    .side-panel { padding-bottom: 15px; }
+
+    .side-section {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .side-section:last-child { border-bottom: 0; }
+
+    .side-title {
+      margin: 0 0 12px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: #c7cce0;
+    }
+
+    .turn-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .turn-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: rgba(255,255,255,.07);
+      font-size: 28px;
+    }
+
+    .turn-copy strong { display: block; font-size: 14px; }
+    .turn-copy span { color: var(--muted); font-size: 12px; }
+
+    .settings-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .setting label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .setting select {
+      width: 100%;
+      min-height: 42px;
+      padding: 8px 10px;
+      color: white;
+      background: #252b42;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .setting select:focus { border-color: var(--accent); }
+
+    .move-list {
+      max-height: 230px;
+      overflow-y: auto;
+      display: grid;
+      gap: 4px;
+    }
+
+    .move-row {
+      display: grid;
+      grid-template-columns: 30px 1fr 1fr;
+      gap: 5px;
+      align-items: center;
+      padding: 6px 8px;
+      border-radius: 7px;
+      font-size: 13px;
+    }
+
+    .move-row:nth-child(odd) { background: rgba(255,255,255,.035); }
+    .move-number { color: var(--muted); }
+    .move-san { font-weight: 700; }
+
+    .empty-moves {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .captured-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      min-height: 27px;
+      font-size: 21px;
+    }
+
+    .captured-line .piece {
+      font-size: 23px;
+    }
+
+    .message {
+      min-height: 46px;
+      padding: 12px 14px;
+      margin: 0 17px 17px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: rgba(255,255,255,.035);
+      color: #d4d9eb;
+      font-size: 13px;
+    }
+
+    .message.success {
+      border-color: rgba(82,224,160,.25);
+      color: #8bf0be;
+    }
+
+    .message.warning {
+      border-color: rgba(255,190,85,.25);
+      color: #ffd28c;
+    }
+
+    .section { padding-top: 38px; }
+
+    .section h2 {
+      font-size: clamp(23px, 4vw, 30px);
+      letter-spacing: -.6px;
+      margin: 0 0 12px;
+    }
+
+    .section h3 { margin: 20px 0 7px; font-size: 18px; }
+
+    .section p, .section li {
+      color: #b8bfd4;
+      font-size: 15px;
+    }
+
+    .section ul, .section ol { padding-left: 23px; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 13px;
+      margin-top: 17px;
+    }
+
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 17px;
+    }
+
+    .feature-icon { font-size: 25px; }
+    .feature h3 { margin: 8px 0 5px; font-size: 16px; }
+    .feature p { margin: 0; font-size: 13px; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 15px 0;
+    }
+
+    .faq-item h3 { margin: 0 0 6px; font-size: 16px; }
+    .faq-item p { margin: 0; }
+
+    .more-games {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .more-game {
+      display: block;
+      padding: 17px;
+      border-radius: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      transition: border-color .15s, transform .15s;
+    }
+
+    .more-game:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .more-game span { font-size: 26px; }
+    .more-game strong { display: block; margin-top: 7px; }
+    .more-game small { color: var(--muted); }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 45px;
+      padding: 25px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .site-footer a { color: #c5bdff; }
+
+    @media (min-width: 1050px) {
+      .piece { font-size: 47px; }
+    }
+
+    @media (max-width: 760px) {
+      .game-layout { grid-template-columns: minmax(0,1fr); }
+      .board-wrap { max-width: 570px; }
+      .side-panel { display: grid; grid-template-columns: 1fr 1fr; }
+      .side-section { min-width: 0; }
+      .side-section:nth-child(2) { border-right: 0; }
+      .side-section.moves-section { grid-column: 1 / -1; }
+      .side-section.captured-section { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 520px) {
+      .header-inner { padding: 13px 15px; }
+      .logo { font-size: 22px; }
+      .nav { gap: 10px; font-size: 12px; }
+      .container { width: min(100% - 20px, 1040px); }
+      .hero { padding-top: 18px; }
+      .panel-heading { padding: 12px; }
+      .board-wrap { padding: 10px; }
+      .board { border-width: 3px; }
+      .piece { font-size: clamp(25px, 9vw, 42px); }
+      .controls { padding: 0 10px 12px; }
+      .side-panel { grid-template-columns: 1fr; }
+      .side-section, .side-section.moves-section, .side-section.captured-section {
+        grid-column: auto;
+      }
+      .feature-grid, .more-games { grid-template-columns: 1fr; }
+      .section { padding-top: 30px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Mini Chess",
+    "url": "https://gameso.vercel.app/games/mini-chess/",
+    "description": "Play a free browser-based chess game against a computer opponent. Practice legal chess moves, capture pieces and aim for checkmate.",
+    "genre": ["Strategy", "Board Game", "Chess"],
+    "gamePlatform": ["Web Browser", "Desktop", "Mobile Browser"],
+    "applicationCategory": "Game"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do you play Mini Chess?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Choose one of your pieces, select a highlighted legal destination square, and try to checkmate the opposing king."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I play Mini Chess against the computer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Choose the computer opponent and select a difficulty level to play against a simple browser-based chess AI."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Mini Chess free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Mini Chess is free to play in your browser and does not require an account."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="/" aria-label="Gameso homepage">Game<span>so</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/games/">All Games</a>
+        <a href="/games/arcade/">Arcade</a>
+        <a href="/games/puzzle/">Puzzle Games</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/games/">Games</a> / Mini Chess
+    </div>
+
+    <section class="hero">
+      <span class="eyebrow">♟ Free Strategy Game</span>
+      <h1>Mini Chess Online</h1>
+      <p>Plan your moves, protect your king, capture enemy pieces and challenge the computer in this free browser chess game.</p>
+    </section>
+
+    <section class="game-layout" aria-label="Mini Chess game">
+      <div class="game-panel">
+        <div class="panel-heading">
+          <strong>♟ Chessboard</strong>
+          <span class="status-pill" id="statusPill">Your turn</span>
+        </div>
+
+        <div class="board-wrap">
+          <div class="board" id="board" role="group" aria-label="Chessboard"></div>
+          <div class="board-caption" id="boardCaption">White moves first · Select a piece to see legal moves</div>
+        </div>
+
+        <div class="message" id="gameMessage" role="status" aria-live="polite">
+          Your game is ready. Select a white piece to begin.
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-primary" id="newGameBtn" type="button">↻ New Game</button>
+          <button class="btn" id="undoBtn" type="button">↶ Undo Move</button>
+          <button class="btn" id="flipBtn" type="button">⇅ Flip Board</button>
+          <button class="btn" id="hintBtn" type="button">✦ Suggest Move</button>
+          <button class="btn" id="soundBtn" type="button" aria-pressed="false">♪ Sound: Off</button>
+        </div>
+      </div>
+
+      <aside class="side-panel">
+        <div class="side-section">
+          <h2 class="side-title">Game Status</h2>
+          <div class="turn-card">
+            <div class="turn-icon" id="turnIcon">♙</div>
+            <div class="turn-copy">
+              <strong id="turnTitle">White to move</strong>
+              <span id="turnSub">You are playing White</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-section">
+          <h2 class="side-title">Game Settings</h2>
+          <div class="settings-grid">
+            <div class="setting">
+              <label for="modeSelect">Game mode</label>
+              <select id="modeSelect">
+                <option value="ai" selected>Play vs Computer</option>
+                <option value="local">Two Players</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="colorSelect">Play as</label>
+              <select id="colorSelect">
+                <option value="w" selected>White (first move)</option>
+                <option value="b">Black (second move)</option>
+              </select>
+            </div>
+            <div class="setting">
+              <label for="difficultySelect">Computer difficulty</label>
+              <select id="difficultySelect">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-section moves-section">
+          <h2 class="side-title">Move History</h2>
+          <div class="move-list" id="moveList">
+            <p class="empty-moves">Your moves will appear here.</p>
+          </div>
+        </div>
+
+        <div class="side-section captured-section">
+          <h2 class="side-title">Captured by White</h2>
+          <div class="captured-line" id="capturedWhite">—</div>
+          <h2 class="side-title" style="margin-top:14px">Captured by Black</h2>
+          <div class="captured-line" id="capturedBlack">—</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <h2>How to Play Mini Chess</h2>
+      <p>Mini Chess brings the classic strategy of chess to your browser. In this version, you play on a standard 8×8 board against a computer opponent or another player on the same device. Move your pieces according to chess rules, protect your king and work toward checkmate.</p>
+
+      <ol>
+        <li><strong>Choose a mode:</strong> Play against the computer or switch to two-player mode.</li>
+        <li><strong>Select a piece:</strong> Click or tap one of your pieces to show its legal moves.</li>
+        <li><strong>Make your move:</strong> Select a highlighted square to move the piece.</li>
+        <li><strong>Plan your strategy:</strong> Develop your pieces, protect your king and capture opponents when it is safe.</li>
+        <li><strong>Win the game:</strong> Checkmate the opposing king to win. A stalemate or another draw condition can end the game without a winner.</li>
+      </ol>
+
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">🤖</div>
+          <h3>Play Against AI</h3>
+          <p>Choose a computer difficulty and practise different chess strategies.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">♟️</div>
+          <h3>Legal Chess Moves</h3>
+          <p>Available moves are highlighted, and moves that leave your king in check are rejected.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📱</div>
+          <h3>Mobile Friendly</h3>
+          <p>Play using taps on a phone or a mouse on a desktop browser.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Mini Chess Tips for Beginners</h2>
+      <ul>
+        <li>Try to control the centre of the board early in the game.</li>
+        <li>Develop your knights and bishops instead of moving the same piece repeatedly without a reason.</li>
+        <li>Keep your king safe and watch for threats from the opposing queen and rooks.</li>
+        <li>Before each move, check whether your piece can be captured.</li>
+        <li>Use Undo to review a move and learn from a mistake.</li>
+        <li>Practise with Easy difficulty before challenging yourself on Hard.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>Is Mini Chess free to play?</h3>
+        <p>Yes. You can play this browser-based chess game for free on Gameso without creating an account.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I play against the computer?</h3>
+        <p>Yes. Select Play vs Computer and choose Easy, Medium or Hard. The computer uses a basic search strategy to select its moves.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can two people play together?</h3>
+        <p>Yes. Select Two Players to play locally on the same device, taking turns moving White and Black.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I win at chess?</h3>
+        <p>The usual goal is to checkmate your opponent's king. This means the king is under attack and has no legal move that can escape check.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does the game work on mobile?</h3>
+        <p>Yes. The board adjusts to smaller screens and supports touch input in compatible mobile browsers.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Why does the game need an internet connection?</h3>
+        <p>The chess rules library is loaded from a public CDN. The game needs an internet connection to load that library when the page is first opened.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>More Free Games</h2>
+      <p>Take a break from chess and try another free game on Gameso.</p>
+
+      <div class="more-games">
+        <a class="more-game" href="/games/2048/">
+          <span>🔢</span>
+          <strong>2048 Puzzle</strong>
+          <small>Combine numbers and reach the target.</small>
+        </a>
+        <a class="more-game" href="/games/tic-tac-toe/">
+          <span>⭕</span>
+          <strong>Tic Tac Toe</strong>
+          <small>Plan your moves and get three in a row.</small>
+        </a>
+        <a class="more-game" href="/games/spades-card-game/">
+          <span>🂡</span>
+          <strong>Spades Card Game</strong>
+          <small>Think ahead and play your cards wisely.</small>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Gameso. Play, challenge yourself and have fun.</p>
+    <p><a href="/">Home</a> · <a href="/games/">All Games</a> · <a href="/about-us/">About Us</a> · <a href="/contact-us/">Contact</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = id => document.getElementById(id);
+
+      const boardEl = $("board");
+      const messageEl = $("gameMessage");
+      const statusPill = $("statusPill");
+      const turnIcon = $("turnIcon");
+      const turnTitle = $("turnTitle");
+      const turnSub = $("turnSub");
+      const moveListEl = $("moveList");
+      const capturedWhiteEl = $("capturedWhite");
+      const capturedBlackEl = $("capturedBlack");
+
+      if (typeof Chess === "undefined") {
+        messageEl.className = "message warning";
+        messageEl.textContent =
+          "The chess engine could not load. Check your internet connection, then reload this page.";
+        $("newGameBtn").disabled = true;
+        return;
+      }
+
+      const GLYPHS = {
+        w: { k: "♔", q: "♕", r: "♖", b: "♗", n: "♘", p: "♙" },
+        b: { k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" }
+      };
+
+      const VALUES = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
+
+      let game = new Chess();
+      let selectedSquare = null;
+      let legalTargets = [];
+      let flipped = false;
+      let lastMove = null;
+      let busy = false;
+      let gameOver = false;
+      let soundOn = false;
+      let audioContext = null;
+      let hintMove = null;
+      let aiTimer = null;
+
+      function mode() {
+        return $("modeSelect").value;
+      }
+
+      function humanColor() {
+        return $("colorSelect").value;
+      }
+
+      function isHumanTurn() {
+        return mode() === "local" || game.turn() === humanColor();
+      }
+
+      function setMessage(text, type = "") {
+        messageEl.textContent = text;
+        messageEl.className = "message" + (type ? " " + type : "");
+      }
+
+      function pieceAt(square) {
+        return game.get(square);
+      }
+
+      function squareName(row, col) {
+        return "abcdefgh"[col] + (8 - row);
+      }
+
+      function coordinates() {
+        const rows = [];
+        for (let row = 0; row < 8; row++) {
+          const cols = [];
+          for (let col = 0; col < 8; col++) {
+            cols.push({ row, col, square: squareName(row, col) });
+          }
+          rows.push(cols);
+        }
+        if (flipped) rows.reverse().forEach(row => row.reverse());
+        return rows;
+      }
+
+      function getLastMove() {
+        const history = game.history({ verbose: true });
+        return history.length ? history[history.length - 1] : null;
+      }
+
+      function renderBoard() {
+        boardEl.innerHTML = "";
+        const grid = coordinates();
+        const moves = game.history({ verbose: true });
+        lastMove = moves.length ? moves[moves.length - 1] : null;
+
+        grid.forEach((row, displayRow) => {
+          row.forEach((cell, displayCol) => {
+            const { row: r, col: c, square } = cell;
+            const piece = pieceAt(square);
+
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "square " + ((r + c) % 2 === 0 ? "light" : "dark");
+            button.setAttribute("aria-label",
+              square + (piece ? ", " + piece.color + " " + piece.type : ", empty")
+            );
+
+            if (lastMove && (square === lastMove.from || square === lastMove.to)) {
+              button.classList.add("last-move");
+            }
+
+            if (square === selectedSquare) button.classList.add("selected");
+
+            if (legalTargets.some(move => move.to === square)) {
+              if (piece) {
+                button.classList.add("capture-hint");
+              } else {
+                const dot = document.createElement("span");
+                dot.className = "move-dot";
+                button.appendChild(dot);
+              }
+            }
+
+            if (piece) {
+              const span = document.createElement("span");
+              span.className = "piece " + (piece.color === "w" ? "white" : "black");
+              span.textContent = GLYPHS[piece.color][piece.type];
+              button.appendChild(span);
+            }
+
+            if (displayCol === 0) {
+              const rank = document.createElement("span");
+              rank.className = "coordinate";
+              rank.textContent = square[1];
+              button.appendChild(rank);
+            }
+
+            if (displayRow === 7) {
+              const file = document.createElement("span");
+              file.className = "coordinate";
+              file.style.left = "auto";
+              file.style.right = "3px";
+              file.style.bottom = "auto";
+              file.style.top = "2px";
+              file.textContent = square[0];
+              button.appendChild(file);
+            }
+
+            button.addEventListener("click", () => handleSquareClick(square));
+            boardEl.appendChild(button);
+          });
+        });
+
+        updateSidePanel();
+      }
+
+      function updateSidePanel() {
+        const turn = game.turn();
+        const checked = game.in_check();
+        const finished = game.game_over();
+
+        if (finished) {
+          statusPill.textContent = "Game finished";
+          statusPill.className = "status-pill finished";
+        } else if (busy) {
+          statusPill.textContent = "Computer thinking";
+          statusPill.className = "status-pill thinking";
+        } else {
+          statusPill.textContent = checked ? "King in check" : "Game in progress";
+          statusPill.className = "status-pill";
+        }
+
+        turnIcon.textContent = turn === "w" ? "♙" : "♟";
+        turnTitle.textContent = finished ? "Game over" :
+          (turn === "w" ? "White to move" : "Black to move");
+
+        if (mode() === "local") {
+          turnSub.textContent = "Two-player mode";
+        } else {
+          turnSub.textContent = turn === humanColor() ? "Your turn" : "Computer's turn";
+        }
+
+        $("undoBtn").disabled = game.history().length === 0 || busy;
+        $("hintBtn").disabled = game.history().length === 0 && !isHumanTurn()
+          ? true : (finished || busy || !isHumanTurn());
+
+        renderMoveList();
+        renderCaptured();
+        $("boardCaption").textContent = checked
+          ? "Check! Protect your king."
+          : "Select a piece to see its legal moves.";
+      }
+
+      function renderMoveList() {
+        const history = game.history({ verbose: true });
+        moveListEl.innerHTML = "";
+
+        if (!history.length) {
+          const empty = document.createElement("p");
+          empty.className = "empty-moves";
+          empty.textContent = "Your moves will appear here.";
+          moveListEl.appendChild(empty);
+          return;
+        }
+
+        for (let i = 0; i < history.length; i += 2) {
+          const row = document.createElement("div");
+          row.className = "move-row";
+
+          const num = document.createElement("span");
+          num.className = "move-number";
+          num.textContent = (Math.floor(i / 2) + 1) + ".";
+
+          const white = document.createElement("span");
+          white.className = "move-san";
+          white.textContent = history[i].san;
+
+          const black = document.createElement("span");
+          black.className = "move-san";
+          black.textContent = history[i + 1] ? history[i + 1].san : "";
+
+          row.append(num, white, black);
+          moveListEl.appendChild(row);
+        }
+
+        moveListEl.scrollTop = moveListEl.scrollHeight;
+      }
+
+      function renderCaptured() {
+        const history = game.history({ verbose: true });
+        const whiteCaptured = [];
+        const blackCaptured = [];
+
+        history.forEach(move => {
+          if (!move.captured) return;
+          const piece = GLYPHS[move.color === "w" ? "w" : "b"][move.captured];
+          if (move.color === "w") whiteCaptured.push(piece);
+          else blackCaptured.push(piece);
+        });
+
+        capturedWhiteEl.textContent = whiteCaptured.length ? whiteCaptured.join(" ") : "—";
+        capturedBlackEl.textContent = blackCaptured.length ? blackCaptured.join(" ") : "—";
+      }
+
+      function playSound(kind) {
+        if (!soundOn) return;
+
+        try {
+          audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+          if (audioContext.state === "suspended") audioContext.resume();
+
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+
+          osc.type = "sine";
+          osc.frequency.value = kind === "capture" ? 230 :
+            kind === "check" ? 560 : 390;
+
+          gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+          gain.gain.exponentialRampToValueAtTime(
+            0.001, audioContext.currentTime + 0.12
+          );
+
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.start();
+          osc.stop(audioContext.currentTime + 0.13);
+        } catch (_) {}
+      }
+
+      function finishIfNeeded() {
+        if (!game.game_over()) return false;
+
+        gameOver = true;
+        busy = false;
+
+        if (game.in_checkmate()) {
+          const winner = game.turn() === "w" ? "Black" : "White";
+          setMessage("♛ Checkmate! " + winner + " wins the game.", "success");
+        } else if (game.in_stalemate()) {
+          setMessage("Draw by stalemate. Neither side can make a legal move.", "warning");
+        } else if (game.in_threefold_repetition()) {
+          setMessage("Draw by threefold repetition.", "warning");
+        } else if (game.insufficient_material()) {
+          setMessage("Draw: there is insufficient material to checkmate.", "warning");
+        } else if (game.in_draw()) {
+          setMessage("The game is a draw.", "warning");
+        } else {
+          setMessage("Game over.", "warning");
+        }
+
+        selectedSquare = null;
+        legalTargets = [];
+        renderBoard();
+        return true;
+      }
+
+      function handleSquareClick(square) {
+        if (busy || gameOver || game.game_over()) return;
+
+        if (mode() === "ai" && game.turn() !== humanColor()) {
+          setMessage("Wait for the computer to move.");
+          return;
+        }
+
+        const piece = pieceAt(square);
+
+        if (selectedSquare && legalTargets.some(move => move.to === square)) {
+          makeMove(selectedSquare, square);
+          return;
+        }
+
+        if (piece && piece.color === game.turn()) {
+          selectedSquare = square;
+          legalTargets = game.moves({ square, verbose: true });
+          hintMove = null;
+
+          if (!legalTargets.length) {
+            setMessage("This piece has no legal moves. Select another piece.");
+          } else {
+            setMessage("Choose a highlighted square to make your move.");
+          }
+
+          renderBoard();
+          return;
+        }
+
+        selectedSquare = null;
+        legalTargets = [];
+        setMessage("Select one of your own pieces to see its legal moves.");
+        renderBoard();
+      }
+
+      function makeMove(from, to, promotion = "q") {
+        let move;
+
+        try {
+          move = game.move({ from, to, promotion });
+        } catch (_) {
+          move = null;
+        }
+
+        if (!move) {
+          setMessage("That move is not legal. Please choose a highlighted square.");
+          return false;
+        }
+
+        selectedSquare = null;
+        legalTargets = [];
+        hintMove = null;
+
+        playSound(move.captured ? "capture" : "move");
+
+        if (game.in_check()) playSound("check");
+
+        renderBoard();
+
+        if (finishIfNeeded()) return true;
+
+        if (game.in_check()) {
+          setMessage("Check! The king is under attack.", "warning");
+        } else {
+          setMessage(move.color === humanColor() || mode() === "local"
+            ? "Move played: " + move.san
+            : "Computer played: " + move.san);
+        }
+
+        if (mode() === "ai" && game.turn() !== humanColor()) {
+          scheduleComputerMove();
+        }
+
+        return true;
+      }
+
+      function evaluatePosition(position) {
+        if (position.in_checkmate()) {
+          return position.turn() === "w" ? -100000 : 100000;
+        }
+
+        if (position.in_draw()) return 0;
+
+        let score = 0;
+        const board = position.board();
+
+        for (let r = 0; r < 8; r++) {
+          for (let c = 0; c < 8; c++) {
+            const piece = board[r][c];
+            if (!piece) continue;
+
+            let value = VALUES[piece.type];
+
+            // Small positional bonus for central control and active development.
+            const centerDistance = Math.abs(3.5 - r) + Math.abs(3.5 - c);
+            value += Math.round((7 - centerDistance) * 3);
+
+            if (piece.type === "p") {
+              value += piece.color === "w" ? (6 - r) * 5 : (r - 1) * 5;
+            }
+
+            score += piece.color === "w" ? value : -value;
+          }
+        }
+
+        return score;
+      }
+
+      function minimax(position, depth, alpha, beta, maximizingWhite) {
+        if (depth <= 0 || position.game_over()) {
+          return evaluatePosition(position);
+        }
+
+        const moves = position.moves({ verbose: true });
+
+        // Prefer captures early to improve move ordering.
+        moves.sort((a, b) => {
+          const av = (a.captured ? VALUES[a.captured] : 0) -
+            VALUES[a.piece] * 0.05;
+          const bv = (b.captured ? VALUES[b.captured] : 0) -
+            VALUES[b.piece] * 0.05;
+          return bv - av;
+        });
+
+        if (maximizingWhite) {
+          let bestScore = -Infinity;
+
+          for (const move of moves) {
+            const child = new Chess(position.fen());
+            child.move({ from: move.from, to: move.to, promotion: "q" });
+            const value = minimax(child, depth - 1, alpha, beta, false);
+
+            bestScore = Math.max(bestScore, value);
+            alpha = Math.max(alpha, bestScore);
+
+            if (beta <= alpha) break;
+          }
+
+          return bestScore;
+        }
+
+        let bestScore = Infinity;
+
+        for (const move of moves) {
+          const child = new Chess(position.fen());
+          child.move({ from: move.from, to: move.to, promotion: "q" });
+          const value = minimax(child, depth - 1, alpha, beta, true);
+
+          bestScore = Math.min(bestScore, value);
+          beta = Math.min(beta, bestScore);
+
+          if (beta <= alpha) break;
+        }
+
+        return bestScore;
+      }
+
+      function chooseComputerMove() {
+        const difficulty = $("difficultySelect").value;
+        const legal = game.moves({ verbose: true });
+
+        if (!legal.length) return null;
+
+        if (difficulty === "easy") {
+          // Easy mode sometimes chooses a random move.
+          if (Math.random() < 0.75) {
+            return legal[Math.floor(Math.random() * legal.length)];
+          }
+        }
+
+        const depth = difficulty === "hard" ? 3 : 2;
+        let bestScore = game.turn() === "w" ? -Infinity : Infinity;
+        let bestMoves = [];
+
+        const ordered = legal.slice().sort((a, b) => {
+          const av = (a.captured ? VALUES[a.captured] : 0);
+          const bv = (b.captured ? VALUES[b.captured] : 0);
+          return bv - av;
+        });
+
+        for (const move of ordered) {
+          const child = new Chess(game.fen());
+          child.move({ from: move.from, to: move.to, promotion: "q" });
+
+          const score = minimax(
+            child,
+            depth - 1,
+            -Infinity,
+            Infinity,
+            child.turn() === "w"
+          );
+
+          if (game.turn() === "w") {
+            if (score > bestScore) {
+              bestScore = score;
+              bestMoves = [move];
+            } else if (score === bestScore) {
+              bestMoves.push(move);
+            }
+          } else {
+            if (score < bestScore) {
+              bestScore = score;
+              bestMoves = [move];
+            } else if (score === bestScore) {
+              bestMoves.push(move);
+            }
+          }
+        }
+
+        return bestMoves[Math.floor(Math.random() * bestMoves.length)] || legal[0];
+      }
+
+      function scheduleComputerMove() {
+        if (game.game_over() || mode() !== "ai") return;
+
+        busy = true;
+        selectedSquare = null;
+        legalTargets = [];
+        statusPill.textContent = "Computer thinking";
+        statusPill.className = "status-pill thinking";
+        setMessage("The computer is thinking...");
+        renderBoard();
+
+        clearTimeout(aiTimer);
+        aiTimer = setTimeout(() => {
+          if (game.game_over() || mode() !== "ai" ||
+              game.turn() === humanColor()) {
+            busy = false;
+            renderBoard();
+            return;
+          }
+
+          const move = chooseComputerMove();
+          busy = false;
+
+          if (!move) {
+            finishIfNeeded();
+            return;
+          }
+
+          makeMove(move.from, move.to, "q");
+        }, 250);
+      }
+
+      function newGame() {
+        clearTimeout(aiTimer);
+        game = new Chess();
+        selectedSquare = null;
+        legalTargets = [];
+        lastMove = null;
+        busy = false;
+        gameOver = false;
+        hintMove = null;
+
+        setMessage("New game started. Select a piece to make your first move.");
+        renderBoard();
+
+        if (mode() === "ai" && humanColor() === "b") {
+          scheduleComputerMove();
+        }
+      }
+
+      function undoMove() {
+        if (busy) return;
+
+        clearTimeout(aiTimer);
+        busy = false;
+
+        if (!game.history().length) {
+          setMessage("There are no moves to undo yet.");
+          return;
+        }
+
+        game.undo();
+
+        // In computer mode, undo the computer's reply and your previous move.
+        if (mode() === "ai" && game.history().length &&
+            game.turn() !== humanColor()) {
+          game.undo();
+        }
+
+        selectedSquare = null;
+        legalTargets = [];
+        hintMove = null;
+        gameOver = false;
+
+        setMessage("Last move undone. Continue your game.");
+        renderBoard();
+      }
+
+      function suggestMove() {
+        if (busy || game.game_over() || !isHumanTurn()) return;
+
+        const legal = game.moves({ verbose: true });
+        if (!legal.length) return;
+
+        const sorted = legal.slice().sort((a, b) => {
+          const av = (a.captured ? VALUES[a.captured] : 0) +
+            (a.san.includes("+") || a.san.includes("#") ? 80 : 0);
+          const bv = (b.captured ? VALUES[b.captured] : 0) +
+            (b.san.includes("+") || b.san.includes("#") ? 80 : 0);
+          return bv - av;
+        });
+
+        hintMove = sorted[0];
+        selectedSquare = hintMove.from;
+        legalTargets = legal.filter(move => move.from === hintMove.from);
+
+        setMessage("Suggestion: move " + hintMove.from + " to " +
+          hintMove.to + ". This is a simple tactical hint, not a guaranteed best move.",
+          "success");
+
+        renderBoard();
+      }
+
+      $("newGameBtn").addEventListener("click", newGame);
+      $("undoBtn").addEventListener("click", undoMove);
+      $("flipBtn").addEventListener("click", () => {
+        flipped = !flipped;
+        renderBoard();
+      });
+      $("hintBtn").addEventListener("click", suggestMove);
+
+      $("soundBtn").addEventListener("click", () => {
+        soundOn = !soundOn;
+        $("soundBtn").textContent = soundOn ? "♪ Sound: On" : "♪ Sound: Off";
+        $("soundBtn").setAttribute("aria-pressed", String(soundOn));
+        if (soundOn) playSound("move");
+      });
+
+      $("modeSelect").addEventListener("change", newGame);
+      $("colorSelect").addEventListener("change", newGame);
+      $("difficultySelect").addEventListener("change", () => {
+        setMessage("Difficulty updated. It applies to the computer's next move.");
+      });
+
+      $("year").textContent = new Date().getFullYear();
+      newGame();
+    })();
+  </script>
+</body>
+</html>
