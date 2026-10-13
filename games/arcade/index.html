@@ -2,289 +2,722 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Free Arcade Games Online – Play Classic Games | Gameso</title>
+<title>Play Free Arcade Games Online | Gameso</title>
+<meta name="description" content="Play free arcade games online at Gameso! Enjoy Snake, Brick Breaker, Space Shooter, Pong, Flappy Rocket and more fun browser games on mobile and desktop.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://gameso.vercel.app/games/arcade/">
+<meta name="theme-color" content="#0b1430">
 
-  <meta
-    name="description"
-    content="Play free arcade games online at Gameso! Enjoy Snake, Flappy Bird, Pong, Breakout and Pac-Man. Discover classic arcade challenges and play games in your browser."
-  >
-
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://gameso.vercel.app/categories/arcade/">
-
-  <meta property="og:title" content="Free Arcade Games Online | Gameso">
-  <meta
-    property="og:description"
-    content="Explore free arcade games on Gameso, including Snake, Flappy Bird, Pong, Breakout and Pac-Man. Play classic favorites online."
-  >
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://gameso.vercel.app/categories/arcade/">
-
-  <link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --bg:#0b1430;--panel:#111f43;--panel2:#172951;
+  --border:#2a4175;--text:#f4f7ff;--muted:#b6c5e8;
+  --blue:#4b83ff;--cyan:#54d9f2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:radial-gradient(ellipse at top,#172b58,transparent 48%),var(--bg);
+  color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{cursor:pointer}
+.header{
+  padding:16px 5%;display:flex;align-items:center;justify-content:space-between;
+  gap:20px;flex-wrap:wrap;background:#0d1b40;border-bottom:1px solid var(--border)
+}
+.logo{font-size:29px;font-weight:900;letter-spacing:-1px}
+.logo span{color:#78a5ff}
+.nav{display:flex;gap:22px;flex-wrap:wrap}
+.nav a{color:#d5e1ff;font-weight:700}
+.nav a:hover{color:var(--cyan)}
+.container{width:min(1240px,94%);margin:auto}
+.hero{padding:48px 0 28px}
+.eyebrow{
+  display:inline-block;padding:6px 12px;border-radius:30px;
+  background:#203867;color:#a9c8ff;border:1px solid #34558e;
+  font-size:12px;font-weight:900;letter-spacing:1px
+}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.12;margin:16px 0}
+.hero p{max-width:680px;color:var(--muted);font-size:17px;margin:0}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{
+  border:0;border-radius:10px;padding:12px 18px;font-weight:800;
+  background:linear-gradient(135deg,#4c84ff,#3159da);color:white
+}
+.btn.secondary{background:#1b2e56;border:1px solid #3a5487}
+.btn:hover{filter:brightness(1.12)}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.stat{
+  padding:10px 15px;background:#13254b;border:1px solid #2b4377;
+  border-radius:10px;color:#cbd8f5;font-size:13px
+}
+.stat strong{color:white}
+.toolbar{
+  display:flex;gap:12px;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;margin:15px 0 20px
+}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter{
+  padding:9px 15px;background:#15264a;border:1px solid #2e4778;
+  color:#d8e4ff;border-radius:30px;font-size:13px;font-weight:800
+}
+.filter.active,.filter:hover{background:#3d70e5;border-color:#5f8fff;color:white}
+.search{
+  flex:1;min-width:220px;max-width:350px;padding:12px 15px;
+  color:white;background:#101e3d;border:1px solid #344d7f;border-radius:10px;
+  outline:none
+}
+.search:focus{border-color:#7aa6ff}
+.section-heading{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:15px;margin:26px 0 15px
+}
+.section-heading h2{margin:0;font-size:25px}
+.section-heading p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.card{
+  min-width:0;overflow:hidden;background:linear-gradient(145deg,#172951,#101d3c);
+  border:1px solid #293f70;border-radius:16px;transition:transform .2s,border-color .2s
+}
+.card:hover{transform:translateY(-4px);border-color:#628bda}
+.thumb{
+  height:160px;display:grid;place-items:center;position:relative;
+  overflow:hidden;background:radial-gradient(circle at center,#284b87,#101b3a 75%)
+}
+.thumb canvas{width:100%;height:100%;display:block}
+.thumb .emoji{font-size:72px;filter:drop-shadow(0 8px 12px #0006)}
+.tag{
+  position:absolute;top:12px;left:12px;background:#0c1834d9;
+  border:1px solid #536b9a;color:#dce7ff;padding:4px 9px;
+  font-size:11px;font-weight:800;border-radius:30px
+}
+.card-body{padding:16px}
+.card h3{margin:0;font-size:19px}
+.card p{min-height:43px;color:var(--muted);font-size:13px;margin:7px 0 13px}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.controls{font-size:11px;color:#9eb4e4}
+.play{
+  border:0;border-radius:8px;background:#3c73ed;color:white;
+  padding:9px 13px;font-size:12px;font-weight:900;white-space:nowrap
+}
+.play:hover{background:#5b8aff}
+.empty{padding:30px;text-align:center;color:var(--muted);display:none}
+.game-view{
+  display:none;margin:25px 0;padding:18px;background:#111f43;
+  border:1px solid #365185;border-radius:17px
+}
+.game-view.open{display:block}
+.game-view-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;margin-bottom:15px
+}
+.game-view h2{margin:0}
+.game-meta{color:var(--muted);font-size:13px}
+.game-screen{
+  position:relative;width:100%;height:440px;background:#08132c;
+  border:1px solid #314878;border-radius:12px;overflow:hidden
+}
+#gameCanvas{width:100%;height:100%;display:block;touch-action:none}
+.game-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:20px;
+  background:#08132ce8
+}
+.game-overlay.hidden{display:none}
+.game-overlay h3{font-size:30px;margin:0 0 8px}
+.game-overlay p{color:#c2d1ef;margin:0 0 18px}
+.game-info{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  margin-top:12px;color:#c4d4f4;font-size:13px
+}
+.content{
+  margin:32px 0;padding:25px;background:#111f43;
+  border:1px solid var(--border);border-radius:16px
+}
+.content h2{margin-top:0}
+.content h3{color:#e1eaff}
+.content p,.content li{color:#bdcbea}
+.content a{color:#90b6ff}
+.faq details{padding:14px 0;border-bottom:1px solid #2d4370}
+.faq summary{font-weight:800;cursor:pointer}
+.faq p{margin-bottom:0}
+.footer{
+  text-align:center;padding:25px;color:#aabce1;
+  border-top:1px solid #263c6d;background:#0c1733
+}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){
+  .header{padding:13px 4%;gap:9px}
+  .logo{font-size:25px}.nav{gap:13px;font-size:13px}
+  .hero{padding-top:32px}.hero p{font-size:15px}
+  .grid{grid-template-columns:1fr 1fr;gap:10px}
+  .thumb{height:120px}.thumb .emoji{font-size:52px}
+  .card-body{padding:11px}.card h3{font-size:15px}
+  .card p{font-size:12px;min-height:58px}
+  .card-bottom{align-items:flex-start;flex-direction:column}
+  .play{width:100%}.controls{font-size:10px}
+  .game-view{padding:10px}.game-screen{height:360px}
+  .content{padding:17px}
+}
+</style>
 </head>
-
 <body>
 
-  <header class="site-header">
-    <a href="/" class="logo">
-      <span class="logo-icon">🎮</span>
-      <span>Gameso</span>
-    </a>
+<header class="header">
+  <a class="logo" href="https://gameso.vercel.app/">🎮 Game<span>so</span></a>
+  <nav class="nav" aria-label="Main navigation">
+    <a href="https://gameso.vercel.app/">Home</a>
+    <a href="https://gameso.vercel.app/#games">All Games</a>
+    <a href="https://gameso.vercel.app/#categories">Categories</a>
+  </nav>
+</header>
 
-    <a href="/" class="back-btn">← Home</a>
-  </header>
+<main class="container">
+  <section class="hero">
+    <span class="eyebrow">🎮 GAMESO ARCADE</span>
+    <h1>Arcade Games Online</h1>
+    <p>Jump into quick, exciting arcade challenges. Play classic-inspired browser games, beat your high scores and enjoy free gaming on desktop or mobile — no download required.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#arcade-games">Explore Arcade Games ↓</a>
+      <a class="btn secondary" href="https://gameso.vercel.app/">More Games</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong id="gameCount">6</strong> mini-games</div>
+      <div class="stat"><strong>Free</strong> browser play</div>
+      <div class="stat"><strong>Mobile</strong> friendly</div>
+    </div>
+  </section>
 
-  <main class="arcade-page">
-
-    <section class="page-heading">
-      <div class="category-label">🎮 ARCADE GAMES</div>
-
-      <h1>Free Arcade Games Online</h1>
-
-      <p>
-        Welcome to Gameso Arcade Games! Discover fun and challenging
-        arcade games you can play online for free. Test your reflexes
-        with Snake, fly through obstacles in Flappy Bird, challenge
-        your skills in Pong, break colorful blocks, or explore classic
-        maze adventures. Choose a game and start playing.
-      </p>
-    </section>
-
-    <section class="games-grid" aria-label="Arcade games collection">
-
-      <!-- SNAKE -->
-      <article class="game-card">
-        <a href="/games/snake/" class="game-link">
-          <div class="game-image snake-image">
-            <span class="game-emoji">🐍</span>
-          </div>
-
-          <div class="game-content">
-            <h2>Snake</h2>
-
-            <div class="game-meta">
-              <span>🎮 Arcade</span>
-              <span>⭐ 4.8</span>
-            </div>
-
-            <p>
-              Play Snake online and guide your snake to collect food.
-              Grow longer with every bite, avoid collisions, and try
-              to beat your personal high score.
-            </p>
-
-            <span class="play-btn">Play Snake →</span>
-          </div>
-        </a>
-      </article>
-
-      <!-- FLAPPY BIRD -->
-      <article class="game-card">
-        <a href="/games/flappy-bird/" class="game-link">
-          <div class="game-image flappy-image">
-            <span class="game-emoji">🐦</span>
-          </div>
-
-          <div class="game-content">
-            <h2>Flappy Bird</h2>
-
-            <div class="game-meta">
-              <span>🎮 Arcade</span>
-              <span>⭐ 4.7</span>
-            </div>
-
-            <p>
-              Guide your bird through narrow gaps between pipes.
-              Time every tap carefully, avoid obstacles, and see
-              how many pipes you can pass.
-            </p>
-
-            <span class="play-btn">Play Flappy Bird →</span>
-          </div>
-        </a>
-      </article>
-
-      <!-- PONG -->
-      <article class="game-card">
-        <a href="/games/pong/" class="game-link">
-          <div class="game-image pong-image">
-            <span class="game-emoji">🏓</span>
-          </div>
-
-          <div class="game-content">
-            <h2>Pong</h2>
-
-            <div class="game-meta">
-              <span>🎮 Arcade</span>
-              <span>⭐ 4.8</span>
-            </div>
-
-            <p>
-              Experience the classic Pong challenge. Move your
-              paddle to return the ball, defend your side, and
-              outscore your opponent.
-            </p>
-
-            <span class="play-btn">Play Pong →</span>
-          </div>
-        </a>
-      </article>
-
-      <!-- BREAKOUT -->
-      <article class="game-card">
-        <a href="/games/breakout/" class="game-link">
-          <div class="game-image breakout-image">
-            <span class="game-emoji">🧱</span>
-          </div>
-
-          <div class="game-content">
-            <h2>Breakout</h2>
-
-            <div class="game-meta">
-              <span>🎮 Arcade</span>
-              <span>⭐ 4.9</span>
-            </div>
-
-            <p>
-              Control your paddle, bounce the ball, and smash
-              through rows of bricks. Keep the ball in play
-              and aim to clear the board.
-            </p>
-
-            <span class="play-btn">Play Breakout →</span>
-          </div>
-        </a>
-      </article>
-
-      <!-- PAC-MAN -->
-      <article class="game-card">
-        <a href="/games/pacman/" class="game-link">
-          <div class="game-image pacman-image">
-            <span class="game-emoji">🟡</span>
-          </div>
-
-          <div class="game-content">
-            <h2>Pac-Man</h2>
-
-            <div class="game-meta">
-              <span>🎮 Arcade</span>
-              <span>⭐ 4.9</span>
-            </div>
-
-            <p>
-              Navigate a maze, collect pellets, and avoid pursuing
-              ghosts. Plan your route, react quickly, and aim
-              for a better score.
-            </p>
-
-            <span class="play-btn">Play Pac-Man →</span>
-          </div>
-        </a>
-      </article>
-
-    </section>
-
-    <!-- SEO CONTENT -->
-    <section class="arcade-info">
-      <h2>Explore Classic Arcade Games</h2>
-
-      <p>
-        Arcade games offer quick challenges that combine timing,
-        coordination, and strategic thinking. Whether you enjoy
-        controlling a moving character, avoiding obstacles, or
-        aiming for a high score, there is a different challenge
-        to explore in every game.
-      </p>
-
-      <p>
-        Gameso brings together a collection of browser-based arcade
-        games in one place. Pick a favorite, learn its controls,
-        and practice to improve your performance. You can also
-        return to the collection whenever you want to try another
-        arcade challenge.
-      </p>
-
-      <h2>How to Play Arcade Games</h2>
-
-      <ol>
-        <li>Choose a game from the arcade collection above.</li>
-        <li>Open its game page and read the available instructions.</li>
-        <li>Use the keyboard, mouse, or touch controls supported by that game.</li>
-        <li>Practice the controls and try to improve your score.</li>
-        <li>Start another round or explore a different game.</li>
-      </ol>
-
-      <h2>Tips for Better Arcade Gameplay</h2>
-
-      <ul>
-        <li><strong>React carefully:</strong> Focus on upcoming obstacles instead of rushing every move.</li>
-        <li><strong>Learn the controls:</strong> Understanding how a game responds helps you make better decisions.</li>
-        <li><strong>Practice timing:</strong> Many arcade challenges reward accurate movements and well-timed actions.</li>
-        <li><strong>Stay consistent:</strong> Short practice sessions can help you improve your technique.</li>
-        <li><strong>Try different games:</strong> Each arcade game tests a different combination of skills.</li>
-      </ul>
-
-      <h2>Frequently Asked Questions</h2>
-
-      <div class="arcade-faq">
-        <h3>Can I play arcade games online for free?</h3>
-        <p>
-          Gameso offers browser-based game pages intended for free
-          play. Open a game to check its available features and controls.
-        </p>
+  <section id="arcade-games">
+    <div class="section-heading">
+      <div><h2>🕹️ Choose Your Game</h2><p>Pick a game and start playing instantly.</p></div>
+    </div>
+    <div class="toolbar">
+      <div class="filters" id="filters">
+        <button class="filter active" data-filter="all">All Games</button>
+        <button class="filter" data-filter="arcade">Arcade</button>
+        <button class="filter" data-filter="action">Action</button>
+        <button class="filter" data-filter="classic">Classic</button>
       </div>
+      <input class="search" id="search" type="search" placeholder="🔎 Search arcade games..." aria-label="Search arcade games">
+    </div>
 
-      <div class="arcade-faq">
-        <h3>Which arcade games are available on Gameso?</h3>
-        <p>
-          This collection includes Snake, Flappy Bird, Pong,
-          Breakout, and Pac-Man. Explore the game cards above
-          to visit individual game pages.
-        </p>
+    <div class="grid" id="gameGrid">
+      <article class="card" data-name="snake" data-category="classic arcade">
+        <div class="thumb"><span class="tag">CLASSIC</span><span class="emoji">🐍</span></div>
+        <div class="card-body"><h3>Snake</h3><p>Eat the glowing food, grow longer and avoid hitting yourself.</p><div class="card-bottom"><span class="controls">Arrow keys / WASD</span><button class="play" data-game="snake">▶ Play Now</button></div></div>
+      </article>
+      <article class="card" data-name="brick breaker" data-category="arcade classic">
+        <div class="thumb"><span class="tag">ARCADE</span><span class="emoji">🧱</span></div>
+        <div class="card-body"><h3>Brick Breaker</h3><p>Control the paddle, smash every brick and keep the ball alive.</p><div class="card-bottom"><span class="controls">Mouse / Touch</span><button class="play" data-game="breaker">▶ Play Now</button></div></div>
+      </article>
+      <article class="card" data-name="space shooter" data-category="action arcade">
+        <div class="thumb"><span class="tag">ACTION</span><span class="emoji">🚀</span></div>
+        <div class="card-body"><h3>Space Shooter</h3><p>Blast incoming enemies, dodge danger and survive the galaxy.</p><div class="card-bottom"><span class="controls">Arrow keys / WASD</span><button class="play" data-game="shooter">▶ Play Now</button></div></div>
+      </article>
+      <article class="card" data-name="pong" data-category="classic arcade">
+        <div class="thumb"><span class="tag">CLASSIC</span><span class="emoji">🏓</span></div>
+        <div class="card-body"><h3>Pong</h3><p>Challenge a computer opponent in this fast paddle battle.</p><div class="card-bottom"><span class="controls">Mouse / Touch</span><button class="play" data-game="pong">▶ Play Now</button></div></div>
+      </article>
+      <article class="card" data-name="flappy rocket" data-category="arcade action">
+        <div class="thumb"><span class="tag">SKILL</span><span class="emoji">🛸</span></div>
+        <div class="card-body"><h3>Flappy Rocket</h3><p>Tap to fly through the gaps and set a new personal best.</p><div class="card-bottom"><span class="controls">Space / Tap</span><button class="play" data-game="flappy">▶ Play Now</button></div></div>
+      </article>
+      <article class="card" data-name="reaction rush" data-category="classic arcade">
+        <div class="thumb"><span class="tag">REFLEX</span><span class="emoji">⚡</span></div>
+        <div class="card-body"><h3>Reaction Rush</h3><p>Wait for the signal, then click fast to test your reflexes.</p><div class="card-bottom"><span class="controls">Mouse / Tap</span><button class="play" data-game="reaction">▶ Play Now</button></div></div>
+      </article>
+    </div>
+    <div class="empty" id="empty">No games found. Try another search.</div>
+  </section>
+
+  <section class="game-view" id="gameView" aria-label="Game player">
+    <div class="game-view-head">
+      <div><h2 id="playingTitle">Snake</h2><div class="game-meta" id="playingMeta">Use the arrow keys to move.</div></div>
+      <button class="btn secondary" id="closeGame">✕ Close Game</button>
+    </div>
+    <div class="game-screen" id="gameScreen">
+      <canvas id="gameCanvas" width="900" height="500"></canvas>
+      <div class="game-overlay" id="overlay">
+        <h3 id="overlayTitle">Ready to Play?</h3>
+        <p id="overlayText">Press start to begin your arcade challenge.</p>
+        <button class="btn" id="startGame">▶ Start Game</button>
       </div>
+    </div>
+    <div class="game-info"><span id="gameStatus">Ready</span><span id="scoreLabel">Score: 0</span></div>
+  </section>
 
-      <div class="arcade-faq">
-        <h3>Can I play arcade games on a mobile phone?</h3>
-        <p>
-          Mobile compatibility depends on each game's implementation.
-          Open the game page to check whether touch controls are supported.
-        </p>
-      </div>
+  <section class="content">
+    <h2>Play Free Arcade Games Online at Gameso</h2>
+    <p>Welcome to Gameso Arcade, a collection of quick browser games designed for players who enjoy timing, reflexes and simple challenges. Choose a game, learn its controls and try to beat your previous score. The games run directly in your browser, so you can play on a computer, tablet or compatible mobile device.</p>
 
-      <div class="arcade-faq">
-        <h3>Do arcade games require practice?</h3>
-        <p>
-          Practice can help you learn controls, improve timing,
-          and develop strategies for different arcade challenges.
-        </p>
-      </div>
+    <h3>Which Arcade Game Should You Play?</h3>
+    <ul>
+      <li><strong>Snake:</strong> a classic challenge that rewards careful movement and planning.</li>
+      <li><strong>Brick Breaker:</strong> test your timing as you bounce a ball into colourful blocks.</li>
+      <li><strong>Space Shooter:</strong> move your ship, fire at enemies and avoid collisions.</li>
+      <li><strong>Pong:</strong> practise your paddle control against a computer opponent.</li>
+      <li><strong>Flappy Rocket:</strong> guide a flying rocket through narrow openings.</li>
+      <li><strong>Reaction Rush:</strong> test how quickly you respond to a visual signal.</li>
+    </ul>
 
-      <h2>Discover More Games</h2>
+    <h3>Arcade Gaming Tips</h3>
+    <p>Start with the controls shown in each game, make small movements when precision matters and watch for patterns. On mobile, use the touch controls where available. For the best experience, keep the game tab active while playing.</p>
 
-      <p>
-        Looking for another type of challenge? Visit the
-        <a href="/">Gameso homepage</a> to explore more games
-        and discover new ways to play.
-      </p>
-    </section>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details><summary>Are these arcade games free to play?</summary><p>Yes. These mini-games are playable on this page without a purchase or game download.</p></details>
+      <details><summary>Can I play arcade games on mobile?</summary><p>Yes. The page is responsive, and games with touch controls can be played on compatible mobile screens.</p></details>
+      <details><summary>Do I need to install anything?</summary><p>No installation is required for these built-in browser games. Open a game and press Start Game.</p></details>
+      <details><summary>How can I improve my score?</summary><p>Learn each game's controls, avoid unnecessary risks and practise your timing. Some games become faster as you progress.</p></details>
+    </div>
+  </section>
+</main>
 
-  </main>
+<footer class="footer">
+  <p>© <span id="year"></span> Gameso. Play more free browser games.</p>
+  <a href="https://gameso.vercel.app/">Visit Gameso Home</a>
+</footer>
 
-  <footer class="site-footer">
-    <p>© 2026 Gameso. Play Free Games Online.</p>
+<script>
+(() => {
+  "use strict";
+  const grid = document.getElementById("gameGrid");
+  const cards = [...grid.querySelectorAll(".card")];
+  const filters = [...document.querySelectorAll(".filter")];
+  const search = document.getElementById("search");
+  const empty = document.getElementById("empty");
+  const gameView = document.getElementById("gameView");
+  const gameCanvas = document.getElementById("gameCanvas");
+  const ctx = gameCanvas.getContext("2d");
+  const overlay = document.getElementById("overlay");
+  const overlayTitle = document.getElementById("overlayTitle");
+  const overlayText = document.getElementById("overlayText");
+  const startButton = document.getElementById("startGame");
+  const gameStatus = document.getElementById("gameStatus");
+  const scoreLabel = document.getElementById("scoreLabel");
+  const playingTitle = document.getElementById("playingTitle");
+  const playingMeta = document.getElementById("playingMeta");
 
-    <nav aria-label="Footer navigation">
-      <a href="/">Home</a>
-      <a href="/about-us/">About Us</a>
-      <a href="/contact-us/">Contact Us</a>
-      <a href="/privacy-policy/">Privacy Policy</a>
-      <a href="/terms/">Terms</a>
-    </nav>
-  </footer>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("gameCount").textContent = cards.length;
 
+  let activeFilter = "all";
+  let currentGame = "";
+  let running = false;
+  let raf = 0;
+  let lastTime = 0;
+  let score = 0;
+  let highScores = {};
+  let keys = {};
+  let pointerX = 450;
+  let pointerDown = false;
+  let state = {};
+
+  function filterCards() {
+    const term = search.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(card => {
+      const matchesText = card.dataset.name.includes(term);
+      const categories = card.dataset.category.split(" ");
+      const matchesFilter = activeFilter === "all" || categories.includes(activeFilter);
+      card.style.display = matchesText && matchesFilter ? "" : "none";
+      if (matchesText && matchesFilter) shown++;
+    });
+    empty.style.display = shown ? "none" : "block";
+  }
+
+  filters.forEach(button => button.addEventListener("click", () => {
+    activeFilter = button.dataset.filter;
+    filters.forEach(b => b.classList.toggle("active", b === button));
+    filterCards();
+  }));
+  search.addEventListener("input", filterCards);
+
+  function resizeCanvas() {
+    const rect = gameCanvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    gameCanvas.width = Math.max(320, Math.round(rect.width * dpr));
+    gameCanvas.height = Math.max(240, Math.round(rect.height * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    state.w = rect.width;
+    state.h = rect.height;
+    if (!running) draw();
+  }
+  window.addEventListener("resize", resizeCanvas);
+
+  function setOverlay(title, text, buttonText = "▶ Start Game") {
+    overlayTitle.textContent = title;
+    overlayText.textContent = text;
+    startButton.textContent = buttonText;
+    overlay.classList.remove("hidden");
+  }
+  function hideOverlay() { overlay.classList.add("hidden"); }
+  function setScore(value) {
+    score = value;
+    scoreLabel.textContent = "Score: " + score;
+  }
+  function endGame(message = "Game Over!") {
+    running = false;
+    cancelAnimationFrame(raf);
+    highScores[currentGame] = Math.max(highScores[currentGame] || 0, score);
+    gameStatus.textContent = message;
+    setOverlay(message, "Score: " + score + " · Best: " + highScores[currentGame], "↻ Play Again");
+  }
+  function start() {
+    cancelAnimationFrame(raf);
+    running = true;
+    lastTime = 0;
+    keys = {};
+    setScore(0);
+    hideOverlay();
+    gameStatus.textContent = "Playing";
+    initGame();
+    raf = requestAnimationFrame(loop);
+  }
+
+  function openGame(name) {
+    currentGame = name;
+    const info = {
+      snake:["Snake","Eat food and avoid walls or your own tail. Arrow keys or WASD."],
+      breaker:["Brick Breaker","Move the paddle to bounce the ball. Mouse or touch."],
+      shooter:["Space Shooter","Move and shoot. Arrow keys or WASD; Space to fire."],
+      pong:["Pong","Move your paddle with the mouse, touch or W/S keys."],
+      flappy:["Flappy Rocket","Press Space, click or tap to fly through the gaps."],
+      reaction:["Reaction Rush","Wait until the screen turns green, then click quickly."]
+    }[name];
+    playingTitle.textContent = info[0];
+    playingMeta.textContent = info[1];
+    gameView.classList.add("open");
+    resizeCanvas();
+    setScore(0);
+    gameStatus.textContent = "Ready";
+    setOverlay("Ready to Play?", info[1]);
+    draw();
+    gameView.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+
+  document.querySelectorAll("[data-game]").forEach(button => {
+    button.addEventListener("click", () => openGame(button.dataset.game));
+  });
+  document.getElementById("closeGame").addEventListener("click", () => {
+    running = false;
+    cancelAnimationFrame(raf);
+    gameView.classList.remove("open");
+  });
+  startButton.addEventListener("click", start);
+
+  window.addEventListener("keydown", event => {
+    keys[event.key.toLowerCase()] = true;
+    if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(event.key)) event.preventDefault();
+    if (event.key === " " && currentGame === "flappy" && running) flap();
+    if (event.key === " " && currentGame === "shooter" && running) shoot();
+    if (event.key === "Enter" && !running && gameView.classList.contains("open")) start();
+  });
+  window.addEventListener("keyup", event => { keys[event.key.toLowerCase()] = false; });
+
+  function pointerPosition(event) {
+    const rect = gameCanvas.getBoundingClientRect();
+    pointerX = event.clientX - rect.left;
+  }
+  gameCanvas.addEventListener("pointermove", pointerPosition);
+  gameCanvas.addEventListener("pointerdown", event => {
+    pointerDown = true;
+    pointerPosition(event);
+    if (currentGame === "flappy" && running) flap();
+    if (currentGame === "shooter" && running) shoot();
+    if (currentGame === "reaction" && running) reactionClick();
+  });
+  window.addEventListener("pointerup", () => { pointerDown = false; });
+
+  function rand(min,max) { return min + Math.random() * (max-min); }
+  function rect(x,y,w,h,color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x,y,w,h);
+  }
+  function circle(x,y,r,color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fill();
+  }
+  function text(t,x,y,size,color="#fff",align="center") {
+    ctx.fillStyle=color;ctx.font=`bold ${size}px Arial`;ctx.textAlign=align;ctx.fillText(t,x,y);
+  }
+  function background() {
+    const g=ctx.createLinearGradient(0,0,0,state.h);
+    g.addColorStop(0,"#10234b");g.addColorStop(1,"#08132b");
+    rect(0,0,state.w,state.h,g);
+    for(let i=0;i<45;i++){
+      const x=(i*137)%Math.max(1,state.w), y=(i*71)%Math.max(1,state.h);
+      circle(x,y,1.2,"#ffffff30");
+    }
+  }
+
+  function initGame() {
+    const w=state.w,h=state.h;
+    if(currentGame==="snake"){
+      state.cell=Math.max(12,Math.min(22,Math.floor(Math.min(w,h)/24)));
+      state.cols=Math.floor(w/state.cell);state.rows=Math.floor(h/state.cell);
+      state.snake=[{x:Math.floor(state.cols/2),y:Math.floor(state.rows/2)}];
+      state.dir={x:1,y:0};state.nextDir={x:1,y:0};
+      state.food=foodPosition();state.tick=0;
+    }
+    if(currentGame==="breaker"){
+      state.paddle={x:w/2-48,y:h-35,w:96,h:12};
+      state.ball={x:w/2,y:h-58,vx:4,vy:-4,r:7};
+      state.bricks=[];
+      for(let row=0;row<5;row++)for(let col=0;col<10;col++)
+        state.bricks.push({x:24+col*(w-48)/10+2,y:35+row*24,w:(w-48)/10-5,h:16,alive:true,color:["#4f82ff","#45d4ee","#a16aff","#ff628b","#ffcb4a"][row]});
+      state.lives=3;
+    }
+    if(currentGame==="shooter"){
+      state.ship={x:w/2,y:h-45,r:13};
+      state.bullets=[];state.enemies=[];state.spawn=0;state.lives=3;
+    }
+    if(currentGame==="pong"){
+      state.ball={x:w/2,y:h/2,vx:4,vy:3,r:8};
+      state.p1={y:h/2-45,h:90};state.p2={y:h/2-45,h:90};
+      state.points=[0,0];
+    }
+    if(currentGame==="flappy"){
+      state.bird={x:w*.27,y:h*.45,vy:0,r:13};
+      state.pipes=[];state.spawn=0;state.passed=0;
+    }
+    if(currentGame==="reaction"){
+      state.reactionMode="wait";state.startedAt=performance.now();
+      state.changeAt=performance.now()+rand(1200,3500);state.reactionTime=0;
+    }
+  }
+  function foodPosition(){
+    let p;
+    do {p={x:Math.floor(Math.random()*state.cols),y:Math.floor(Math.random()*state.rows)}}
+    while(state.snake.some(s=>s.x===p.x&&s.y===p.y));
+    return p;
+  }
+  function flap(){if(running&&currentGame==="flappy")state.bird.vy=-6.4;}
+  function shoot(){
+    if(!running||currentGame!=="shooter")return;
+    if(state.bullets.length<8)state.bullets.push({x:state.ship.x,y:state.ship.y-14});
+  }
+  function reactionClick(){
+    if(state.reactionMode==="ready"){
+      state.reactionTime=Math.round(performance.now()-state.changeAt);
+      setScore(Math.max(0,1000-state.reactionTime));
+      endGame("Reaction: "+state.reactionTime+" ms");
+    } else if(state.reactionMode==="wait"){
+      state.reactionMode="early";
+      endGame("Too Early!");
+    }
+  }
+
+  function draw() {
+    if(!state.w||!state.h)return;
+    background();
+    if(currentGame==="snake")drawSnake();
+    else if(currentGame==="breaker")drawBreaker();
+    else if(currentGame==="shooter")drawShooter();
+    else if(currentGame==="pong")drawPong();
+    else if(currentGame==="flappy")drawFlappy();
+    else if(currentGame==="reaction")drawReaction();
+    else text("Choose a game to begin",state.w/2,state.h/2,24);
+  }
+
+  function drawSnake(){
+    const c=state.cell;
+    state.snake.forEach((s,i)=>{
+      roundCell(s.x*c+2,s.y*c+2,c-4,i===0?"#55e8a2":"#239e81");
+    });
+    circle((state.food.x+.5)*c,(state.food.y+.5)*c,c*.35,"#ff5d79");
+    text("SCORE "+score,12,24,15,"#fff","left");
+  }
+  function roundCell(x,y,w,color){
+    ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,w,4);ctx.fill();
+  }
+
+  function drawBreaker(){
+    state.bricks.forEach(b=>{if(b.alive){roundCell(b.x,b.y,b.w,b.color);}});
+    roundCell(state.paddle.x,state.paddle.y,state.paddle.w,"#7eacff");
+    circle(state.ball.x,state.ball.y,state.ball.r,"#ffffff");
+    text("LIVES "+state.lives,12,24,15,"#fff","left");
+  }
+
+  function drawShooter(){
+    const s=state.ship;
+    ctx.fillStyle="#65cfff";ctx.beginPath();ctx.moveTo(s.x,s.y-17);ctx.lineTo(s.x-14,s.y+13);ctx.lineTo(s.x,s.y+7);ctx.lineTo(s.x+14,s.y+13);ctx.closePath();ctx.fill();
+    state.bullets.forEach(b=>rect(b.x-2,b.y-8,4,12,"#ffdf70"));
+    state.enemies.forEach(e=>{circle(e.x,e.y,e.r,"#ff557e");circle(e.x-4,e.y-2,2,"#fff")});
+    text("LIVES "+state.lives,12,24,15,"#fff","left");
+  }
+
+  function drawPong(){
+    rect(state.w/2-1,0,2,state.h,"#ffffff35");
+    roundCell(18,state.p1.y,12,"#65dff5");
+    roundCell(state.w-30,state.p2.y,12,"#7ca4ff");
+    circle(state.ball.x,state.ball.y,state.ball.r,"#fff");
+    text(state.points[0]+"   :   "+state.points[1],state.w/2,36,28);
+    text("YOU",25,58,11,"#8cecff","left");
+    text("CPU",state.w-25,58,11,"#a6beff","right");
+  }
+
+  function drawFlappy(){
+    state.pipes.forEach(p=>{
+      rect(p.x,0,48,p.gapY,"#27c987");
+      rect(p.x,p.gapY+p.gap,48,state.h-p.gapY-p.gap,"#27c987");
+      rect(p.x-4,p.gapY-13,56,13,"#7df2b9");
+      rect(p.x-4,p.gapY+p.gap,56,13,"#7df2b9");
+    });
+    circle(state.bird.x,state.bird.y,state.bird.r,"#ffd85c");
+    circle(state.bird.x+4,state.bird.y-3,3,"#fff");
+    text("SCORE "+score,state.w/2,28,18);
+  }
+
+  function drawReaction(){
+    if(state.reactionMode==="ready"){
+      rect(0,0,state.w,state.h,"#087d55");
+      text("CLICK NOW!",state.w/2,state.h/2,34);
+      text("Tap as quickly as possible",state.w/2,state.h/2+35,16,"#d8ffef");
+    } else {
+      rect(0,0,state.w,state.h,state.reactionMode==="early"?"#9b2944":"#9b672b");
+      text(state.reactionMode==="early"?"TOO EARLY!":"WAIT FOR GREEN",state.w/2,state.h/2,28);
+      text("Click when the background turns green",state.w/2,state.h/2+35,15,"#fff");
+    }
+  }
+
+  function loop(now){
+    if(!running)return;
+    const dt=Math.min(2,(now-lastTime||16.7)/16.7);
+    lastTime=now;
+    update(dt,now);
+    draw();
+    if(running)raf=requestAnimationFrame(loop);
+  }
+
+  function update(dt,now){
+    const w=state.w,h=state.h;
+    if(currentGame==="snake"){
+      state.tick+=dt;
+      if(keys.arrowup||keys.w)state.nextDir={x:0,y:-1};
+      if(keys.arrowdown||keys.s)state.nextDir={x:0,y:1};
+      if(keys.arrowleft||keys.a)state.nextDir={x:-1,y:0};
+      if(keys.arrowright||keys.d)state.nextDir={x:1,y:0};
+      if(state.tick>=7){
+        state.tick=0;
+        if(!(state.nextDir.x===-state.dir.x&&state.nextDir.y===-state.dir.y))state.dir=state.nextDir;
+        const head={x:state.snake[0].x+state.dir.x,y:state.snake[0].y+state.dir.y};
+        if(head.x<0||head.y<0||head.x>=state.cols||head.y>=state.rows||state.snake.some(s=>s.x===head.x&&s.y===head.y)){
+          endGame("Snake Game Over!");return;
+        }
+        state.snake.unshift(head);
+        if(head.x===state.food.x&&head.y===state.food.y){setScore(score+10);state.food=foodPosition();}
+        else state.snake.pop();
+      }
+    }
+
+    if(currentGame==="breaker"){
+      const p=state.paddle,b=state.ball;
+      p.x=Math.max(0,Math.min(w-p.w,pointerX-p.w/2));
+      if(keys.arrowleft||keys.a)p.x-=7*dt;
+      if(keys.arrowright||keys.d)p.x+=7*dt;
+      p.x=Math.max(0,Math.min(w-p.w,p.x));
+      b.x+=b.vx*dt;b.y+=b.vy*dt;
+      if(b.x<b.r||b.x>w-b.r)b.vx*=-1;
+      if(b.y<b.r)b.vy=Math.abs(b.vy);
+      if(b.vy>0&&b.y+b.r>=p.y&&b.x>=p.x&&b.x<=p.x+p.w){
+        b.vy=-Math.abs(b.vy);b.vx=((b.x-(p.x+p.w/2))/(p.w/2))*5;
+      }
+      for(const brick of state.bricks){
+        if(brick.alive&&b.x>=brick.x&&b.x<=brick.x+brick.w&&b.y>=brick.y&&b.y<=brick.y+brick.h){
+          brick.alive=false;b.vy*=-1;setScore(score+10);break;
+        }
+      }
+      if(state.bricks.every(br=>!br.alive)){endGame("You cleared every brick!");return;}
+      if(b.y>h){state.lives--;if(state.lives<=0){endGame("No lives left!");return;}
+        b.x=w/2;b.y=h-58;b.vx=4;b.vy=-4;}
+    }
+
+    if(currentGame==="shooter"){
+      const s=state.ship;
+      if(keys.arrowleft||keys.a)s.x-=6*dt;
+      if(keys.arrowright||keys.d)s.x+=6*dt;
+      if(keys.arrowup||keys.w)s.y-=5*dt;
+      if(keys.arrowdown||keys.s)s.y+=5*dt;
+      s.x=Math.max(15,Math.min(w-15,s.x));s.y=Math.max(20,Math.min(h-15,s.y));
+      state.spawn+=dt;
+      if(state.spawn>32){state.spawn=0;state.enemies.push({x:rand(20,w-20),y:-15,r:rand(10,16),v:rand(1.5,2.8)});}
+      state.bullets.forEach(b=>b.y-=8*dt);
+      state.enemies.forEach(e=>e.y+=e.v*dt);
+      state.bullets=state.bullets.filter(b=>b.y>-10);
+      for(const e of [...state.enemies]){
+        const hit=state.bullets.findIndex(b=>Math.hypot(b.x-e.x,b.y-e.y)<e.r+5);
+        if(hit!==-1){state.bullets.splice(hit,1);state.enemies.splice(state.enemies.indexOf(e),1);setScore(score+10);continue;}
+        if(Math.hypot(s.x-e.x,s.y-e.y)<e.r+s.r||e.y>h){
+          state.enemies.splice(state.enemies.indexOf(e),1);state.lives--;
+          if(state.lives<=0){endGame("Space mission failed!");return;}
+        }
+      }
+    }
+
+    if(currentGame==="pong"){
+      const b=state.ball,p1=state.p1,p2=state.p2;
+      p1.y=Math.max(0,Math.min(h-p1.h,pointerX>0 ? p1.y : p1.y));
+      if(keys.w||keys.arrowup)p1.y-=7*dt;
+      if(keys.s||keys.arrowdown)p1.y+=7*dt;
+      if(pointerDown)p1.y=Math.max(0,Math.min(h-p1.h, eventY()-p1.h/2));
+      p1.y=Math.max(0,Math.min(h-p1.h,p1.y));
+      p2.y+=(b.y-(p2.y+p2.h/2))*.055*dt;
+      b.x+=b.vx*dt;b.y+=b.vy*dt;
+      if(b.y<8||b.y>h-8)b.vy*=-1;
+      if(b.vx<0&&b.x<42&&b.y>p1.y&&b.y<p1.y+p1.h)b.vx=Math.abs(b.vx)+.15;
+      if(b.vx>0&&b.x>w-42&&b.y>p2.y&&b.y<p2.y+p2.h)b.vx=-(Math.abs(b.vx)+.15);
+      if(b.x<0){state.points[1]++;setScore(state.points[1]);b.x=w/2;b.y=h/2;b.vx=4;b.vy=3;}
+      if(b.x>w){state.points[0]++;setScore(state.points[0]);b.x=w/2;b.y=h/2;b.vx=-4;b.vy=3;}
+      if(state.points[0]>=5){endGame("You win Pong!");return;}
+      if(state.points[1]>=5){endGame("Computer wins Pong!");return;}
+    }
+
+    if(currentGame==="flappy"){
+      const b=state.bird;b.vy+=.28*dt;b.y+=b.vy*dt;
+      state.spawn+=dt;
+      if(state.spawn>100){state.spawn=0;const gap=rand(115,170);state.pipes.push({x:w+10,gapY:rand(50,h-gap-50),gap,passed:false});}
+      state.pipes.forEach(p=>{
+        p.x-=2.7*dt;
+        if(!p.passed&&p.x+48<b.x){p.passed=true;setScore(score+1);}
+        if(b.x+b.r>p.x&&b.x-b.r<p.x+48&&(b.y-b.r<p.gapY||b.y+b.r>p.gapY+p.gap)){
+          endGame("Rocket crashed!");return;
+        }
+      });
+      state.pipes=state.pipes.filter(p=>p.x>-60);
+      if(b.y-b.r<0||b.y+b.r>h)endGame("Rocket crashed!");
+    }
+
+    if(currentGame==="reaction"&&state.reactionMode==="wait"&&now>=state.changeAt){
+      state.reactionMode="ready";
+      state.changeAt=now;
+      gameStatus.textContent="Click now!";
+    }
+  }
+
+  function eventY(){
+    const rect=gameCanvas.getBoundingClientRect();
+    return pointerY-rect.top;
+  }
+  let pointerY=0;
+  gameCanvas.addEventListener("pointermove",e=>{pointerY=e.clientY;});
+
+  function drawWithNoGame(){
+    background();text("Choose a game to begin",state.w/2,state.h/2,24);
+  }
+
+  // Initialise a visually useful canvas before the first game starts.
+  resizeCanvas();
+  drawWithNoGame();
+})();
+</script>
 </body>
 </html>
 ```
