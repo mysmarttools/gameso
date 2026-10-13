@@ -1,412 +1,1186 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>Play Ludo Board Game Online Free | Gameso</title>
+<meta name="description" content="Play Ludo Board Game online for free at Gameso! Roll the dice, move your tokens, capture opponents and race to home in this fun classic board game.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://gameso.vercel.app/games/ludo-board-game/">
+<meta name="theme-color" content="#101b3a">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<style>
+:root {
+  --bg: #0b1430;
+  --panel: #111f43;
+  --panel2: #172951;
+  --border: #263d70;
+  --text: #f4f7ff;
+  --muted: #b4c4eb;
+  --blue: #3d78ff;
+  --red: #f04452;
+  --green: #19b968;
+  --yellow: #ffd42a;
+  --playerblue: #1688ff;
+}
+* { box-sizing: border-box; }
 
-    <title>
-        Ludo Board Game Online - Play Free | Gameso
-    </title>
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% 0%, #172b5b 0, transparent 48%),
+    var(--bg);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+button { font: inherit; }
 
-    <meta
-        name="description"
-        content="Play Ludo Board Game online for free on Gameso. Roll the dice, move your tokens and race to the finish in this classic board game."
-    >
+.site-header {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 5%;
+  background: rgba(12, 27, 65, .96);
+  border-bottom: 1px solid #243a70;
+}
+.logo {
+  font-size: 29px;
+  font-weight: 900;
+  letter-spacing: -.8px;
+  color: #fff;
+  text-decoration: none;
+}
+.logo span { color: #78a4ff; }
+.nav-links { display: flex; gap: 25px; flex-wrap: wrap; }
+.nav-links a {
+  color: #dbe5ff;
+  text-decoration: none;
+  font-weight: 700;
+}
+.nav-links a:hover { color: #83aaff; }
 
-    <meta
-        name="robots"
-        content="index, follow"
-    >
+.page {
+  width: min(1440px, 96%);
+  margin: 26px auto 60px;
+}
+.back-link {
+  display: inline-block;
+  margin: 0 0 18px;
+  color: #bcd0ff;
+  text-decoration: none;
+  font-weight: 700;
+}
+.back-link:hover { color: #fff; }
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/ludo-board-game/"
-    >
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  align-items: start;
+  gap: 22px;
+}
+.game-main, .sidebar, .content-panel {
+  background: linear-gradient(150deg, #14264f, #0f1d3d);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 18px 45px #0002;
+}
+.game-main { padding: 18px; min-width: 0; }
 
-    <link
-        rel="stylesheet"
-        href="./style.css"
-    >
+.game-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.game-heading h1 { margin: 0; font-size: clamp(25px, 4vw, 36px); }
+.game-heading p { margin: 3px 0 0; color: var(--muted); font-size: 14px; }
 
+.pill {
+  padding: 7px 12px;
+  color: #cfe0ff;
+  background: #203866;
+  border: 1px solid #35528b;
+  border-radius: 30px;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.board-wrap {
+  width: 100%;
+  max-width: 760px;
+  margin: auto;
+  padding: 10px;
+  background: #0a1532;
+  border: 1px solid #304a80;
+  border-radius: 17px;
+}
+#ludoBoard {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 11px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+#ludoBoard:focus-visible {
+  outline: 3px solid #8bb2ff;
+  outline-offset: 4px;
+}
+
+.status {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #0c1936;
+  border: 1px solid #2b477d;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+#statusText { font-weight: 800; }
+#turnText { color: #c0d1ff; font-size: 13px; }
+
+.sidebar { padding: 18px; }
+.sidebar h2 { margin: 0 0 12px; font-size: 21px; }
+.players { display: grid; gap: 9px; }
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px;
+  border: 1px solid #304b82;
+  background: #172b53;
+  border-radius: 12px;
+  transition: .2s;
+}
+.player-card.active {
+  border-color: #8eb2ff;
+  background: #203b72;
+  box-shadow: 0 0 0 1px #527ed0 inset;
+}
+.player-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex: 0 0 16px;
+}
+.player-info { min-width: 0; flex: 1; }
+.player-name { font-weight: 800; }
+.player-detail { font-size: 12px; color: #bdcbed; }
+.player-count { font-weight: 800; font-size: 13px; }
+
+.dice-panel {
+  margin-top: 17px;
+  padding: 15px;
+  text-align: center;
+  background: #0c1937;
+  border: 1px solid #2d477b;
+  border-radius: 15px;
+}
+.dice {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 10px;
+  display: grid;
+  place-items: center;
+  color: #14234b;
+  background: #f7f9ff;
+  border-radius: 17px;
+  font-size: 48px;
+  font-weight: 900;
+  box-shadow: 0 5px 0 #b9c7e5;
+}
+.dice.rolling { animation: roll .45s ease-in-out; }
+@keyframes roll {
+  0% { transform: rotate(0) scale(1); }
+  35% { transform: rotate(100deg) scale(.88); }
+  70% { transform: rotate(250deg) scale(1.07); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.primary-btn, .secondary-btn {
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 11px;
+  cursor: pointer;
+  font-weight: 900;
+  transition: transform .15s, filter .15s;
+}
+.primary-btn {
+  color: #fff;
+  background: linear-gradient(135deg, #3c7bff, #2857d9);
+  box-shadow: 0 4px 0 #1b3e9a;
+}
+.secondary-btn {
+  color: #e3ebff;
+  background: #20345c;
+  border: 1px solid #3b5688;
+}
+.primary-btn:hover, .secondary-btn:hover { filter: brightness(1.12); }
+.primary-btn:active, .secondary-btn:active { transform: translateY(2px); }
+button:disabled { opacity: .48; cursor: not-allowed; }
+.action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 12px; }
+.action-row button { font-size: 13px; }
+
+.settings {
+  display: grid;
+  gap: 8px;
+  margin-top: 17px;
+}
+.settings label { font-size: 13px; color: #d7e2ff; font-weight: 700; }
+.settings select {
+  width: 100%;
+  padding: 10px;
+  color: #fff;
+  background: #0c1936;
+  border: 1px solid #355184;
+  border-radius: 9px;
+}
+.settings option { background: #122246; }
+
+.hint {
+  margin: 13px 0 0;
+  color: #bdcbed;
+  font-size: 12px;
+}
+.content-panel { margin-top: 24px; padding: 24px; }
+.content-panel h2 { margin-top: 0; font-size: 25px; }
+.content-panel h3 { margin-bottom: 5px; color: #e0eaff; }
+.content-panel p, .content-panel li { color: #c2d0ef; }
+.content-panel a { color: #8eb2ff; }
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.rule-card {
+  padding: 15px;
+  background: #0c1936;
+  border: 1px solid #2b4476;
+  border-radius: 12px;
+}
+.rule-card h3 { margin-top: 0; }
+.faq details {
+  padding: 14px 0;
+  border-bottom: 1px solid #2c416d;
+}
+.faq summary { cursor: pointer; font-weight: 800; }
+.faq p { margin-bottom: 0; }
+
+.site-footer {
+  padding: 25px 5%;
+  text-align: center;
+  color: #aebfe6;
+  border-top: 1px solid #263c6e;
+  background: #0c1733;
+}
+.site-footer a { color: #b7ccff; }
+
+@media (max-width: 950px) {
+  .game-layout { grid-template-columns: 1fr; }
+  .sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .sidebar h2 { grid-column: 1 / -1; margin-bottom: -5px; }
+  .players { grid-row: span 2; }
+  .dice-panel { margin-top: 0; }
+  .settings { margin-top: 0; }
+}
+@media (max-width: 600px) {
+  .site-header { align-items: flex-start; flex-direction: column; gap: 8px; padding: 13px 4%; }
+  .logo { font-size: 25px; }
+  .nav-links { gap: 15px; font-size: 13px; }
+  .page { width: 94%; margin-top: 17px; }
+  .game-main { padding: 10px; border-radius: 14px; }
+  .game-heading { align-items: flex-start; }
+  .game-heading h1 { font-size: 26px; }
+  .pill { font-size: 10px; padding: 5px 8px; }
+  .board-wrap { padding: 5px; }
+  .sidebar { display: flex; flex-direction: column; padding: 13px; }
+  .players { display: grid; grid-template-columns: 1fr 1fr; }
+  .player-card { padding: 9px 7px; gap: 7px; }
+  .player-name { font-size: 12px; }
+  .player-detail { font-size: 10px; }
+  .player-count { font-size: 11px; }
+  .content-panel { padding: 17px; }
+  .rules-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 
-
 <body>
-
-
-<header class="header">
-
-    <div class="header-inner">
-
-        <a
-            href="/"
-            class="logo"
-        >
-
-            <span>🎮</span>
-
-            <strong>
-                Gameso
-            </strong>
-
-        </a>
-
-
-        <a
-            href="/"
-            class="back-btn"
-        >
-            ← All Games
-        </a>
-
-    </div>
-
+<header class="site-header">
+  <a class="logo" href="https://gameso.vercel.app/">🎮 Game<span>so</span></a>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a href="https://gameso.vercel.app/">Home</a>
+    <a href="https://gameso.vercel.app/#games">All Games</a>
+    <a href="https://gameso.vercel.app/#categories">Categories</a>
+  </nav>
 </header>
 
+<main class="page">
+  <a class="back-link" href="https://gameso.vercel.app/">← Back to Games</a>
 
-
-<main>
-
-
-    <!-- HEADING -->
-
-    <section class="heading">
-
-        <div class="label">
-            🎲 BOARD GAME
+  <div class="game-layout">
+    <section class="game-main" aria-label="Ludo game">
+      <div class="game-heading">
+        <div>
+          <h1>Ludo Board Game</h1>
+          <p>Roll the dice, move your tokens and race to home!</p>
         </div>
+        <span class="pill">FREE TO PLAY</span>
+      </div>
 
+      <div class="board-wrap">
+        <canvas id="ludoBoard" width="700" height="700"
+          tabindex="0" role="img"
+          aria-label="Interactive Ludo board. Roll the dice and select one of your highlighted tokens."></canvas>
+      </div>
 
-        <h1>
-            Ludo Board Game
-        </h1>
-
-
-        <p>
-            Roll the dice, move your tokens and race to the finish!
-        </p>
-
+      <div class="status" aria-live="polite">
+        <span id="statusText">Red's turn. Roll the dice!</span>
+        <span id="turnText">Select a highlighted token after rolling.</span>
+      </div>
     </section>
 
+    <aside class="sidebar">
+      <h2>🎲 Game Controls</h2>
 
-
-    <!-- GAME -->
-
-    <section class="game-card">
-
-
-        <!-- TOP INFO -->
-
-        <div class="game-top">
-
-            <div class="turn-box">
-
-                <span>
-                    CURRENT TURN
-                </span>
-
-                <strong id="turnText">
-                    🔴 Red
-                </strong>
-
-            </div>
-
-
-            <div class="dice-box">
-
-                <span>
-                    DICE
-                </span>
-
-                <strong id="diceValue">
-                    🎲
-                </strong>
-
-            </div>
-
+      <div class="players" id="players">
+        <div class="player-card active" data-player="0">
+          <span class="player-dot" style="background:#f04452"></span>
+          <div class="player-info"><div class="player-name">Red</div><div class="player-detail">You</div></div>
+          <span class="player-count" id="count0">0/4</span>
         </div>
-
-
-
-        <!-- STATUS -->
-
-        <div
-            id="status"
-            class="status"
-        >
-            🔴 Red Player's Turn
+        <div class="player-card" data-player="1">
+          <span class="player-dot" style="background:#19b968"></span>
+          <div class="player-info"><div class="player-name">Green</div><div class="player-detail">Computer</div></div>
+          <span class="player-count" id="count1">0/4</span>
         </div>
-
-
-
-        <!-- LUDO BOARD -->
-
-        <div class="board-wrapper">
-
-            <div
-                id="board"
-                class="ludo-board"
-            >
-
-
-                <!-- RED HOME -->
-
-                <div class="home red-home">
-
-                    <div class="home-title">
-                        RED
-                    </div>
-
-                    <div class="home-area">
-
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- CENTER -->
-
-                <div class="center-area">
-
-                    <div class="center-title">
-                        🏆
-                    </div>
-
-                </div>
-
-
-                <!-- GREEN HOME -->
-
-                <div class="home green-home">
-
-                    <div class="home-title">
-                        GREEN
-                    </div>
-
-                    <div class="home-area">
-
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- YELLOW HOME -->
-
-                <div class="home yellow-home">
-
-                    <div class="home-title">
-                        YELLOW
-                    </div>
-
-                    <div class="home-area">
-
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- BLUE HOME -->
-
-                <div class="home blue-home">
-
-                    <div class="home-title">
-                        BLUE
-                    </div>
-
-                    <div class="home-area">
-
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-                        <span class="home-token"></span>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
+        <div class="player-card" data-player="2">
+          <span class="player-dot" style="background:#ffd42a"></span>
+          <div class="player-info"><div class="player-name">Yellow</div><div class="player-detail">Computer</div></div>
+          <span class="player-count" id="count2">0/4</span>
         </div>
-
-
-
-        <!-- DICE BUTTON -->
-
-        <button
-            id="rollBtn"
-            class="roll-btn"
-            type="button"
-        >
-
-            🎲 Roll Dice
-
-        </button>
-
-
-
-        <!-- NEW GAME -->
-
-        <button
-            id="restartBtn"
-            class="restart-btn"
-            type="button"
-        >
-
-            🔄 New Game
-
-        </button>
-
-
-
-        <!-- CONTROLS -->
-
-        <div class="controls">
-
-            <span>
-                🎲 Roll Dice
-            </span>
-
-            <span>
-                👆 Select Token
-            </span>
-
-            <span>
-                👥 2–4 Players
-            </span>
-
+        <div class="player-card" data-player="3">
+          <span class="player-dot" style="background:#1688ff"></span>
+          <div class="player-info"><div class="player-name">Blue</div><div class="player-detail">Computer</div></div>
+          <span class="player-count" id="count3">0/4</span>
         </div>
+      </div>
 
+      <div class="dice-panel">
+        <div class="dice" id="diceFace" aria-label="Dice showing one">⚀</div>
+        <button class="primary-btn" id="rollBtn" type="button">🎲 Roll Dice</button>
+        <div class="action-row">
+          <button class="secondary-btn" id="newBtn" type="button">↻ New Game</button>
+          <button class="secondary-btn" id="soundBtn" type="button">🔊 Sound On</button>
+        </div>
+      </div>
 
-    </section>
+      <div class="settings">
+        <label for="modeSelect">Game Mode</label>
+        <select id="modeSelect">
+          <option value="cpu">Play vs Computer</option>
+          <option value="local">2–4 Local Players</option>
+        </select>
 
+        <label for="playerCount">Number of Players</label>
+        <select id="playerCount">
+          <option value="2">2 Players</option>
+          <option value="3">3 Players</option>
+          <option value="4" selected>4 Players</option>
+        </select>
 
+        <label for="difficulty">Computer Difficulty</label>
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="normal" selected>Normal</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
 
-    <!-- SEO CONTENT -->
+      <p class="hint">How to play: roll the dice, then click one of your highlighted tokens. You need a 6 to leave your base.</p>
+    </aside>
+  </div>
 
-    <section class="info">
+  <section class="content-panel">
+    <h2>🎯 How to Play Ludo Online</h2>
+    <p>Enjoy this classic Ludo board game online at Gameso. Play against the computer or take turns with friends on the same device. Move your coloured tokens around the board and try to bring all four home before your opponents.</p>
 
+    <div class="rules-grid">
+      <div class="rule-card">
+        <h3>🎲 Roll a Six</h3>
+        <p>Your token starts in its coloured base. Roll a 6 to move it onto the track.</p>
+      </div>
+      <div class="rule-card">
+        <h3>🏃 Move Your Tokens</h3>
+        <p>After rolling, select a highlighted token. It moves forward by the number shown on the dice.</p>
+      </div>
+      <div class="rule-card">
+        <h3>🏆 Reach Home</h3>
+        <p>Complete the circuit, enter your coloured home lane and roll the exact number to finish.</p>
+      </div>
+    </div>
 
-        <h2>
-            Play Ludo Board Game Online
-        </h2>
+    <h2 style="margin-top:28px">📖 Ludo Rules</h2>
+    <ul>
+      <li>Players take turns rolling one six-sided die.</li>
+      <li>A six is required to bring a token out of the base.</li>
+      <li>Rolling a six gives you another roll.</li>
+      <li>Landing on an opponent's token on an unprotected track square sends that token back to its base.</li>
+      <li>Starting squares and star squares are treated as safe spots in this version.</li>
+      <li>You must roll the exact number needed to reach the finish.</li>
+      <li>The first player to bring all four tokens home wins.</li>
+    </ul>
 
-
-        <p>
-
-            Enjoy the classic Ludo board game online for free
-            on Gameso. Roll the dice, move your tokens around
-            the board and be the first player to get all your
-            tokens to the finish area.
-
-        </p>
-
-
-
-        <h2>
-            How to Play Ludo
-        </h2>
-
-
-        <p>
-
-            Ludo is a classic board game played by two to four
-            players. Each player has four tokens. Roll the dice
-            and move your tokens around the board. The goal is
-            to safely move all four tokens to the center before
-            your opponents.
-
-        </p>
-
-
-
-        <h2>
-            Ludo Board Game Rules
-        </h2>
-
-
-        <ul>
-
-            <li>
-                🎲 Roll the dice to move your tokens.
-            </li>
-
-            <li>
-                🏠 Each player starts with four tokens.
-            </li>
-
-            <li>
-                🚀 A six can allow a token to enter the board.
-            </li>
-
-            <li>
-                🎯 Move your tokens around the board.
-            </li>
-
-            <li>
-                🏆 Get all four tokens to the center to win.
-            </li>
-
-        </ul>
-
-
-
-        <h2>
-            Classic Board Games on Gameso
-        </h2>
-
-
-        <p>
-
-            Ludo is one of many classic board games that you
-            can enjoy online. Gameso offers free games that
-            are easy to play on desktop, tablet and mobile
-            devices.
-
-        </p>
-
-
-    </section>
-
-
+    <h2>❓ Frequently Asked Questions</h2>
+    <div class="faq">
+      <details>
+        <summary>Can I play Ludo online for free?</summary>
+        <p>Yes. You can play this browser-based Ludo game for free on Gameso without installing an app.</p>
+      </details>
+      <details>
+        <summary>How do I move a token out of the base?</summary>
+        <p>Roll a six, then select one of your available tokens in the coloured base.</p>
+      </details>
+      <details>
+        <summary>Can I play with friends?</summary>
+        <p>Choose Local Players to take turns on the same device, or choose Play vs Computer to play against computer opponents.</p>
+      </details>
+      <details>
+        <summary>How do I win Ludo?</summary>
+        <p>Move all four of your tokens around the track and into the centre finish. You must roll the exact number needed for the final move.</p>
+      </details>
+    </div>
+  </section>
 </main>
 
-
-
-<footer>
-
-    ©
-    <span id="year"></span>
-    Gameso. All rights reserved.
-
+<footer class="site-footer">
+  <p>© <span id="year"></span> Gameso — Play free online games.</p>
+  <a href="https://gameso.vercel.app/">Explore More Games</a>
 </footer>
 
+<script>
+(() => {
+  "use strict";
 
+  const canvas = document.getElementById("ludoBoard");
+  const ctx = canvas.getContext("2d");
+  const rollBtn = document.getElementById("rollBtn");
+  const newBtn = document.getElementById("newBtn");
+  const soundBtn = document.getElementById("soundBtn");
+  const diceFace = document.getElementById("diceFace");
+  const statusText = document.getElementById("statusText");
+  const turnText = document.getElementById("turnText");
+  const modeSelect = document.getElementById("modeSelect");
+  const playerCountSelect = document.getElementById("playerCount");
+  const difficultySelect = document.getElementById("difficulty");
 
-<script src="./script.js"></script>
+  document.getElementById("year").textContent = new Date().getFullYear();
 
+  const COLORS = [
+    { name: "Red", hex: "#f04452", dark: "#a8172a", light: "#ffe3e6" },
+    { name: "Green", hex: "#19b968", dark: "#087a40", light: "#d9ffeb" },
+    { name: "Yellow", hex: "#ffd42a", dark: "#a87a00", light: "#fff6c9" },
+    { name: "Blue", hex: "#1688ff", dark: "#0752b8", light: "#dceeff" }
+  ];
 
+  const DIE = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+
+  /*
+    The 52 track spaces form a clockwise perimeter.
+    Each side has 13 spaces. Coloured home lanes lead inward.
+  */
+  const TRACK = [];
+  for (let x = 0; x <= 13; x++) TRACK.push({ x, y: 0 });
+  for (let y = 1; y <= 13; y++) TRACK.push({ x: 13, y });
+  for (let x = 12; x >= 0; x--) TRACK.push({ x, y: 13 });
+  for (let y = 12; y >= 1; y--) TRACK.push({ x: 0, y });
+
+  const STARTS = [6, 19, 32, 45];
+  const SAFE = new Set(STARTS.concat([2, 15, 28, 41]));
+  const HOME_LANES = [
+    [{x:6,y:1},{x:6,y:2},{x:6,y:3},{x:6,y:4},{x:6,y:5},{x:6,y:6}],
+    [{x:12,y:6},{x:11,y:6},{x:10,y:6},{x:9,y:6},{x:8,y:6},{x:7,y:6}],
+    [{x:7,y:12},{x:7,y:11},{x:7,y:10},{x:7,y:9},{x:7,y:8},{x:7,y:7}],
+    [{x:1,y:7},{x:2,y:7},{x:3,y:7},{x:4,y:7},{x:5,y:7},{x:6,y:7}]
+  ];
+
+  const BASES = [
+    [{x:2.3,y:2.3},{x:4.1,y:2.3},{x:2.3,y:4.1},{x:4.1,y:4.1}],
+    [{x:9.3,y:2.3},{x:11.1,y:2.3},{x:9.3,y:4.1},{x:11.1,y:4.1}],
+    [{x:9.3,y:9.3},{x:11.1,y:9.3},{x:9.3,y:11.1},{x:11.1,y:11.1}],
+    [{x:2.3,y:9.3},{x:4.1,y:9.3},{x:2.3,y:11.1},{x:4.1,y:11.1}]
+  ];
+
+  let players = [];
+  let current = 0;
+  let dice = null;
+  let legalMoves = [];
+  let gameOver = false;
+  let busy = false;
+  let soundOn = true;
+  let audioContext = null;
+  let rollSixCount = 0;
+  let lastMessage = "";
+
+  function createPlayers() {
+    const count = Number(playerCountSelect.value);
+    const local = modeSelect.value === "local";
+    players = COLORS.map((color, i) => ({
+      ...color,
+      index: i,
+      active: i < count,
+      isHuman: local || i === 0,
+      tokens: [-1, -1, -1, -1],
+      finished: 0
+    })).filter(p => p.active);
+
+    // Keep the original colour positions even with fewer players.
+    players.forEach(p => {
+      p.tokens = [-1, -1, -1, -1];
+      p.finished = 0;
+    });
+    current = 0;
+  }
+
+  function playerByColorIndex(i) {
+    return players.find(p => p.index === i);
+  }
+
+  function setStatus(message, detail = "") {
+    lastMessage = message;
+    statusText.textContent = message;
+    turnText.textContent = detail;
+  }
+
+  function playTone(freq = 520, duration = 0.08) {
+    if (!soundOn) return;
+    try {
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = "sine";
+      oscillator.frequency.value = freq;
+      gain.gain.setValueAtTime(0.06, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + duration);
+    } catch (_) {}
+  }
+
+  function cellCenter(pos) {
+    const size = canvas.width / 14;
+    return { x: (pos.x + 0.5) * size, y: (pos.y + 0.5) * size };
+  }
+
+  function roundRect(x, y, w, h, r, fill, stroke) {
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, r);
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1.4; ctx.stroke(); }
+  }
+
+  function drawCell(x, y, fill, stroke = "#bac7da") {
+    const size = canvas.width / 14;
+    const px = x * size, py = y * size;
+    ctx.fillStyle = fill;
+    ctx.fillRect(px, py, size, size);
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(px, py, size, size);
+  }
+
+  function drawBoard() {
+    const size = canvas.width;
+    const unit = size / 14;
+
+    ctx.clearRect(0, 0, size, size);
+    ctx.fillStyle = "#f8faff";
+    ctx.fillRect(0, 0, size, size);
+
+    // Four coloured home yards.
+    const yardRects = [
+      {x:0,y:0,c:COLORS[0]},
+      {x:9,y:0,c:COLORS[1]},
+      {x:9,y:9,c:COLORS[2]},
+      {x:0,y:9,c:COLORS[3]}
+    ];
+
+    yardRects.forEach(yard => {
+      ctx.fillStyle = yard.c.hex;
+      ctx.fillRect(yard.x * unit, yard.y * unit, 5 * unit, 5 * unit);
+      roundRect(
+        (yard.x + 0.7) * unit, (yard.y + 0.7) * unit,
+        3.6 * unit, 3.6 * unit, unit * 0.35,
+        yard.c.light, "#ffffff"
+      );
+    });
+
+    // Shared track.
+    TRACK.forEach((pos, i) => {
+      const color = STARTS.indexOf(i);
+      let fill = "#f8faff";
+      if (color !== -1) fill = COLORS[color].hex;
+      drawCell(pos.x, pos.y, fill);
+      if (SAFE.has(i)) {
+        const c = cellCenter(pos);
+        ctx.fillStyle = "#8b9bb5";
+        ctx.font = `bold ${unit * 0.48}px Arial`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("★", c.x, c.y);
+      }
+    });
+
+    // Colour the inward home lanes.
+    HOME_LANES.forEach((lane, i) => {
+      lane.forEach((pos, j) => {
+        drawCell(pos.x, pos.y, j === lane.length - 1 ? COLORS[i].hex : COLORS[i].light);
+      });
+    });
+
+    // Center finish.
+    const mid = 7 * unit;
+    ctx.beginPath();
+    ctx.moveTo(mid, mid);
+    ctx.lineTo(6 * unit, 6 * unit);
+    ctx.lineTo(6 * unit, 8 * unit);
+    ctx.closePath();
+    ctx.fillStyle = COLORS[0].hex;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(mid, mid);
+    ctx.lineTo(6 * unit, 6 * unit);
+    ctx.lineTo(8 * unit, 6 * unit);
+    ctx.closePath();
+    ctx.fillStyle = COLORS[1].hex;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(mid, mid);
+    ctx.lineTo(8 * unit, 6 * unit);
+    ctx.lineTo(8 * unit, 8 * unit);
+    ctx.closePath();
+    ctx.fillStyle = COLORS[2].hex;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(mid, mid);
+    ctx.lineTo(8 * unit, 8 * unit);
+    ctx.lineTo(6 * unit, 8 * unit);
+    ctx.closePath();
+    ctx.fillStyle = COLORS[3].hex;
+    ctx.fill();
+
+    // Yard labels.
+    const labels = [
+      {x:2.5,y:0.45,t:"RED",c:"#fff"},
+      {x:11.5,y:0.45,t:"GREEN",c:"#fff"},
+      {x:11.5,y:13.55,t:"YELLOW",c:"#17264b"},
+      {x:2.5,y:13.55,t:"BLUE",c:"#fff"}
+    ];
+    ctx.font = `900 ${unit * 0.31}px Arial`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    labels.forEach(l => {
+      ctx.fillStyle = l.c;
+      ctx.fillText(l.t, l.x * unit, l.y * unit);
+    });
+
+    // Highlight legal moves.
+    legalMoves.forEach(move => {
+      const pos = tokenPosition(players[current], move);
+      if (!pos) return;
+      const c = cellCenter(pos);
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, unit * 0.43, 0, Math.PI * 2);
+      ctx.strokeStyle = "#142344";
+      ctx.lineWidth = unit * 0.07;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, unit * 0.36, 0, Math.PI * 2);
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = unit * 0.045;
+      ctx.stroke();
+    });
+
+    // Tokens in their bases or on the track.
+    players.forEach(p => {
+      p.tokens.forEach((step, tokenIndex) => {
+        if (step === 57) return;
+        const pos = tokenPosition(p, tokenIndex);
+        if (!pos) return;
+        const c = cellCenter(pos);
+        const selected = p.index === players[current].index &&
+          legalMoves.includes(tokenIndex) && dice !== null;
+        drawToken(c.x, c.y, unit * 0.28, p, selected);
+      });
+    });
+
+    // Finished tokens in the middle.
+    players.forEach(p => {
+      for (let n = 0; n < p.finished; n++) {
+        const c = {
+          x: size / 2 + Math.cos((n / 4) * Math.PI * 2) * unit * 0.22,
+          y: size / 2 + Math.sin((n / 4) * Math.PI * 2) * unit * 0.22
+        };
+        drawToken(c.x, c.y, unit * 0.15, p, false);
+      }
+    });
+  }
+
+  function drawToken(x, y, radius, player, selected) {
+    ctx.save();
+    if (selected) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius * 1.55, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x, y, radius * 1.34, 0, Math.PI * 2);
+      ctx.fillStyle = player.hex;
+      ctx.fill();
+    }
+
+    ctx.shadowColor = "#07112a";
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetY = 2;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = player.hex;
+    ctx.fill();
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = player.dark;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x - radius * .28, y - radius * .32, radius * .26, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.globalAlpha = .5;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
+
+  function tokenPosition(player, tokenIndex) {
+    const step = player.tokens[tokenIndex];
+    if (step === -1) return BASES[player.index][tokenIndex];
+    if (step >= 0 && step < 52) {
+      return TRACK[(STARTS[player.index] + step) % 52];
+    }
+    if (step >= 52 && step <= 56) {
+      return HOME_LANES[player.index][step - 52];
+    }
+    if (step === 57) return {x:6.5,y:6.5};
+    return null;
+  }
+
+  function getLegalMoves(player, roll) {
+    const moves = [];
+    player.tokens.forEach((step, i) => {
+      if (step === 57) return;
+      if (step === -1) {
+        if (roll === 6) moves.push(i);
+      } else if (step + roll <= 57) {
+        moves.push(i);
+      }
+    });
+    return moves;
+  }
+
+  function updatePlayerCards() {
+    players.forEach(p => {
+      const card = document.querySelector(`[data-player="${p.index}"]`);
+      const count = document.getElementById(`count${p.index}`);
+      if (card) card.classList.toggle("active", players[current] && players[current].index === p.index);
+      if (count) count.textContent = `${p.finished}/4`;
+    });
+    document.querySelectorAll(".player-card").forEach(card => {
+      const i = Number(card.dataset.player);
+      const activePlayer = playerByColorIndex(i);
+      card.style.display = activePlayer ? "flex" : "none";
+      if (activePlayer) {
+        const detail = card.querySelector(".player-detail");
+        detail.textContent = activePlayer.isHuman ? (modeSelect.value === "local" ? "Local Player" : "You") : "Computer";
+      }
+    });
+  }
+
+  function render() {
+    drawBoard();
+    updatePlayerCards();
+    rollBtn.disabled = busy || gameOver || dice !== null || !players[current]?.isHuman;
+  }
+
+  function nextPlayer() {
+    dice = null;
+    legalMoves = [];
+    rollSixCount = 0;
+    current = (current + 1) % players.length;
+    setStatus(`${players[current].name}'s turn. Roll the dice!`,
+      players[current].isHuman ? "Roll the dice to start your turn." : "Computer is thinking...");
+    render();
+    if (!players[current].isHuman) {
+      busy = true;
+      render();
+      window.setTimeout(computerTurn, 650);
+    } else {
+      busy = false;
+    }
+  }
+
+  function rollDice() {
+    if (busy || gameOver || dice !== null || !players[current].isHuman) return;
+    busy = true;
+    diceFace.classList.remove("rolling");
+    void diceFace.offsetWidth;
+    diceFace.classList.add("rolling");
+
+    let ticks = 0;
+    const animation = window.setInterval(() => {
+      diceFace.textContent = DIE[Math.floor(Math.random() * 6)];
+      ticks++;
+      if (ticks >= 7) {
+        window.clearInterval(animation);
+        dice = Math.floor(Math.random() * 6) + 1;
+        diceFace.textContent = DIE[dice - 1];
+        diceFace.setAttribute("aria-label", `Dice showing ${dice}`);
+        playTone(400 + dice * 60, .1);
+        busy = false;
+        handleRoll();
+      }
+    }, 65);
+  }
+
+  function handleRoll() {
+    const player = players[current];
+    legalMoves = getLegalMoves(player, dice);
+
+    if (dice === 6) {
+      rollSixCount++;
+    } else {
+      rollSixCount = 0;
+    }
+
+    if (rollSixCount >= 3) {
+      setStatus("Three sixes! Turn forfeited.", `${player.name} loses this turn.`);
+      dice = null;
+      legalMoves = [];
+      rollSixCount = 0;
+      render();
+      window.setTimeout(nextPlayer, 900);
+      return;
+    }
+
+    if (legalMoves.length === 0) {
+      setStatus(`${player.name} rolled ${dice}. No legal moves.`,
+        dice === 6 ? "No token can move with this roll." : "You need a six to leave the base.");
+      const bonus = dice === 6;
+      dice = null;
+      render();
+      if (bonus) {
+        window.setTimeout(() => {
+          setStatus(`${player.name}'s extra turn!`, "Roll again.");
+          render();
+        }, 700);
+      } else {
+        window.setTimeout(nextPlayer, 900);
+      }
+      return;
+    }
+
+    if (legalMoves.length === 1) {
+      setStatus(`${player.name} rolled ${dice}.`,
+        "Moving the only available token...");
+      render();
+      window.setTimeout(() => moveToken(legalMoves[0]), 350);
+      return;
+    }
+
+    setStatus(`${player.name} rolled ${dice}.`,
+      "Click one of the highlighted tokens.");
+    render();
+
+    if (!player.isHuman) {
+      window.setTimeout(() => {
+        const choice = chooseComputerMove(player, legalMoves, dice);
+        moveToken(choice);
+      }, 450);
+    }
+  }
+
+  function moveToken(tokenIndex) {
+    if (gameOver || dice === null || !legalMoves.includes(tokenIndex)) return;
+    const player = players[current];
+    const roll = dice;
+    const oldStep = player.tokens[tokenIndex];
+
+    if (oldStep === -1 && roll === 6) {
+      player.tokens[tokenIndex] = 0;
+    } else {
+      player.tokens[tokenIndex] = oldStep + roll;
+    }
+
+    const newStep = player.tokens[tokenIndex];
+    let captured = false;
+    let reachedHome = newStep === 57;
+
+    if (newStep >= 0 && newStep < 52) {
+      const globalPosition = (STARTS[player.index] + newStep) % 52;
+      if (!SAFE.has(globalPosition)) {
+        players.forEach(opponent => {
+          if (opponent.index === player.index) return;
+          opponent.tokens.forEach((step, i) => {
+            if (step >= 0 && step < 52 &&
+                (STARTS[opponent.index] + step) % 52 === globalPosition) {
+              opponent.tokens[i] = -1;
+              captured = true;
+            }
+          });
+        });
+      }
+    }
+
+    if (reachedHome) {
+      player.finished++;
+      playTone(760, .16);
+    } else {
+      playTone(captured ? 650 : 500, .08);
+    }
+
+    dice = null;
+    legalMoves = [];
+
+    if (player.finished === 4) {
+      gameOver = true;
+      busy = false;
+      setStatus(`🏆 ${player.name} wins the game!`,
+        "All four tokens have reached home. Start a new game to play again.");
+      render();
+      return;
+    }
+
+    const bonus = roll === 6 || captured || reachedHome;
+    let message = `${player.name} moved a token.`;
+    if (captured) message = `${player.name} captured an opponent's token!`;
+    if (reachedHome) message = `${player.name} reached home!`;
+    if (bonus) {
+      setStatus(message, "Bonus turn! Roll the dice again.");
+      render();
+      if (!player.isHuman) {
+        busy = true;
+        render();
+        window.setTimeout(computerTurn, 650);
+      } else {
+        busy = false;
+      }
+    } else {
+      setStatus(message, `${player.name}'s turn is complete.`);
+      render();
+      window.setTimeout(nextPlayer, 700);
+    }
+  }
+
+  function chooseComputerMove(player, moves, roll) {
+    const scored = moves.map(index => {
+      const step = player.tokens[index];
+      const next = step === -1 ? 0 : step + roll;
+      let score = Math.random() * (difficultySelect.value === "easy" ? 8 : 2);
+
+      if (step === -1 && roll === 6) score += 20;
+      if (next >= 52) score += 14;
+      if (next === 57) score += 100;
+      if (step >= 0 && step < 52) score += next - step;
+
+      if (next >= 0 && next < 52) {
+        const global = (STARTS[player.index] + next) % 52;
+        if (!SAFE.has(global)) {
+          players.forEach(opponent => {
+            if (opponent.index === player.index) return;
+            opponent.tokens.forEach(oppStep => {
+              if (oppStep >= 0 && oppStep < 52 &&
+                  (STARTS[opponent.index] + oppStep) % 52 === global) {
+                score += difficultySelect.value === "hard" ? 35 : 22;
+              }
+            });
+          });
+        }
+      }
+      return { index, score };
+    });
+
+    scored.sort((a, b) => b.score - a.score);
+    return scored[0].index;
+  }
+
+  function computerTurn() {
+    if (gameOver || players[current].isHuman) {
+      busy = false;
+      render();
+      return;
+    }
+    busy = false;
+    rollDiceForComputer();
+  }
+
+  function rollDiceForComputer() {
+    if (gameOver || dice !== null) return;
+    busy = true;
+    diceFace.classList.remove("rolling");
+    void diceFace.offsetWidth;
+    diceFace.classList.add("rolling");
+
+    let ticks = 0;
+    const animation = window.setInterval(() => {
+      diceFace.textContent = DIE[Math.floor(Math.random() * 6)];
+      ticks++;
+      if (ticks >= 6) {
+        window.clearInterval(animation);
+        dice = Math.floor(Math.random() * 6) + 1;
+        diceFace.textContent = DIE[dice - 1];
+        diceFace.setAttribute("aria-label", `Dice showing ${dice}`);
+        busy = false;
+        handleComputerRoll();
+      }
+    }, 70);
+  }
+
+  function handleComputerRoll() {
+    const player = players[current];
+    legalMoves = getLegalMoves(player, dice);
+
+    if (dice === 6) rollSixCount++;
+    else rollSixCount = 0;
+
+    if (rollSixCount >= 3) {
+      setStatus("Three sixes! Turn forfeited.", `${player.name} loses this turn.`);
+      dice = null;
+      legalMoves = [];
+      rollSixCount = 0;
+      render();
+      window.setTimeout(nextPlayer, 800);
+      return;
+    }
+
+    if (legalMoves.length === 0) {
+      setStatus(`${player.name} rolled ${dice}. No legal moves.`,
+        "Passing to the next player.");
+      const bonus = dice === 6;
+      dice = null;
+      legalMoves = [];
+      render();
+      if (bonus) {
+        window.setTimeout(() => {
+          setStatus(`${player.name}'s extra turn!`, "Computer is rolling again.");
+          window.setTimeout(computerTurn, 500);
+        }, 500);
+      } else {
+        window.setTimeout(nextPlayer, 800);
+      }
+      return;
+    }
+
+    setStatus(`${player.name} rolled ${dice}.`, "Computer is choosing a token.");
+    render();
+    window.setTimeout(() => {
+      const choice = chooseComputerMove(player, legalMoves, dice);
+      moveToken(choice);
+    }, 500);
+  }
+
+  function onBoardClick(event) {
+    if (busy || gameOver || dice === null || !players[current].isHuman) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = (event.clientX - rect.left) * canvas.width / rect.width;
+    const y = (event.clientY - rect.top) * canvas.height / rect.height;
+    const player = players[current];
+    const unit = canvas.width / 14;
+
+    // Select a highlighted token by clicking close to its drawn position.
+    let selected = -1;
+    let nearest = Infinity;
+    legalMoves.forEach(index => {
+      const pos = tokenPosition(player, index);
+      if (!pos) return;
+      const c = cellCenter(pos);
+      const dist = Math.hypot(x - c.x, y - c.y);
+      if (dist < unit * .62 && dist < nearest) {
+        nearest = dist;
+        selected = index;
+      }
+    });
+
+    if (selected !== -1) {
+      moveToken(selected);
+    } else {
+      setStatus(`${player.name} rolled ${dice}.`,
+        "Choose one of the highlighted tokens on the board.");
+    }
+  }
+
+  function resetGame() {
+    createPlayers();
+    dice = null;
+    legalMoves = [];
+    gameOver = false;
+    busy = false;
+    rollSixCount = 0;
+    diceFace.textContent = DIE[0];
+    diceFace.setAttribute("aria-label", "Dice showing one");
+    setStatus("Red's turn. Roll the dice!", "Select a highlighted token after rolling.");
+    render();
+  }
+
+  rollBtn.addEventListener("click", rollDice);
+  newBtn.addEventListener("click", resetGame);
+  soundBtn.addEventListener("click", () => {
+    soundOn = !soundOn;
+    soundBtn.textContent = soundOn ? "🔊 Sound On" : "🔇 Sound Off";
+    if (soundOn) playTone();
+  });
+  canvas.addEventListener("click", onBoardClick);
+  modeSelect.addEventListener("change", resetGame);
+  playerCountSelect.addEventListener("change", resetGame);
+  difficultySelect.addEventListener("change", () => {
+    setStatus("Difficulty updated.", `${difficultySelect.options[difficultySelect.selectedIndex].text} computer mode selected.`);
+  });
+
+  // Keep the board sharp on high-density and mobile displays.
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const side = Math.max(280, Math.floor(rect.width * dpr));
+    canvas.width = side;
+    canvas.height = side;
+    render();
+  }
+
+  createPlayers();
+  setStatus("Red's turn. Roll the dice!", "Select a highlighted token after rolling.");
+  resizeCanvas();
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(resizeCanvas).observe(canvas);
+  } else {
+    window.addEventListener("resize", resizeCanvas);
+  }
+})();
+</script>
 </body>
-
 </html>
+```
