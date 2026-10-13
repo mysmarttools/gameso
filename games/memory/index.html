@@ -1,317 +1,912 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Memory Card Game Online - Play Free | Gameso</title>
-
-    <meta
-        name="description"
-        content="Play Memory Card Game online for free on Gameso. Flip cards, find matching pairs and complete the puzzle with the fewest moves."
-    >
-
+    <title>Memory Game Online - Play Free Matching Game | Gameso</title>
+    <meta name="description" content="Play Memory Game online for free on Gameso. Match identical cards, improve your concentration, test your memory and complete the puzzle in fewer moves.">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gameso.vercel.app/games/memory/">
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/memory/"
-    >
+    <meta property="og:title" content="Memory Game Online | Gameso">
+    <meta property="og:description" content="Match the cards, test your memory and enjoy this free online memory game.">
+    <meta property="og:url" content="https://gameso.vercel.app/games/memory/">
+    <meta property="og:type" content="website">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #172033;
+            background: #f5f7fb;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .game-header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header-inner {
+            max-width: 1150px;
+            margin: auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            color: #172033;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 23px;
+        }
+
+        .logo span {
+            font-size: 27px;
+        }
+
+        .back-button {
+            color: #fff;
+            background: #4f46e5;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        main {
+            padding: 30px 16px 55px;
+        }
+
+        .game-container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .game-heading {
+            text-align: center;
+            margin: 0 auto 25px;
+            max-width: 760px;
+        }
+
+        .game-label {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #4338ca;
+            border-radius: 30px;
+            padding: 7px 13px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .7px;
+        }
+
+        .game-heading h1 {
+            margin: 16px 0 12px;
+            font-size: clamp(29px, 5vw, 42px);
+            line-height: 1.2;
+        }
+
+        .game-heading p {
+            color: #586174;
+            line-height: 1.8;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .game-box {
+            max-width: 650px;
+            margin: 0 auto 35px;
+            background: #fff;
+            padding: 24px;
+            border: 1px solid #e4e7ef;
+            border-radius: 18px;
+            box-shadow: 0 8px 28px rgba(25, 35, 70, .06);
+        }
+
+        .game-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            background: #f3f5ff;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .stat span {
+            display: block;
+            font-size: 12px;
+            color: #626b80;
+            margin-bottom: 6px;
+        }
+
+        .stat strong {
+            font-size: 22px;
+            color: #3730a3;
+        }
+
+        .memory-board {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            max-width: 490px;
+            margin: auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1 / 1;
+            min-width: 0;
+            border: 0;
+            border-radius: 12px;
+            background: #4f46e5;
+            color: white;
+            cursor: pointer;
+            font-size: clamp(23px, 5vw, 38px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 0 #3730a3;
+            transition: background .18s, transform .18s;
+            user-select: none;
+        }
+
+        .memory-card:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #4338ca;
+        }
+
+        .memory-card.is-open,
+        .memory-card.is-matched {
+            background: #eef2ff;
+            color: #172033;
+            box-shadow: inset 0 0 0 2px #c7d2fe;
+        }
+
+        .memory-card.is-matched {
+            background: #dcfce7;
+            box-shadow: inset 0 0 0 2px #86efac;
+            cursor: default;
+        }
+
+        .memory-card:focus-visible,
+        .game-button:focus-visible {
+            outline: 3px solid #f59e0b;
+            outline-offset: 3px;
+        }
+
+        .game-message {
+            min-height: 28px;
+            margin: 17px 0 8px;
+            text-align: center;
+            font-weight: 700;
+            color: #4338ca;
+            line-height: 1.6;
+        }
+
+        .game-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .game-button {
+            border: 0;
+            border-radius: 9px;
+            padding: 13px 22px;
+            background: #4f46e5;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .game-button:hover {
+            background: #3730a3;
+        }
+
+        .game-info {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .game-info h2 {
+            color: #172033;
+            font-size: 26px;
+            line-height: 1.4;
+            margin: 32px 0 12px;
+        }
+
+        .game-info h2:first-child {
+            margin-top: 0;
+        }
+
+        .game-info h3 {
+            font-size: 18px;
+            margin: 12px 0 8px;
+        }
+
+        .game-info p,
+        .game-info li {
+            color: #535e72;
+            font-size: 16px;
+            line-height: 1.85;
+        }
+
+        .game-info p {
+            margin: 0 0 15px;
+        }
+
+        .game-info ol,
+        .game-info ul {
+            padding-left: 24px;
+        }
+
+        .game-info li {
+            margin-bottom: 9px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #f7f8ff;
+            border: 1px solid #e5e7f4;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .feature-card .icon {
+            font-size: 28px;
+        }
+
+        .feature-card p {
+            margin-bottom: 0;
+        }
+
+        .faq details {
+            border: 1px solid #e2e6ef;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 16px 18px;
+            background: #fafbff;
+        }
+
+        .faq summary {
+            cursor: pointer;
+            color: #172033;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .faq details p {
+            margin: 12px 0 0;
+        }
+
+        .final-cta {
+            text-align: center;
+            background: #eef2ff;
+            padding: 25px;
+            margin-top: 32px;
+            border-radius: 12px;
+        }
+
+        .final-cta h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            padding: 22px 15px;
+            background: #172033;
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 22px 11px 35px;
+            }
+
+            .game-box {
+                padding: 14px;
+                border-radius: 13px;
+            }
+
+            .memory-board {
+                gap: 7px;
+            }
+
+            .memory-card {
+                border-radius: 9px;
+                font-size: clamp(21px, 7vw, 32px);
+            }
+
+            .game-info {
+                padding: 22px 17px;
+            }
+
+            .game-info h2 {
+                font-size: 23px;
+            }
+
+            .game-info p,
+            .game-info li {
+                font-size: 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-inner {
+                padding: 13px 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- HEADER -->
-
     <header class="game-header">
-
         <div class="header-inner">
-
-            <a href="/" class="logo">
+            <a href="/" class="logo" aria-label="Gameso home">
                 <span>🎮</span>
                 <strong>Gameso</strong>
             </a>
 
-            <a href="/" class="back-button">
-                ← All Games
-            </a>
-
+            <a href="/" class="back-button">← All Games</a>
         </div>
-
     </header>
 
-
-    <!-- MAIN -->
-
     <main>
+        <div class="game-container">
 
-        <section class="game-page">
+            <section class="game-heading">
+                <span class="game-label">🧠 MEMORY PUZZLE GAME</span>
+                <h1>Memory Game Online</h1>
+                <p>
+                    Play Memory Game online for free on Gameso.
+                    Flip the cards, find matching pairs and try to
+                    complete the board in fewer moves. Test your
+                    concentration and enjoy a fun matching puzzle
+                    directly in your browser.
+                </p>
+            </section>
 
-            <div class="game-container">
+            <section class="game-box" aria-label="Playable memory game">
 
+                <div class="game-stats">
+                    <div class="stat">
+                        <span>Moves</span>
+                        <strong id="moves">0</strong>
+                    </div>
 
-                <!-- GAME INTRO -->
+                    <div class="stat">
+                        <span>Matched Pairs</span>
+                        <strong id="pairs">0 / 8</strong>
+                    </div>
 
-                <div class="game-heading">
-
-                    <span class="game-label">
-                        🧠 MEMORY PUZZLE
-                    </span>
-
-                    <h1>
-                        Memory Card Game
-                    </h1>
-
-                    <p>
-                        Flip the cards, find matching
-                        pairs and test your memory!
-                    </p>
-
+                    <div class="stat">
+                        <span>Time</span>
+                        <strong id="timer">0:00</strong>
+                    </div>
                 </div>
 
+                <div
+                    class="memory-board"
+                    id="memoryBoard"
+                    aria-label="Memory card board"
+                ></div>
 
-                <!-- GAME -->
+                <p
+                    class="game-message"
+                    id="gameMessage"
+                    role="status"
+                    aria-live="polite"
+                >
+                    Select a card to begin!
+                </p>
 
-                <div class="game-box">
+                <div class="game-actions">
+                    <button class="game-button" id="restartButton" type="button">
+                        🔄 Restart Game
+                    </button>
+                </div>
+            </section>
 
+            <article class="game-info">
 
-                    <!-- GAME STATS -->
+                <h2>About Memory Game</h2>
 
-                    <div class="game-stats">
+                <p>
+                    Memory Game is a matching puzzle in which players
+                    turn over hidden cards and look for identical pairs.
+                    Each card has a matching partner somewhere on the
+                    board. The challenge is to remember where different
+                    symbols appear and use that information to find
+                    all the pairs.
+                </p>
 
-                        <div class="stat-box">
+                <p>
+                    This online memory matching game is easy to learn
+                    and offers a simple challenge for casual players.
+                    As you uncover more cards, remembering their
+                    positions becomes increasingly important.
+                </p>
 
-                            <span>
-                                MOVES
-                            </span>
+                <h2>🎮 How to Play Memory Game</h2>
 
-                            <strong id="moves">
-                                0
-                            </strong>
+                <ol>
+                    <li>Start with all cards face down.</li>
+                    <li>Select any card to reveal its symbol.</li>
+                    <li>Select a second card and compare the symbols.</li>
+                    <li>If both cards match, they remain revealed.</li>
+                    <li>If the cards do not match, remember their positions.</li>
+                    <li>Continue until all eight pairs have been matched.</li>
+                    <li>Try to finish using fewer moves and less time.</li>
+                </ol>
 
-                        </div>
+                <h2>📋 Memory Game Rules</h2>
 
+                <ul>
+                    <li>Each symbol appears on exactly two cards.</li>
+                    <li>You can reveal up to two unmatched cards at a time.</li>
+                    <li>A matching pair remains visible on the board.</li>
+                    <li>Non-matching cards turn face down again.</li>
+                    <li>Every attempt to compare two cards counts as one move.</li>
+                    <li>The game is complete when all pairs are matched.</li>
+                </ul>
 
-                        <div class="stat-box">
+                <h2>🧠 Memory Game Tips and Strategies</h2>
 
-                            <span>
-                                PAIRS
-                            </span>
+                <p>
+                    A strong memory-game strategy involves paying
+                    attention to card positions instead of choosing
+                    cards randomly. Small details can help you find
+                    matching pairs more efficiently.
+                </p>
 
-                            <strong id="pairs">
-                                0 / 8
-                            </strong>
+                <ol>
+                    <li>
+                        <strong>Remember positions:</strong>
+                        Pay attention to where each symbol appears.
+                    </li>
+                    <li>
+                        <strong>Focus on every reveal:</strong>
+                        Even a non-matching card gives you useful information.
+                    </li>
+                    <li>
+                        <strong>Use a consistent scanning pattern:</strong>
+                        Work across the board systematically.
+                    </li>
+                    <li>
+                        <strong>Look for known pairs:</strong>
+                        When you reveal a familiar symbol, try to remember
+                        where its partner was previously seen.
+                    </li>
+                    <li>
+                        <strong>Avoid random guesses:</strong>
+                        Use what you already know before choosing a card.
+                    </li>
+                    <li>
+                        <strong>Stay focused:</strong>
+                        Concentrate on the symbol and its exact location.
+                    </li>
+                    <li>
+                        <strong>Keep track mentally:</strong>
+                        Group the board into smaller areas to make
+                        remembering positions easier.
+                    </li>
+                    <li>
+                        <strong>Practice regularly:</strong>
+                        Playing repeatedly helps you develop a more
+                        organized approach to matching cards.
+                    </li>
+                </ol>
 
-                        </div>
+                <h2>⭐ Memory Game Features</h2>
 
-
-                        <div class="stat-box">
-
-                            <span>
-                                TIME
-                            </span>
-
-                            <strong id="timer">
-                                00:00
-                            </strong>
-
-                        </div>
-
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <span class="icon">🃏</span>
+                        <h3>Card Matching</h3>
+                        <p>
+                            Reveal hidden cards and match identical symbols
+                            to clear the board.
+                        </p>
                     </div>
 
-
-                    <!-- CONTROLS -->
-
-                    <div class="game-controls">
-
-                        <div class="game-tip">
-
-                            <strong>
-                                How to play
-                            </strong>
-
-                            <span>
-                                Flip two cards and find
-                                matching pairs.
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            id="newGame"
-                            class="new-game-button"
-                            type="button"
-                        >
-                            🔄 New Game
-                        </button>
-
+                    <div class="feature-card">
+                        <span class="icon">⏱️</span>
+                        <h3>Timer</h3>
+                        <p>
+                            See how long it takes to complete the
+                            matching challenge.
+                        </p>
                     </div>
 
+                    <div class="feature-card">
+                        <span class="icon">🔢</span>
+                        <h3>Move Counter</h3>
+                        <p>
+                            Track your attempts and aim to complete the
+                            puzzle with fewer moves.
+                        </p>
+                    </div>
 
-                    <!-- MEMORY BOARD -->
-
-                    <div
-                        id="memoryBoard"
-                        class="memory-board"
-                    ></div>
-
-
-                    <!-- WIN MESSAGE -->
-
-                    <div
-                        id="gameMessage"
-                        class="game-message"
-                    ></div>
-
+                    <div class="feature-card">
+                        <span class="icon">📱</span>
+                        <h3>Responsive Layout</h3>
+                        <p>
+                            Play using a desktop, tablet or mobile browser
+                            with a responsive card grid.
+                        </p>
+                    </div>
                 </div>
 
+                <h2>🎯 Why Play a Memory Matching Game?</h2>
 
-                <!-- HOW TO PLAY -->
+                <p>
+                    Memory games provide a simple way to practise
+                    remembering visual patterns and paying attention
+                    to details. Players must observe symbols, remember
+                    their locations and make decisions based on earlier
+                    turns.
+                </p>
 
-                <section class="game-info-section">
+                <p>
+                    The game is suitable for a short break or a casual
+                    puzzle session. It offers a clear objective: match
+                    every pair while keeping track of your moves and time.
+                    Playing a game is not a guarantee of improved memory
+                    in everyday life, but it can be an enjoyable way to
+                    practise visual matching.
+                </p>
 
-                    <h2>
-                        How to Play Memory Card Game
-                    </h2>
+                <h2>⚠️ Common Memory Game Mistakes</h2>
 
+                <ul>
+                    <li>Flipping cards without looking carefully at the symbols.</li>
+                    <li>Forgetting the positions of previously revealed cards.</li>
+                    <li>Repeating guesses instead of using earlier information.</li>
+                    <li>Moving too quickly and overlooking important details.</li>
+                    <li>Focusing on the symbol but not where it appeared.</li>
+                </ul>
+
+                <h2>❓ Memory Game FAQs</h2>
+
+                <div class="faq">
+                    <details>
+                        <summary>What is a Memory Game?</summary>
+                        <p>
+                            A Memory Game is a matching puzzle in which
+                            players reveal hidden cards and find pairs
+                            with identical symbols.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Can I play Memory Game online for free?</summary>
+                        <p>
+                            Yes. This Memory Game on Gameso can be played
+                            in your browser without a paid game download.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>How many pairs are in this game?</summary>
+                        <p>
+                            This version has eight matching pairs,
+                            making sixteen cards in total.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>How do I win the Memory Game?</summary>
+                        <p>
+                            Find all eight matching pairs. The game
+                            displays a completion message when every
+                            pair has been matched.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>What counts as a move?</summary>
+                        <p>
+                            A move is counted whenever you reveal a
+                            second card to compare it with the first.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Can I restart the game?</summary>
+                        <p>
+                            Yes. Select Restart Game to shuffle the
+                            cards and start a new round.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>Can I play on my phone?</summary>
+                        <p>
+                            Yes. The card board adjusts to smaller
+                            screens and supports touch interaction.
+                        </p>
+                    </details>
+
+                    <details>
+                        <summary>How can I finish in fewer moves?</summary>
+                        <p>
+                            Pay attention to previously revealed symbols,
+                            remember their positions and use that
+                            information to select matching cards.
+                        </p>
+                    </details>
+                </div>
+
+                <div class="final-cta">
+                    <h2>🚀 Ready to Test Your Memory?</h2>
                     <p>
-                        The Memory Card Game is a simple
-                        puzzle game where you need to find
-                        all matching pairs of cards.
+                        Start a new round, match all the pairs and
+                        challenge yourself to finish in fewer moves.
                     </p>
+                    <button
+                        class="game-button"
+                        type="button"
+                        id="playAgainButton"
+                    >
+                        Play Again ↑
+                    </button>
+                </div>
 
-                    <p>
-                        Click or tap a card to flip it.
-                        Then flip another card. If both
-                        cards match, they remain open.
-                        If they do not match, they flip
-                        back.
-                    </p>
+            </article>
 
-
-                    <h2>
-                        Memory Game Rules
-                    </h2>
-
-                    <ul>
-
-                        <li>
-                            🃏 Flip two cards at a time.
-                        </li>
-
-                        <li>
-                            🧠 Remember where each
-                            symbol is located.
-                        </li>
-
-                        <li>
-                            🎯 Match all 8 pairs.
-                        </li>
-
-                        <li>
-                            🏆 Complete the game using
-                            as few moves as possible.
-                        </li>
-
-                        <li>
-                            ⏱️ Try to beat your best
-                            completion time.
-                        </li>
-
-                    </ul>
-
-                </section>
-
-
-                <!-- RELATED GAMES -->
-
-                <section class="related-section">
-
-                    <h2>
-                        More Games
-                    </h2>
-
-                    <div class="related-grid">
-
-
-                        <a
-                            href="/games/snake/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                🐍
-                            </span>
-
-                            <strong>
-                                Snake Game
-                            </strong>
-
-                        </a>
-
-
-                        <a
-                            href="/games/tic-tac-toe/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                ❌⭕
-                            </span>
-
-                            <strong>
-                                Tic Tac Toe
-                            </strong>
-
-                        </a>
-
-
-                        <a
-                            href="/games/2048/"
-                            class="related-card"
-                        >
-
-                            <span>
-                                🔢
-                            </span>
-
-                            <strong>
-                                2048
-                            </strong>
-
-                        </a>
-
-                    </div>
-
-                </section>
-
-            </div>
-
-        </section>
-
+        </div>
     </main>
 
-
-    <!-- FOOTER -->
-
     <footer>
-
-        <p>
-            ©
-            <span id="year"></span>
-            Gameso. All rights reserved.
-        </p>
-
+        <p>© <span id="year"></span> Gameso. All rights reserved.</p>
     </footer>
 
+    <script>
+        (() => {
+            "use strict";
 
-    <script src="script.js"></script>
+            const board = document.getElementById("memoryBoard");
+            const movesElement = document.getElementById("moves");
+            const pairsElement = document.getElementById("pairs");
+            const timerElement = document.getElementById("timer");
+            const messageElement = document.getElementById("gameMessage");
+            const restartButton = document.getElementById("restartButton");
+            const playAgainButton = document.getElementById("playAgainButton");
+
+            const symbols = ["🍎", "🚀", "🐼", "⭐", "🎈", "🍕", "🐸", "⚽"];
+
+            let firstCard = null;
+            let secondCard = null;
+            let lockBoard = false;
+            let moves = 0;
+            let matchedPairs = 0;
+            let elapsedSeconds = 0;
+            let timerInterval = null;
+            let started = false;
+            let roundNumber = 0;
+
+            document.getElementById("year").textContent =
+                new Date().getFullYear();
+
+            function shuffle(items) {
+                const result = [...items];
+
+                for (let i = result.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [result[i], result[j]] = [result[j], result[i]];
+                }
+
+                return result;
+            }
+
+            function formatTime(totalSeconds) {
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+
+                return `${minutes}:${String(seconds).padStart(2, "0")}`;
+            }
+
+            function startTimer() {
+                if (started) return;
+
+                started = true;
+
+                timerInterval = window.setInterval(() => {
+                    elapsedSeconds++;
+                    timerElement.textContent = formatTime(elapsedSeconds);
+                }, 1000);
+            }
+
+            function stopTimer() {
+                if (timerInterval !== null) {
+                    window.clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+            }
+
+            function updateStats() {
+                movesElement.textContent = moves;
+                pairsElement.textContent = `${matchedPairs} / ${symbols.length}`;
+                timerElement.textContent = formatTime(elapsedSeconds);
+            }
+
+            function resetTurn() {
+                firstCard = null;
+                secondCard = null;
+                lockBoard = false;
+            }
+
+            function handleCardClick(event) {
+                const card = event.currentTarget;
+
+                if (
+                    lockBoard ||
+                    card === firstCard ||
+                    card.classList.contains("is-matched") ||
+                    card.classList.contains("is-open")
+                ) {
+                    return;
+                }
+
+                startTimer();
+
+                card.classList.add("is-open");
+                card.textContent = card.dataset.symbol;
+                card.setAttribute("aria-label", `Card ${card.dataset.symbol}`);
+
+                if (!firstCard) {
+                    firstCard = card;
+                    messageElement.textContent = "Choose another card.";
+                    return;
+                }
+
+                secondCard = card;
+                moves++;
+                updateStats();
+
+                if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+                    firstCard.classList.add("is-matched");
+                    secondCard.classList.add("is-matched");
+
+                    firstCard.disabled = true;
+                    secondCard.disabled = true;
+
+                    matchedPairs++;
+                    updateStats();
+
+                    resetTurn();
+
+                    if (matchedPairs === symbols.length) {
+                        stopTimer();
+                        messageElement.textContent =
+                            `🎉 You matched every pair in ${moves} moves and ${formatTime(elapsedSeconds)}!`;
+                    } else {
+                        messageElement.textContent = "✅ Match found! Keep going.";
+                    }
+
+                    return;
+                }
+
+                lockBoard = true;
+                messageElement.textContent = "Not a match. Remember the symbols!";
+
+                const currentRound = roundNumber;
+
+                window.setTimeout(() => {
+                    if (currentRound !== roundNumber) return;
+
+                    if (firstCard && secondCard) {
+                        firstCard.classList.remove("is-open");
+                        secondCard.classList.remove("is-open");
+
+                        firstCard.textContent = "?";
+                        secondCard.textContent = "?";
+
+                        firstCard.setAttribute("aria-label", "Hidden card");
+                        secondCard.setAttribute("aria-label", "Hidden card");
+                    }
+
+                    resetTurn();
+                    messageElement.textContent = "Choose a card to continue.";
+                }, 750);
+            }
+
+            function createCard(symbol, index) {
+                const card = document.createElement("button");
+
+                card.type = "button";
+                card.className = "memory-card";
+                card.textContent = "?";
+                card.dataset.symbol = symbol;
+                card.dataset.index = String(index);
+                card.setAttribute("aria-label", `Hidden card ${index + 1}`);
+
+                card.addEventListener("click", handleCardClick);
+
+                return card;
+            }
+
+            function newGame() {
+                roundNumber++;
+                stopTimer();
+
+                firstCard = null;
+                secondCard = null;
+                lockBoard = false;
+                moves = 0;
+                matchedPairs = 0;
+                elapsedSeconds = 0;
+                started = false;
+
+                board.innerHTML = "";
+
+                const cards = shuffle([...symbols, ...symbols]);
+
+                cards.forEach((symbol, index) => {
+                    board.appendChild(createCard(symbol, index));
+                });
+
+                messageElement.textContent = "Select a card to begin!";
+                updateStats();
+            }
+
+            restartButton.addEventListener("click", newGame);
+            playAgainButton.addEventListener("click", () => {
+                newGame();
+                document.getElementById("memoryBoard").scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            });
+
+            newGame();
+        })();
+    </script>
 
 </body>
-
 </html>
