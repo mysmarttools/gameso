@@ -1,271 +1,1688 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Space Shooter Game Online - Play Free | Gameso</title>
+  <title>Space Shooter Game Online – Play Free | Gameso</title>
+  <meta name="description" content="Play Space Shooter online for free at Gameso! Pilot your spaceship, blast enemy waves, dodge laser fire, collect power-ups, and chase a new high score.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://gameso.vercel.app/games/space-shooter/">
+  <meta name="theme-color" content="#080b18">
 
-    <meta
-        name="description"
-        content="Play Space Shooter online for free on Gameso. Shoot enemy spaceships, survive the attack and get the highest score."
-    >
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Space Shooter Game Online | Gameso">
+  <meta property="og:description" content="Fly your ship through enemy waves in this free browser space shooter.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/space-shooter/">
 
-    <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Space Shooter",
+    "url": "https://gameso.vercel.app/games/space-shooter/",
+    "description": "An original browser arcade shooter featuring enemy waves, incoming projectiles, power-ups, and progressively harder levels.",
+    "genre": ["Arcade", "Shooter"],
+    "gamePlatform": "Web browser",
+    "applicationCategory": "Game",
+    "operatingSystem": "Any"
+  }
+  </script>
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/space-shooter/"
-    >
+  <style>
+    :root {
+      --bg: #090b17;
+      --panel: #13172a;
+      --panel-light: #1b2038;
+      --border: rgba(255,255,255,.09);
+      --text: #f4f6ff;
+      --muted: #a5aec9;
+      --cyan: #4ce6ff;
+      --purple: #9567ff;
+      --pink: #ff5bba;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(65,70,180,.22), transparent 48%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: #b6c4ff; text-decoration: none; }
+    a:hover { color: #fff; }
+
+    button { font: inherit; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,11,23,.94);
+    }
+
+    .header-inner {
+      width: min(1180px, 92%);
+      min-height: 70px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      color: #fff;
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .brand span, .footer-brand span { color: var(--cyan); }
+
+    .header-link {
+      color: #d7ddff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    .breadcrumbs {
+      padding: 17px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .breadcrumbs a { color: var(--muted); }
+
+    .intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 0 23px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 4.4vw, 46px);
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      margin: 0 0 12px;
+    }
+
+    .intro p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .free-tag {
+      flex-shrink: 0;
+      border: 1px solid rgba(76,230,255,.28);
+      background: rgba(76,230,255,.07);
+      color: var(--cyan);
+      border-radius: 25px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .game-panel {
+      background: #0d1020;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 22px 65px rgba(0,0,0,.32);
+    }
+
+    .game-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 16px;
+      background: #15192d;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .game-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #52f0ad;
+      box-shadow: 0 0 12px rgba(82,240,173,.8);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .small-btn {
+      border: 1px solid rgba(255,255,255,.1);
+      background: #252b45;
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .small-btn:hover { background: #343c5d; }
+
+    .small-btn.primary {
+      background: var(--purple);
+      border-color: var(--purple);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      padding: 13px;
+      background: #0e1120;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat {
+      background: #171b30;
+      border: 1px solid rgba(255,255,255,.055);
+      border-radius: 10px;
+      text-align: center;
+      padding: 7px 4px;
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      display: block;
+      color: #fff;
+      font-size: 21px;
+      font-weight: 900;
+      line-height: 1.5;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      background: #070a16;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    #gameCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      touch-action: none;
+      outline: none;
+      cursor: crosshair;
+    }
+
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+      background: rgba(5,7,17,.66);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .game-overlay.hidden { display: none; }
+
+    .overlay-card {
+      width: min(370px, 100%);
+      padding: 25px 22px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 17px;
+      background: rgba(19,23,42,.97);
+      box-shadow: 0 20px 55px rgba(0,0,0,.4);
+    }
+
+    .overlay-icon {
+      font-size: 38px;
+      margin-bottom: 7px;
+    }
+
+    .overlay-card h2 {
+      font-size: 27px;
+      letter-spacing: -.6px;
+      margin: 0 0 9px;
+    }
+
+    .overlay-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 17px;
+    }
+
+    .big-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 23px;
+      background: linear-gradient(110deg, #a15dff, #655dff);
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(120,90,255,.24);
+    }
+
+    .big-btn:hover { filter: brightness(1.12); }
+
+    .game-hint {
+      padding: 12px;
+      text-align: center;
+      background: #111428;
+      border-top: 1px solid var(--border);
+      color: #b9c4e4;
+      font-size: 12px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 14px;
+      background: #15192d;
+      border-top: 1px solid var(--border);
+    }
+
+    .control-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #d2d9f1;
+      font-size: 12px;
+    }
+
+    .key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 35px;
+      height: 31px;
+      padding: 0 8px;
+      border: 1px solid #424968;
+      background: #282e4b;
+      border-radius: 7px;
+      color: #fff;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .mobile-controls {
+      display: none;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: #101428;
+      border-top: 1px solid var(--border);
+    }
+
+    .mobile-btn {
+      min-height: 47px;
+      min-width: 65px;
+      padding: 8px 15px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: #252b49;
+      color: #fff;
+      font-weight: 900;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .mobile-btn.fire {
+      flex: 1;
+      background: #6b50d8;
+      border-color: #8b6eff;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(250px, .8fr);
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .content-card {
+      min-width: 0;
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--panel);
+    }
+
+    .content-card h2 {
+      margin: 0 0 14px;
+      font-size: 23px;
+      line-height: 1.3;
+      letter-spacing: -.5px;
+    }
+
+    .content-card h3 {
+      font-size: 17px;
+      margin: 22px 0 8px;
+    }
+
+    .content-card p, .content-card li {
+      color: #c0c8df;
+      font-size: 14px;
+    }
+
+    .content-card p { margin: 0 0 13px; }
+
+    .content-card ul, .content-card ol {
+      padding-left: 21px;
+      margin: 8px 0;
+    }
+
+    .content-card li { margin: 7px 0; }
+
+    .tip-box {
+      margin-top: 17px;
+      padding: 13px 15px;
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 9px 9px 0;
+      background: rgba(76,230,255,.06);
+      color: #d8f6ff;
+      font-size: 13px;
+    }
+
+    .related-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .related-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #202641;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .related-icon {
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: #303858;
+      font-size: 23px;
+    }
+
+    .related-link small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .faq details {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq details:last-child { border-bottom: 0; }
+
+    .faq summary {
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .faq details p { margin: 10px 0 0; }
+
+    .site-footer {
+      margin-top: 35px;
+      padding: 25px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .footer-brand {
+      color: #fff;
+      font-size: 21px;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 760px) {
+      .intro {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .content-grid { grid-template-columns: 1fr; }
+
+      .controls { grid-template-columns: 1fr; gap: 9px; }
+
+      .mobile-controls { display: flex; }
+
+      .content-card { padding: 19px; }
+
+      .stats { gap: 6px; padding: 9px; }
+
+      .stat-value { font-size: 18px; }
+
+      .stat-label { font-size: 9px; }
+
+      .game-toolbar { padding: 11px; }
+
+      .small-btn { padding: 7px 9px; }
+
+      #gameCanvas { aspect-ratio: 4 / 3; }
+    }
+
+    @media (max-width: 420px) {
+      .brand { font-size: 24px; }
+
+      .header-inner { min-height: 60px; }
+
+      h1 { font-size: 31px; }
+
+      .header-link { font-size: 12px; }
+
+      .game-name { font-size: 12px; }
+
+      .toolbar-actions { gap: 5px; }
+
+      .small-btn { font-size: 11px; padding: 7px; }
+
+      .overlay-card { padding: 19px 15px; }
+
+      .overlay-card h2 { font-size: 23px; }
+    }
+  </style>
 </head>
 
 <body>
-
-<header class="game-header">
+  <header class="site-header">
     <div class="header-inner">
-
-        <a href="/" class="logo">
-            <span>🎮</span>
-            <strong>Gameso</strong>
-        </a>
-
-        <a href="/" class="back-button">
-            ← All Games
-        </a>
-
+      <a class="brand" href="/" aria-label="Gameso Home">Game<span>so</span></a>
+      <a class="header-link" href="/">← All Games</a>
     </div>
-</header>
-
-
-<main class="game-page">
-
-    <div class="game-container">
-
-        <section class="game-heading">
-
-            <span class="game-label">
-                🚀 ACTION CHALLENGE
-            </span>
-
-            <h1>Space Shooter</h1>
-
-            <p>
-                Destroy enemy ships, dodge attacks and survive
-                as long as possible!
-            </p>
-
-        </section>
-
-
-        <section class="game-box">
-
-            <div class="game-stats">
-
-                <div class="stat-box">
-                    <span>SCORE</span>
-                    <strong id="score">0</strong>
-                </div>
-
-                <div class="stat-box">
-                    <span>LIVES</span>
-                    <strong id="lives">3</strong>
-                </div>
-
-                <div class="stat-box">
-                    <span>LEVEL</span>
-                    <strong id="level">1</strong>
-                </div>
-
-            </div>
-
-
-            <div class="canvas-wrapper">
-
-                <canvas
-                    id="gameCanvas"
-                    width="800"
-                    height="600"
-                ></canvas>
-
-
-                <div
-                    id="startScreen"
-                    class="game-overlay"
-                >
-
-                    <div class="overlay-icon">
-                        🚀
-                    </div>
-
-                    <h2>Space Shooter</h2>
-
-                    <p>
-                        Destroy the enemies and survive!
-                    </p>
-
-                    <button
-                        id="startButton"
-                        class="game-button"
-                    >
-                        ▶ Start Game
-                    </button>
-
-                </div>
-
-
-                <div
-                    id="gameOverScreen"
-                    class="game-overlay hidden"
-                >
-
-                    <div
-                        id="resultIcon"
-                        class="overlay-icon"
-                    >
-                        💥
-                    </div>
-
-                    <h2 id="resultTitle">
-                        Game Over
-                    </h2>
-
-                    <p id="resultText">
-                        Your Score: 0
-                    </p>
-
-                    <button
-                        id="restartButton"
-                        class="game-button"
-                    >
-                        🔄 Play Again
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div class="mobile-controls">
-
-                <button id="leftButton">
-                    ◀
-                </button>
-
-                <button id="shootButton">
-                    🔫 SHOOT
-                </button>
-
-                <button id="rightButton">
-                    ▶
-                </button>
-
-            </div>
-
-
-            <div class="controls">
-
-                <span>
-                    ⌨️ ← →
-                </span>
-
-                <span>
-                    🔫 Space
-                </span>
-
-                <span>
-                    📱 Touch Controls
-                </span>
-
-            </div>
-
-        </section>
-
-
-        <section class="game-info">
-
-            <h2>How to Play Space Shooter</h2>
-
-            <p>
-                Control your spaceship at the bottom of the screen.
-                Shoot the incoming enemy ships and avoid getting hit.
-                The longer you survive, the higher your score becomes.
-            </p>
-
-            <p>
-                Destroy enemies to earn points and reach higher
-                levels as the game becomes faster and harder.
-            </p>
-
-
-            <h2>Space Shooter Controls</h2>
-
-            <ul>
-                <li>⬅️ Left Arrow — Move spaceship left.</li>
-                <li>➡️ Right Arrow — Move spaceship right.</li>
-                <li>🔫 Space — Shoot.</li>
-                <li>📱 Use the touch buttons on mobile.</li>
-            </ul>
-
-
-            <h2>Tips</h2>
-
-            <ul>
-                <li>🎯 Aim carefully at enemy ships.</li>
-                <li>⚡ Keep moving to avoid enemy attacks.</li>
-                <li>❤️ Protect your lives.</li>
-                <li>🏆 Try to beat your highest score.</li>
-            </ul>
-
-        </section>
-
-
-        <section class="related-section">
-
-            <h2>More Games</h2>
-
-            <div class="related-grid">
-
-                <a
-                    href="/games/breakout/"
-                    class="related-card"
-                >
-                    <span>🧱</span>
-                    <strong>Breakout</strong>
-                </a>
-
-                <a
-                    href="/games/pong/"
-                    class="related-card"
-                >
-                    <span>🏓</span>
-                    <strong>Pong</strong>
-                </a>
-
-                <a
-                    href="/games/flappy-bird/"
-                    class="related-card"
-                >
-                    <span>🐦</span>
-                    <strong>Flappy Bird</strong>
-                </a>
-
-            </div>
-
-        </section>
-
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> / <a href="/#arcade">Arcade Games</a> / <span>Space Shooter</span>
+    </nav>
+
+    <section class="intro">
+      <div>
+        <span class="eyebrow">🚀 Arcade Mission</span>
+        <h1>Space Shooter – Free Online Game</h1>
+        <p>Take command of your spaceship, blast incoming enemies, and dodge dangerous projectiles. Survive increasingly difficult waves and set a new high score in this space arcade challenge.</p>
+      </div>
+      <span class="free-tag">✓ FREE TO PLAY</span>
+    </section>
+
+    <section class="game-panel" aria-label="Space Shooter game">
+      <div class="game-toolbar">
+        <div class="game-name">
+          <span class="live-dot"></span>
+          Galaxy Defense
+        </div>
+
+        <div class="toolbar-actions">
+          <button class="small-btn" id="pauseBtn" type="button">Ⅱ Pause</button>
+          <button class="small-btn" id="restartBtn" type="button">↻ Restart</button>
+          <button class="small-btn primary" id="fullscreenBtn" type="button">⛶ Fullscreen</button>
+        </div>
+      </div>
+
+      <div class="stats" aria-live="polite">
+        <div class="stat">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="scoreValue">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Best</span>
+          <span class="stat-value" id="bestValue">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Lives</span>
+          <span class="stat-value" id="livesValue">3</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Wave</span>
+          <span class="stat-value" id="waveValue">1</span>
+        </div>
+      </div>
+
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="gameCanvas" width="960" height="540" tabindex="0" aria-label="Space Shooter game area. Move your ship with arrow keys or A and D, and shoot with Space."></canvas>
+
+        <div class="game-overlay" id="gameOverlay">
+          <div class="overlay-card">
+            <div class="overlay-icon" id="overlayIcon">🚀</div>
+            <h2 id="overlayTitle">Defend the Galaxy</h2>
+            <p id="overlayText">Pilot your ship, destroy enemy waves, and avoid incoming fire. Your mission starts now.</p>
+            <button class="big-btn" id="startBtn" type="button">▶ Start Mission</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-hint" id="gameHint">
+        Move with ← → or A / D. Hold Space to fire. Mobile players can drag to move and use FIRE.
+      </div>
+
+      <div class="controls">
+        <div class="control-item"><span class="key">← →</span><span>Move your ship</span></div>
+        <div class="control-item"><span class="key">SPACE</span><span>Fire laser shots</span></div>
+        <div class="control-item"><span class="key">P / ESC</span><span>Pause or resume</span></div>
+      </div>
+
+      <div class="mobile-controls">
+        <button class="mobile-btn" id="leftBtn" type="button" aria-label="Move left">◀ LEFT</button>
+        <button class="mobile-btn fire" id="fireBtn" type="button">✦ FIRE</button>
+        <button class="mobile-btn" id="rightBtn" type="button" aria-label="Move right">RIGHT ▶</button>
+      </div>
+    </section>
+
+    <div class="content-grid">
+      <article class="content-card">
+        <h2>How to Play Space Shooter</h2>
+        <p>Your mission is to protect your ship while enemy spacecraft descend from the top of the screen. Fire continuously, avoid enemy attacks, and clear each wave to face a greater challenge.</p>
+
+        <ol>
+          <li>Click <strong>Start Mission</strong> to begin.</li>
+          <li>Move your ship with the Left and Right arrow keys or A and D.</li>
+          <li>Hold Space to fire laser shots at enemy ships.</li>
+          <li>On mobile, drag your finger across the play area to steer. The ship fires automatically while you play.</li>
+          <li>Destroy enemies to earn points and advance through waves.</li>
+          <li>Collect falling power-ups for extra firepower or a temporary shield.</li>
+          <li>Avoid enemy projectiles and collisions. You start with three lives.</li>
+        </ol>
+
+        <h3>Tips for a Higher Score</h3>
+        <ul>
+          <li><strong>Keep moving:</strong> A moving ship is harder for enemies to hit.</li>
+          <li><strong>Watch incoming fire:</strong> Change direction early rather than waiting until a projectile is close.</li>
+          <li><strong>Collect power-ups:</strong> Useful upgrades can make difficult waves easier.</li>
+          <li><strong>Stay away from corners:</strong> Leave room to dodge attacks on either side.</li>
+          <li><strong>Clear each wave:</strong> Destroy the remaining enemies to unlock the next wave.</li>
+        </ul>
+
+        <div class="tip-box">
+          <strong>Mission tip:</strong> Don't stay in one position while shooting. Move across the field, watch enemy patterns, and leave yourself space to escape incoming projectiles.
+        </div>
+
+        <h3>About This Space Shooter</h3>
+        <p>This Gameso version is an original browser-based arcade implementation made with HTML Canvas and JavaScript. The ships, starfield, laser effects, enemy behavior, collisions, and power-ups are drawn and handled directly by the game code.</p>
+        <p>You can play without installing a separate game. Your best score is saved locally in your browser when local storage is available.</p>
+      </article>
+
+      <aside class="content-card">
+        <h2>Game Details</h2>
+        <ul>
+          <li><strong>Genre:</strong> Arcade, space shooter</li>
+          <li><strong>Players:</strong> Single player</li>
+          <li><strong>Price:</strong> Free to play</li>
+          <li><strong>Platform:</strong> Desktop, tablet, mobile</li>
+          <li><strong>Objective:</strong> Destroy enemy waves</li>
+          <li><strong>Challenge:</strong> Survive and score higher</li>
+        </ul>
+
+        <h3>More Games to Play</h3>
+        <div class="related-list">
+          <a class="related-link" href="/games/drift-boss/">
+            <span class="related-icon">🏎️</span>
+            <span>Drift Boss<small>Test your driving skills</small></span>
+          </a>
+
+          <a class="related-link" href="/games/breakout/">
+            <span class="related-icon">🧱</span>
+            <span>Breakout<small>Smash bricks and score points</small></span>
+          </a>
+
+          <a class="related-link" href="/games/2048/">
+            <span class="related-icon">🔢</span>
+            <span>2048<small>Merge tiles and think ahead</small></span>
+          </a>
+
+          <a class="related-link" href="/games/snake/">
+            <span class="related-icon">🐍</span>
+            <span>Snake<small>Grow longer and avoid crashes</small></span>
+          </a>
+        </div>
+      </aside>
     </div>
 
-</main>
+    <section class="content-card faq">
+      <h2>Space Shooter – Frequently Asked Questions</h2>
 
+      <details>
+        <summary>Can I play Space Shooter online for free?</summary>
+        <p>Yes. This Gameso version runs in a modern web browser without requiring a separate download or paid game installation.</p>
+      </details>
 
-<footer>
-    © <span id="year"></span> Gameso. All rights reserved.
-</footer>
+      <details>
+        <summary>How do I control the spaceship?</summary>
+        <p>Use the Left and Right arrow keys or A and D on a keyboard. On a phone or tablet, drag across the game area to move your ship.</p>
+      </details>
 
+      <details>
+        <summary>How do I shoot enemy ships?</summary>
+        <p>Hold the Space key on a computer. On mobile devices, use the FIRE button. Touchscreen play also supports automatic firing while you move.</p>
+      </details>
 
-<script src="script.js"></script>
+      <details>
+        <summary>How many lives do I get?</summary>
+        <p>You begin with three lives. Enemy collisions and incoming projectiles can cost a life, so keep moving and watch the battlefield.</p>
+      </details>
 
+      <details>
+        <summary>What do power-ups do?</summary>
+        <p>Some defeated enemies drop collectible items. A weapon upgrade temporarily increases your firing power, while a shield pickup protects you from damage for a limited time.</p>
+      </details>
+
+      <details>
+        <summary>Does the game become harder?</summary>
+        <p>Yes. New waves introduce more enemies and faster action, making movement and timing increasingly important.</p>
+      </details>
+
+      <details>
+        <summary>Is my high score saved?</summary>
+        <p>The game attempts to store your best score in your browser's local storage. Clearing browser data or disabling storage may remove the saved score.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-brand">Game<span>so</span></div>
+      <div>Discover browser games, take on new challenges, and play for fun.</div>
+      <div style="margin-top:8px">© <span id="year"></span> Gameso. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    "use strict";
+
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const W = canvas.width;
+    const H = canvas.height;
+
+    const scoreEl = document.getElementById("scoreValue");
+    const bestEl = document.getElementById("bestValue");
+    const livesEl = document.getElementById("livesValue");
+    const waveEl = document.getElementById("waveValue");
+
+    const overlay = document.getElementById("gameOverlay");
+    const overlayIcon = document.getElementById("overlayIcon");
+    const overlayTitle = document.getElementById("overlayTitle");
+    const overlayText = document.getElementById("overlayText");
+    const startBtn = document.getElementById("startBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    const canvasWrap = document.getElementById("canvasWrap");
+    const hintEl = document.getElementById("gameHint");
+
+    let score = 0;
+    let best = readBest();
+    let lives = 3;
+    let wave = 1;
+
+    let mode = "ready"; // ready, playing, paused, over
+    let keys = {};
+    let lastTime = 0;
+    let animationId = 0;
+    let spawnTimer = 0;
+    let fireTimer = 0;
+    let invulnerable = 0;
+    let waveBanner = 0;
+    let pointerDown = false;
+    let pointerX = W / 2;
+    let pointerY = H - 70;
+    let mobileLeft = false;
+    let mobileRight = false;
+    let mobileFire = false;
+    let frameTime = 0;
+
+    let enemies = [];
+    let bullets = [];
+    let enemyBullets = [];
+    let particles = [];
+    let powerups = [];
+
+    const stars = [];
+    const starColors = ["#ffffff", "#7eeaff", "#b6a0ff", "#ffb9e9"];
+
+    for (let i = 0; i < 120; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        size: Math.random() * 1.8 + .3,
+        speed: 15 + Math.random() * 65,
+        alpha: .25 + Math.random() * .7,
+        color: starColors[Math.floor(Math.random() * starColors.length)]
+      });
+    }
+
+    const player = {
+      x: W / 2,
+      y: H - 65,
+      w: 42,
+      h: 38,
+      speed: 390,
+      weapon: 1,
+      shield: 0
+    };
+
+    function readBest() {
+      try {
+        return Number(localStorage.getItem("gamesoSpaceShooterBest")) || 0;
+      } catch (_) {
+        return 0;
+      }
+    }
+
+    function saveBest() {
+      try {
+        localStorage.setItem("gamesoSpaceShooterBest", String(best));
+      } catch (_) {}
+    }
+
+    function updateStats() {
+      scoreEl.textContent = score.toLocaleString();
+      bestEl.textContent = best.toLocaleString();
+      livesEl.textContent = lives;
+      waveEl.textContent = wave;
+    }
+
+    function showOverlay(icon, title, text, buttonText) {
+      overlayIcon.textContent = icon;
+      overlayTitle.textContent = title;
+      overlayText.textContent = text;
+      startBtn.textContent = buttonText;
+      overlay.classList.remove("hidden");
+    }
+
+    function hideOverlay() {
+      overlay.classList.add("hidden");
+    }
+
+    function resetGame() {
+      cancelAnimationFrame(animationId);
+
+      score = 0;
+      lives = 3;
+      wave = 1;
+      mode = "ready";
+      keys = {};
+      enemies = [];
+      bullets = [];
+      enemyBullets = [];
+      particles = [];
+      powerups = [];
+
+      spawnTimer = .4;
+      fireTimer = 0;
+      invulnerable = 0;
+      waveBanner = 0;
+      pointerDown = false;
+      mobileLeft = false;
+      mobileRight = false;
+      mobileFire = false;
+
+      player.x = W / 2;
+      player.y = H - 65;
+      player.weapon = 1;
+      player.shield = 0;
+
+      pauseBtn.textContent = "Ⅱ Pause";
+      hintEl.textContent = "Move with ← → or A / D. Hold Space to fire. Mobile players can drag to move.";
+      updateStats();
+      showOverlay(
+        "🚀",
+        "Defend the Galaxy",
+        "Pilot your ship, destroy enemy waves, and avoid incoming fire. Your mission starts now.",
+        "▶ Start Mission"
+      );
+      draw();
+    }
+
+    function startGame() {
+      if (mode === "over") resetGame();
+
+      mode = "playing";
+      hideOverlay();
+      pauseBtn.textContent = "Ⅱ Pause";
+      hintEl.textContent = "Destroy enemies, dodge incoming shots, and collect power-ups to survive longer.";
+      lastTime = performance.now();
+
+      cancelAnimationFrame(animationId);
+      animationId = requestAnimationFrame(loop);
+      canvas.focus({ preventScroll: true });
+    }
+
+    function togglePause() {
+      if (mode === "ready" || mode === "over") {
+        startGame();
+        return;
+      }
+
+      if (mode === "paused") {
+        mode = "playing";
+        hideOverlay();
+        pauseBtn.textContent = "Ⅱ Pause";
+        lastTime = performance.now();
+        animationId = requestAnimationFrame(loop);
+      } else if (mode === "playing") {
+        mode = "paused";
+        pauseBtn.textContent = "▶ Resume";
+        showOverlay(
+          "⏸️",
+          "Mission Paused",
+          "Your spaceship is safe for now. Resume when you are ready.",
+          "▶ Resume Mission"
+        );
+        cancelAnimationFrame(animationId);
+      }
+    }
+
+    function addScore(points) {
+      score += points;
+
+      if (score > best) {
+        best = score;
+        saveBest();
+      }
+
+      updateStats();
+    }
+
+    function makeParticles(x, y, color, count = 12) {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 35 + Math.random() * 190;
+
+        particles.push({
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: .3 + Math.random() * .55,
+          maxLife: .85,
+          size: 1.5 + Math.random() * 3.5,
+          color
+        });
+      }
+    }
+
+    function spawnEnemy() {
+      const typeRoll = Math.random();
+      let type = "scout";
+
+      if (wave >= 2 && typeRoll > .72) type = "zigzag";
+      if (wave >= 3 && typeRoll > .88) type = "tank";
+
+      const stats = {
+        scout:  { w: 34, h: 28, hp: 1, speed: 62, points: 10, color: "#ff5e88" },
+        zigzag: { w: 38, h: 30, hp: 1, speed: 78, points: 20, color: "#ffae54" },
+        tank:   { w: 45, h: 34, hp: 3, speed: 42, points: 40, color: "#bd82ff" }
+      }[type];
+
+      enemies.push({
+        x: 40 + Math.random() * (W - 80),
+        y: -45,
+        ...stats,
+        type,
+        phase: Math.random() * Math.PI * 2,
+        shootTimer: 1 + Math.random() * 2
+      });
+    }
+
+    function shootPlayer() {
+      const y = player.y - player.h / 2 - 10;
+      const x = player.x;
+
+      if (player.weapon <= 1) {
+        bullets.push({ x, y, vx: 0, vy: -510, r: 4, color: "#5cf5ff", damage: 1 });
+      } else if (player.weapon === 2) {
+        bullets.push(
+          { x: x - 10, y, vx: -25, vy: -510, r: 4, color: "#5cf5ff", damage: 1 },
+          { x: x + 10, y, vx: 25, vy: -510, r: 4, color: "#5cf5ff", damage: 1 }
+        );
+      } else {
+        bullets.push(
+          { x, y, vx: 0, vy: -520, r: 4, color: "#a8fffa", damage: 1 },
+          { x: x - 10, y, vx: -115, vy: -490, r: 4, color: "#72caff", damage: 1 },
+          { x: x + 10, y, vx: 115, vy: -490, r: 4, color: "#72caff", damage: 1 }
+        );
+      }
+    }
+
+    function shootEnemy(enemy) {
+      const dx = player.x - enemy.x;
+      const dy = player.y - enemy.y;
+      const length = Math.max(1, Math.hypot(dx, dy));
+      const speed = 155 + Math.min(wave * 7, 100);
+
+      enemyBullets.push({
+        x: enemy.x,
+        y: enemy.y + enemy.h / 2,
+        vx: (dx / length) * speed * .65,
+        vy: Math.max(100, (dy / length) * speed),
+        r: 5,
+        color: "#ff587b"
+      });
+    }
+
+    function spawnPowerup(x, y) {
+      const roll = Math.random();
+      let type = "weapon";
+
+      if (roll > .65) type = "shield";
+
+      powerups.push({
+        x, y,
+        vy: 105,
+        type,
+        size: 13,
+        phase: Math.random() * 5
+      });
+    }
+
+    function damagePlayer() {
+      if (invulnerable > 0) return;
+
+      if (player.shield > 0) {
+        player.shield = 0;
+        invulnerable = 1.1;
+        makeParticles(player.x, player.y, "#65f4ff", 20);
+        hintEl.textContent = "Shield absorbed the hit!";
+        return;
+      }
+
+      lives--;
+      invulnerable = 1.65;
+      makeParticles(player.x, player.y, "#ff6eaa", 24);
+      updateStats();
+
+      if (lives <= 0) {
+        mode = "over";
+        if (score > best) {
+          best = score;
+          saveBest();
+        }
+        updateStats();
+
+        showOverlay(
+          "💥",
+          "Mission Failed",
+          "Final score: " + score.toLocaleString() + ". The galaxy needs you again. Launch another mission and beat your best.",
+          "↻ Play Again"
+        );
+
+        hintEl.textContent = "Mission ended. Press Play Again or R to restart.";
+        cancelAnimationFrame(animationId);
+      } else {
+        hintEl.textContent = "You were hit! " + lives + " " + (lives === 1 ? "life" : "lives") + " remaining.";
+      }
+    }
+
+    function nextWave() {
+      wave++;
+      addScore(wave * 25);
+      waveBanner = 2;
+      player.weapon = Math.min(3, player.weapon + (wave % 2 === 0 ? 1 : 0));
+      updateStats();
+      hintEl.textContent = "Wave " + wave + "! Enemy formations are getting tougher.";
+    }
+
+    function update(dt) {
+      frameTime += dt;
+
+      for (const star of stars) {
+        star.y += star.speed * dt;
+        if (star.y > H) {
+          star.y = 0;
+          star.x = Math.random() * W;
+        }
+      }
+
+      if (mode !== "playing") return;
+
+      invulnerable = Math.max(0, invulnerable - dt);
+      player.shield = Math.max(0, player.shield - dt);
+      waveBanner = Math.max(0, waveBanner - dt);
+
+      // Keyboard and touch-button movement.
+      let move = 0;
+      if (keys.ArrowLeft || keys.a || keys.A || mobileLeft) move--;
+      if (keys.ArrowRight || keys.d || keys.D || mobileRight) move++;
+
+      if (move !== 0) {
+        player.x += move * player.speed * dt;
+        pointerDown = false;
+      } else if (pointerDown) {
+        player.x += (pointerX - player.x) * Math.min(1, dt * 12);
+        player.y += (pointerY - player.y) * Math.min(1, dt * 12);
+      }
+
+      player.x = Math.max(player.w / 2 + 8, Math.min(W - player.w / 2 - 8, player.x));
+      player.y = Math.max(H * .49, Math.min(H - 38, player.y));
+
+      // Fire while the key or mobile fire button is held.
+      fireTimer -= dt;
+      if ((keys[" "] || mobileFire || pointerDown) && fireTimer <= 0) {
+        shootPlayer();
+        fireTimer = Math.max(.105, .19 - (player.weapon - 1) * .025);
+      }
+
+      // Spawn enemies, with increasing difficulty.
+      spawnTimer -= dt;
+      if (spawnTimer <= 0) {
+        spawnEnemy();
+        spawnTimer = Math.max(.34, 1.05 - wave * .055) * (.7 + Math.random() * .65);
+      }
+
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        const enemy = enemies[i];
+
+        enemy.phase += dt * (enemy.type === "zigzag" ? 3.5 : 1.5);
+        enemy.y += enemy.speed * (1 + wave * .08) * dt;
+
+        if (enemy.type === "zigzag") {
+          enemy.x += Math.sin(enemy.phase) * 105 * dt;
+        }
+
+        enemy.x = Math.max(enemy.w / 2, Math.min(W - enemy.w / 2, enemy.x));
+
+        enemy.shootTimer -= dt;
+        if (enemy.shootTimer <= 0 && enemy.y > 10 && enemy.y < H * .72) {
+          shootEnemy(enemy);
+          enemy.shootTimer = Math.max(.75, 2.2 - wave * .09) + Math.random() * 1.1;
+        }
+
+        if (enemy.y > H + 35) {
+          enemies.splice(i, 1);
+          damagePlayer();
+          if (mode !== "playing") return;
+          continue;
+        }
+
+        if (
+          Math.abs(enemy.x - player.x) < enemy.w / 2 + player.w / 2 - 5 &&
+          Math.abs(enemy.y - player.y) < enemy.h / 2 + player.h / 2 - 5
+        ) {
+          makeParticles(enemy.x, enemy.y, enemy.color, 15);
+          enemies.splice(i, 1);
+          damagePlayer();
+          if (mode !== "playing") return;
+        }
+      }
+
+      // Update player lasers.
+      for (let i = bullets.length - 1; i >= 0; i--) {
+        const bullet = bullets[i];
+        bullet.x += bullet.vx * dt;
+        bullet.y += bullet.vy * dt;
+
+        if (bullet.y < -20 || bullet.x < -20 || bullet.x > W + 20) {
+          bullets.splice(i, 1);
+          continue;
+        }
+
+        let hit = false;
+
+        for (let j = enemies.length - 1; j >= 0; j--) {
+          const enemy = enemies[j];
+
+          if (
+            bullet.x > enemy.x - enemy.w / 2 &&
+            bullet.x < enemy.x + enemy.w / 2 &&
+            bullet.y > enemy.y - enemy.h / 2 &&
+            bullet.y < enemy.y + enemy.h / 2
+          ) {
+            enemy.hp -= bullet.damage;
+            makeParticles(bullet.x, bullet.y, bullet.color, 4);
+            bullets.splice(i, 1);
+            hit = true;
+
+            if (enemy.hp <= 0) {
+              addScore(enemy.points);
+              makeParticles(enemy.x, enemy.y, enemy.color, 15);
+
+              if (Math.random() < .16) {
+                spawnPowerup(enemy.x, enemy.y);
+              }
+
+              enemies.splice(j, 1);
+            }
+
+            break;
+          }
+        }
+
+        if (hit) continue;
+      }
+
+      // Update enemy projectiles.
+      for (let i = enemyBullets.length - 1; i >= 0; i--) {
+        const bullet = enemyBullets[i];
+        bullet.x += bullet.vx * dt;
+        bullet.y += bullet.vy * dt;
+
+        if (bullet.y > H + 20 || bullet.x < -20 || bullet.x > W + 20) {
+          enemyBullets.splice(i, 1);
+          continue;
+        }
+
+        if (
+          Math.abs(bullet.x - player.x) < player.w / 2 + bullet.r &&
+          Math.abs(bullet.y - player.y) < player.h / 2 + bullet.r
+        ) {
+          enemyBullets.splice(i, 1);
+          damagePlayer();
+          if (mode !== "playing") return;
+        }
+      }
+
+      // Power-up collection.
+      for (let i = powerups.length - 1; i >= 0; i--) {
+        const item = powerups[i];
+        item.y += item.vy * dt;
+        item.phase += dt * 4;
+
+        if (item.y > H + 30) {
+          powerups.splice(i, 1);
+          continue;
+        }
+
+        if (
+          Math.abs(item.x - player.x) < player.w / 2 + item.size &&
+          Math.abs(item.y - player.y) < player.h / 2 + item.size
+        ) {
+          if (item.type === "weapon") {
+            player.weapon = Math.min(3, player.weapon + 1);
+            hintEl.textContent = "Weapon upgraded! Your lasers are stronger.";
+          } else {
+            player.shield = 5;
+            hintEl.textContent = "Shield activated for five seconds!";
+          }
+
+          addScore(15);
+          makeParticles(item.x, item.y, item.type === "weapon" ? "#b388ff" : "#65f4ff", 14);
+          powerups.splice(i, 1);
+        }
+      }
+
+      // Particle effects.
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.vx *= .985;
+        p.vy *= .985;
+        p.life -= dt;
+
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+
+      // A cleared field starts a new wave.
+      if (enemies.length === 0 && score > 0 && spawnTimer < .1) {
+        nextWave();
+        spawnTimer = 1.2;
+      }
+    }
+
+    function roundRect(c, x, y, w, h, r) {
+      const radius = Math.min(r, w / 2, h / 2);
+      c.beginPath();
+      c.moveTo(x + radius, y);
+      c.arcTo(x + w, y, x + w, y + h, radius);
+      c.arcTo(x + w, y + h, x, y + h, radius);
+      c.arcTo(x, y + h, x, y + radius, radius);
+      c.arcTo(x, y, x + w, y, radius);
+      c.closePath();
+    }
+
+    function drawShip(x, y, scale = 1) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+
+      // Engine glow.
+      const glow = ctx.createRadialGradient(0, 17, 1, 0, 17, 24);
+      glow.addColorStop(0, "rgba(64,224,255,.55)");
+      glow.addColorStop(1, "rgba(64,224,255,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(0, 17, 24, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Engine flame.
+      ctx.beginPath();
+      ctx.moveTo(-7, 12);
+      ctx.lineTo(0, 28 + Math.random() * 5);
+      ctx.lineTo(7, 12);
+      ctx.closePath();
+      ctx.fillStyle = "#46eaff";
+      ctx.fill();
+
+      // Main hull.
+      ctx.beginPath();
+      ctx.moveTo(0, -22);
+      ctx.lineTo(18, 15);
+      ctx.lineTo(7, 11);
+      ctx.lineTo(0, 16);
+      ctx.lineTo(-7, 11);
+      ctx.lineTo(-18, 15);
+      ctx.closePath();
+
+      const hull = ctx.createLinearGradient(-18, 0, 18, 0);
+      hull.addColorStop(0, "#5a6dff");
+      hull.addColorStop(.5, "#e5faff");
+      hull.addColorStop(1, "#4ce6ff");
+      ctx.fillStyle = hull;
+      ctx.shadowColor = "#4ce6ff";
+      ctx.shadowBlur = 15;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Cockpit.
+      ctx.beginPath();
+      ctx.moveTo(0, -13);
+      ctx.lineTo(6, 5);
+      ctx.lineTo(0, 9);
+      ctx.lineTo(-6, 5);
+      ctx.closePath();
+      ctx.fillStyle = "#222c68";
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    function drawEnemy(enemy) {
+      ctx.save();
+      ctx.translate(enemy.x, enemy.y);
+
+      ctx.shadowColor = enemy.color;
+      ctx.shadowBlur = 12;
+
+      if (enemy.type === "tank") {
+        ctx.beginPath();
+        ctx.moveTo(0, enemy.h / 2);
+        ctx.lineTo(-enemy.w / 2, -enemy.h / 3);
+        ctx.lineTo(-enemy.w / 3, -enemy.h / 2);
+        ctx.lineTo(enemy.w / 3, -enemy.h / 2);
+        ctx.lineTo(enemy.w / 2, -enemy.h / 3);
+        ctx.closePath();
+        ctx.fillStyle = enemy.color;
+        ctx.fill();
+
+        ctx.fillStyle = "#32194c";
+        ctx.fillRect(-10, -7, 20, 8);
+      } else {
+        ctx.beginPath();
+        ctx.moveTo(0, enemy.h / 2);
+        ctx.lineTo(-enemy.w / 2, -enemy.h / 4);
+        ctx.lineTo(-enemy.w / 3, -enemy.h / 2);
+        ctx.lineTo(enemy.w / 3, -enemy.h / 2);
+        ctx.lineTo(enemy.w / 2, -enemy.h / 4);
+        ctx.closePath();
+        ctx.fillStyle = enemy.color;
+        ctx.fill();
+
+        ctx.fillStyle = "#381a36";
+        ctx.fillRect(-9, -7, 18, 6);
+
+        ctx.fillStyle = "#ffe2ff";
+        ctx.fillRect(-6, -6, 4, 3);
+        ctx.fillRect(3, -6, 4, 3);
+      }
+
+      ctx.restore();
+    }
+
+    function drawBullet(bullet, enemy = false) {
+      ctx.save();
+      ctx.strokeStyle = bullet.color;
+      ctx.fillStyle = bullet.color;
+      ctx.shadowColor = bullet.color;
+      ctx.shadowBlur = enemy ? 13 : 16;
+      ctx.lineWidth = enemy ? 3 : 4;
+      ctx.lineCap = "round";
+
+      ctx.beginPath();
+      ctx.moveTo(bullet.x, bullet.y);
+      ctx.lineTo(
+        bullet.x - (enemy ? bullet.vx * .035 : bullet.vx * .025),
+        bullet.y - (enemy ? bullet.vy * .05 : bullet.vy * .035)
+      );
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(bullet.x, bullet.y, bullet.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawPowerup(item) {
+      ctx.save();
+      ctx.translate(item.x, item.y);
+      ctx.rotate(Math.sin(item.phase) * .15);
+
+      const color = item.type === "weapon" ? "#b388ff" : "#65f4ff";
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 18;
+      roundRect(ctx, -12, -12, 24, 24, 6);
+      ctx.fillStyle = color;
+      ctx.fill();
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "#11152b";
+      ctx.font = "900 17px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(item.type === "weapon" ? "W" : "S", 0, 1);
+      ctx.restore();
+    }
+
+    function drawParticles() {
+      for (const p of particles) {
+        ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function draw() {
+      const bg = ctx.createLinearGradient(0, 0, W, H);
+      bg.addColorStop(0, "#0b1025");
+      bg.addColorStop(.5, "#090d1c");
+      bg.addColorStop(1, "#11102a");
+
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, W, H);
+
+      // Animated starfield.
+      for (const star of stars) {
+        ctx.globalAlpha = star.alpha;
+        ctx.fillStyle = star.color;
+        ctx.fillRect(star.x, star.y, star.size, star.size);
+      }
+      ctx.globalAlpha = 1;
+
+      // Faint radar rings.
+      ctx.save();
+      ctx.strokeStyle = "rgba(105,139,255,.07)";
+      ctx.lineWidth = 1;
+      for (let r = 100; r < 650; r += 100) {
+        ctx.beginPath();
+        ctx.arc(W / 2, H * .44, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Game entities.
+      for (const item of powerups) drawPowerup(item);
+      for (const enemy of enemies) drawEnemy(enemy);
+      for (const bullet of bullets) drawBullet(bullet);
+      for (const bullet of enemyBullets) drawBullet(bullet, true);
+      drawParticles();
+
+      // Player ship blinks briefly after a hit.
+      if (invulnerable <= 0 || Math.floor(frameTime * 14) % 2 === 0) {
+        drawShip(player.x, player.y);
+      }
+
+      if (player.shield > 0) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.ellipse(player.x, player.y, 34, 34, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(101,244,255,.9)";
+        ctx.lineWidth = 3;
+        ctx.shadowColor = "#65f4ff";
+        ctx.shadowBlur = 18;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Minimal in-canvas labels.
+      ctx.save();
+      ctx.fillStyle = "rgba(218,228,255,.65)";
+      ctx.font = "700 12px Arial";
+      ctx.textAlign = "left";
+      ctx.fillText("WAVE " + wave, 17, 25);
+      ctx.textAlign = "right";
+      ctx.fillText("WEAPON " + player.weapon + "/3", W - 17, 25);
+      ctx.restore();
+
+      if (waveBanner > 0 && mode === "playing") {
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, waveBanner);
+        ctx.textAlign = "center";
+        ctx.shadowColor = "#9567ff";
+        ctx.shadowBlur = 25;
+        ctx.fillStyle = "#fff";
+        ctx.font = "900 39px Arial";
+        ctx.fillText("WAVE " + wave, W / 2, H / 2);
+        ctx.restore();
+      }
+    }
+
+    function loop(timestamp) {
+      if (mode !== "playing") return;
+
+      const dt = Math.min((timestamp - lastTime) / 1000, .033);
+      lastTime = timestamp;
+
+      update(dt);
+      draw();
+
+      if (mode === "playing") {
+        animationId = requestAnimationFrame(loop);
+      }
+    }
+
+    function getCanvasPoint(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left) * W / rect.width,
+        y: (event.clientY - rect.top) * H / rect.height
+      };
+    }
+
+    canvas.addEventListener("pointerdown", event => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+
+      event.preventDefault();
+      const p = getCanvasPoint(event);
+
+      pointerDown = true;
+      pointerX = p.x;
+      pointerY = Math.max(H * .49, Math.min(H - 38, p.y));
+
+      if (mode === "ready" || mode === "over") {
+        startGame();
+      }
+    });
+
+    canvas.addEventListener("pointermove", event => {
+      if (event.pointerType === "mouse" || pointerDown) {
+        const p = getCanvasPoint(event);
+        pointerX = p.x;
+        pointerY = Math.max(H * .49, Math.min(H - 38, p.y));
+      }
+    });
+
+    function releasePointer() {
+      pointerDown = false;
+    }
+
+    canvas.addEventListener("pointerup", releasePointer);
+    canvas.addEventListener("pointercancel", releasePointer);
+    canvas.addEventListener("pointerleave", event => {
+      if (event.pointerType !== "mouse") releasePointer();
+    });
+
+    document.addEventListener("keydown", event => {
+      const key = event.key;
+      const lower = key.toLowerCase();
+
+      if (["ArrowLeft", "ArrowRight", " ", "ArrowUp", "ArrowDown"].includes(key)) {
+        event.preventDefault();
+      }
+
+      keys[key] = true;
+
+      if ((key === " " || key === "Enter") && !event.repeat) {
+        if (mode === "ready" || mode === "over") {
+          startGame();
+        } else if (mode === "paused") {
+          togglePause();
+        }
+      }
+
+      if ((lower === "p" || key === "Escape") && !event.repeat) {
+        togglePause();
+      }
+
+      if (lower === "r" && !event.repeat) {
+        resetGame();
+        startGame();
+      }
+    });
+
+    document.addEventListener("keyup", event => {
+      keys[event.key] = false;
+    });
+
+    window.addEventListener("blur", () => {
+      keys = {};
+      mobileLeft = false;
+      mobileRight = false;
+      mobileFire = false;
+
+      if (mode === "playing") togglePause();
+    });
+
+    function bindHoldButton(buttonId, setter) {
+      const button = document.getElementById(buttonId);
+
+      button.addEventListener("pointerdown", event => {
+        event.preventDefault();
+        if (mode === "ready" || mode === "over") startGame();
+        setter(true);
+      });
+
+      ["pointerup", "pointercancel", "pointerleave"].forEach(name => {
+        button.addEventListener(name, event => {
+          event.preventDefault();
+          setter(false);
+        });
+      });
+    }
+
+    bindHoldButton("leftBtn", value => mobileLeft = value);
+    bindHoldButton("rightBtn", value => mobileRight = value);
+    bindHoldButton("fireBtn", value => mobileFire = value);
+
+    startBtn.addEventListener("click", () => {
+      if (mode === "paused") {
+        togglePause();
+      } else if (mode === "over") {
+        resetGame();
+        startGame();
+      } else {
+        startGame();
+      }
+    });
+
+    pauseBtn.addEventListener("click", togglePause);
+
+    restartBtn.addEventListener("click", () => {
+      resetGame();
+    });
+
+    fullscreenBtn.addEventListener("click", async () => {
+      try {
+        if (!document.fullscreenElement) {
+          await canvasWrap.requestFullscreen();
+        } else {
+          await document.exitFullscreen();
+        }
+      } catch (_) {
+        hintEl.textContent = "Fullscreen is unavailable in this browser. You can still play here.";
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && mode === "playing") {
+        togglePause();
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    updateStats();
+    resetGame();
+  })();
+  </script>
 </body>
 </html>
