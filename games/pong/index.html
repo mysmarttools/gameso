@@ -1,243 +1,1304 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pong Game Online - Play Free | Gameso</title>
+  <title>Pong Game Online – Play Free Pong Arcade Game | Gameso</title>
+  <meta name="description" content="Play Pong online for free at Gameso! Challenge the computer in this classic paddle arcade game. Enjoy smooth controls, exciting rallies, and endless fun on desktop or mobile.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#080b14">
+  <link rel="canonical" href="https://gameso.vercel.app/games/pong/">
 
-    <meta
-        name="description"
-        content="Play Pong online for free on Gameso. Challenge the computer in this classic arcade game and beat your high score."
-    >
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pong Game Online – Play Free | Gameso">
+  <meta property="og:description" content="Play the classic Pong arcade game online for free. Beat the computer and set your best score.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/pong/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Pong Game Online | Gameso">
+  <meta name="twitter:description" content="Play Pong online for free at Gameso.">
 
-    <meta name="robots" content="index, follow">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Pong",
+    "url": "https://gameso.vercel.app/games/pong/",
+    "description": "Play a free browser-based Pong arcade game against the computer.",
+    "genre": ["Arcade", "Sports"],
+    "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
+    "applicationCategory": "Game"
+  }
+  </script>
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/pong/"
-    >
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: #121827;
+      --card-hover: #182137;
+      --text: #ffffff;
+      --muted: #9ba4b6;
+      --primary: #6c5ce7;
+      --accent: #00d4ff;
+      --border: rgba(255,255,255,.08);
+    }
 
-    <link rel="stylesheet" href="style.css">
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 0%, rgba(108,92,231,.13), transparent 36%),
+        var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button { font: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(8,11,20,.91);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1180px;
+      min-height: 72px;
+      margin: auto;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.7px;
+    }
+
+    .brand-icon {
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), #5142c8);
+      box-shadow: 0 5px 22px rgba(108,92,231,.3);
+      font-size: 23px;
+    }
+
+    .brand span:last-child {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 22px 0 16px;
+    }
+
+    .breadcrumb a:hover { color: var(--accent); }
+
+    .hero {
+      text-align: center;
+      padding: 12px 0 24px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 5px 12px;
+      border: 1px solid rgba(0,212,255,.2);
+      background: rgba(0,212,255,.07);
+      color: var(--accent);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 13px 0 8px;
+      font-size: clamp(28px, 5vw, 43px);
+      line-height: 1.18;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 15px;
+    }
+
+    .game-shell {
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 19px;
+      background: rgba(18,24,39,.92);
+      box-shadow: 0 20px 65px rgba(0,0,0,.25);
+    }
+
+    .game-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 13px;
+    }
+
+    .game-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #32e69b;
+      box-shadow: 0 0 12px rgba(50,230,155,.65);
+    }
+
+    .scoreboard {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 5px 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #0b1020;
+      min-width: 145px;
+    }
+
+    .score-unit { text-align: center; }
+
+    .score-name {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    .score-number {
+      font-size: 27px;
+      font-weight: 800;
+      line-height: 1.2;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #playerScore { color: var(--accent); }
+    #cpuScore { color: #b39aff; }
+
+    .game-stage {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #080d1c;
+      border: 1px solid rgba(0,212,255,.14);
+      touch-action: none;
+    }
+
+    #pongCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 900 / 520;
+      outline: none;
+      touch-action: none;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(8,11,20,.72);
+      backdrop-filter: blur(4px);
+      text-align: center;
+    }
+
+    .overlay.hidden { display: none; }
+
+    .overlay-panel { max-width: 430px; }
+
+    .overlay-icon {
+      font-size: 42px;
+      line-height: 1.3;
+      margin-bottom: 7px;
+    }
+
+    .overlay h2 {
+      font-size: clamp(25px, 4vw, 37px);
+      line-height: 1.15;
+      margin: 0 0 9px;
+    }
+
+    .overlay p {
+      margin: 0 auto 19px;
+      color: #c0c7d8;
+      font-size: 14px;
+      max-width: 350px;
+    }
+
+    .primary-btn, .secondary-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 20px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: transform .18s, filter .18s;
+    }
+
+    .primary-btn {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #5142c8);
+      box-shadow: 0 7px 22px rgba(108,92,231,.28);
+    }
+
+    .secondary-btn {
+      color: var(--text);
+      background: #222b40;
+      border: 1px solid var(--border);
+    }
+
+    .primary-btn:hover, .secondary-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .game-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .game-actions button {
+      font-size: 13px;
+      padding: 9px 15px;
+    }
+
+    .game-hint {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin: 13px 0 0;
+    }
+
+    .mobile-controls {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .touch-btn {
+      min-height: 47px;
+      border-radius: 10px;
+      background: #1b2440;
+      border: 1px solid var(--border);
+      color: white;
+      font-weight: 700;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .touch-btn:active { background: var(--primary); }
+
+    .content-section { margin-top: 28px; }
+
+    .content-card {
+      background: rgba(18,24,39,.76);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .content-card h2 {
+      font-size: 23px;
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+
+    .content-card h3 {
+      font-size: 17px;
+      margin: 19px 0 7px;
+    }
+
+    .content-card p, .content-card li {
+      color: #c0c7d8;
+      font-size: 14px;
+    }
+
+    .content-card p { margin: 8px 0; }
+
+    .content-card ul, .content-card ol {
+      padding-left: 23px;
+      margin: 8px 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .feature {
+      background: #0c1221;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .feature-icon { font-size: 24px; }
+
+    .feature h3 {
+      margin: 7px 0 5px;
+      font-size: 15px;
+    }
+
+    .feature p {
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      background: #0c1221;
+      border-radius: 10px;
+      padding: 13px 15px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    details p {
+      margin: 10px 0 2px !important;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .related-card {
+      display: block;
+      padding: 17px;
+      background: #121827;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: .2s;
+    }
+
+    .related-card:hover {
+      transform: translateY(-3px);
+      background: var(--card-hover);
+      border-color: rgba(0,212,255,.3);
+    }
+
+    .related-card .emoji { font-size: 27px; }
+
+    .related-card strong {
+      display: block;
+      margin: 7px 0 3px;
+      font-size: 14px;
+    }
+
+    .related-card span:last-child {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 24px 0 36px;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 650px) {
+      .nav { min-height: 62px; padding: 10px 16px; }
+      .brand { font-size: 21px; }
+      .brand-icon { width: 35px; height: 35px; }
+      .nav-links { gap: 12px; font-size: 12px; }
+      .container { width: calc(100% - 20px); }
+      .hero { padding-top: 8px; }
+      .hero p { font-size: 14px; }
+      .game-shell { padding: 9px; border-radius: 14px; }
+      .game-topbar { justify-content: center; }
+      .game-label { margin-right: auto; }
+      .scoreboard { gap: 17px; min-width: 125px; }
+      .mobile-controls { display: grid; }
+      .game-hint { line-height: 1.5; }
+      .content-card { padding: 17px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .overlay p { font-size: 12px; }
+      .overlay-icon { font-size: 30px; }
+      .overlay .primary-btn { padding: 10px 16px; }
+    }
+
+    @media (max-width: 390px) {
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 11px; }
+      .game-label { font-size: 12px; }
+      .scoreboard { padding: 4px 10px; }
+      .score-number { font-size: 23px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
 
 <body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="/" aria-label="Gameso home">
+        <span class="brand-icon">🎮</span>
+        <span>Game<span>so</span></span>
+      </a>
 
-    <header class="game-header">
-        <div class="header-inner">
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#games">All Games</a>
+      </div>
+    </nav>
+  </header>
 
-            <a href="/" class="logo">
-                <span>🎮</span>
-                <strong>Gameso</strong>
-            </a>
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/#games">Arcade Games</a> / Pong
+    </div>
 
-            <a href="/" class="back-button">
-                ← All Games
-            </a>
+    <section class="hero">
+      <span class="eyebrow">🏓 Classic Arcade Game</span>
+      <h1>Play Pong Online for Free</h1>
+      <p>Challenge the computer in this classic paddle game. Keep the ball in play, score points, and be the first to reach 7 points!</p>
+    </section>
 
-        </div>
-    </header>
-
-
-    <main class="game-page">
-
-        <div class="game-container">
-
-            <section class="game-heading">
-
-                <span class="game-label">
-                    🏓 ARCADE GAME
-                </span>
-
-                <h1>Pong</h1>
-
-                <p>
-                    Challenge the computer and be the first
-                    player to reach 7 points!
-                </p>
-
-            </section>
-
-
-            <section class="game-box">
-
-                <div class="score-board">
-
-                    <div class="player-score">
-                        <span>YOU</span>
-                        <strong id="playerScore">0</strong>
-                    </div>
-
-                    <div class="vs">
-                        VS
-                    </div>
-
-                    <div class="player-score">
-                        <span>CPU</span>
-                        <strong id="computerScore">0</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="canvas-wrapper">
-
-                    <canvas
-                        id="pongCanvas"
-                        width="800"
-                        height="500"
-                    ></canvas>
-
-
-                    <div
-                        id="startScreen"
-                        class="game-overlay"
-                    >
-
-                        <div class="overlay-icon">
-                            🏓
-                        </div>
-
-                        <h2>Pong</h2>
-
-                        <p>
-                            Move your paddle and beat the CPU!
-                        </p>
-
-                        <button
-                            id="startButton"
-                            class="game-button"
-                        >
-                            ▶ Start Game
-                        </button>
-
-                    </div>
-
-
-                    <div
-                        id="gameOverScreen"
-                        class="game-overlay hidden"
-                    >
-
-                        <div
-                            id="resultIcon"
-                            class="overlay-icon"
-                        >
-                            🏆
-                        </div>
-
-                        <h2 id="resultTitle">
-                            You Win!
-                        </h2>
-
-                        <p id="resultText">
-                            Great game!
-                        </p>
-
-                        <button
-                            id="restartButton"
-                            class="game-button"
-                        >
-                            🔄 Play Again
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="controls">
-
-                    <span>
-                        ⌨️ W / S
-                    </span>
-
-                    <span>
-                        ⬆️ / ⬇️ Arrow Keys
-                    </span>
-
-                    <span>
-                        📱 Touch
-                    </span>
-
-                </div>
-
-            </section>
-
-
-            <section class="game-info">
-
-                <h2>How to Play Pong</h2>
-
-                <p>
-                    Control the left paddle and hit the ball
-                    back toward your opponent. The computer
-                    controls the right paddle.
-                </p>
-
-                <p>
-                    The first player to score 7 points wins
-                    the match.
-                </p>
-
-
-                <h2>Controls</h2>
-
-                <ul>
-                    <li>⬆️ Use the Up Arrow to move up.</li>
-                    <li>⬇️ Use the Down Arrow to move down.</li>
-                    <li>⌨️ W and S keys also control your paddle.</li>
-                    <li>📱 On mobile, drag your finger vertically on the game.</li>
-                </ul>
-
-            </section>
-
-
-            <section class="related-section">
-
-                <h2>More Games</h2>
-
-                <div class="related-grid">
-
-                    <a
-                        href="/games/flappy-bird/"
-                        class="related-card"
-                    >
-                        <span>🐦</span>
-                        <strong>Flappy Bird</strong>
-                    </a>
-
-                    <a
-                        href="/games/snake/"
-                        class="related-card"
-                    >
-                        <span>🐍</span>
-                        <strong>Snake</strong>
-                    </a>
-
-                    <a
-                        href="/games/2048/"
-                        class="related-card"
-                    >
-                        <span>🔢</span>
-                        <strong>2048</strong>
-                    </a>
-
-                </div>
-
-            </section>
-
+    <section class="game-shell" aria-label="Pong game">
+      <div class="game-topbar">
+        <div class="game-label">
+          <span class="live-dot"></span>
+          <span>PONG ARCADE</span>
         </div>
 
-    </main>
+        <div class="scoreboard" aria-label="Score">
+          <div class="score-unit">
+            <span class="score-name">You</span>
+            <span class="score-number" id="playerScore">0</span>
+          </div>
+          <span style="color:var(--muted)">:</span>
+          <div class="score-unit">
+            <span class="score-name">CPU</span>
+            <span class="score-number" id="cpuScore">0</span>
+          </div>
+        </div>
+      </div>
 
+      <div class="game-stage" id="gameStage">
+        <canvas id="pongCanvas" width="900" height="520" tabindex="0" aria-label="Pong game area. Use arrow keys or W and S to move your paddle."></canvas>
 
-    <footer>
-        © <span id="year"></span> Gameso. All rights reserved.
-    </footer>
+        <div class="overlay" id="overlay">
+          <div class="overlay-panel">
+            <div class="overlay-icon" id="overlayIcon">🏓</div>
+            <h2 id="overlayTitle">Ready to Play?</h2>
+            <p id="overlayText">Move your paddle, return the ball, and beat the computer. First to 7 points wins!</p>
+            <button class="primary-btn" id="startBtn">▶ Start Game</button>
+          </div>
+        </div>
+      </div>
 
+      <div class="game-actions">
+        <button class="secondary-btn" id="pauseBtn" type="button">⏸ Pause</button>
+        <button class="secondary-btn" id="restartBtn" type="button">↻ Restart</button>
+        <button class="secondary-btn" id="soundBtn" type="button" aria-pressed="false">🔇 Sound Off</button>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="mobile-controls">
+        <button class="touch-btn" id="upBtn" type="button">▲ Move Up</button>
+        <button class="touch-btn" id="downBtn" type="button">▼ Move Down</button>
+      </div>
 
+      <p class="game-hint">Desktop: ↑ / ↓ or W / S · Mouse: Move over the game · Mobile: Use the buttons or drag on the game</p>
+    </section>
+
+    <section class="content-section content-card">
+      <h2>🎮 How to Play Pong</h2>
+      <p>Pong is a classic arcade game where you control a paddle and compete against a computer opponent. Hit the ball back across the court and try to make the CPU miss. Every successful point brings you closer to victory.</p>
+
+      <h3>Game Instructions</h3>
+      <ol>
+        <li>Click <strong>Start Game</strong> to begin the match.</li>
+        <li>Move your paddle up and down to hit the ball.</li>
+        <li>Return the ball toward the computer's side.</li>
+        <li>Score when the computer fails to return the ball.</li>
+        <li>Reach 7 points before the CPU to win the match.</li>
+      </ol>
+
+      <h3>⌨️ Controls</h3>
+      <ul>
+        <li><strong>Arrow Up / Arrow Down:</strong> Move your paddle.</li>
+        <li><strong>W / S:</strong> Alternative paddle controls.</li>
+        <li><strong>Mouse:</strong> Move the pointer over the game to position your paddle.</li>
+        <li><strong>Space:</strong> Pause or resume the game.</li>
+        <li><strong>Mobile:</strong> Use the on-screen buttons or drag your finger vertically over the game.</li>
+      </ul>
+
+      <h3>🏆 Tips to Win</h3>
+      <ul>
+        <li>Watch the ball carefully and move your paddle early.</li>
+        <li>Try hitting the ball near the top or bottom of your paddle to change its angle.</li>
+        <li>Stay near the middle when the ball is far away.</li>
+        <li>Predict where the ball will travel instead of chasing it at the last second.</li>
+      </ul>
+    </section>
+
+    <section class="content-section content-card">
+      <h2>✨ Pong Game Features</h2>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">🕹️</div>
+          <h3>Classic Gameplay</h3>
+          <p>Enjoy the familiar paddle-and-ball arcade experience in your browser.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📱</div>
+          <h3>Mobile Friendly</h3>
+          <p>Play on phones, tablets, laptops, and desktop computers.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚡</div>
+          <h3>Fast Arcade Action</h3>
+          <p>React quickly as rallies get faster and the ball changes direction.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section content-card">
+      <h2>❓ Frequently Asked Questions</h2>
+
+      <div class="faq-list">
+        <details>
+          <summary>1. Can I play Pong online for free?</summary>
+          <p>Yes. This browser-based Pong game is free to play on Gameso. Open the page and start playing without installing the game.</p>
+        </details>
+
+        <details>
+          <summary>2. How do I control the paddle?</summary>
+          <p>Use the Up and Down arrow keys, W and S keys, or move your mouse over the game area. On mobile, use the on-screen controls or drag on the game.</p>
+        </details>
+
+        <details>
+          <summary>3. How do I win a Pong match?</summary>
+          <p>Score 7 points before the computer. You earn a point whenever the ball passes the computer's paddle.</p>
+        </details>
+
+        <details>
+          <summary>4. Does Pong work on mobile?</summary>
+          <p>Yes. The game layout adjusts to smaller screens and includes touch-friendly paddle controls.</p>
+        </details>
+
+        <details>
+          <summary>5. Do I need to download Pong?</summary>
+          <p>No download is required. The game runs directly in a supported modern web browser.</p>
+        </details>
+
+        <details>
+          <summary>6. How do I pause the game?</summary>
+          <p>Press Space or click the Pause button. Use the same control to resume play.</p>
+        </details>
+
+        <details>
+          <summary>7. Can I restart the game?</summary>
+          <p>Yes. Click Restart at any time to reset the score and begin a new match.</p>
+        </details>
+
+        <details>
+          <summary>8. Why does the ball move faster?</summary>
+          <p>The ball speeds up slightly after paddle hits to make longer rallies more challenging.</p>
+        </details>
+
+        <details>
+          <summary>9. Is Pong suitable for beginners?</summary>
+          <p>Yes. The controls are simple to learn, making Pong a good choice for players who enjoy quick arcade games.</p>
+        </details>
+
+        <details>
+          <summary>10. Can I play other free games on Gameso?</summary>
+          <p>Yes. Visit the Gameso homepage to explore more free browser games and arcade favorites.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2 style="font-size:23px;margin:0 0 12px">🎯 More Free Games</h2>
+      <div class="related-grid">
+        <a class="related-card" href="/games/snake/">
+          <span class="emoji">🐍</span>
+          <strong>Snake Game</strong>
+          <span>Eat, grow, and beat your best score.</span>
+        </a>
+        <a class="related-card" href="/games/2048/">
+          <span class="emoji">🔢</span>
+          <strong>2048 Puzzle</strong>
+          <span>Combine matching tiles and reach 2048.</span>
+        </a>
+        <a class="related-card" href="/games/drift-boss/">
+          <span class="emoji">🏎️</span>
+          <strong>Drift Boss</strong>
+          <span>Test your timing on challenging turns.</span>
+        </a>
+      </div>
+    </section>
+
+    <a class="back-link" href="/">← Back to Gameso Home</a>
+  </main>
+
+  <footer>
+    <p>© <span id="year"></span> Gameso. Play free online games in your browser.</p>
+    <a href="/">Home</a>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const canvas = document.getElementById("pongCanvas");
+      const ctx = canvas.getContext("2d");
+      const stage = document.getElementById("gameStage");
+
+      const playerScoreEl = document.getElementById("playerScore");
+      const cpuScoreEl = document.getElementById("cpuScore");
+      const overlay = document.getElementById("overlay");
+      const overlayIcon = document.getElementById("overlayIcon");
+      const overlayTitle = document.getElementById("overlayTitle");
+      const overlayText = document.getElementById("overlayText");
+      const startBtn = document.getElementById("startBtn");
+      const pauseBtn = document.getElementById("pauseBtn");
+      const restartBtn = document.getElementById("restartBtn");
+      const soundBtn = document.getElementById("soundBtn");
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const W = canvas.width;
+      const H = canvas.height;
+      const WIN_SCORE = 7;
+      const PADDLE_W = 13;
+      const PADDLE_H = 105;
+      const BALL_R = 9;
+      const PLAYER_X = 36;
+      const CPU_X = W - 36 - PADDLE_W;
+
+      let playerY = H / 2 - PADDLE_H / 2;
+      let cpuY = H / 2 - PADDLE_H / 2;
+      let ballX = W / 2;
+      let ballY = H / 2;
+      let ballVX = 5;
+      let ballVY = 2.4;
+
+      let playerScore = 0;
+      let cpuScore = 0;
+      let state = "ready";
+      let soundOn = false;
+      let audioCtx = null;
+      let lastTime = 0;
+      let serveTimer = 0;
+      let serveDirection = Math.random() < 0.5 ? -1 : 1;
+
+      const keys = new Set();
+      const particles = [];
+      const trail = [];
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function showOverlay(icon, title, text, buttonText) {
+        overlayIcon.textContent = icon;
+        overlayTitle.textContent = title;
+        overlayText.textContent = text;
+        startBtn.textContent = buttonText;
+        overlay.classList.remove("hidden");
+      }
+
+      function hideOverlay() {
+        overlay.classList.add("hidden");
+      }
+
+      function updateScore() {
+        playerScoreEl.textContent = playerScore;
+        cpuScoreEl.textContent = cpuScore;
+      }
+
+      function playTone(frequency = 440, duration = 0.055, volume = 0.035) {
+        if (!soundOn) return;
+
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+
+          if (!audioCtx) audioCtx = new AudioContextClass();
+          if (audioCtx.state === "suspended") audioCtx.resume();
+
+          const oscillator = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          oscillator.type = "sine";
+          oscillator.frequency.value = frequency;
+          gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioCtx.currentTime + duration
+          );
+
+          oscillator.connect(gain);
+          gain.connect(audioCtx.destination);
+          oscillator.start();
+          oscillator.stop(audioCtx.currentTime + duration);
+        } catch (_) {
+          // Sound is optional; the game remains playable if audio is unavailable.
+        }
+      }
+
+      function addParticles(x, y, color, count = 9) {
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1 + Math.random() * 3;
+
+          particles.push({
+            x,
+            y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            life: 0.35 + Math.random() * 0.35,
+            maxLife: 0.7,
+            color
+          });
+        }
+      }
+
+      function resetBall(direction = Math.random() < 0.5 ? -1 : 1) {
+        ballX = W / 2;
+        ballY = H / 2;
+        ballVX = direction * 5;
+        ballVY = (Math.random() * 3.2 - 1.6) || 1.4;
+        serveTimer = 0.45;
+        serveDirection = direction;
+        trail.length = 0;
+      }
+
+      function resetGame() {
+        playerScore = 0;
+        cpuScore = 0;
+        playerY = H / 2 - PADDLE_H / 2;
+        cpuY = H / 2 - PADDLE_H / 2;
+        particles.length = 0;
+        resetBall(Math.random() < 0.5 ? -1 : 1);
+        updateScore();
+        state = "ready";
+        pauseBtn.textContent = "⏸ Pause";
+        showOverlay(
+          "🏓",
+          "Ready to Play?",
+          "Move your paddle, return the ball, and beat the computer. First to 7 points wins!",
+          "▶ Start Game"
+        );
+        draw();
+      }
+
+      function startGame() {
+        if (state === "over") resetGame();
+        state = "playing";
+        hideOverlay();
+        canvas.focus({ preventScroll: true });
+        lastTime = performance.now();
+      }
+
+      function togglePause() {
+        if (state === "playing") {
+          state = "paused";
+          pauseBtn.textContent = "▶ Resume";
+          showOverlay(
+            "⏸",
+            "Game Paused",
+            "Take a break. Resume when you are ready to play again.",
+            "▶ Resume Game"
+          );
+        } else if (state === "paused") {
+          startGame();
+          pauseBtn.textContent = "⏸ Pause";
+        } else if (state === "ready") {
+          startGame();
+        } else if (state === "over") {
+          resetGame();
+          startGame();
+        }
+      }
+
+      function finishGame(winner) {
+        state = "over";
+        pauseBtn.textContent = "⏸ Pause";
+
+        if (winner === "player") {
+          showOverlay(
+            "🏆",
+            "You Win!",
+            `Great rally! Final score: ${playerScore} – ${cpuScore}. Ready for another match?`,
+            "↻ Play Again"
+          );
+        } else {
+          showOverlay(
+            "🎮",
+            "CPU Wins!",
+            `The computer won ${cpuScore} – ${playerScore}. Try again and improve your timing!`,
+            "↻ Try Again"
+          );
+        }
+      }
+
+      function scorePoint(who) {
+        if (who === "player") {
+          playerScore++;
+          playTone(660, 0.11, 0.05);
+          addParticles(W - 70, ballY, "#b39aff", 15);
+        } else {
+          cpuScore++;
+          playTone(220, 0.12, 0.05);
+          addParticles(70, ballY, "#00d4ff", 15);
+        }
+
+        updateScore();
+
+        if (playerScore >= WIN_SCORE) {
+          finishGame("player");
+        } else if (cpuScore >= WIN_SCORE) {
+          finishGame("cpu");
+        } else {
+          resetBall(who === "player" ? 1 : -1);
+        }
+      }
+
+      function movePlayer(dt) {
+        const speed = 430;
+        let direction = 0;
+
+        if (keys.has("ArrowUp") || keys.has("w") || keys.has("W")) direction -= 1;
+        if (keys.has("ArrowDown") || keys.has("s") || keys.has("S")) direction += 1;
+
+        if (direction !== 0) {
+          playerY += direction * speed * dt;
+        }
+
+        playerY = clamp(playerY, 12, H - PADDLE_H - 12);
+      }
+
+      function moveCPU(dt) {
+        const paddleCenter = cpuY + PADDLE_H / 2;
+        let target = ballY;
+
+        // Predict the ball's vertical position when it reaches the CPU paddle.
+        if (ballVX > 0 && serveTimer <= 0) {
+          const distance = CPU_X - ballX;
+          let predicted = ballY + (distance / Math.max(1, ballVX)) * ballVY;
+
+          while (predicted < 0 || predicted > H) {
+            if (predicted < 0) predicted = -predicted;
+            if (predicted > H) predicted = 2 * H - predicted;
+          }
+
+          target = predicted;
+        }
+
+        // Imperfect tracking keeps the computer challenging but beatable.
+        const difficulty = 0.78;
+        const maxMove = 330 * dt;
+        const difference = target - paddleCenter;
+        cpuY += clamp(difference * difficulty, -maxMove, maxMove);
+        cpuY = clamp(cpuY, 12, H - PADDLE_H - 12);
+      }
+
+      function hitPaddle(paddleY, direction) {
+        const center = paddleY + PADDLE_H / 2;
+        const impact = clamp((ballY - center) / (PADDLE_H / 2), -1, 1);
+
+        const speed = Math.min(
+          Math.hypot(ballVX, ballVY) * 1.045,
+          10.5
+        );
+
+        const maxAngle = 1.08;
+        const angle = impact * maxAngle;
+
+        ballVX = direction * speed * Math.cos(angle);
+        ballVY = speed * Math.sin(angle);
+
+        playTone(350 + Math.abs(impact) * 250, 0.045, 0.035);
+        addParticles(ballX, ballY, direction === 1 ? "#00d4ff" : "#b39aff", 8);
+      }
+
+      function update(dt) {
+        // Keep the game stable on slower devices and background tabs.
+        dt = Math.min(dt, 0.025);
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx * dt * 60;
+          p.y += p.vy * dt * 60;
+          p.life -= dt;
+
+          if (p.life <= 0) particles.splice(i, 1);
+        }
+
+        if (state !== "playing") return;
+
+        movePlayer(dt);
+        moveCPU(dt);
+
+        if (serveTimer > 0) {
+          serveTimer -= dt;
+          return;
+        }
+
+        ballX += ballVX * dt * 60;
+        ballY += ballVY * dt * 60;
+
+        trail.push({ x: ballX, y: ballY });
+        if (trail.length > 9) trail.shift();
+
+        // Top and bottom wall collisions.
+        if (ballY - BALL_R <= 9) {
+          ballY = 9 + BALL_R;
+          ballVY = Math.abs(ballVY);
+          playTone(270, 0.035, 0.02);
+        } else if (ballY + BALL_R >= H - 9) {
+          ballY = H - 9 - BALL_R;
+          ballVY = -Math.abs(ballVY);
+          playTone(270, 0.035, 0.02);
+        }
+
+        // Player paddle collision.
+        if (
+          ballVX < 0 &&
+          ballX - BALL_R <= PLAYER_X + PADDLE_W &&
+          ballX + BALL_R >= PLAYER_X &&
+          ballY + BALL_R >= playerY &&
+          ballY - BALL_R <= playerY + PADDLE_H
+        ) {
+          ballX = PLAYER_X + PADDLE_W + BALL_R;
+          hitPaddle(playerY, 1);
+        }
+
+        // CPU paddle collision.
+        if (
+          ballVX > 0 &&
+          ballX + BALL_R >= CPU_X &&
+          ballX - BALL_R <= CPU_X + PADDLE_W &&
+          ballY + BALL_R >= cpuY &&
+          ballY - BALL_R <= cpuY + PADDLE_H
+        ) {
+          ballX = CPU_X - BALL_R;
+          hitPaddle(cpuY, -1);
+        }
+
+        // A point is awarded when the ball leaves either side.
+        if (ballX + BALL_R < 0) {
+          scorePoint("cpu");
+        } else if (ballX - BALL_R > W) {
+          scorePoint("player");
+        }
+      }
+
+      function roundedRect(x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, r);
+      }
+
+      function drawBackground() {
+        const gradient = ctx.createLinearGradient(0, 0, W, H);
+        gradient.addColorStop(0, "#0b1326");
+        gradient.addColorStop(1, "#090d1b");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, W, H);
+
+        // Subtle court border.
+        ctx.strokeStyle = "rgba(255,255,255,.09)";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(9, 9, W - 18, H - 18);
+
+        // Dotted center line.
+        ctx.save();
+        ctx.strokeStyle = "rgba(180,190,220,.28)";
+        ctx.lineWidth = 3;
+        ctx.setLineDash([11, 13]);
+        ctx.beginPath();
+        ctx.moveTo(W / 2, 14);
+        ctx.lineTo(W / 2, H - 14);
+        ctx.stroke();
+        ctx.restore();
+
+        // Center ring.
+        ctx.beginPath();
+        ctx.arc(W / 2, H / 2, 58, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(108,92,231,.20)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      function drawPaddle(x, y, color) {
+        ctx.save();
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 18;
+        ctx.fillStyle = color;
+        roundedRect(x, y, PADDLE_W, PADDLE_H, 6);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function drawBall() {
+        trail.forEach((point, index) => {
+          const alpha = (index + 1) / trail.length * 0.24;
+          const radius = BALL_R * ((index + 1) / trail.length) * 0.8;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, Math.max(1, radius), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0,212,255,${alpha})`;
+          ctx.fill();
+        });
+
+        ctx.save();
+        ctx.shadowColor = "#ffffff";
+        ctx.shadowBlur = 19;
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, BALL_R, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function drawParticles() {
+        particles.forEach(p => {
+          ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, 4, 4);
+        });
+        ctx.globalAlpha = 1;
+      }
+
+      function draw() {
+        drawBackground();
+        drawPaddle(PLAYER_X, playerY, "#00d4ff");
+        drawPaddle(CPU_X, cpuY, "#9b8aff");
+        drawBall();
+        drawParticles();
+
+        if (state === "ready") {
+          ctx.fillStyle = "rgba(255,255,255,.62)";
+          ctx.font = "bold 15px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText("PRESS START TO PLAY", W / 2, H - 34);
+        }
+
+        if (state === "paused") {
+          ctx.fillStyle = "rgba(255,255,255,.7)";
+          ctx.font = "bold 20px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText("PAUSED", W / 2, H - 34);
+        }
+      }
+
+      function loop(now) {
+        const dt = lastTime ? (now - lastTime) / 1000 : 0;
+        lastTime = now;
+        update(dt);
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      function movePlayerToClientY(clientY) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleY = H / rect.height;
+        playerY = clamp(
+          (clientY - rect.top) * scaleY - PADDLE_H / 2,
+          12,
+          H - PADDLE_H - 12
+        );
+      }
+
+      canvas.addEventListener("pointermove", event => {
+        if (event.pointerType === "mouse" && state === "playing") {
+          movePlayerToClientY(event.clientY);
+        }
+      });
+
+      canvas.addEventListener("pointerdown", event => {
+        if (event.pointerType !== "mouse") {
+          event.preventDefault();
+
+          if (state === "ready") {
+            startGame();
+          } else if (state === "paused") {
+            startGame();
+          }
+
+          if (state === "playing") {
+            movePlayerToClientY(event.clientY);
+          }
+        }
+      });
+
+      document.addEventListener("keydown", event => {
+        const key = event.key;
+
+        if (
+          ["ArrowUp", "ArrowDown", " ", "w", "W", "s", "S"].includes(key)
+        ) {
+          event.preventDefault();
+        }
+
+        if (key === " " && !event.repeat) {
+          togglePause();
+          return;
+        }
+
+        keys.add(key);
+
+        if (
+          (key === "Enter" || key === " ") &&
+          (state === "ready" || state === "over")
+        ) {
+          startGame();
+        }
+      });
+
+      document.addEventListener("keyup", event => {
+        keys.delete(event.key);
+      });
+
+      window.addEventListener("blur", () => {
+        keys.clear();
+      });
+
+      startBtn.addEventListener("click", () => {
+        if (state === "over") resetGame();
+        startGame();
+      });
+
+      pauseBtn.addEventListener("click", togglePause);
+
+      restartBtn.addEventListener("click", () => {
+        resetGame();
+        startGame();
+      });
+
+      soundBtn.addEventListener("click", () => {
+        soundOn = !soundOn;
+        soundBtn.textContent = soundOn ? "🔊 Sound On" : "🔇 Sound Off";
+        soundBtn.setAttribute("aria-pressed", String(soundOn));
+
+        if (soundOn) playTone(520, 0.08, 0.04);
+      });
+
+      function bindTouchButton(buttonId, key) {
+        const button = document.getElementById(buttonId);
+
+        const press = event => {
+          event.preventDefault();
+          keys.add(key);
+          if (state === "ready" || state === "paused") startGame();
+        };
+
+        const release = event => {
+          event.preventDefault();
+          keys.delete(key);
+        };
+
+        button.addEventListener("pointerdown", press);
+        button.addEventListener("pointerup", release);
+        button.addEventListener("pointercancel", release);
+        button.addEventListener("pointerleave", release);
+        button.addEventListener("contextmenu", event => event.preventDefault());
+      }
+
+      bindTouchButton("upBtn", "ArrowUp");
+      bindTouchButton("downBtn", "ArrowDown");
+
+      resetGame();
+      requestAnimationFrame(loop);
+    })();
+  </script>
 </body>
 </html>
