@@ -1,257 +1,1071 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Color Match Game Online - Play Free | Gameso</title>
+  <title>Color Match Game Online – Play Free | Gameso</title>
+  <meta name="description" content="Play Color Match online for free at Gameso! Find the correct color, beat the timer, unlock challenging rounds and improve your color recognition skills.">
+  <meta name="keywords" content="color match game, color matching game online, free color game, color puzzle game, play color match, Gameso">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gameso.vercel.app/games/color-match/">
+  <meta name="theme-color" content="#101321">
 
-    <meta
-        name="description"
-        content="Play Color Match online for free on Gameso. Match the correct colors, test your reaction speed and beat your high score."
-    >
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Color Match Game Online | Gameso">
+  <meta property="og:description" content="Find the matching color before time runs out in this free online color puzzle.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/color-match/">
 
-    <meta name="robots" content="index, follow">
+  <style>
+    :root {
+      --bg: #101321;
+      --panel: #191e31;
+      --panel2: #202740;
+      --text: #f5f7ff;
+      --muted: #a8b0c9;
+      --accent: #8b7cff;
+      --green: #52e0a0;
+      --red: #ff647c;
+      --border: rgba(255,255,255,.09);
+    }
 
-    <link
-        rel="canonical"
-        href="https://gameso.vercel.app/games/color-match/"
-    >
+    * { box-sizing: border-box; }
 
-    <link rel="stylesheet" href="style.css">
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(115,93,255,.17), transparent 45%),
+        var(--bg);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    button { font: inherit; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(16,19,33,.94);
+    }
+
+    .header-inner {
+      max-width: 1150px;
+      min-height: 72px;
+      margin: auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span { color: #a69aff; }
+
+    .nav {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav a:hover { color: white; }
+
+    .container {
+      width: min(100% - 32px, 1000px);
+      margin-inline: auto;
+    }
+
+    .breadcrumb {
+      padding: 22px 0 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .breadcrumb a { color: #b6aaff; }
+
+    .hero {
+      text-align: center;
+      padding: 24px 0 25px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #c5bdff;
+      background: rgba(139,124,255,.12);
+      border: 1px solid rgba(139,124,255,.24);
+      border-radius: 30px;
+      padding: 6px 13px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      margin: 15px 0 8px;
+      font-size: clamp(31px, 5vw, 46px);
+      line-height: 1.13;
+      letter-spacing: -1.6px;
+    }
+
+    .hero p {
+      max-width: 590px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .game-shell {
+      max-width: 790px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, #1b2036, #151a2b);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 22px 70px rgba(0,0,0,.25);
+    }
+
+    .game-topbar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 17px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat {
+      background: rgba(255,255,255,.045);
+      padding: 10px 7px;
+      text-align: center;
+      border-radius: 12px;
+      min-width: 0;
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .stat-value {
+      display: block;
+      margin-top: 2px;
+      font-size: clamp(17px, 3vw, 23px);
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-track {
+      height: 5px;
+      background: #30364c;
+    }
+
+    .timer-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #8b7cff, #53d9fa);
+      transition: width .15s linear;
+    }
+
+    .game-content { padding: 22px; }
+
+    .instruction {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 15px;
+    }
+
+    .target-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 14px;
+      margin-bottom: 17px;
+    }
+
+    .target-swatch {
+      flex: 0 0 74px;
+      width: 74px;
+      height: 74px;
+      border-radius: 13px;
+      border: 2px solid rgba(255,255,255,.35);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+      background: #ff626d;
+    }
+
+    .target-copy { min-width: 0; }
+
+    .target-copy strong {
+      display: block;
+      font-size: 16px;
+    }
+
+    .target-copy span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 20px 0 12px;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    .grid-heading small {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .color-option {
+      position: relative;
+      min-width: 0;
+      height: clamp(68px, 12vw, 100px);
+      border: 2px solid transparent;
+      border-radius: 13px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform .15s, border-color .15s, box-shadow .15s;
+    }
+
+    .color-option:hover:not(:disabled) {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.7);
+    }
+
+    .color-option:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 3px;
+    }
+
+    .color-option:disabled { cursor: default; }
+
+    .color-option.correct {
+      border-color: #54f0aa;
+      box-shadow: 0 0 0 2px rgba(84,240,170,.22);
+    }
+
+    .color-option.wrong {
+      border-color: #ff647c;
+      opacity: .62;
+    }
+
+    .option-number {
+      position: absolute;
+      left: 7px;
+      bottom: 7px;
+      display: grid;
+      place-items: center;
+      width: 23px;
+      height: 23px;
+      border-radius: 7px;
+      color: #fff;
+      background: rgba(0,0,0,.32);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .result {
+      display: none;
+      margin-top: 17px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      padding: 14px;
+      border-radius: 13px;
+      text-align: center;
+    }
+
+    .result.show { display: block; }
+
+    .result strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+
+    .result p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .result.good strong { color: var(--green); }
+    .result.bad strong { color: var(--red); }
+
+    .action-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 19px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 46px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 19px;
+      cursor: pointer;
+      color: white;
+      font-weight: 800;
+      transition: transform .15s, opacity .15s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #8877ff, #6756ec);
+      border-color: transparent;
+    }
+
+    .btn-secondary { background: rgba(255,255,255,.06); }
+
+    .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+    .game-footer {
+      padding: 14px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .section {
+      padding: 38px 0 0;
+    }
+
+    .section h2 {
+      font-size: clamp(23px, 4vw, 30px);
+      letter-spacing: -.6px;
+      margin: 0 0 12px;
+    }
+
+    .section h3 {
+      margin: 22px 0 7px;
+      font-size: 18px;
+    }
+
+    .section p, .section li {
+      color: #b8bfd4;
+      font-size: 15px;
+    }
+
+    .section ul, .section ol { padding-left: 23px; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 13px;
+      margin-top: 18px;
+    }
+
+    .feature {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 17px;
+    }
+
+    .feature-icon { font-size: 25px; }
+
+    .feature h3 { margin: 8px 0 5px; font-size: 16px; }
+
+    .feature p { margin: 0; font-size: 13px; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+
+    .faq-item h3 { margin: 0 0 6px; font-size: 16px; }
+
+    .faq-item p { margin: 0; }
+
+    .more-games {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .more-game {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 17px;
+      border-radius: 14px;
+      transition: border-color .15s, transform .15s;
+    }
+
+    .more-game:hover {
+      border-color: #8877ff;
+      transform: translateY(-2px);
+    }
+
+    .more-game span { font-size: 26px; }
+
+    .more-game strong { display: block; margin-top: 7px; }
+
+    .more-game small { color: var(--muted); }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding: 25px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .site-footer a { color: #c5bdff; }
+
+    @media (max-width: 600px) {
+      .header-inner { padding-inline: 16px; }
+      .nav { gap: 12px; font-size: 12px; }
+      .logo { font-size: 22px; }
+      .container { width: min(100% - 22px, 1000px); }
+      .game-topbar { padding: 11px; gap: 6px; }
+      .stat { padding: 9px 3px; }
+      .stat-label { font-size: 9px; letter-spacing: .3px; }
+      .game-content { padding: 14px; }
+      .target-swatch { width: 62px; height: 62px; flex-basis: 62px; }
+      .target-card { padding: 11px; gap: 12px; }
+      .color-grid { gap: 7px; }
+      .color-option { border-radius: 10px; }
+      .option-number { left: 5px; bottom: 5px; width: 20px; height: 20px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .more-games { grid-template-columns: 1fr; }
+      .section { padding-top: 30px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Color Match",
+    "url": "https://gameso.vercel.app/games/color-match/",
+    "description": "A free browser-based color matching puzzle game. Find the exact target shade before the timer runs out.",
+    "genre": ["Puzzle", "Casual"],
+    "gamePlatform": ["Web Browser", "Mobile Browser", "Desktop"],
+    "applicationCategory": "Game"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do you play Color Match?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Look at the target color and click the matching color tile from the grid before the timer runs out."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Color Match free to play?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. This browser-based Color Match game is free to play and does not require a download."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I play Color Match on mobile?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The game supports touch input on compatible phones and tablets as well as mouse and keyboard input on desktop."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
-
-<header class="game-header">
+  <header class="site-header">
     <div class="header-inner">
-
-        <a href="/" class="logo">
-            <span>🎮</span>
-            <strong>Gameso</strong>
-        </a>
-
-        <a href="/" class="back-button">
-            ← All Games
-        </a>
-
+      <a class="logo" href="/" aria-label="Gameso homepage">Game<span>so</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/games/">All Games</a>
+        <a href="/games/arcade/">Arcade</a>
+        <a href="/games/puzzle/">Puzzle Games</a>
+      </nav>
     </div>
-</header>
-
-
-<main class="game-page">
-
-    <div class="game-container">
-
-        <section class="game-heading">
-
-            <span class="game-label">
-                🎨 PUZZLE CHALLENGE
-            </span>
-
-            <h1>Color Match</h1>
-
-            <p>
-                Match the target color before time runs out!
-                Test your speed and accuracy.
-            </p>
-
-        </section>
-
-
-        <section class="game-box">
-
-            <div class="game-stats">
-
-                <div class="stat-box">
-                    <span>SCORE</span>
-                    <strong id="score">0</strong>
-                </div>
-
-                <div class="stat-box">
-                    <span>TIME</span>
-                    <strong id="time">30</strong>
-                </div>
-
-                <div class="stat-box">
-                    <span>BEST</span>
-                    <strong id="best">0</strong>
-                </div>
-
-            </div>
-
-
-            <div class="game-area">
-
-                <div id="startScreen" class="game-overlay">
-
-                    <div class="overlay-icon">🎨</div>
-
-                    <h2>Color Match</h2>
-
-                    <p>
-                        Find the color that matches the target!
-                    </p>
-
-                    <button id="startButton" class="game-button">
-                        ▶ Start Game
-                    </button>
-
-                </div>
-
-
-                <div id="gameScreen" class="hidden">
-
-                    <div class="target-section">
-
-                        <span class="target-label">
-                            MATCH THIS COLOR
-                        </span>
-
-                        <div
-                            id="targetColor"
-                            class="target-color"
-                        ></div>
-
-                    </div>
-
-
-                    <div
-                        id="message"
-                        class="message"
-                    >
-                        Choose the matching color
-                    </div>
-
-
-                    <div
-                        id="colorGrid"
-                        class="color-grid"
-                    ></div>
-
-                </div>
-
-
-                <div
-                    id="gameOverScreen"
-                    class="game-overlay hidden"
-                >
-
-                    <div class="overlay-icon">🏆</div>
-
-                    <h2>Game Over!</h2>
-
-                    <p id="finalText">
-                        Your score: 0
-                    </p>
-
-                    <button
-                        id="restartButton"
-                        class="game-button"
-                    >
-                        🔄 Play Again
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div class="controls">
-
-                <span>🎯 Match the color</span>
-
-                <span>⚡ Be quick</span>
-
-                <span>🏆 Beat your score</span>
-
-            </div>
-
-        </section>
-
-
-        <section class="game-info">
-
-            <h2>How to Play Color Match</h2>
-
-            <p>
-                A target color will appear at the top of the game.
-                Choose the exact same color from the options below.
-            </p>
-
-            <p>
-                You have 30 seconds to match as many colors as
-                possible. Every correct answer increases your score.
-            </p>
-
-
-            <h2>Color Match Controls</h2>
-
-            <ul>
-                <li>🎨 Look at the target color.</li>
-                <li>👆 Click the matching color.</li>
-                <li>⚡ Answer quickly to get a higher score.</li>
-                <li>🏆 Try to beat your best score.</li>
-            </ul>
-
-
-            <h2>Tips</h2>
-
-            <ul>
-                <li>🎯 Focus on the target color.</li>
-                <li>⚡ Don't waste time.</li>
-                <li>🧠 Train your color recognition.</li>
-                <li>🏆 Keep playing to improve your score.</li>
-            </ul>
-
-        </section>
-
-
-        <section class="related-section">
-
-            <h2>More Games</h2>
-
-            <div class="related-grid">
-
-                <a
-                    href="/games/2048/"
-                    class="related-card"
-                >
-                    <span>🔢</span>
-                    <strong>2048</strong>
-                </a>
-
-                <a
-                    href="/games/minesweeper/"
-                    class="related-card"
-                >
-                    <span>💣</span>
-                    <strong>Minesweeper</strong>
-                </a>
-
-                <a
-                    href="/games/tic-tac-toe/"
-                    class="related-card"
-                >
-                    <span>❌⭕</span>
-                    <strong>Tic Tac Toe</strong>
-                </a>
-
-            </div>
-
-        </section>
-
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/games/">Games</a> / Color Match
     </div>
 
-</main>
+    <section class="hero">
+      <span class="eyebrow">🎨 Free Puzzle Game</span>
+      <h1>Color Match Game</h1>
+      <p>Spot the exact shade, beat the clock, and climb through increasingly tricky color challenges. No download needed.</p>
+    </section>
 
+    <section class="game-shell" aria-label="Color Match game">
+      <div class="game-topbar">
+        <div class="stat">
+          <span class="stat-label">Score</span>
+          <span class="stat-value" id="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Round</span>
+          <span class="stat-value" id="round">1</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Time</span>
+          <span class="stat-value" id="time">20</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Best</span>
+          <span class="stat-value" id="best">0</span>
+        </div>
+      </div>
 
-<footer>
-    © <span id="year"></span> Gameso. All rights reserved.
-</footer>
+      <div class="timer-track" aria-hidden="true">
+        <div class="timer-bar" id="timerBar"></div>
+      </div>
 
+      <div class="game-content">
+        <p class="instruction" id="instruction">Find the tile that exactly matches the target color.</p>
 
-<script src="script.js"></script>
+        <div class="target-card">
+          <div class="target-swatch" id="targetSwatch" aria-label="Target color"></div>
+          <div class="target-copy">
+            <strong id="targetTitle">Find this color</strong>
+            <span id="targetDescription">Look closely at the shade, then choose the matching tile below.</span>
+          </div>
+        </div>
 
+        <div class="grid-heading">
+          <span>Choose the matching color</span>
+          <small id="gridHint">8 color tiles</small>
+        </div>
+
+        <div class="color-grid" id="colorGrid" aria-label="Color choices"></div>
+
+        <div class="result" id="result" role="status" aria-live="polite">
+          <strong id="resultTitle"></strong>
+          <p id="resultText"></p>
+        </div>
+
+        <div class="action-row">
+          <button class="btn btn-primary" id="startBtn" type="button">▶ Start Game</button>
+          <button class="btn btn-secondary" id="restartBtn" type="button">↻ Restart</button>
+        </div>
+      </div>
+
+      <div class="game-footer">
+        Quick eyes, sharp focus, and accurate choices win the game.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How to Play Color Match</h2>
+      <p>Color Match is a fast-paced color recognition puzzle. Each round displays a target shade and a grid of colorful tiles. Your job is to find the exact match before the countdown reaches zero. Correct answers earn points, and each new round becomes more challenging.</p>
+
+      <ol>
+        <li><strong>Start the game:</strong> Press Start Game to begin the first round.</li>
+        <li><strong>Study the target:</strong> Look at the large colored square above the grid.</li>
+        <li><strong>Choose a tile:</strong> Click or tap the tile that matches the target exactly.</li>
+        <li><strong>Beat the timer:</strong> Make your choice before time runs out.</li>
+        <li><strong>Keep scoring:</strong> Correct answers increase your score and advance the round.</li>
+      </ol>
+
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h3>Test Your Accuracy</h3>
+          <p>Compare similar shades carefully and select the exact color match.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⏱️</div>
+          <h3>Race Against Time</h3>
+          <p>Make quick decisions as the available time gets shorter in later rounds.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🏆</div>
+          <h3>Beat Your Best Score</h3>
+          <p>Keep playing, improve your score, and try to reach a new personal best.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Color Match Game Tips</h2>
+      <ul>
+        <li>Compare the target with every tile before making your choice.</li>
+        <li>Pay attention to small differences in brightness and shade.</li>
+        <li>Stay focused instead of clicking too quickly.</li>
+        <li>As rounds become harder, scan the entire grid before deciding.</li>
+        <li>Practise regularly to improve your speed and color recognition.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <h3>Is Color Match free to play?</h3>
+        <p>Yes. You can play this Color Match game online for free on Gameso without downloading an app or creating an account.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I score points?</h3>
+        <p>Choose the exact target color before time runs out. Correct answers earn points and unlock the next round.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I play Color Match on my phone?</h3>
+        <p>Yes. The responsive game supports tapping on compatible phones and tablets, as well as mouse and keyboard input on desktop.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does Color Match get harder?</h3>
+        <p>Yes. Later rounds use more similar colors and provide less time, making it harder to identify the correct tile.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does the game save my best score?</h3>
+        <p>The game attempts to save your best score in your browser. Saving depends on browser storage being available on your device.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do I need to install anything?</h3>
+        <p>No. Open the page in a compatible browser and start playing directly.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>More Free Games</h2>
+      <p>Explore more quick challenges on Gameso.</p>
+
+      <div class="more-games">
+        <a class="more-game" href="/games/2048/">
+          <span>🔢</span>
+          <strong>2048 Puzzle</strong>
+          <small>Combine numbers and reach the target.</small>
+        </a>
+        <a class="more-game" href="/games/snake/">
+          <span>🐍</span>
+          <strong>Snake Game</strong>
+          <small>Collect food and grow your snake.</small>
+        </a>
+        <a class="more-game" href="/games/tic-tac-toe/">
+          <span>⭕</span>
+          <strong>Tic Tac Toe</strong>
+          <small>Plan your moves and get three in a row.</small>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Gameso. Play, challenge yourself, and have fun.</p>
+    <p><a href="/">Home</a> · <a href="/games/">All Games</a> · <a href="/about-us/">About Us</a> · <a href="/contact-us/">Contact</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = (id) => document.getElementById(id);
+
+      const scoreEl = $("score");
+      const roundEl = $("round");
+      const timeEl = $("time");
+      const bestEl = $("best");
+      const timerBar = $("timerBar");
+      const targetSwatch = $("targetSwatch");
+      const targetTitle = $("targetTitle");
+      const targetDescription = $("targetDescription");
+      const colorGrid = $("colorGrid");
+      const gridHint = $("gridHint");
+      const instruction = $("instruction");
+      const result = $("result");
+      const resultTitle = $("resultTitle");
+      const resultText = $("resultText");
+      const startBtn = $("startBtn");
+      const restartBtn = $("restartBtn");
+
+      const STORAGE_KEY = "gameso-color-match-best-v1";
+
+      const COLORS = [
+        "#ff5964", "#ff884d", "#ffbd4a", "#f5e663",
+        "#a8e063", "#52d6a0", "#42c9d9", "#4c8dff",
+        "#7778ff", "#ad78ff", "#ed79ca", "#ff8cb0",
+        "#c6a58a", "#d2d8e6", "#8b9bb4", "#f4f4f7",
+        "#a7c5a2", "#dbab7d", "#9d83b5", "#f18b73",
+        "#68b7a6", "#7c9be8", "#d77e9a", "#b9a86a"
+      ];
+
+      let score = 0;
+      let round = 1;
+      let best = 0;
+      let secondsLeft = 20;
+      let maxSeconds = 20;
+      let active = false;
+      let answered = false;
+      let targetColor = "";
+      let correctIndex = -1;
+      let timerId = null;
+      let nextRoundId = null;
+      let options = [];
+
+      try {
+        best = Number(localStorage.getItem(STORAGE_KEY)) || 0;
+      } catch (_) {
+        best = 0;
+      }
+
+      bestEl.textContent = best;
+      $("year").textContent = new Date().getFullYear();
+
+      function shuffle(array) {
+        const copy = array.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function hexToRgb(hex) {
+        const value = hex.replace("#", "");
+        return {
+          r: parseInt(value.slice(0, 2), 16),
+          g: parseInt(value.slice(2, 4), 16),
+          b: parseInt(value.slice(4, 6), 16)
+        };
+      }
+
+      function rgbToHex(r, g, b) {
+        return "#" + [r, g, b]
+          .map(v => Math.max(0, Math.min(255, Math.round(v)))
+            .toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      function makeNearColor(hex, amount) {
+        const { r, g, b } = hexToRgb(hex);
+        const channel = Math.floor(Math.random() * 3);
+        const direction = Math.random() < 0.5 ? -1 : 1;
+        const rgb = [r, g, b];
+
+        rgb[channel] = Math.max(
+          0,
+          Math.min(255, rgb[channel] + direction * amount)
+        );
+
+        return rgbToHex(rgb[0], rgb[1], rgb[2]);
+      }
+
+      function getOptionCount() {
+        return Math.min(16, 8 + Math.floor((round - 1) / 2) * 2);
+      }
+
+      function getTimeForRound() {
+        return Math.max(7, 20 - Math.floor((round - 1) / 2));
+      }
+
+      function clearTimers() {
+        if (timerId !== null) clearInterval(timerId);
+        if (nextRoundId !== null) clearTimeout(nextRoundId);
+        timerId = null;
+        nextRoundId = null;
+      }
+
+      function showResult(type, title, text) {
+        result.className = "result show " + type;
+        resultTitle.textContent = title;
+        resultText.textContent = text;
+      }
+
+      function hideResult() {
+        result.className = "result";
+      }
+
+      function updateTimerDisplay() {
+        timeEl.textContent = Math.max(0, Math.ceil(secondsLeft));
+        timerBar.style.width = Math.max(
+          0, Math.min(100, (secondsLeft / maxSeconds) * 100)
+        ) + "%";
+
+        if (secondsLeft <= 5) {
+          timerBar.style.background = "linear-gradient(90deg,#ff647c,#ff9b68)";
+        } else {
+          timerBar.style.background = "linear-gradient(90deg,#8b7cff,#53d9fa)";
+        }
+      }
+
+      function makeRound() {
+        if (!active) return;
+
+        answered = false;
+        hideResult();
+
+        maxSeconds = getTimeForRound();
+        secondsLeft = maxSeconds;
+
+        const optionCount = getOptionCount();
+        const pool = shuffle(COLORS);
+
+        targetColor = pool[0];
+        correctIndex = Math.floor(Math.random() * optionCount);
+
+        options = [];
+
+        for (let i = 0; i < optionCount; i++) {
+          if (i === correctIndex) {
+            options.push(targetColor);
+          } else {
+            let candidate;
+            let attempts = 0;
+
+            do {
+              const base = pool[(i + 1 + attempts) % pool.length];
+              const closeness = Math.min(45, 12 + round * 2);
+              candidate = makeNearColor(base, closeness);
+              attempts++;
+            } while (
+              (candidate === targetColor || options.includes(candidate)) &&
+              attempts < 50
+            );
+
+            if (candidate === targetColor || options.includes(candidate)) {
+              candidate = pool[(i + 1) % pool.length];
+            }
+
+            options.push(candidate);
+          }
+        }
+
+        // The target is guaranteed to appear exactly once.
+        options[correctIndex] = targetColor;
+
+        targetSwatch.style.backgroundColor = targetColor;
+        targetTitle.textContent = "Match this shade";
+        targetDescription.textContent =
+          "Round " + round + " · Look carefully before choosing.";
+
+        scoreEl.textContent = score;
+        roundEl.textContent = round;
+        gridHint.textContent = optionCount + " color tiles";
+        instruction.textContent =
+          "Select the tile that matches the target color exactly.";
+
+        colorGrid.innerHTML = "";
+
+        options.forEach((color, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "color-option";
+          button.style.backgroundColor = color;
+          button.setAttribute("aria-label", "Color choice " + (index + 1));
+          button.title = "Color choice " + (index + 1);
+
+          const number = document.createElement("span");
+          number.className = "option-number";
+          number.textContent = index + 1;
+          button.appendChild(number);
+
+          button.addEventListener("click", () => chooseColor(index));
+          colorGrid.appendChild(button);
+        });
+
+        updateTimerDisplay();
+        startBtn.textContent = "▶ Game Running";
+        startBtn.disabled = true;
+
+        clearTimers();
+
+        timerId = setInterval(() => {
+          if (!active || answered) return;
+
+          secondsLeft = Math.max(0, secondsLeft - 0.1);
+          updateTimerDisplay();
+
+          if (secondsLeft <= 0) {
+            endRound(false, -1);
+          }
+        }, 100);
+      }
+
+      function saveBest() {
+        if (score <= best) return;
+
+        best = score;
+        bestEl.textContent = best;
+
+        try {
+          localStorage.setItem(STORAGE_KEY, String(best));
+        } catch (_) {
+          // The game remains playable if storage is unavailable.
+        }
+      }
+
+      function chooseColor(index) {
+        if (!active || answered) return;
+
+        if (index === correctIndex) {
+          score += 10 + Math.floor(secondsLeft);
+          saveBest();
+          endRound(true, index);
+        } else {
+          endRound(false, index);
+        }
+      }
+
+      function endRound(won, selectedIndex) {
+        if (!active || answered) return;
+
+        answered = true;
+        clearTimers();
+
+        const buttons = [...colorGrid.querySelectorAll(".color-option")];
+        buttons.forEach((button, index) => {
+          button.disabled = true;
+
+          if (index === correctIndex) {
+            button.classList.add("correct");
+          } else if (index === selectedIndex) {
+            button.classList.add("wrong");
+          }
+        });
+
+        if (won) {
+          scoreEl.textContent = score;
+          roundEl.textContent = round;
+          instruction.textContent = "Great eye! Get ready for the next round.";
+          showResult(
+            "good",
+            "✓ Perfect Match!",
+            "+" + (10 + Math.floor(secondsLeft)) +
+              " points earned. Moving to the next round..."
+          );
+
+          nextRoundId = setTimeout(() => {
+            if (!active) return;
+            round++;
+            makeRound();
+          }, 1050);
+        } else {
+          active = false;
+          startBtn.disabled = false;
+          startBtn.textContent = "▶ Play Again";
+
+          instruction.textContent = "Game over. Try again to beat your score.";
+          targetTitle.textContent = "The correct color was";
+          targetDescription.textContent = targetColor.toUpperCase();
+
+          showResult(
+            "bad",
+            selectedIndex === -1 ? "⏰ Time's Up!" : "✕ Not Quite!",
+            "You reached round " + round + " and scored " + score +
+              " points. Press Play Again for another attempt."
+          );
+        }
+      }
+
+      function startGame() {
+        clearTimers();
+
+        score = 0;
+        round = 1;
+        active = true;
+        answered = false;
+
+        scoreEl.textContent = "0";
+        roundEl.textContent = "1";
+        startBtn.disabled = true;
+
+        makeRound();
+      }
+
+      startBtn.addEventListener("click", startGame);
+      restartBtn.addEventListener("click", startGame);
+
+      document.addEventListener("keydown", (event) => {
+        if (!active || answered) return;
+
+        const number = Number(event.key);
+        if (number >= 1 && number <= options.length) {
+          chooseColor(number - 1);
+        }
+      });
+
+      // Show a ready-to-play preview before the player starts.
+      targetColor = "#ff5964";
+      targetSwatch.style.backgroundColor = targetColor;
+      colorGrid.innerHTML = "";
+
+      shuffle(COLORS).slice(0, 8).forEach((color, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "color-option";
+        button.style.backgroundColor = color;
+        button.disabled = true;
+        button.setAttribute("aria-label", "Preview color " + (index + 1));
+
+        const number = document.createElement("span");
+        number.className = "option-number";
+        number.textContent = index + 1;
+        button.appendChild(number);
+
+        colorGrid.appendChild(button);
+      });
+
+      gridHint.textContent = "8 color tiles";
+      startBtn.disabled = false;
+    })();
+  </script>
 </body>
 </html>
