@@ -968,3 +968,45 @@ a:focus-visible {
 
     outline-offset: 3px;
 }
+
+/* Keep the original game design unchanged */
+#memoryBoard,
+.memory-board,
+.game-container,
+.game-area {
+  /* Keep existing game colors and background */
+}
+
+/* White background for SEO text sections only */
+.content-section,
+.seo-content,
+.faq-section,
+.how-to-play,
+.about-game,
+.tips-section,
+.rules-section {
+  background: #ffffff;
+  color: #222222;
+}
+
+/* Make headings and paragraphs readable */
+.content-section h2,
+.content-section h3,
+.seo-content h2,
+.faq-section h2,
+.how-to-play h2,
+.about-game h2,
+.tips-section h2,
+.rules-section h2 {
+  color: #222222;
+}
+
+.content-section p,
+.seo-content p,
+.faq-section p,
+.how-to-play p,
+.about-game p,
+.tips-section p,
+.rules-section p {
+  color: #444444;
+}
