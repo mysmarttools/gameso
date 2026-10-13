@@ -1,93 +1,1748 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Pac-Man - Gameso</title>
-  <meta name="description" content="Play Pac-Man online for free on Gameso. Eat pellets, avoid ghosts and get the highest score!">
+  <title>Pac-Man Style Maze Game – Play Free Online | Gameso</title>
+  <meta name="description" content="Play a free maze chase game online at Gameso! Collect dots, avoid chasing ghosts, use power pellets and try to beat your high score in this arcade challenge.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#080b14">
+  <link rel="canonical" href="https://gameso.vercel.app/games/pacman/">
 
-  <link rel="stylesheet" href="style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Maze Chase – Free Arcade Game | Gameso">
+  <meta property="og:description" content="Explore a maze, collect dots, escape ghosts and chase a new high score in this original browser arcade game.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/pacman/">
+  <meta property="og:site_name" content="Gameso">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Maze Chase",
+    "url": "https://gameso.vercel.app/games/pacman/",
+    "description": "An original browser-based maze arcade game featuring dot collection, chasing enemies, power pellets and high-score challenges.",
+    "genre": ["Arcade", "Maze", "Action"],
+    "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
+    "applicationCategory": "Game",
+    "operatingSystem": "Any modern web browser"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #080b14;
+      --card: #121827;
+      --card-hover: #182137;
+      --text: #ffffff;
+      --muted: #9ba4b6;
+      --primary: #6c5ce7;
+      --accent: #00d4ff;
+      --border: rgba(255,255,255,.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .site-header {
+      background: #0c1120;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .back-link {
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: #e0e6f5;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .back-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .container {
+      width: calc(100% - 36px);
+      max-width: 1160px;
+      margin: auto;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 19px 0 10px;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      padding: 16px 0 24px;
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-block;
+      background: rgba(108,92,231,.15);
+      border: 1px solid rgba(108,92,231,.35);
+      color: #c8c1ff;
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 43px);
+      line-height: 1.2;
+      letter-spacing: -.8px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 730px;
+      margin: auto;
+      font-size: 15px;
+    }
+
+    .game-card {
+      padding: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.22);
+    }
+
+    .game-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 3px 3px 12px;
+    }
+
+    .game-title {
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #202a40;
+      color: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .game-stage {
+      position: relative;
+      width: 100%;
+      background: #050916;
+      border: 1px solid rgba(0,212,255,.18);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    #gameCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 19 / 21;
+      max-height: 780px;
+      object-fit: contain;
+      touch-action: none;
+      outline: none;
+      background: #050916;
+    }
+
+    .game-hud {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .hud-box {
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      text-align: center;
+    }
+
+    .hud-label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    .hud-value {
+      display: block;
+      font-size: 21px;
+      font-weight: 900;
+      line-height: 1.4;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px;
+      background: rgba(5,8,18,.77);
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    .overlay-panel {
+      width: min(100%, 390px);
+      text-align: center;
+      background: #11192a;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 26px 22px;
+      box-shadow: 0 20px 55px rgba(0,0,0,.3);
+    }
+
+    .overlay-icon {
+      font-size: 46px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .overlay-panel h2 {
+      font-size: 26px;
+      line-height: 1.25;
+      margin-bottom: 9px;
+    }
+
+    .overlay-panel p {
+      color: #b9c4d8;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--primary), #5141c9);
+      color: white;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 22px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .primary-btn:hover {
+      filter: brightness(1.12);
+    }
+
+    .mobile-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 58px);
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 0 4px;
+    }
+
+    .control-btn {
+      height: 52px;
+      background: #202a40;
+      color: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 23px;
+      font-weight: 900;
+      cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .control-btn:active {
+      background: var(--primary);
+      transform: scale(.96);
+    }
+
+    .control-spacer {
+      visibility: hidden;
+    }
+
+    .game-note {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 10px 3px 1px;
+    }
+
+    .quick-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0 30px;
+    }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px 8px;
+      text-align: center;
+    }
+
+    .info-card .emoji {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 4px;
+    }
+
+    .info-card strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .info-card small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: clamp(19px, 4vw, 30px);
+      margin-bottom: 22px;
+    }
+
+    .content-section h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+
+    .content-section h3 {
+      font-size: 18px;
+      margin: 22px 0 8px;
+    }
+
+    .content-section p {
+      color: #c0c8d8;
+      margin-bottom: 12px;
+    }
+
+    .content-section ul,
+    .content-section ol {
+      padding-left: 23px;
+      margin: 10px 0 14px;
+      color: #c0c8d8;
+    }
+
+    .content-section li {
+      padding: 4px 0;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .control-info {
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .control-info strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .control-info span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .faq {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq h3 {
+      font-size: 16px;
+      margin: 0 0 7px;
+    }
+
+    .faq p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 18px;
+    }
+
+    .related-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0c1220;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .related-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .related-emoji {
+      font-size: 29px;
+    }
+
+    .related-card strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .related-card small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      padding: 25px 15px;
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: calc(100% - 22px);
+      }
+
+      .header-inner {
+        padding: 12px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .back-link {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      .game-card {
+        padding: 7px;
+      }
+
+      .game-toolbar {
+        align-items: flex-start;
+      }
+
+      .toolbar-actions {
+        width: 100%;
+      }
+
+      .toolbar-actions .btn {
+        flex: 1;
+      }
+
+      .game-hud {
+        gap: 5px;
+      }
+
+      .hud-box {
+        padding: 7px 4px;
+      }
+
+      .hud-value {
+        font-size: 17px;
+      }
+
+      .hud-label {
+        font-size: 9px;
+      }
+
+      .quick-info {
+        gap: 7px;
+      }
+
+      .info-card {
+        padding: 12px 5px;
+      }
+
+      .info-card strong {
+        font-size: 12px;
+      }
+
+      .info-card small {
+        font-size: 10px;
+      }
+
+      .controls-grid,
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-  <header class="game-header">
-    <a href="../../index.html" class="logo">
-      <span class="logo-icon">🎮</span>
-      <span>Gameso</span>
-    </a>
-
-    <a href="../../index.html" class="back-btn">
-      ← Back to Games
-    </a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="/" aria-label="Gameso home">Game<span>so</span></a>
+      <a class="back-link" href="/">← Back to Home</a>
+    </div>
   </header>
 
-  <main class="game-page">
+  <main class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> /
+      <a href="/#games">Online Games</a> /
+      <span>Maze Chase</span>
+    </nav>
 
-    <section class="game-top">
-      <div>
-        <div class="game-category">🕹️ ARCADE GAME</div>
-        <h1>Pac-Man</h1>
-        <p>Eat all the pellets, avoid the ghosts and get the highest score!</p>
+    <section class="hero">
+      <span class="pill">🟡 CLASSIC MAZE ARCADE</span>
+      <h1>Maze Chase – Play Free Online</h1>
+      <p>
+        Explore a maze, collect every dot and outsmart the roaming ghosts.
+        Find power pellets to turn the chase around and aim for a new high score
+        in this original browser arcade game.
+      </p>
+    </section>
+
+    <section class="game-card" aria-label="Maze chase game">
+      <div class="game-toolbar">
+        <div class="game-title">🎮 Maze Chase Arcade</div>
+        <div class="toolbar-actions">
+          <button class="btn" id="pauseBtn" type="button">⏸ Pause</button>
+          <button class="btn" id="restartBtn" type="button">↻ Restart</button>
+          <button class="btn" id="fullscreenBtn" type="button">⛶ Fullscreen</button>
+        </div>
       </div>
 
-      <div class="stats">
-        <div class="stat">
-          <span>Score</span>
-          <strong id="score">0</strong>
+      <div class="game-hud">
+        <div class="hud-box">
+          <span class="hud-label">Score</span>
+          <span class="hud-value" id="score">0</span>
         </div>
+        <div class="hud-box">
+          <span class="hud-label">Best Score</span>
+          <span class="hud-value" id="bestScore">0</span>
+        </div>
+        <div class="hud-box">
+          <span class="hud-label">Lives</span>
+          <span class="hud-value" id="lives">3</span>
+        </div>
+      </div>
 
-        <div class="stat">
-          <span>High Score</span>
-          <strong id="highScore">0</strong>
-        </div>
+      <div class="game-stage" id="gameStage">
+        <canvas
+          id="gameCanvas"
+          width="380"
+          height="420"
+          tabindex="0"
+          aria-label="Maze chase arcade. Use the arrow keys or WASD to move, collect dots and avoid ghosts.">
+          Your browser does not support HTML canvas.
+        </canvas>
 
-        <div class="stat">
-          <span>Lives</span>
-          <strong id="lives">3</strong>
+        <div class="overlay" id="overlay">
+          <div class="overlay-panel">
+            <div class="overlay-icon" id="overlayIcon">🟡</div>
+            <h2 id="overlayTitle">Ready to Play?</h2>
+            <p id="overlayText">
+              Collect the dots, avoid the ghosts and use power pellets
+              to escape danger.
+            </p>
+            <button class="primary-btn" id="playBtn" type="button">▶ Start Game</button>
+          </div>
         </div>
+      </div>
+
+      <div class="mobile-controls" aria-label="Touch controls">
+        <button class="control-btn control-spacer" type="button" tabindex="-1" aria-hidden="true">•</button>
+        <button class="control-btn" id="upBtn" type="button" aria-label="Move up">↑</button>
+        <button class="control-btn control-spacer" type="button" tabindex="-1" aria-hidden="true">•</button>
+        <button class="control-btn" id="leftBtn" type="button" aria-label="Move left">←</button>
+        <button class="control-btn" id="downBtn" type="button" aria-label="Move down">↓</button>
+        <button class="control-btn" id="rightBtn" type="button" aria-label="Move right">→</button>
+      </div>
+
+      <p class="game-note">
+        Controls: Arrow keys or WASD to move · P to pause · Collect dots and
+        power pellets · Avoid ghosts when they are dangerous.
+      </p>
+    </section>
+
+    <section class="quick-info" aria-label="Game features">
+      <div class="info-card">
+        <span class="emoji">🟡</span>
+        <strong>Collect Dots</strong>
+        <small>Earn points in the maze</small>
+      </div>
+      <div class="info-card">
+        <span class="emoji">👾</span>
+        <strong>Escape Ghosts</strong>
+        <small>Plan your next turn</small>
+      </div>
+      <div class="info-card">
+        <span class="emoji">⚡</span>
+        <strong>Power Pellets</strong>
+        <small>Temporarily fight back</small>
       </div>
     </section>
 
-    <section class="game-card">
+    <section class="content-section">
+      <h2>About This Maze Chase Game</h2>
+      <p>
+        Maze chase games combine navigation, timing and quick decisions.
+        You move through connected corridors, collect items and try to avoid
+        enemies that patrol or pursue you. A good route can help you gather
+        more points while keeping an escape path open.
+      </p>
+      <p>
+        This Gameso page contains an original, self-contained browser maze game.
+        The maze, character drawings, movement logic and enemy behaviour are
+        implemented directly in this page. The game does not load a third-party
+        game through an iframe.
+      </p>
+      <p>
+        Your goal is to clear the collectible dots while protecting your lives.
+        Larger power pellets temporarily make the ghosts vulnerable, giving
+        you an opportunity to move through dangerous corridors or earn bonus
+        points. As you make progress, the challenge increases.
+      </p>
 
-      <div class="game-status">
-        <span id="status">Press an arrow key to start</span>
-      </div>
-
-      <canvas id="gameCanvas" width="560" height="620"></canvas>
-
-      <div class="mobile-controls">
-
-        <button class="control up" data-key="ArrowUp">▲</button>
-
-        <div class="control-row">
-          <button class="control" data-key="ArrowLeft">◀</button>
-          <button class="control" data-key="ArrowDown">▼</button>
-          <button class="control" data-key="ArrowRight">▶</button>
-        </div>
-
-      </div>
-
-      <div class="game-actions">
-        <button id="restartBtn" class="restart-btn">
-          🔄 Restart Game
-        </button>
-      </div>
-
-      <div class="instructions">
-        <h2>How to Play</h2>
-        <p>🎮 Use the <b>Arrow Keys</b> or mobile controls to move Pac-Man.</p>
-        <p>🟡 Eat all the pellets to complete the level.</p>
-        <p>👻 Avoid the ghosts or you will lose a life.</p>
-        <p>⭐ Eat power pellets to become stronger temporarily.</p>
-      </div>
-
+      <h3>Game Features</h3>
+      <ul>
+        <li>A custom maze rendered on an HTML canvas.</li>
+        <li>Keyboard and on-screen directional controls.</li>
+        <li>Ghost enemies that navigate the maze and pursue the player.</li>
+        <li>Power pellets that temporarily change enemy behaviour.</li>
+        <li>Score tracking, lives, restart and pause controls.</li>
+        <li>A locally saved best score when browser storage is available.</li>
+        <li>Responsive layout for desktop, tablet and mobile screens.</li>
+      </ul>
     </section>
 
+    <section class="content-section">
+      <h2>How to Play Maze Chase</h2>
+      <ol>
+        <li>Press Start Game to begin moving through the maze.</li>
+        <li>Use the arrow keys or WASD to navigate the corridors.</li>
+        <li>Collect small dots to earn points.</li>
+        <li>Collect large power pellets to temporarily make ghosts vulnerable.</li>
+        <li>Avoid dangerous ghosts and use corners to change direction.</li>
+        <li>Collect all remaining dots to complete the maze and progress.</li>
+      </ol>
+
+      <h3>Controls</h3>
+      <div class="controls-grid">
+        <div class="control-info">
+          <strong>⬆️⬇️ Up and Down</strong>
+          <span>Use the Up and Down arrow keys or W and S to move vertically.</span>
+        </div>
+        <div class="control-info">
+          <strong>⬅️➡️ Left and Right</strong>
+          <span>Use the Left and Right arrow keys or A and D to move through horizontal corridors.</span>
+        </div>
+        <div class="control-info">
+          <strong>⏸ Pause</strong>
+          <span>Click Pause or press P to pause or resume the game.</span>
+        </div>
+      </div>
+
+      <h3>Tips for a Higher Score</h3>
+      <ul>
+        <li>Plan your route so you do not get trapped in a dead end.</li>
+        <li>Watch the ghosts before entering narrow corridors.</li>
+        <li>Save power pellets for areas where enemies are close.</li>
+        <li>Keep moving and change direction early when a route becomes dangerous.</li>
+        <li>Collect nearby dots before crossing a risky section of the maze.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>Maze Chase – Frequently Asked Questions</h2>
+
+      <div class="faq">
+        <h3>1. Can I play this maze game online for free?</h3>
+        <p>
+          Yes. The game runs directly in this Gameso page using HTML canvas
+          and JavaScript. No separate game installation is required.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>2. Is this the official PAC-MAN game?</h3>
+        <p>
+          No. This is an original maze chase game made for Gameso, inspired by
+          the general maze arcade genre. It is not the official PAC-MAN release.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>3. How do I control the player?</h3>
+        <p>
+          Use the arrow keys or WASD on a keyboard. On a mobile device, use
+          the on-screen directional buttons.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>4. How do I earn points?</h3>
+        <p>
+          Move through the maze to collect small dots and larger power pellets.
+          Some power-pellet encounters can also reward bonus points.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>5. What do power pellets do?</h3>
+        <p>
+          Power pellets temporarily make the ghosts vulnerable. During that
+          time, you can catch them for bonus points instead of immediately
+          losing a life on contact.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>6. What happens when a ghost catches me?</h3>
+        <p>
+          You lose a life and return to a starting position. The game ends
+          when you run out of lives.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>7. Does the game save my best score?</h3>
+        <p>
+          It attempts to save your best score in your browser's local storage.
+          Private browsing or clearing site data may remove the saved score.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>8. Can I play on a mobile phone?</h3>
+        <p>
+          Yes. The page adapts to smaller screens and includes touch-friendly
+          buttons for moving in all four directions.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>9. Why is the game not loading?</h3>
+        <p>
+          Make sure JavaScript is enabled and use an updated browser.
+          If the page was just deployed, wait for the hosting deployment to
+          finish and reload the page.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section" id="related-games">
+      <h2>More Free Games on Gameso</h2>
+      <p>
+        Explore more arcade, action and puzzle games on Gameso.
+      </p>
+
+      <div class="related-grid">
+        <a class="related-card" href="/games/snake/">
+          <span class="related-emoji">🐍</span>
+          <span><strong>Snake Game</strong><small>Classic arcade</small></span>
+        </a>
+
+        <a class="related-card" href="/games/2048/">
+          <span class="related-emoji">🔢</span>
+          <span><strong>2048</strong><small>Number puzzle</small></span>
+        </a>
+
+        <a class="related-card" href="/games/pong/">
+          <span class="related-emoji">🏓</span>
+          <span><strong>Pong</strong><small>Classic sports arcade</small></span>
+        </a>
+
+        <a class="related-card" href="/games/flappy-bird/">
+          <span class="related-emoji">🐦</span>
+          <span><strong>Flappy Bird</strong><small>Timing challenge</small></span>
+        </a>
+
+        <a class="related-card" href="/games/drift-boss/">
+          <span class="related-emoji">🏎️</span>
+          <span><strong>Drift Boss</strong><small>Driving arcade</small></span>
+        </a>
+
+        <a class="related-card" href="/games/minesweeper/">
+          <span class="related-emoji">💣</span>
+          <span><strong>Minesweeper</strong><small>Logic and strategy</small></span>
+        </a>
+      </div>
+    </section>
   </main>
 
-  <script src="script.js"></script>
+  <footer class="footer">
+    <p>© <span id="year"></span> <a href="/">Gameso</a>. Play, explore and have fun.</p>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const scoreEl = document.getElementById("score");
+      const bestScoreEl = document.getElementById("bestScore");
+      const livesEl = document.getElementById("lives");
+
+      const overlay = document.getElementById("overlay");
+      const overlayIcon = document.getElementById("overlayIcon");
+      const overlayTitle = document.getElementById("overlayTitle");
+      const overlayText = document.getElementById("overlayText");
+      const playBtn = document.getElementById("playBtn");
+
+      const pauseBtn = document.getElementById("pauseBtn");
+      const restartBtn = document.getElementById("restartBtn");
+      const fullscreenBtn = document.getElementById("fullscreenBtn");
+      const gameStage = document.getElementById("gameStage");
+
+      const COLS = 19;
+      const ROWS = 21;
+
+      const TILE = canvas.width / COLS;
+      const STEP_TIME = 0.135;
+      const POWER_DURATION = 7;
+
+      const DIRS = {
+        left:  { x: -1, y: 0 },
+        right: { x: 1, y: 0 },
+        up:    { x: 0, y: -1 },
+        down:  { x: 0, y: 1 }
+      };
+
+      const DIR_ORDER = ["up", "left", "down", "right"];
+
+      let maze = [];
+      let player = null;
+      let ghosts = [];
+      let state = "ready";
+      let score = 0;
+      let bestScore = 0;
+      let lives = 3;
+      let powerTime = 0;
+      let moveTimer = 0;
+      let elapsed = 0;
+      let animationTime = 0;
+      let particles = [];
+      let lastFrame = 0;
+      let highScoreMilestone = 0;
+
+      try {
+        bestScore = Number(localStorage.getItem("gamesoMazeChaseBest")) || 0;
+      } catch (error) {
+        bestScore = 0;
+      }
+
+      bestScoreEl.textContent = String(bestScore);
+
+      function makeMaze() {
+        const grid = Array.from(
+          { length: ROWS },
+          () => Array(COLS).fill(".")
+        );
+
+        // Outer boundary.
+        for (let x = 0; x < COLS; x++) {
+          grid[0][x] = "#";
+          grid[ROWS - 1][x] = "#";
+        }
+
+        for (let y = 0; y < ROWS; y++) {
+          grid[y][0] = "#";
+          grid[y][COLS - 1] = "#";
+        }
+
+        // Create an original, symmetrical maze layout.
+        const horizontalWalls = [
+          { y: 2, left: [2, 5], right: [13, 16] },
+          { y: 4, left: [2, 7], right: [11, 16] },
+          { y: 6, left: [1, 4], right: [14, 17] },
+          { y: 8, left: [3, 7], right: [11, 15] },
+          { y: 12, left: [2, 6], right: [12, 16] },
+          { y: 14, left: [1, 4], right: [14, 17] },
+          { y: 16, left: [2, 7], right: [11, 16] },
+          { y: 18, left: [3, 6], right: [12, 15] }
+        ];
+
+        for (const wall of horizontalWalls) {
+          for (let x = wall.left[0]; x <= wall.left[1]; x++) {
+            grid[wall.y][x] = "#";
+          }
+
+          for (let x = wall.right[0]; x <= wall.right[1]; x++) {
+            grid[wall.y][x] = "#";
+          }
+        }
+
+        const verticalWalls = [
+          { x: 2, top: 3, bottom: 3 },
+          { x: 5, top: 5, bottom: 7 },
+          { x: 8, top: 2, bottom: 4 },
+          { x: 10, top: 5, bottom: 7 },
+          { x: 13, top: 2, bottom: 4 },
+          { x: 16, top: 3, bottom: 3 },
+
+          { x: 3, top: 9, bottom: 10 },
+          { x: 6, top: 10, bottom: 11 },
+          { x: 12, top: 10, bottom: 11 },
+          { x: 15, top: 9, bottom: 10 },
+
+          { x: 5, top: 13, bottom: 15 },
+          { x: 8, top: 13, bottom: 15 },
+          { x: 10, top: 13, bottom: 15 },
+          { x: 13, top: 13, bottom: 15 },
+
+          { x: 7, top: 17, bottom: 18 },
+          { x: 11, top: 17, bottom: 18 }
+        ];
+
+        for (const wall of verticalWalls) {
+          for (let y = wall.top; y <= wall.bottom; y++) {
+            if (y > 0 && y < ROWS - 1) {
+              grid[y][wall.x] = "#";
+            }
+          }
+        }
+
+        // Keep the player start and ghost area open.
+        const safeCells = [
+          [9, 17], [9, 16], [9, 15],
+          [8, 10], [9, 10], [10, 10],
+          [8, 11], [9, 11], [10, 11],
+          [9, 9], [8, 9], [10, 9],
+          [1, 1], [17, 1], [1, 19], [17, 19],
+          [1, 10], [17, 10]
+        ];
+
+        for (const [x, y] of safeCells) {
+          grid[y][x] = ".";
+        }
+
+        // Power pellets in the four broad corners.
+        for (const [x, y] of [
+          [1, 1], [17, 1], [1, 19], [17, 19]
+        ]) {
+          grid[y][x] = "o";
+        }
+
+        // A central ghost house.
+        for (let x = 8; x <= 10; x++) {
+          grid[10][x] = ".";
+          grid[11][x] = ".";
+        }
+
+        grid[9][9] = ".";
+        grid[12][9] = ".";
+
+        return grid;
+      }
+
+      function resetGame() {
+        maze = makeMaze();
+
+        player = {
+          x: 9,
+          y: 17,
+          dir: "left",
+          nextDir: "left",
+          mouth: 0
+        };
+
+        ghosts = [
+          { x: 8, y: 10, homeX: 8, homeY: 10, color: "#ff5364", dir: "left", release: 0.7 },
+          { x: 9, y: 10, homeX: 9, homeY: 10, color: "#ff92dc", dir: "right", release: 1.5 },
+          { x: 10, y: 10, homeX: 10, homeY: 10, color: "#42e5ff", dir: "up", release: 2.3 },
+          { x: 9, y: 11, homeX: 9, homeY: 11, color: "#ffad59", dir: "down", release: 3.1 }
+        ];
+
+        // Remove pellets from spawn and immediate ghost-house cells.
+        for (const [x, y] of [
+          [9, 17], [8, 10], [9, 10], [10, 10],
+          [8, 11], [9, 11], [10, 11]
+        ]) {
+          if (maze[y] && maze[y][x] !== "#") {
+            maze[y][x] = " ";
+          }
+        }
+
+        score = 0;
+        lives = 3;
+        powerTime = 0;
+        moveTimer = 0;
+        elapsed = 0;
+        highScoreMilestone = 0;
+        particles = [];
+
+        scoreEl.textContent = "0";
+        livesEl.textContent = "3";
+        bestScoreEl.textContent = String(bestScore);
+      }
+
+      function showOverlay(icon, title, text, buttonText, action) {
+        overlayIcon.textContent = icon;
+        overlayTitle.textContent = title;
+        overlayText.textContent = text;
+        playBtn.textContent = buttonText;
+        playBtn.onclick = action;
+        overlay.classList.remove("hidden");
+      }
+
+      function startGame() {
+        resetGame();
+        state = "running";
+        pauseBtn.textContent = "⏸ Pause";
+        overlay.classList.add("hidden");
+        canvas.focus();
+      }
+
+      function resumeGame() {
+        if (state !== "paused") return;
+        state = "running";
+        overlay.classList.add("hidden");
+        pauseBtn.textContent = "⏸ Pause";
+        lastFrame = performance.now();
+      }
+
+      function pauseGame() {
+        if (state === "running") {
+          state = "paused";
+          pauseBtn.textContent = "▶ Resume";
+
+          showOverlay(
+            "⏸",
+            "Game Paused",
+            "Your maze adventure is paused. Resume when you are ready.",
+            "▶ Resume",
+            resumeGame
+          );
+        } else if (state === "paused") {
+          resumeGame();
+        }
+      }
+
+      function endGame(won) {
+        state = won ? "won" : "over";
+
+        if (score > bestScore) {
+          bestScore = score;
+
+          try {
+            localStorage.setItem("gamesoMazeChaseBest", String(bestScore));
+          } catch (error) {
+            // Play continues if local storage is unavailable.
+          }
+        }
+
+        bestScoreEl.textContent = String(bestScore);
+        pauseBtn.textContent = "⏸ Pause";
+
+        if (won) {
+          showOverlay(
+            "🏆",
+            "Maze Cleared!",
+            "Excellent work! You collected every dot. Your score: " + score + ".",
+            "▶ Play Again",
+            startGame
+          );
+        } else {
+          showOverlay(
+            "👾",
+            "Game Over",
+            "Final score: " + score + ". Try a different route and beat your best score.",
+            "↻ Try Again",
+            startGame
+          );
+        }
+      }
+
+      function isInside(x, y) {
+        return x >= 0 && x < COLS && y >= 0 && y < ROWS;
+      }
+
+      function isWall(x, y) {
+        if (!isInside(x, y)) return true;
+        return maze[y][x] === "#";
+      }
+
+      function canMove(x, y, dir) {
+        const d = DIRS[dir];
+        return !isWall(x + d.x, y + d.y);
+      }
+
+      function countPellets() {
+        let count = 0;
+
+        for (const row of maze) {
+          for (const cell of row) {
+            if (cell === "." || cell === "o") count++;
+          }
+        }
+
+        return count;
+      }
+
+      function addScore(amount) {
+        score += amount;
+        scoreEl.textContent = String(score);
+
+        if (score > bestScore) {
+          bestScore = score;
+          bestScoreEl.textContent = String(bestScore);
+
+          try {
+            localStorage.setItem("gamesoMazeChaseBest", String(bestScore));
+          } catch (error) {
+            // Local saving is optional.
+          }
+        }
+
+        const milestone = Math.floor(score / 10000);
+
+        if (milestone > highScoreMilestone) {
+          highScoreMilestone = milestone;
+          lives = Math.min(5, lives + 1);
+          livesEl.textContent = String(lives);
+        }
+      }
+
+      function setDirection(dir) {
+        if (!DIRS[dir]) return;
+
+        if (state === "ready" || state === "over" || state === "won") {
+          startGame();
+        }
+
+        if (state === "paused") return;
+
+        player.nextDir = dir;
+      }
+
+      function movePlayer() {
+        // Turning is buffered until the desired corridor opens.
+        if (canMove(player.x, player.y, player.nextDir)) {
+          player.dir = player.nextDir;
+        }
+
+        if (!canMove(player.x, player.y, player.dir)) {
+          return;
+        }
+
+        const d = DIRS[player.dir];
+
+        player.x += d.x;
+        player.y += d.y;
+
+        // Collect items on the destination tile.
+        const cell = maze[player.y][player.x];
+
+        if (cell === ".") {
+          maze[player.y][player.x] = " ";
+          addScore(10);
+          addParticles(player.x, player.y, "#ffe88a", 3);
+        } else if (cell === "o") {
+          maze[player.y][player.x] = " ";
+          addScore(50);
+          powerTime = POWER_DURATION;
+          addParticles(player.x, player.y, "#00d4ff", 12);
+        }
+
+        if (countPellets() === 0) {
+          endGame(true);
+        }
+      }
+
+      function ghostChoices(ghost) {
+        const choices = [];
+
+        for (const dir of DIR_ORDER) {
+          if (!canMove(ghost.x, ghost.y, dir)) continue;
+
+          const d = DIRS[dir];
+          const nx = ghost.x + d.x;
+          const ny = ghost.y + d.y;
+
+          // Ghosts usually avoid immediately reversing direction.
+          if (
+            DIRS[dir].x === -DIRS[ghost.dir].x &&
+            DIRS[dir].y === -DIRS[ghost.dir].y
+          ) {
+            continue;
+          }
+
+          choices.push({ dir, x: nx, y: ny });
+        }
+
+        // Avoid getting stuck at a dead end.
+        if (choices.length === 0) {
+          for (const dir of DIR_ORDER) {
+            if (canMove(ghost.x, ghost.y, dir)) {
+              const d = DIRS[dir];
+              choices.push({
+                dir,
+                x: ghost.x + d.x,
+                y: ghost.y + d.y
+              });
+            }
+          }
+        }
+
+        return choices;
+      }
+
+      function moveGhost(ghost, index) {
+        if (elapsed < ghost.release) return;
+
+        const choices = ghostChoices(ghost);
+        if (!choices.length) return;
+
+        const vulnerable = powerTime > 0;
+
+        choices.sort((a, b) => {
+          const da = Math.abs(a.x - player.x) + Math.abs(a.y - player.y);
+          const db = Math.abs(b.x - player.x) + Math.abs(b.y - player.y);
+
+          if (vulnerable) return db - da;
+          return da - db;
+        });
+
+        // Add small variation so all ghosts do not always follow
+        // exactly the same route.
+        let chosen = choices[0];
+
+        if (Math.random() < 0.18 && choices.length > 1) {
+          chosen = choices[Math.floor(Math.random() * choices.length)];
+        }
+
+        ghost.x = chosen.x;
+        ghost.y = chosen.y;
+        ghost.dir = chosen.dir;
+      }
+
+      function checkCollisions() {
+        for (const ghost of ghosts) {
+          if (ghost.x !== player.x || ghost.y !== player.y) continue;
+
+          if (powerTime > 0) {
+            addScore(200);
+            addParticles(ghost.x, ghost.y, ghost.color, 10);
+
+            ghost.x = ghost.homeX;
+            ghost.y = ghost.homeY;
+            ghost.release = elapsed + 1.2;
+          } else {
+            lives--;
+            livesEl.textContent = String(lives);
+
+            addParticles(player.x, player.y, "#ff5364", 12);
+
+            if (lives <= 0) {
+              endGame(false);
+              return;
+            }
+
+            player.x = 9;
+            player.y = 17;
+            player.dir = "left";
+            player.nextDir = "left";
+
+            ghosts.forEach((g, i) => {
+              g.x = g.homeX;
+              g.y = g.homeY;
+              g.release = elapsed + 1 + i * .45;
+            });
+
+            powerTime = 0;
+            moveTimer = 0;
+            break;
+          }
+        }
+      }
+
+      function updateGame(dt) {
+        if (state !== "running") return;
+
+        elapsed += dt;
+        animationTime += dt;
+
+        if (powerTime > 0) {
+          powerTime = Math.max(0, powerTime - dt);
+        }
+
+        moveTimer += dt;
+
+        const playerStep = STEP_TIME;
+
+        if (moveTimer >= playerStep) {
+          moveTimer = 0;
+          movePlayer();
+
+          if (state !== "running") return;
+
+          // Ghosts move more slowly than the player.
+          const ghostStep = powerTime > 0 ? .25 : .205;
+
+          for (let i = 0; i < ghosts.length; i++) {
+            if (Math.floor(elapsed * 10) % 2 === i % 2) {
+              if (Math.random() < playerStep / ghostStep) {
+                moveGhost(ghosts[i], i);
+              }
+            }
+          }
+
+          checkCollisions();
+        }
+
+        updateParticles(dt);
+      }
+
+      function roundedRect(x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, r);
+      }
+
+      function drawMaze() {
+        ctx.fillStyle = "#050916";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Soft blue glow behind the maze.
+        const glow = ctx.createRadialGradient(
+          canvas.width / 2, canvas.height / 2, 15,
+          canvas.width / 2, canvas.height / 2, canvas.width * .75
+        );
+
+        glow.addColorStop(0, "rgba(21,42,95,.35)");
+        glow.addColorStop(1, "rgba(5,9,22,0)");
+
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let y = 0; y < ROWS; y++) {
+          for (let x = 0; x < COLS; x++) {
+            const px = x * TILE;
+            const py = y * TILE;
+            const cell = maze[y][x];
+
+            if (cell === "#") {
+              ctx.fillStyle = "#182e75";
+              roundedRect(px + 1, py + 1, TILE - 2, TILE - 2, 3);
+              ctx.fill();
+
+              ctx.strokeStyle = "#3e79ff";
+              ctx.lineWidth = 1.1;
+              roundedRect(px + 2, py + 2, TILE - 4, TILE - 4, 3);
+              ctx.stroke();
+
+              ctx.fillStyle = "rgba(0,212,255,.10)";
+              ctx.fillRect(px + 3, py + 3, TILE - 6, 2);
+            } else if (cell === ".") {
+              ctx.fillStyle = "#ffe8a1";
+              ctx.beginPath();
+              ctx.arc(
+                px + TILE / 2,
+                py + TILE / 2,
+                TILE * .075,
+                0,
+                Math.PI * 2
+              );
+              ctx.fill();
+            } else if (cell === "o") {
+              const pulse = .72 + Math.sin(animationTime * 6) * .18;
+
+              ctx.fillStyle = "#fff1a6";
+              ctx.beginPath();
+              ctx.arc(
+                px + TILE / 2,
+                py + TILE / 2,
+                TILE * .22 * pulse,
+                0,
+                Math.PI * 2
+              );
+              ctx.fill();
+
+              ctx.strokeStyle = "rgba(255,232,112,.35)";
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.arc(
+                px + TILE / 2,
+                py + TILE / 2,
+                TILE * .31 * pulse,
+                0,
+                Math.PI * 2
+              );
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function drawPlayer() {
+        if (!player) return;
+
+        const cx = (player.x + .5) * TILE;
+        const cy = (player.y + .5) * TILE;
+
+        let angle = 0;
+
+        if (player.dir === "left") angle = Math.PI;
+        else if (player.dir === "up") angle = -Math.PI / 2;
+        else if (player.dir === "down") angle = Math.PI / 2;
+
+        const mouth = .13 + Math.abs(Math.sin(animationTime * 12)) * .25;
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(angle);
+
+        ctx.fillStyle = "#ffd43b";
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, TILE * .39, mouth, Math.PI * 2 - mouth);
+        ctx.closePath();
+        ctx.fill();
+
+        // Small eye.
+        ctx.fillStyle = "#1a2435";
+        ctx.beginPath();
+        ctx.arc(-TILE * .08, -TILE * .20, TILE * .055, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      function drawGhost(ghost) {
+        const x = (ghost.x + .5) * TILE;
+        const y = (ghost.y + .5) * TILE;
+        const r = TILE * .36;
+
+        const vulnerable = powerTime > 0;
+        const flashing = vulnerable && powerTime < 2 &&
+          Math.floor(animationTime * 8) % 2 === 0;
+
+        ctx.save();
+        ctx.translate(x, y);
+
+        const color = vulnerable
+          ? (flashing ? "#e8f5ff" : "#3766ef")
+          : ghost.color;
+
+        ctx.fillStyle = color;
+
+        ctx.beginPath();
+        ctx.arc(0, -r * .12, r, Math.PI, 0);
+        ctx.lineTo(r, r * .8);
+
+        for (let i = 0; i < 3; i++) {
+          const sx = r - (i + 1) * (r * 2 / 3);
+          ctx.lineTo(sx, r * (i % 2 === 0 ? .55 : .85));
+        }
+
+        ctx.lineTo(-r, r * .8);
+        ctx.closePath();
+        ctx.fill();
+
+        if (vulnerable) {
+          ctx.fillStyle = "#ffffff";
+          ctx.beginPath();
+          ctx.arc(-r * .34, -r * .05, r * .10, 0, Math.PI * 2);
+          ctx.arc(r * .34, -r * .05, r * .10, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.strokeStyle = "#ffffff";
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(-r * .35, r * .36);
+          ctx.lineTo(-r * .15, r * .24);
+          ctx.lineTo(0, r * .36);
+          ctx.lineTo(r * .15, r * .24);
+          ctx.lineTo(r * .35, r * .36);
+          ctx.stroke();
+        } else {
+          ctx.fillStyle = "#ffffff";
+
+          ctx.beginPath();
+          ctx.ellipse(-r * .32, -r * .12, r * .22, r * .27, 0, 0, Math.PI * 2);
+          ctx.ellipse(r * .32, -r * .12, r * .22, r * .27, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          const dir = DIRS[ghost.dir] || DIRS.left;
+
+          ctx.fillStyle = "#24365e";
+          ctx.beginPath();
+          ctx.arc(
+            -r * .32 + dir.x * r * .08,
+            -r * .12 + dir.y * r * .08,
+            r * .11,
+            0,
+            Math.PI * 2
+          );
+          ctx.arc(
+            r * .32 + dir.x * r * .08,
+            -r * .12 + dir.y * r * .08,
+            r * .11,
+            0,
+            Math.PI * 2
+          );
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+
+      function addParticles(x, y, color, count) {
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x: (x + .5) * TILE,
+            y: (y + .5) * TILE,
+            vx: (Math.random() - .5) * 65,
+            vy: (Math.random() - .5) * 65,
+            life: .25 + Math.random() * .35,
+            maxLife: .6,
+            color,
+            size: 1.5 + Math.random() * 2.5
+          });
+        }
+      }
+
+      function updateParticles(dt) {
+        for (const p of particles) {
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.life -= dt;
+        }
+
+        particles = particles.filter(p => p.life > 0);
+
+        for (const p of particles) {
+          ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.globalAlpha = 1;
+      }
+
+      function render() {
+        drawMaze();
+
+        for (const ghost of ghosts) {
+          drawGhost(ghost);
+        }
+
+        drawPlayer();
+
+        if (powerTime > 0) {
+          ctx.fillStyle = "rgba(0,212,255,.9)";
+          ctx.font = "bold 12px Arial";
+          ctx.textAlign = "center";
+          ctx.fillText(
+            "POWER " + powerTime.toFixed(1) + "s",
+            canvas.width / 2,
+            15
+          );
+        }
+
+        updateParticles(0);
+      }
+
+      function loop(now) {
+        const dt = lastFrame
+          ? Math.min((now - lastFrame) / 1000, .04)
+          : 0;
+
+        lastFrame = now;
+
+        if (state === "running") {
+          updateGame(dt);
+        } else {
+          animationTime += dt;
+          updateParticles(dt);
+        }
+
+        render();
+        requestAnimationFrame(loop);
+      }
+
+      window.addEventListener("keydown", function (event) {
+        const key = event.key.toLowerCase();
+
+        const directionKeys = {
+          arrowleft: "left",
+          a: "left",
+          arrowright: "right",
+          d: "right",
+          arrowup: "up",
+          w: "up",
+          arrowdown: "down",
+          s: "down"
+        };
+
+        if (directionKeys[key]) {
+          event.preventDefault();
+          setDirection(directionKeys[key]);
+        }
+
+        if (key === "p" && !event.repeat) {
+          pauseGame();
+        }
+
+        if (key === "enter" && state !== "running" && state !== "paused") {
+          startGame();
+        }
+      });
+
+      function bindDirection(id, direction) {
+        document.getElementById(id).addEventListener("click", function () {
+          setDirection(direction);
+        });
+      }
+
+      bindDirection("leftBtn", "left");
+      bindDirection("rightBtn", "right");
+      bindDirection("upBtn", "up");
+      bindDirection("downBtn", "down");
+
+      playBtn.onclick = startGame;
+      restartBtn.addEventListener("click", startGame);
+      pauseBtn.addEventListener("click", pauseGame);
+
+      fullscreenBtn.addEventListener("click", async function () {
+        try {
+          if (document.fullscreenElement) {
+            await document.exitFullscreen();
+          } else {
+            await gameStage.requestFullscreen();
+          }
+        } catch (error) {
+          // Fullscreen is optional.
+        }
+      });
+
+      document.addEventListener("fullscreenchange", function () {
+        render();
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      resetGame();
+      render();
+      requestAnimationFrame(loop);
+    })();
+  </script>
 </body>
 </html>
