@@ -1,90 +1,456 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Roblox Obby Game - Play Free Online | Gameso</title>
-  <meta name="description" content="Play a fun Roblox-inspired obby parkour game online for free. Jump across platforms, avoid obstacles and reach the finish line on Gameso.">
+<title>Roblox Obby Online – Play Free Obstacle Course | Gameso</title>
+<meta name="description" content="Play Roblox Obby style obstacle course online for free at Gameso! Jump over platforms, avoid lava, reach checkpoints and complete challenging levels.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gameso.vercel.app/games/roblox-obby/">
 
-  <link rel="stylesheet" href="style.css">
+<style>
+:root {
+  --bg: #080b14;
+  --card: #121827;
+  --card-hover: #182137;
+  --text: #ffffff;
+  --muted: #9ba4b6;
+  --primary: #6c5ce7;
+  --accent: #00d4ff;
+  --border: rgba(255,255,255,.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  min-height:100vh;
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:radial-gradient(circle at 50% 0%,rgba(108,92,231,.16),transparent 40%),var(--bg);
+  overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+button { font:inherit; }
+.game-header {
+  height:70px; position:sticky; top:0; z-index:10;
+  background:rgba(8,11,20,.92);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(18px);
+}
+.header-inner {
+  width:min(1100px,calc(100% - 32px)); height:100%;
+  margin:auto; display:flex; align-items:center; justify-content:space-between;
+}
+.logo { display:flex; align-items:center; gap:9px; font-size:20px; font-weight:800; }
+.logo-icon {
+  width:36px;height:36px;display:grid;place-items:center;border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+}
+.logo strong {
+  background:linear-gradient(90deg,#fff,#bdb9ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.back-button {
+  padding:11px 15px;border:1px solid var(--border);border-radius:10px;
+  background:rgba(255,255,255,.03);color:var(--muted);font-size:13px;font-weight:600;
+}
+.game-page { padding:48px 0 75px; }
+.game-container { width:min(900px,calc(100% - 32px));margin:auto; }
+.game-heading { text-align:center;margin-bottom:26px; }
+.game-label { color:#9b93ff;font-size:11px;font-weight:800;letter-spacing:1px; }
+h1 { font-size:clamp(32px,5vw,46px);letter-spacing:-1.3px;margin-top:10px; }
+.game-heading p { color:var(--muted);font-size:14px;margin-top:10px;line-height:1.7; }
+.game-box {
+  padding:18px;background:linear-gradient(145deg,#141b2b,#0e1422);
+  border:1px solid var(--border);border-radius:22px;
+  box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+.game-stats { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px; }
+.stat-box {
+  padding:10px;text-align:center;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);border-radius:12px;
+}
+.stat-box span { display:block;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:1px; }
+.stat-box strong { display:block;margin-top:4px;font-size:19px; }
+#gameCanvas {
+  display:block;width:100%;height:auto;aspect-ratio:800/440;
+  background:#101a35;border:3px solid #20283a;border-radius:14px;
+  touch-action:none;
+}
+.game-message {
+  min-height:40px;display:flex;align-items:center;justify-content:center;
+  text-align:center;color:var(--muted);font-size:13px;font-weight:600;
+}
+.game-actions { display:flex;justify-content:center;gap:10px;flex-wrap:wrap; }
+.game-button,.secondary-button {
+  min-height:44px;padding:0 19px;border-radius:11px;font-size:12px;
+  font-weight:800;cursor:pointer;transition:.2s;
+}
+.game-button { color:white;background:linear-gradient(135deg,var(--primary),#5144d7);border:0; }
+.secondary-button { color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border); }
+.game-button:hover,.secondary-button:hover { transform:translateY(-2px); }
+.mobile-controls {
+  display:none;justify-content:center;align-items:center;gap:12px;margin-top:14px;
+}
+.mobile-controls button {
+  width:65px;height:53px;border:1px solid var(--border);border-radius:13px;
+  color:white;background:#20283a;font-size:22px;font-weight:800;touch-action:none;
+}
+.mobile-controls .jump { width:100px;background:var(--primary);font-size:13px; }
+.game-info,.related-section { max-width:760px;margin:55px auto 0; }
+.game-info h2,.related-section h2 { font-size:23px;margin-bottom:13px;line-height:1.4; }
+.game-info h2:not(:first-child) { margin-top:30px; }
+.game-info p { color:var(--muted);font-size:14px;line-height:1.85;margin-bottom:12px; }
+.game-info ul { padding-left:21px;color:var(--muted);font-size:14px;line-height:2; }
+.related-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
+.related-card {
+  min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background:var(--card);border:1px solid var(--border);border-radius:14px;transition:.2s;
+}
+.related-card:hover { transform:translateY(-3px);background:var(--card-hover); }
+.related-card span { font-size:30px; }
+.related-card strong { font-size:12px; }
+footer {
+  margin-top:65px;padding:22px 15px;text-align:center;color:#697284;
+  background:#060810;border-top:1px solid var(--border);font-size:11px;
+}
+@media(max-width:700px) {
+  .game-page { padding:35px 0 55px; }
+  .game-box { padding:11px;border-radius:16px; }
+  .related-grid { grid-template-columns:1fr; }
+  .related-card { min-height:68px;flex-direction:row;justify-content:flex-start;padding:0 20px; }
+  .mobile-controls { display:flex; }
+}
+@media(max-width:420px) {
+  .game-header { height:62px; }
+  .header-inner { width:calc(100% - 22px); }
+  .logo { font-size:17px; }
+  .logo-icon { width:32px;height:32px; }
+  .back-button { padding:10px;font-size:11px; }
+  .game-container { width:calc(100% - 20px); }
+  h1 { font-size:29px; }
+  .game-heading p { font-size:12px; }
+  .stat-box { padding:8px 4px; }
+  .stat-box strong { font-size:17px; }
+  .mobile-controls button { width:57px;height:49px; }
+  .mobile-controls .jump { width:85px;font-size:12px; }
+}
+</style>
 </head>
 
 <body>
+<header class="game-header">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="Gameso home">
+      <span class="logo-icon">🎮</span><strong>Gameso</strong>
+    </a>
+    <a href="/" class="back-button">← All Games</a>
+  </div>
+</header>
 
-  <div class="game-wrapper">
+<main class="game-page">
+<div class="game-container">
 
-    <header class="game-header">
-      <div>
-        <h1>Roblox Obby</h1>
-        <p>Parkour Challenge</p>
-      </div>
+  <section class="game-heading">
+    <span class="game-label">FREE ONLINE GAME</span>
+    <h1>Roblox Obby</h1>
+    <p>Jump across platforms, dodge lava and race to the finish in this free obstacle-course challenge!</p>
+  </section>
 
-      <div class="stats">
-        <div>❤️ <span id="lives">3</span></div>
-        <div>🪙 <span id="coins">0</span></div>
-        <div>⏱️ <span id="timer">0</span>s</div>
-      </div>
-    </header>
-
-    <main class="game-container">
-
-      <canvas id="gameCanvas" width="1000" height="550"></canvas>
-
-      <div id="startScreen" class="overlay">
-        <div class="menu-box">
-          <h2>🎮 Roblox Obby</h2>
-          <p>Jump across platforms, collect coins and reach the finish!</p>
-          <button id="startBtn">Start Game</button>
-        </div>
-      </div>
-
-      <div id="gameOverScreen" class="overlay hidden">
-        <div class="menu-box">
-          <h2>💥 Game Over</h2>
-          <p>You ran out of lives.</p>
-          <button id="restartBtn">Try Again</button>
-        </div>
-      </div>
-
-      <div id="winScreen" class="overlay hidden">
-        <div class="menu-box">
-          <h2>🏆 You Won!</h2>
-          <p>Congratulations! You completed the Obby.</p>
-          <p>Coins: <strong id="finalCoins">0</strong></p>
-          <p>Time: <strong id="finalTime">0</strong>s</p>
-          <button id="playAgainBtn">Play Again</button>
-        </div>
-      </div>
-
-    </main>
-
-    <div class="controls">
-
-      <button id="leftBtn">⬅️</button>
-
-      <button id="jumpBtn">⬆️ Jump</button>
-
-      <button id="rightBtn">➡️</button>
-
+  <section class="game-box" aria-label="Roblox Obby style game">
+    <div class="game-stats">
+      <div class="stat-box"><span>LEVEL</span><strong id="level">1 / 5</strong></div>
+      <div class="stat-box"><span>CHECKPOINT</span><strong id="checkpoint">1</strong></div>
+      <div class="stat-box"><span>FALLS</span><strong id="falls">0</strong></div>
     </div>
 
-    <section class="instructions">
-      <h2>How to Play</h2>
+    <canvas id="gameCanvas" width="800" height="440" aria-label="Obstacle course game area"></canvas>
+    <div class="game-message" id="message" role="status">Use ← → to move and SPACE to jump!</div>
 
-      <p>
-        Use <strong>Arrow Keys</strong> or <strong>A / D</strong> to move.
-        Press <strong>Space</strong> to jump.
-      </p>
+    <div class="game-actions">
+      <button class="game-button" id="restart">↻ Restart Level</button>
+      <button class="secondary-button" id="sound">🔊 Sound On</button>
+    </div>
 
-      <p>
-        Collect 🪙 coins, avoid 🔴 obstacles and reach 🏁 the finish line.
-      </p>
-    </section>
+    <div class="mobile-controls">
+      <button id="left" aria-label="Move left">←</button>
+      <button id="jump" class="jump">JUMP ↑</button>
+      <button id="right" aria-label="Move right">→</button>
+    </div>
+  </section>
 
-  </div>
+  <section class="game-info">
+    <h2>🎮 How to Play Roblox Obby</h2>
+    <p>Welcome to Gameso's Roblox Obby-style platform challenge! Move your character across floating platforms, jump over dangerous lava and reach the green finish platform to complete each level.</p>
 
-  <script src="script.js"></script>
+    <h2>🕹️ Game Controls</h2>
+    <ul>
+      <li><strong>Move left:</strong> Left Arrow or A key.</li>
+      <li><strong>Move right:</strong> Right Arrow or D key.</li>
+      <li><strong>Jump:</strong> Spacebar, Up Arrow or W key.</li>
+      <li><strong>Mobile:</strong> Use the on-screen movement and jump buttons.</li>
+      <li><strong>Restart:</strong> Restart your current level at any time.</li>
+    </ul>
 
+    <h2>🏁 Tips to Complete the Obby</h2>
+    <p>Watch the gaps between platforms before jumping. Land safely on checkpoint platforms to save your progress, avoid red lava zones and build momentum for longer jumps. Reach the finish platform to unlock the next stage.</p>
+
+    <h2>❓ Is Roblox Obby Free to Play?</h2>
+    <p>This original browser-based obstacle-course game is free to play on Gameso. It is inspired by the obstacle-course genre popular on Roblox, but it is not the official Roblox game and does not require a Roblox account.</p>
+  </section>
+
+  <section class="related-section">
+    <h2>🎯 More Free Games</h2>
+    <div class="related-grid">
+      <a class="related-card" href="/games/drift-boss/"><span>🏎️</span><strong>Drift Boss</strong></a>
+      <a class="related-card" href="/games/snake/"><span>🐍</span><strong>Snake Game</strong></a>
+      <a class="related-card" href="/games/2048/"><span>🔢</span><strong>2048 Puzzle</strong></a>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>© <span id="year"></span> Gameso · Play Free Online Games</footer>
+
+<script>
+(() => {
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  const $ = id => document.getElementById(id);
+
+  $("year").textContent = new Date().getFullYear();
+
+  const levels = [
+    { start:30, finish:735, platforms:[
+      [0,390,155,50],[190,350,90,18],[320,305,85,18],
+      [445,255,90,18],[565,205,90,18],[680,160,120,18]
+    ], hazards:[[155,405,35,35],[280,405,70,35],[405,405,80,35],[535,405,90,35]], checkpoints:[320] },
+    { start:30, finish:735, platforms:[
+      [0,390,130,50],[170,335,70,18],[280,280,70,18],
+      [390,330,65,18],[495,245,75,18],[610,195,75,18],[710,150,90,18]
+    ], hazards:[[130,405,40,35],[240,405,80,35],[360,405,70,35],[470,405,80,35],[580,405,90,35]], checkpoints:[390] },
+    { start:30, finish:735, platforms:[
+      [0,390,115,50],[150,320,60,18],[245,260,60,18],
+      [340,320,60,18],[435,240,60,18],[530,180,60,18],[625,240,60,18],[720,150,80,18]
+    ], hazards:[[115,405,35,35],[210,405,70,35],[305,405,70,35],[400,405,70,35],[495,405,70,35],[590,405,70,35]], checkpoints:[435] },
+    { start:30, finish:735, platforms:[
+      [0,390,115,50],[155,340,55,18],[250,290,55,18],
+      [345,240,55,18],[440,290,55,18],[535,225,55,18],[630,175,55,18],[720,135,80,18]
+    ], hazards:[[115,405,40,35],[210,405,70,35],[305,405,70,35],[400,405,70,35],[495,405,70,35],[590,405,70,35]], checkpoints:[440] },
+    { start:30, finish:735, platforms:[
+      [0,390,110,50],[155,330,50,18],[240,275,50,18],
+      [325,220,50,18],[410,275,50,18],[495,215,50,18],[580,160,50,18],[665,205,50,18],[735,145,65,18]
+    ], hazards:[[110,405,45,35],[195,405,60,35],[280,405,60,35],[365,405,60,35],[450,405,60,35],[535,405,60,35],[620,405,60,35]], checkpoints:[495] }
+  ];
+
+  let level = 0, falls = 0, savedX = 30, savedY = 350;
+  let won = false, soundOn = true, audio = null;
+  let keys = {}, last = 0;
+  let player = {x:30,y:350,w:22,h:30,vx:0,vy:0,ground:false};
+  const gravity = 0.52;
+  const speed = 3.7;
+  const jumpPower = -10.8;
+
+  function say(text) { $("message").textContent = text; }
+  function updateStats() {
+    $("level").textContent = `${level+1} / ${levels.length}`;
+    $("checkpoint").textContent = level+1;
+    $("falls").textContent = falls;
+  }
+  function beep(freq=500) {
+    if (!soundOn) return;
+    try {
+      audio ||= new (window.AudioContext || window.webkitAudioContext)();
+      const o=audio.createOscillator(), g=audio.createGain();
+      o.frequency.value=freq; g.gain.value=.035;
+      o.connect(g); g.connect(audio.destination);
+      o.start(); g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);
+      o.stop(audio.currentTime+.13);
+    } catch(e) {}
+  }
+  function resetPosition() {
+    player.x=savedX; player.y=savedY;
+    player.vx=0; player.vy=0; player.ground=false;
+  }
+  function loadLevel() {
+    savedX=levels[level].start; savedY=350;
+    resetPosition(); won=false; updateStats();
+    say("Level "+(level+1)+": jump carefully and reach the green finish!");
+  }
+  function die() {
+    falls++; updateStats(); resetPosition(); beep(180);
+    say("Oops! Try again from your checkpoint.");
+  }
+  function nextLevel() {
+    if(level < levels.length-1) {
+      level++; loadLevel(); beep(760);
+    } else {
+      won=true; say("🏆 Amazing! You completed all 5 levels!");
+      beep(900);
+    }
+  }
+  function rect(x,y,w,h,color) {
+    ctx.fillStyle=color; ctx.fillRect(x,y,w,h);
+  }
+  function draw() {
+    const sky=ctx.createLinearGradient(0,0,0,440);
+    sky.addColorStop(0,"#172447"); sky.addColorStop(1,"#101426");
+    rect(0,0,800,440,sky);
+
+    // Stars
+    for(let i=0;i<55;i++){
+      const x=(i*137+23)%800, y=(i*71+15)%270;
+      rect(x,y,2,2,"rgba(255,255,255,.42)");
+    }
+
+    // Distant scenery
+    ctx.fillStyle="#18203b";
+    ctx.beginPath(); ctx.moveTo(0,350);
+    for(let x=0;x<=800;x+=100) ctx.lineTo(x,310+(x%200)*.16);
+    ctx.lineTo(800,440);ctx.lineTo(0,440);ctx.fill();
+
+    const data=levels[level];
+    // Lava
+    data.hazards.forEach(([x,y,w,h],i)=>{
+      rect(x,y,w,h,"#d83b55");
+      rect(x,y,w,5,"#ff8066");
+      for(let n=0;n<3;n++){
+        const px=x+(n*29+8)%Math.max(10,w-5);
+        rect(px,y+12+(n%2)*9,5,3,"#ffb15c");
+      }
+    });
+
+    // Platforms
+    data.platforms.forEach(([x,y,w,h],i)=>{
+      rect(x,y,w,h,"#5966a1");
+      rect(x,y,w,5,"#8c9aff");
+      if(i===data.platforms.length-1){
+        rect(x,y-5,w,5,"#55edac");
+        ctx.fillStyle="#55edac";ctx.font="bold 13px Arial";
+        ctx.fillText("FINISH",x+8,y-13);
+      }
+    });
+
+    // Checkpoint marker
+    data.checkpoints.forEach(x=>{
+      rect(x,275,4,30,"#00d4ff");
+      rect(x+4,275,22,13,"#00d4ff");
+    });
+
+    // Player shadow and character
+    ctx.fillStyle="rgba(0,0,0,.25)";
+    ctx.fillRect(player.x-2,player.y+player.h,player.w+4,4);
+    rect(player.x,player.y,player.w,player.h,"#6c5ce7");
+    rect(player.x+3,player.y+4,player.w-6,9,"#bdb9ff");
+    rect(player.x+4,player.y+8,4,4,"#ffffff");
+    rect(player.x+14,player.y+8,4,4,"#ffffff");
+    rect(player.x+5,player.y+9,2,2,"#172447");
+    rect(player.x+15,player.y+9,2,2,"#172447");
+    rect(player.x+5,player.y+22,5,8,"#00d4ff");
+    rect(player.x+13,player.y+22,5,8,"#00d4ff");
+
+    if(won){
+      ctx.fillStyle="rgba(5,10,20,.83)";ctx.fillRect(0,0,800,440);
+      ctx.textAlign="center";
+      ctx.fillStyle="#55edac";ctx.font="bold 38px Arial";
+      ctx.fillText("YOU WIN!",400,190);
+      ctx.fillStyle="#fff";ctx.font="18px Arial";
+      ctx.fillText("You conquered every obstacle!",400,230);
+      ctx.font="14px Arial";ctx.fillStyle="#bdb9ff";
+      ctx.fillText("Press Restart Level to play again",400,265);
+      ctx.textAlign="left";
+    }
+  }
+
+  function update() {
+    if(won) return;
+    const oldBottom=player.y+player.h;
+
+    if(keys.ArrowLeft||keys.a||keys.A) player.vx=-speed;
+    else if(keys.ArrowRight||keys.d||keys.D) player.vx=speed;
+    else player.vx*=.72;
+
+    if((keys[" "]||keys.ArrowUp||keys.w||keys.W) && player.ground) {
+      player.vy=jumpPower;player.ground=false;beep(380);
+    }
+
+    player.x+=player.vx;
+    player.x=Math.max(0,Math.min(800-player.w,player.x));
+    player.vy+=gravity;
+    player.vy=Math.min(player.vy,12);
+    player.y+=player.vy;
+    player.ground=false;
+
+    const data=levels[level];
+    for(const [x,y,w,h] of data.platforms) {
+      if(player.vy>=0 && player.x+player.w>x && player.x<x+w &&
+         oldBottom<=y+5 && player.y+player.h>=y && player.y+player.h<=y+h+10) {
+        player.y=y-player.h;player.vy=0;player.ground=true;
+      }
+    }
+
+    for(const [x,y,w,h] of data.hazards) {
+      if(player.x+player.w>x && player.x<x+w &&
+         player.y+player.h>y && player.y<y+h) { die();return; }
+    }
+
+    // Save progress on checkpoint platforms.
+    for(const x of data.checkpoints) {
+      if(player.x+player.w>x && player.x<x+30 && player.ground && savedX<x) {
+        savedX=x+5; savedY=levels[level].platforms.find(p=>p[0]===x)?.[1]-player.h || player.y;
+        say("Checkpoint saved! Keep going!");
+        updateStats();beep(650);
+      }
+    }
+
+    if(player.y>460) { die();return; }
+
+    // Finish when landing on the final platform.
+    const lastPlatform=data.platforms[data.platforms.length-1];
+    if(player.x+player.w>lastPlatform[0] && player.x<lastPlatform[0]+lastPlatform[2] &&
+       player.y+player.h>=lastPlatform[1] && player.y+player.h<=lastPlatform[1]+10 && player.ground) {
+      nextLevel();
+    }
+  }
+
+  function frame(t) {
+    if(t-last>16){update();draw();last=t;}
+    requestAnimationFrame(frame);
+  }
+
+  document.addEventListener("keydown",e=>{
+    if(["ArrowLeft","ArrowRight","ArrowUp"," "].includes(e.key)) e.preventDefault();
+    keys[e.key]=true;
+  });
+  document.addEventListener("keyup",e=>keys[e.key]=false);
+  window.addEventListener("blur",()=>keys={});
+
+  function holdButton(id,key){
+    const b=$(id);
+    b.addEventListener("pointerdown",e=>{e.preventDefault();keys[key]=true;b.setPointerCapture(e.pointerId);});
+    const stop=e=>{keys[key]=false;};
+    b.addEventListener("pointerup",stop);
+    b.addEventListener("pointercancel",stop);
+    b.addEventListener("lostpointercapture",stop);
+  }
+  holdButton("left","ArrowLeft");
+  holdButton("right","ArrowRight");
+  holdButton("jump"," ");
+
+  $("restart").addEventListener("click",()=>{
+    if(won) level=0;
+    loadLevel();beep(500);
+  });
+  $("sound").addEventListener("click",()=>{
+    soundOn=!soundOn;
+    $("sound").textContent=soundOn?"🔊 Sound On":"🔇 Sound Off";
+    if(soundOn)beep();
+  });
+
+  loadLevel();
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
