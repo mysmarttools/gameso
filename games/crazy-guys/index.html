@@ -1,107 +1,918 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Crazy Guys Game Online - Play Free | Gameso</title>
+  <title>Crazy Guys Online – Play Free Obstacle Racing Game | Gameso</title>
+  <meta name="description" content="Play Crazy Guys online and enjoy exciting obstacle racing, jumping challenges and fast-paced platform action. Test your reflexes and race to the finish on Gameso.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://gameso.vercel.app/games/crazy-guys/">
 
-    <meta name="description"
-        content="Play Crazy Guys online for free on Gameso. Run, jump, avoid obstacles and get the highest score in this fun arcade game.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Crazy Guys Online – Play Free | Gameso">
+  <meta property="og:description" content="Jump, dodge obstacles and race toward the finish line in Crazy Guys. Play online on Gameso.">
+  <meta property="og:url" content="https://gameso.vercel.app/games/crazy-guys/">
+  <meta property="og:site_name" content="Gameso">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#10111b">
 
-    <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --page-bg: #10111b;
+      --panel-bg: #191b29;
+      --panel-light: #222538;
+      --text: #f5f6ff;
+      --muted: #b3b7cb;
+      --accent: #7c5cff;
+      --accent2: #ffca52;
+      --border: rgba(255,255,255,.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .site-header {
+      background: #151624;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      width: min(1180px, 92%);
+      min-height: 72px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+      color: #fff;
+    }
+
+    .brand span {
+      color: var(--accent2);
+    }
+
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #d8daea;
+    }
+
+    .main-nav a:hover {
+      color: var(--accent2);
+    }
+
+    .page-wrap {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+      padding: 22px 0 60px;
+    }
+
+    .breadcrumbs {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--accent2);
+    }
+
+    .hero {
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
+      border-radius: 30px;
+      background: rgba(124,92,255,.14);
+      border: 1px solid rgba(124,92,255,.35);
+      color: #c6baff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0 8px;
+      font-size: clamp(29px, 4vw, 43px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .game-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #080910;
+      box-shadow: 0 18px 55px rgba(0,0,0,.3);
+    }
+
+    .game-toolbar {
+      min-height: 58px;
+      padding: 11px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #191b29;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .game-name {
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      display: inline-block;
+      border-radius: 50%;
+      background: #48e39b;
+      box-shadow: 0 0 12px rgba(72,227,155,.65);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .action-btn {
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 13px;
+      background: #292c40;
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .action-btn:hover {
+      background: #373b55;
+      transform: translateY(-1px);
+    }
+
+    .action-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .action-btn.primary:hover {
+      background: #6b49f2;
+    }
+
+    .game-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 330px;
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(124,92,255,.22), transparent 58%),
+        linear-gradient(135deg, #17182a, #0b0c14);
+    }
+
+    .game-stage iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 330px;
+      border: 0;
+      background: #0b0c14;
+    }
+
+    .game-placeholder {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at center, rgba(124,92,255,.2), transparent 60%),
+        #11121e;
+    }
+
+    .placeholder-inner {
+      max-width: 480px;
+    }
+
+    .placeholder-icon {
+      font-size: 58px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .placeholder-inner h2 {
+      margin: 5px 0 8px;
+      font-size: 27px;
+    }
+
+    .placeholder-inner p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 18px;
+    }
+
+    .launch-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 22px;
+      color: #171323;
+      background: var(--accent2);
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .launch-btn:hover {
+      background: #ffda7e;
+    }
+
+    .player-note {
+      margin: 0;
+      padding: 11px 15px;
+      background: #151624;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .game-info {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 19px 0 28px;
+    }
+
+    .info-item {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-bg);
+    }
+
+    .info-label {
+      color: var(--muted);
+      font-size: 12px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .info-value {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .content-card {
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel-bg);
+    }
+
+    .content-card h2 {
+      margin: 0 0 12px;
+      font-size: 25px;
+      line-height: 1.35;
+    }
+
+    .content-card h3 {
+      margin: 21px 0 6px;
+      font-size: 18px;
+    }
+
+    .content-card p {
+      margin: 9px 0;
+      color: #d0d3e2;
+    }
+
+    .content-card ul,
+    .content-card ol {
+      padding-left: 22px;
+      color: #d0d3e2;
+    }
+
+    .content-card li {
+      margin: 7px 0;
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 14px;
+    }
+
+    .control-item {
+      padding: 13px;
+      background: var(--panel-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .key {
+      min-width: 58px;
+      text-align: center;
+      padding: 5px 8px;
+      border: 1px solid #555a75;
+      border-bottom-width: 3px;
+      border-radius: 7px;
+      background: #30344b;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .control-item span:last-child {
+      color: #d0d3e2;
+      font-size: 14px;
+    }
+
+    .tip-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .tip {
+      padding: 15px;
+      background: var(--panel-light);
+      border-radius: 11px;
+      border: 1px solid var(--border);
+    }
+
+    .tip strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .tip p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .faq-item {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-item h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+
+    .faq-item p {
+      margin: 0;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 15px;
+    }
+
+    .related-link {
+      display: block;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-light);
+      transition: .2s ease;
+    }
+
+    .related-link:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .related-emoji {
+      display: block;
+      font-size: 29px;
+      margin-bottom: 8px;
+    }
+
+    .related-link strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .related-link small {
+      color: var(--muted);
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 4%;
+      text-align: center;
+      color: var(--muted);
+      background: #151624;
+      font-size: 13px;
+    }
+
+    .site-footer a {
+      color: #fff;
+    }
+
+    .site-footer a:hover {
+      color: var(--accent2);
+    }
+
+    @media (max-width: 700px) {
+      .header-inner {
+        padding: 13px 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+      }
+
+      .main-nav {
+        gap: 14px;
+        font-size: 13px;
+      }
+
+      .page-wrap {
+        width: 94%;
+        padding-top: 16px;
+      }
+
+      .game-stage {
+        aspect-ratio: 4 / 3;
+        min-height: 300px;
+      }
+
+      .game-stage iframe {
+        min-height: 300px;
+      }
+
+      .game-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+      }
+
+      .content-card {
+        padding: 18px;
+      }
+
+      .controls-grid,
+      .tip-list {
+        grid-template-columns: 1fr;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .placeholder-icon {
+        font-size: 44px;
+      }
+
+      .placeholder-inner h2 {
+        font-size: 23px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Crazy Guys",
+    "url": "https://gameso.vercel.app/games/crazy-guys/",
+    "description": "Play Crazy Guys online and enjoy obstacle racing, jumping challenges and platform action.",
+    "genre": ["Platformer", "Action", "Obstacle Racing"],
+    "gamePlatform": "Web Browser",
+    "applicationCategory": "Game"
+  }
+  </script>
 </head>
 
 <body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Gameso homepage">Game<span>so</span></a>
 
-<div id="game">
-
-    <!-- HUD -->
-    <div class="hud">
-
-        <div class="hud-box">
-            <span>SCORE</span>
-            <strong id="score">0</strong>
-        </div>
-
-        <div class="hud-box">
-            <span>HIGH SCORE</span>
-            <strong id="highScore">0</strong>
-        </div>
-
-        <div class="hud-box">
-            <span>SPEED</span>
-            <strong id="speed">1x</strong>
-        </div>
-
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/#games">All Games</a>
+        <a href="/games/drift-boss/">Racing</a>
+        <a href="/games/2048/">Puzzle Games</a>
+      </nav>
     </div>
+  </header>
 
+  <main class="page-wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> / <a href="/#games">Games</a> / <span>Crazy Guys</span>
+    </nav>
 
-    <!-- CANVAS -->
-    <canvas id="gameCanvas"></canvas>
+    <section class="hero">
+      <span class="eyebrow">🎮 Free Online Platform Game</span>
+      <h1>Crazy Guys – Play Free Online</h1>
+      <p>
+        Get ready for a wild obstacle-racing challenge! Jump over gaps,
+        avoid tricky obstacles and race toward the finish line in Crazy Guys.
+        Play in your browser and test your timing, reflexes and platforming skills.
+      </p>
+    </section>
 
+    <section class="game-card" id="game" aria-label="Crazy Guys game player">
+      <div class="game-toolbar">
+        <div class="game-name">
+          <span class="live-dot"></span>
+          Crazy Guys
+        </div>
 
-    <!-- START SCREEN -->
-    <div id="startScreen" class="screen">
+        <div class="toolbar-actions">
+          <button class="action-btn primary" id="startBtn" type="button">
+            ▶ Play Game
+          </button>
+          <button class="action-btn" id="fullscreenBtn" type="button">
+            ⛶ Fullscreen
+          </button>
+        </div>
+      </div>
 
-        <div class="panel">
+      <div class="game-stage" id="gameStage">
+        <iframe
+          id="gameFrame"
+          title="Play Crazy Guys online"
+          src="about:blank"
+          data-src="https://www.crazygames.com/embed/crazy-guys"
+          allow="autoplay; fullscreen; gamepad; accelerometer; gyroscope"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
 
-            <div class="emoji">🤪</div>
-
-            <h1>Crazy Guys</h1>
-
+        <div class="game-placeholder" id="gamePlaceholder">
+          <div class="placeholder-inner">
+            <div class="placeholder-icon" aria-hidden="true">🏁</div>
+            <h2>Ready, Set, Race!</h2>
             <p>
-                Run, jump and avoid the crazy obstacles!
+              Launch Crazy Guys to start your obstacle-course adventure.
+              For the best experience, use an up-to-date browser.
             </p>
-
-            <div class="controls-info">
-
-                <div>⌨️ <b>Space</b> — Jump</div>
-                <div>⬆️ <b>Arrow Up</b> — Jump</div>
-                <div>📱 <b>Tap</b> — Jump</div>
-
-            </div>
-
-            <button id="startBtn">
-                ▶ Start Game
+            <button class="launch-btn" id="launchBtn" type="button">
+              ▶ Launch Game
             </button>
+            <p style="font-size:12px;margin-top:13px;margin-bottom:0">
+              If the game does not load here, open it on the official game page.
+            </p>
+          </div>
+        </div>
+      </div>
 
+      <p class="player-note">
+        Tip: Click inside the game to focus its controls. Loading and availability
+        depend on the external game provider.
+      </p>
+    </section>
+
+    <section class="game-info" aria-label="Game details">
+      <div class="info-item">
+        <span class="info-label">🎮 Game Type</span>
+        <span class="info-value">Platformer</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">🏁 Main Challenge</span>
+        <span class="info-value">Obstacle Racing</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">⌨️ Controls</span>
+        <span class="info-value">Keyboard & Mouse</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">🌐 Platform</span>
+        <span class="info-value">Web Browser</span>
+      </div>
+    </section>
+
+    <section class="content-card">
+      <h2>About Crazy Guys</h2>
+      <p>
+        Crazy Guys is a fast-paced platform game built around jumping,
+        movement and challenging obstacle courses. Your goal is to guide your
+        character through each challenge, avoid falling and reach the finish
+        line whenever the level requires it.
+      </p>
+      <p>
+        The action can get hectic, so good timing matters just as much as speed.
+        Rushing through every obstacle may cause mistakes, while watching the
+        course and choosing the right moment to jump can help you make progress.
+      </p>
+      <p>
+        If you enjoy colorful platform games, racing challenges and games that
+        reward quick reactions, Crazy Guys is worth trying. Start the player
+        above to see whether the embedded game is available in your browser.
+      </p>
+    </section>
+
+    <section class="content-card">
+      <h2>How to Play Crazy Guys</h2>
+      <ol>
+        <li>Press <strong>Play Game</strong> and wait for the game to load.</li>
+        <li>Follow the instructions shown by the game.</li>
+        <li>Move your character along the course and look ahead for obstacles.</li>
+        <li>Jump at the right moment to cross gaps and avoid hazards.</li>
+        <li>Keep moving toward the objective and try to reach the finish line.</li>
+      </ol>
+      <p>
+        Some rounds or game modes may have different objectives. Always check
+        the instructions displayed inside the game before starting a round.
+      </p>
+    </section>
+
+    <section class="content-card">
+      <h2>Crazy Guys Controls</h2>
+      <p>
+        The original game lists keyboard movement, jumping and mouse actions.
+        The exact controls may depend on the version running in the player.
+      </p>
+
+      <div class="controls-grid">
+        <div class="control-item">
+          <span class="key">W A S D</span>
+          <span>Move your character</span>
+        </div>
+        <div class="control-item">
+          <span class="key">SPACE</span>
+          <span>Jump; double jump if supported</span>
+        </div>
+        <div class="control-item">
+          <span class="key">MOUSE</span>
+          <span>Look around or control the camera</span>
+        </div>
+        <div class="control-item">
+          <span class="key">LEFT CLICK</span>
+          <span>Use an action when supported</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-card">
+      <h2>Tips to Improve Your Game</h2>
+
+      <div class="tip-list">
+        <div class="tip">
+          <strong>👀 Look Ahead</strong>
+          <p>
+            Watch the next section of the course instead of focusing only on
+            your character. This gives you more time to react.
+          </p>
         </div>
 
-    </div>
-
-
-    <!-- GAME OVER -->
-    <div id="gameOverScreen" class="screen hidden">
-
-        <div class="panel">
-
-            <div class="emoji">💥</div>
-
-            <h2>Game Over!</h2>
-
-            <p>Your Score</p>
-
-            <strong id="finalScore">0</strong>
-
-            <button id="restartBtn">
-                🔄 Play Again
-            </button>
-
+        <div class="tip">
+          <strong>🦘 Time Your Jumps</strong>
+          <p>
+            Avoid jumping too early. Learn the distance to each gap and jump
+            when you have enough room to land safely.
+          </p>
         </div>
 
-    </div>
+        <div class="tip">
+          <strong>🏃 Balance Speed and Control</strong>
+          <p>
+            Moving quickly is useful, but careful movement around narrow
+            platforms can prevent unnecessary falls.
+          </p>
+        </div>
 
+        <div class="tip">
+          <strong>🔁 Learn from Each Attempt</strong>
+          <p>
+            If you miss an obstacle, try to identify what went wrong and adjust
+            your timing on the next attempt.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <!-- MOBILE BUTTON -->
-    <button id="jumpBtn" class="jump-btn">
-        ⬆️
-    </button>
+    <section class="content-card">
+      <h2>Why Play Crazy Guys on Gameso?</h2>
+      <ul>
+        <li>Find the game from a dedicated page with clear instructions.</li>
+        <li>Read the controls before jumping into the action.</li>
+        <li>Explore more browser games from the Gameso collection.</li>
+        <li>Use the responsive page layout on supported desktop and mobile browsers.</li>
+      </ul>
+      <p>
+        The game itself is provided by an external source. Its loading speed,
+        supported devices and availability are controlled by that provider.
+      </p>
+    </section>
 
-</div>
+    <section class="content-card">
+      <h2>Frequently Asked Questions</h2>
 
+      <div class="faq-item">
+        <h3>Can I play Crazy Guys online for free?</h3>
+        <p>
+          This Gameso page provides a game player for Crazy Guys. Access to the
+          external game depends on the provider's current availability and terms.
+        </p>
+      </div>
 
-<script src="script.js"></script>
+      <div class="faq-item">
+        <h3>What type of game is Crazy Guys?</h3>
+        <p>
+          Crazy Guys is a platform-style action game featuring obstacle courses,
+          jumping and racing challenges.
+        </p>
+      </div>
 
+      <div class="faq-item">
+        <h3>How do I move in Crazy Guys?</h3>
+        <p>
+          The original game lists WASD for movement, Space for jumping, and the
+          mouse for camera movement and certain actions. Follow the controls
+          displayed by the version you are playing.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I play Crazy Guys on mobile?</h3>
+        <p>
+          This page is responsive, but the original game is listed as desktop
+          browser gameplay. Touch controls may not be supported in every version.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Why is the game not loading?</h3>
+        <p>
+          Check your internet connection and refresh the page. If the embedded
+          player remains blank, the provider may restrict embedding or the game
+          may be temporarily unavailable. Try the official game page instead.
+        </p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Do I need to download Crazy Guys?</h3>
+        <p>
+          The browser version is intended to run online. Whether it loads directly
+          depends on the external game provider.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-card">
+      <h2>More Free Online Games</h2>
+      <p>
+        Want to try another challenge? Explore more games on Gameso.
+      </p>
+
+      <div class="related-grid">
+        <a class="related-link" href="/games/drift-boss/">
+          <span class="related-emoji" aria-hidden="true">🏎️</span>
+          <strong>Drift Boss</strong>
+          <small>Driving and drifting challenge</small>
+        </a>
+
+        <a class="related-link" href="/games/2048/">
+          <span class="related-emoji" aria-hidden="true">🔢</span>
+          <strong>2048</strong>
+          <small>Classic number puzzle</small>
+        </a>
+
+        <a class="related-link" href="/games/snake/">
+          <span class="related-emoji" aria-hidden="true">🐍</span>
+          <strong>Snake</strong>
+          <small>Classic arcade action</small>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> <a href="/">Gameso</a>. Play, explore and have fun.</p>
+    <p><a href="/">Home</a> · <a href="/#games">All Games</a></p>
+  </footer>
+
+  <script>
+    const gameFrame = document.getElementById("gameFrame");
+    const gameStage = document.getElementById("gameStage");
+    const gamePlaceholder = document.getElementById("gamePlaceholder");
+    const startBtn = document.getElementById("startBtn");
+    const launchBtn = document.getElementById("launchBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+    let gameStarted = false;
+
+    function launchGame() {
+      if (!gameStarted) {
+        gameStarted = true;
+        gameFrame.src = gameFrame.dataset.src;
+        gamePlaceholder.style.display = "none";
+        startBtn.textContent = "↻ Reload Game";
+        return;
+      }
+
+      gameFrame.src = "about:blank";
+
+      window.setTimeout(() => {
+        gameFrame.src = gameFrame.dataset.src;
+      }, 100);
+
+      gamePlaceholder.style.display = "none";
+    }
+
+    startBtn.addEventListener("click", launchGame);
+    launchBtn.addEventListener("click", launchGame);
+
+    fullscreenBtn.addEventListener("click", async () => {
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        } else if (gameStage.requestFullscreen) {
+          await gameStage.requestFullscreen();
+        } else {
+          alert("Fullscreen is not supported by this browser.");
+        }
+      } catch (error) {
+        console.warn("Fullscreen could not be opened:", error);
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
