@@ -5,28 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Crazy Guys Online – Play Free Obstacle Racing Game | Gameso</title>
-  <meta name="description" content="Play Crazy Guys online and enjoy exciting obstacle racing, jumping challenges and fast-paced platform action. Test your reflexes and race to the finish on Gameso.">
+  <title>Crazy Guys – Free Original Obstacle Runner Game | Gameso</title>
+  <meta name="description" content="Play Crazy Guys, an original obstacle runner game on Gameso. Dodge barriers, jump over hazards, collect coins and beat your high score in this fun browser game.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://gameso.vercel.app/games/crazy-guys/">
+  <meta name="theme-color" content="#101426">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Crazy Guys Online – Play Free | Gameso">
-  <meta property="og:description" content="Jump, dodge obstacles and race toward the finish line in Crazy Guys. Play online on Gameso.">
+  <meta property="og:title" content="Crazy Guys – Original Obstacle Runner | Gameso">
+  <meta property="og:description" content="Run, jump, dodge obstacles and collect coins in this original browser game made for Gameso.">
   <meta property="og:url" content="https://gameso.vercel.app/games/crazy-guys/">
   <meta property="og:site_name" content="Gameso">
-  <meta name="twitter:card" content="summary">
-  <meta name="theme-color" content="#10111b">
 
   <style>
     :root {
-      --page-bg: #10111b;
-      --panel-bg: #191b29;
-      --panel-light: #222538;
-      --text: #f5f6ff;
-      --muted: #b3b7cb;
-      --accent: #7c5cff;
-      --accent2: #ffca52;
+      --bg: #101426;
+      --panel: #191f35;
+      --panel2: #222b46;
+      --text: #f7f8ff;
+      --muted: #b9c3dd;
+      --purple: #9271ff;
+      --cyan: #52e5ed;
+      --yellow: #ffd166;
       --border: rgba(255,255,255,.1);
     }
 
@@ -40,7 +40,7 @@
 
     body {
       margin: 0;
-      background: var(--page-bg);
+      background: var(--bg);
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
       line-height: 1.7;
@@ -56,355 +56,287 @@
     }
 
     .site-header {
-      background: #151624;
+      background: #151a2d;
       border-bottom: 1px solid var(--border);
     }
 
     .header-inner {
-      width: min(1180px, 92%);
-      min-height: 72px;
+      width: min(1160px, 94%);
+      min-height: 70px;
       margin: auto;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 20px;
     }
 
-    .brand {
+    .logo {
       font-size: 27px;
       font-weight: 900;
-      letter-spacing: -.8px;
-      color: #fff;
-    }
-
-    .brand span {
-      color: var(--accent2);
-    }
-
-    .main-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 22px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #d8daea;
-    }
-
-    .main-nav a:hover {
-      color: var(--accent2);
-    }
-
-    .page-wrap {
-      width: min(1180px, 92%);
-      margin: 0 auto;
-      padding: 22px 0 60px;
-    }
-
-    .breadcrumbs {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
-
-    .breadcrumbs a:hover {
-      color: var(--accent2);
-    }
-
-    .hero {
-      margin-bottom: 22px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 11px;
-      border-radius: 30px;
-      background: rgba(124,92,255,.14);
-      border: 1px solid rgba(124,92,255,.35);
-      color: #c6baff;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .6px;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 12px 0 8px;
-      font-size: clamp(29px, 4vw, 43px);
-      line-height: 1.2;
       letter-spacing: -1px;
     }
 
-    .hero p {
-      max-width: 800px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
+    .logo span {
+      color: var(--yellow);
     }
 
-    .game-card {
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #dce3f8;
+    }
+
+    .nav a:hover,
+    .footer a:hover {
+      color: var(--cyan);
+    }
+
+    .container {
+      width: min(1160px, 94%);
+      margin: auto;
+      padding: 22px 0 60px;
+    }
+
+    .breadcrumb {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--cyan);
+    }
+
+    .intro {
+      margin-bottom: 22px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 11px;
+      border: 1px solid rgba(82,229,237,.28);
+      border-radius: 30px;
+      background: rgba(82,229,237,.09);
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    h1 {
+      font-size: clamp(29px, 4vw, 43px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin: 12px 0 10px;
+    }
+
+    .intro p {
+      max-width: 850px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .game-panel {
       overflow: hidden;
+      background: #0a0e1c;
       border: 1px solid var(--border);
       border-radius: 18px;
-      background: #080910;
-      box-shadow: 0 18px 55px rgba(0,0,0,.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,.28);
     }
 
     .game-toolbar {
-      min-height: 58px;
-      padding: 11px 15px;
+      padding: 12px 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      background: #191b29;
+      background: #1a2036;
       border-bottom: 1px solid var(--border);
     }
 
-    .game-name {
-      font-weight: 800;
+    .game-title {
+      font-weight: 900;
       display: flex;
       align-items: center;
       gap: 9px;
     }
 
-    .live-dot {
+    .game-dot {
       width: 9px;
       height: 9px;
-      display: inline-block;
       border-radius: 50%;
-      background: #48e39b;
-      box-shadow: 0 0 12px rgba(72,227,155,.65);
+      background: #57f2a5;
+      box-shadow: 0 0 12px rgba(87,242,165,.65);
     }
 
-    .toolbar-actions {
+    .toolbar-buttons {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .action-btn {
+    .btn {
       border: 1px solid var(--border);
       border-radius: 9px;
-      padding: 8px 13px;
-      background: #292c40;
+      background: #303956;
       color: #fff;
-      cursor: pointer;
-      font-size: 13px;
       font-weight: 800;
-      transition: .2s ease;
+      padding: 8px 13px;
+      cursor: pointer;
+      transition: .18s ease;
     }
 
-    .action-btn:hover {
-      background: #373b55;
+    .btn:hover {
+      filter: brightness(1.15);
       transform: translateY(-1px);
     }
 
-    .action-btn.primary {
-      background: var(--accent);
-      border-color: var(--accent);
+    .btn.primary {
+      color: #11152a;
+      background: var(--yellow);
+      border-color: var(--yellow);
     }
 
-    .action-btn.primary:hover {
-      background: #6b49f2;
-    }
-
-    .game-stage {
+    .game-wrap {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
-      min-height: 330px;
-      background:
-        radial-gradient(ellipse at 50% 45%, rgba(124,92,255,.22), transparent 58%),
-        linear-gradient(135deg, #17182a, #0b0c14);
+      background: #101a31;
     }
 
-    .game-stage iframe {
+    #gameCanvas {
       display: block;
       width: 100%;
-      height: 100%;
-      min-height: 330px;
-      border: 0;
-      background: #0b0c14;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      touch-action: none;
+      outline: none;
     }
 
-    .game-placeholder {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      text-align: center;
-      background:
-        radial-gradient(ellipse at center, rgba(124,92,255,.2), transparent 60%),
-        #11121e;
-    }
-
-    .placeholder-inner {
-      max-width: 480px;
-    }
-
-    .placeholder-icon {
-      font-size: 58px;
-      line-height: 1.3;
-      margin-bottom: 8px;
-    }
-
-    .placeholder-inner h2 {
-      margin: 5px 0 8px;
-      font-size: 27px;
-    }
-
-    .placeholder-inner p {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 0 0 18px;
-    }
-
-    .launch-btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 9px;
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 22px;
-      color: #171323;
-      background: var(--accent2);
-      font-size: 15px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .launch-btn:hover {
-      background: #ffda7e;
-    }
-
-    .player-note {
-      margin: 0;
-      padding: 11px 15px;
-      background: #151624;
+    .game-hint {
+      padding: 10px 15px;
+      background: #151a2c;
       border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 12px;
     }
 
-    .game-info {
+    .stats {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      margin: 19px 0 28px;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 11px;
+      margin: 18px 0 25px;
     }
 
-    .info-item {
-      padding: 14px;
+    .stat {
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: var(--panel-bg);
+      padding: 13px 15px;
     }
 
-    .info-label {
+    .stat-label {
+      display: block;
       color: var(--muted);
       font-size: 12px;
-      display: block;
-      margin-bottom: 3px;
     }
 
-    .info-value {
-      font-size: 15px;
-      font-weight: 800;
+    .stat-value {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--yellow);
     }
 
-    .content-card {
-      padding: 25px;
-      margin-top: 20px;
+    .section {
+      background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      background: var(--panel-bg);
+      border-radius: 15px;
+      padding: 24px;
+      margin-top: 19px;
     }
 
-    .content-card h2 {
-      margin: 0 0 12px;
-      font-size: 25px;
+    .section h2 {
+      font-size: 24px;
       line-height: 1.35;
+      margin: 0 0 12px;
     }
 
-    .content-card h3 {
-      margin: 21px 0 6px;
+    .section h3 {
       font-size: 18px;
+      margin: 20px 0 7px;
     }
 
-    .content-card p {
+    .section p {
+      color: #d1d8eb;
       margin: 9px 0;
-      color: #d0d3e2;
     }
 
-    .content-card ul,
-    .content-card ol {
-      padding-left: 22px;
-      color: #d0d3e2;
+    .section ul,
+    .section ol {
+      color: #d1d8eb;
+      padding-left: 23px;
     }
 
-    .content-card li {
+    .section li {
       margin: 7px 0;
     }
 
-    .controls-grid {
+    .control-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 11px;
-      margin-top: 14px;
+      margin-top: 15px;
     }
 
-    .control-item {
-      padding: 13px;
-      background: var(--panel-light);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+    .control {
       display: flex;
       align-items: center;
       gap: 12px;
+      padding: 13px;
+      border-radius: 10px;
+      background: var(--panel2);
+      border: 1px solid var(--border);
     }
 
     .key {
-      min-width: 58px;
-      text-align: center;
+      min-width: 72px;
       padding: 5px 8px;
-      border: 1px solid #555a75;
-      border-bottom-width: 3px;
       border-radius: 7px;
-      background: #30344b;
+      text-align: center;
       color: #fff;
       font-size: 12px;
       font-weight: 900;
+      background: #303a59;
+      border: 1px solid #526080;
+      border-bottom-width: 3px;
     }
 
-    .control-item span:last-child {
-      color: #d0d3e2;
+    .control span:last-child {
       font-size: 14px;
+      color: #d1d8eb;
     }
 
-    .tip-list {
+    .tip-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 12px;
       margin-top: 15px;
     }
 
     .tip {
+      background: var(--panel2);
       padding: 15px;
-      background: var(--panel-light);
       border-radius: 11px;
       border: 1px solid var(--border);
     }
 
     .tip strong {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .tip p {
@@ -412,76 +344,68 @@
       font-size: 14px;
     }
 
-    .faq-item {
-      padding: 15px 0;
+    .faq {
       border-bottom: 1px solid var(--border);
+      padding: 15px 0;
     }
 
-    .faq-item:last-child {
+    .faq:last-child {
       border-bottom: 0;
       padding-bottom: 0;
     }
 
-    .faq-item h3 {
+    .faq h3 {
       margin: 0 0 6px;
       font-size: 17px;
     }
 
-    .faq-item p {
+    .faq p {
       margin: 0;
     }
 
-    .related-grid {
+    .related {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 13px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
       margin-top: 15px;
     }
 
-    .related-link {
-      display: block;
-      padding: 17px;
+    .related a {
+      background: var(--panel2);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel-light);
+      border-radius: 11px;
+      padding: 16px;
       transition: .2s ease;
     }
 
-    .related-link:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
+    .related a:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
     }
 
-    .related-emoji {
+    .related .emoji {
       display: block;
-      font-size: 29px;
-      margin-bottom: 8px;
+      font-size: 28px;
+      margin-bottom: 6px;
     }
 
-    .related-link strong {
+    .related small {
       display: block;
-      margin-bottom: 3px;
-    }
-
-    .related-link small {
       color: var(--muted);
+      margin-top: 4px;
     }
 
-    .site-footer {
-      border-top: 1px solid var(--border);
-      padding: 25px 4%;
+    .footer {
       text-align: center;
+      background: #151a2d;
+      border-top: 1px solid var(--border);
       color: var(--muted);
-      background: #151624;
+      padding: 25px 4%;
       font-size: 13px;
     }
 
-    .site-footer a {
+    .footer a {
       color: #fff;
-    }
-
-    .site-footer a:hover {
-      color: var(--accent2);
     }
 
     @media (max-width: 700px) {
@@ -489,64 +413,38 @@
         padding: 13px 0;
         align-items: flex-start;
         flex-direction: column;
-        gap: 9px;
+        gap: 8px;
       }
 
-      .main-nav {
-        gap: 14px;
+      .nav {
+        gap: 13px;
         font-size: 13px;
       }
 
-      .page-wrap {
-        width: 94%;
-        padding-top: 16px;
+      .container {
+        padding-top: 15px;
       }
 
-      .game-stage {
+      #gameCanvas {
         aspect-ratio: 4 / 3;
-        min-height: 300px;
       }
 
-      .game-stage iframe {
-        min-height: 300px;
+      .stats {
+        grid-template-columns: repeat(2, minmax(0,1fr));
       }
 
-      .game-info {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
-      }
-
-      .content-card {
+      .section {
         padding: 18px;
       }
 
-      .controls-grid,
-      .tip-list {
+      .control-grid,
+      .tip-grid,
+      .related {
         grid-template-columns: 1fr;
       }
 
-      .related-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .placeholder-icon {
-        font-size: 44px;
-      }
-
-      .placeholder-inner h2 {
-        font-size: 23px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        transition-duration: .01ms !important;
+      .stat-value {
+        font-size: 20px;
       }
     }
   </style>
@@ -557,10 +455,11 @@
     "@type": "VideoGame",
     "name": "Crazy Guys",
     "url": "https://gameso.vercel.app/games/crazy-guys/",
-    "description": "Play Crazy Guys online and enjoy obstacle racing, jumping challenges and platform action.",
-    "genre": ["Platformer", "Action", "Obstacle Racing"],
+    "description": "An original browser obstacle runner made for Gameso. Dodge barriers, jump over hazards and collect coins.",
+    "genre": ["Arcade", "Obstacle Course", "Runner"],
     "gamePlatform": "Web Browser",
-    "applicationCategory": "Game"
+    "applicationCategory": "Game",
+    "operatingSystem": "Any"
   }
   </script>
 </head>
@@ -568,9 +467,9 @@
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="/" aria-label="Gameso homepage">Game<span>so</span></a>
+      <a href="/" class="logo">Game<span>so</span></a>
 
-      <nav class="main-nav" aria-label="Main navigation">
+      <nav class="nav" aria-label="Main navigation">
         <a href="/">Home</a>
         <a href="/#games">All Games</a>
         <a href="/games/drift-boss/">Racing</a>
@@ -579,340 +478,1106 @@
     </div>
   </header>
 
-  <main class="page-wrap">
-    <nav class="breadcrumbs" aria-label="Breadcrumb">
-      <a href="/">Home</a> / <a href="/#games">Games</a> / <span>Crazy Guys</span>
+  <main class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a> / <a href="/#games">Games</a> / Crazy Guys
     </nav>
 
-    <section class="hero">
-      <span class="eyebrow">🎮 Free Online Platform Game</span>
+    <section class="intro">
+      <span class="tag">Original Gameso Game</span>
       <h1>Crazy Guys – Play Free Online</h1>
       <p>
-        Get ready for a wild obstacle-racing challenge! Jump over gaps,
-        avoid tricky obstacles and race toward the finish line in Crazy Guys.
-        Play in your browser and test your timing, reflexes and platforming skills.
+        Enter a colorful obstacle course in this original arcade runner.
+        Switch lanes, jump over barriers, collect coins and survive as the
+        pace gets faster. Learn the controls, beat your personal best and
+        see how long you can stay on the track.
       </p>
     </section>
 
-    <section class="game-card" id="game" aria-label="Crazy Guys game player">
+    <section class="game-panel" id="game" aria-label="Original obstacle runner game">
       <div class="game-toolbar">
-        <div class="game-name">
-          <span class="live-dot"></span>
-          Crazy Guys
+        <div class="game-title">
+          <span class="game-dot"></span>
+          Neon Obstacle Run
         </div>
 
-        <div class="toolbar-actions">
-          <button class="action-btn primary" id="startBtn" type="button">
-            ▶ Play Game
-          </button>
-          <button class="action-btn" id="fullscreenBtn" type="button">
-            ⛶ Fullscreen
-          </button>
+        <div class="toolbar-buttons">
+          <button class="btn primary" id="playBtn" type="button">▶ Start Game</button>
+          <button class="btn" id="restartBtn" type="button">↻ Restart</button>
+          <button class="btn" id="fullscreenBtn" type="button">⛶ Fullscreen</button>
         </div>
       </div>
 
-      <div class="game-stage" id="gameStage">
-        <iframe
-          id="gameFrame"
-          title="Play Crazy Guys online"
-          src="about:blank"
-          data-src="https://www.crazygames.com/embed/crazy-guys"
-          allow="autoplay; fullscreen; gamepad; accelerometer; gyroscope"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-
-        <div class="game-placeholder" id="gamePlaceholder">
-          <div class="placeholder-inner">
-            <div class="placeholder-icon" aria-hidden="true">🏁</div>
-            <h2>Ready, Set, Race!</h2>
-            <p>
-              Launch Crazy Guys to start your obstacle-course adventure.
-              For the best experience, use an up-to-date browser.
-            </p>
-            <button class="launch-btn" id="launchBtn" type="button">
-              ▶ Launch Game
-            </button>
-            <p style="font-size:12px;margin-top:13px;margin-bottom:0">
-              If the game does not load here, open it on the official game page.
-            </p>
-          </div>
-        </div>
+      <div class="game-wrap" id="gameWrap">
+        <canvas id="gameCanvas" width="960" height="540" tabindex="0"
+          aria-label="Obstacle runner. Use left and right arrow keys to change lanes and space to jump.">
+          Your browser does not support HTML Canvas. Please update your browser to play.
+        </canvas>
       </div>
 
-      <p class="player-note">
-        Tip: Click inside the game to focus its controls. Loading and availability
-        depend on the external game provider.
-      </p>
-    </section>
-
-    <section class="game-info" aria-label="Game details">
-      <div class="info-item">
-        <span class="info-label">🎮 Game Type</span>
-        <span class="info-value">Platformer</span>
-      </div>
-      <div class="info-item">
-        <span class="info-label">🏁 Main Challenge</span>
-        <span class="info-value">Obstacle Racing</span>
-      </div>
-      <div class="info-item">
-        <span class="info-label">⌨️ Controls</span>
-        <span class="info-value">Keyboard & Mouse</span>
-      </div>
-      <div class="info-item">
-        <span class="info-label">🌐 Platform</span>
-        <span class="info-value">Web Browser</span>
+      <div class="game-hint">
+        Controls: ← → or A/D to change lanes · Space or ↑ to jump · P to pause ·
+        On mobile, use the on-screen buttons.
       </div>
     </section>
 
-    <section class="content-card">
+    <section class="stats" aria-label="Game statistics">
+      <div class="stat">
+        <span class="stat-label">🏆 Current Score</span>
+        <span class="stat-value" id="scoreValue">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">⭐ Best Score</span>
+        <span class="stat-value" id="bestValue">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">🪙 Coins Collected</span>
+        <span class="stat-value" id="coinValue">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">⚡ Speed Level</span>
+        <span class="stat-value" id="speedValue">1</span>
+      </div>
+    </section>
+
+    <section class="section">
       <h2>About Crazy Guys</h2>
       <p>
-        Crazy Guys is a fast-paced platform game built around jumping,
-        movement and challenging obstacle courses. Your goal is to guide your
-        character through each challenge, avoid falling and reach the finish
-        line whenever the level requires it.
+        Crazy Guys on this page features an original endless-runner experience
+        created for Gameso. The game uses its own canvas-drawn track, player,
+        obstacles, coins and interface. Nothing needs to be downloaded, and
+        the gameplay runs directly in the browser.
       </p>
       <p>
-        The action can get hectic, so good timing matters just as much as speed.
-        Rushing through every obstacle may cause mistakes, while watching the
-        course and choosing the right moment to jump can help you make progress.
+        Your character runs along a three-lane track. Barriers block the route,
+        gaps in timing demand quick jumps, and coins reward accurate movement.
+        The longer you survive, the faster the course becomes. Every run is a
+        chance to improve your reaction time and beat your best score.
       </p>
       <p>
-        If you enjoy colorful platform games, racing challenges and games that
-        reward quick reactions, Crazy Guys is worth trying. Start the player
-        above to see whether the embedded game is available in your browser.
+        This is an arcade game built around simple controls and progressively
+        harder challenges. It is easy to start, but staying on the track takes
+        attention. Watch the obstacles, plan your next move and avoid making
+        last-second changes when a barrier is close.
       </p>
     </section>
 
-    <section class="content-card">
-      <h2>How to Play Crazy Guys</h2>
+    <section class="section">
+      <h2>How to Play</h2>
       <ol>
-        <li>Press <strong>Play Game</strong> and wait for the game to load.</li>
-        <li>Follow the instructions shown by the game.</li>
-        <li>Move your character along the course and look ahead for obstacles.</li>
-        <li>Jump at the right moment to cross gaps and avoid hazards.</li>
-        <li>Keep moving toward the objective and try to reach the finish line.</li>
+        <li>Press <strong>Start Game</strong> to begin your run.</li>
+        <li>Move left or right to switch between the three lanes.</li>
+        <li>Jump when a barrier is approaching your lane.</li>
+        <li>Collect floating coins to increase your coin count.</li>
+        <li>Avoid collisions and keep running to earn more points.</li>
+        <li>When your run ends, choose Restart and try to beat your record.</li>
       </ol>
       <p>
-        Some rounds or game modes may have different objectives. Always check
-        the instructions displayed inside the game before starting a round.
+        The game gradually increases its speed, so a lane that looks safe now
+        may have an obstacle approaching. Keep looking ahead and move early
+        whenever possible.
       </p>
     </section>
 
-    <section class="content-card">
-      <h2>Crazy Guys Controls</h2>
-      <p>
-        The original game lists keyboard movement, jumping and mouse actions.
-        The exact controls may depend on the version running in the player.
-      </p>
-
-      <div class="controls-grid">
-        <div class="control-item">
-          <span class="key">W A S D</span>
-          <span>Move your character</span>
+    <section class="section">
+      <h2>Game Controls</h2>
+      <div class="control-grid">
+        <div class="control">
+          <span class="key">← / A</span>
+          <span>Move one lane to the left</span>
         </div>
-        <div class="control-item">
-          <span class="key">SPACE</span>
-          <span>Jump; double jump if supported</span>
+        <div class="control">
+          <span class="key">→ / D</span>
+          <span>Move one lane to the right</span>
         </div>
-        <div class="control-item">
-          <span class="key">MOUSE</span>
-          <span>Look around or control the camera</span>
+        <div class="control">
+          <span class="key">SPACE / ↑</span>
+          <span>Jump over an obstacle</span>
         </div>
-        <div class="control-item">
-          <span class="key">LEFT CLICK</span>
-          <span>Use an action when supported</span>
+        <div class="control">
+          <span class="key">P</span>
+          <span>Pause or resume the run</span>
         </div>
       </div>
+
+      <h3>Mobile Controls</h3>
+      <p>
+        On a phone or tablet, use the left, jump and right buttons shown at
+        the bottom of the game screen. You can also tap the game to focus it.
+        The game layout adjusts to smaller screens.
+      </p>
     </section>
 
-    <section class="content-card">
-      <h2>Tips to Improve Your Game</h2>
-
-      <div class="tip-list">
+    <section class="section">
+      <h2>Tips for a Higher Score</h2>
+      <div class="tip-grid">
         <div class="tip">
           <strong>👀 Look Ahead</strong>
-          <p>
-            Watch the next section of the course instead of focusing only on
-            your character. This gives you more time to react.
-          </p>
+          <p>Watch upcoming obstacles and choose a safe lane before reaching them.</p>
         </div>
-
         <div class="tip">
-          <strong>🦘 Time Your Jumps</strong>
-          <p>
-            Avoid jumping too early. Learn the distance to each gap and jump
-            when you have enough room to land safely.
-          </p>
+          <strong>↔️ Change Lanes Early</strong>
+          <p>Move before the last moment. Early decisions give you more time to react.</p>
         </div>
-
         <div class="tip">
-          <strong>🏃 Balance Speed and Control</strong>
-          <p>
-            Moving quickly is useful, but careful movement around narrow
-            platforms can prevent unnecessary falls.
-          </p>
+          <strong>🦘 Jump Carefully</strong>
+          <p>Use jumps for barriers, but avoid jumping unnecessarily when a clear lane is available.</p>
         </div>
-
         <div class="tip">
-          <strong>🔁 Learn from Each Attempt</strong>
-          <p>
-            If you miss an obstacle, try to identify what went wrong and adjust
-            your timing on the next attempt.
-          </p>
+          <strong>🪙 Collect Coins Safely</strong>
+          <p>Coins are useful, but a risky coin is not worth ending a promising run.</p>
+        </div>
+        <div class="tip">
+          <strong>⚡ Adapt to Speed</strong>
+          <p>The game gets faster over time. Make smaller, more deliberate movements as speed rises.</p>
+        </div>
+        <div class="tip">
+          <strong>🏁 Practice Consistently</strong>
+          <p>Use each attempt to learn obstacle timing and gradually improve your score.</p>
         </div>
       </div>
     </section>
 
-    <section class="content-card">
-      <h2>Why Play Crazy Guys on Gameso?</h2>
+    <section class="section">
+      <h2>Game Features</h2>
       <ul>
-        <li>Find the game from a dedicated page with clear instructions.</li>
-        <li>Read the controls before jumping into the action.</li>
-        <li>Explore more browser games from the Gameso collection.</li>
-        <li>Use the responsive page layout on supported desktop and mobile browsers.</li>
+        <li>Original canvas-drawn graphics and a colorful perspective track.</li>
+        <li>Three-lane running with keyboard and touch controls.</li>
+        <li>Jumping, barriers, coins and collision detection.</li>
+        <li>Progressively increasing game speed.</li>
+        <li>Live score, coin counter and best-score tracking.</li>
+        <li>Pause, restart and fullscreen options.</li>
+        <li>Responsive interface for desktop and mobile screens.</li>
+        <li>No external game iframe, image files or JavaScript library required.</li>
       </ul>
-      <p>
-        The game itself is provided by an external source. Its loading speed,
-        supported devices and availability are controlled by that provider.
-      </p>
     </section>
 
-    <section class="content-card">
+    <section class="section">
       <h2>Frequently Asked Questions</h2>
 
-      <div class="faq-item">
-        <h3>Can I play Crazy Guys online for free?</h3>
+      <div class="faq">
+        <h3>Is this Crazy Guys game free to play?</h3>
         <p>
-          This Gameso page provides a game player for Crazy Guys. Access to the
-          external game depends on the provider's current availability and terms.
+          Yes. The original browser game on this page can be played without
+          purchasing an in-game upgrade. Internet access is needed to open
+          the Gameso website.
         </p>
       </div>
 
-      <div class="faq-item">
-        <h3>What type of game is Crazy Guys?</h3>
+      <div class="faq">
+        <h3>How do I jump over barriers?</h3>
         <p>
-          Crazy Guys is a platform-style action game featuring obstacle courses,
-          jumping and racing challenges.
+          Press Space or the Up Arrow on a keyboard. On mobile, tap the Jump
+          button. Time the jump so that your character is above the barrier
+          as it reaches the player.
         </p>
       </div>
 
-      <div class="faq-item">
-        <h3>How do I move in Crazy Guys?</h3>
+      <div class="faq">
+        <h3>How do I collect coins?</h3>
         <p>
-          The original game lists WASD for movement, Space for jumping, and the
-          mouse for camera movement and certain actions. Follow the controls
-          displayed by the version you are playing.
+          Move into the lane containing a coin. Collecting a coin increases
+          the counter displayed above the game.
         </p>
       </div>
 
-      <div class="faq-item">
-        <h3>Can I play Crazy Guys on mobile?</h3>
+      <div class="faq">
+        <h3>Does the game get harder?</h3>
         <p>
-          This page is responsive, but the original game is listed as desktop
-          browser gameplay. Touch controls may not be supported in every version.
+          Yes. The running speed increases as your score grows, making
+          obstacles arrive more quickly and requiring faster decisions.
         </p>
       </div>
 
-      <div class="faq-item">
-        <h3>Why is the game not loading?</h3>
+      <div class="faq">
+        <h3>Can I play on my phone?</h3>
         <p>
-          Check your internet connection and refresh the page. If the embedded
-          player remains blank, the provider may restrict embedding or the game
-          may be temporarily unavailable. Try the official game page instead.
+          Yes. The game includes touch controls and a responsive canvas layout.
+          For the best experience, use a modern mobile browser and hold the
+          device in landscape orientation if the play area feels too narrow.
         </p>
       </div>
 
-      <div class="faq-item">
-        <h3>Do I need to download Crazy Guys?</h3>
+      <div class="faq">
+        <h3>Does Crazy Guys save my best score?</h3>
         <p>
-          The browser version is intended to run online. Whether it loads directly
-          depends on the external game provider.
+          The game attempts to save your best score in your browser's local
+          storage. This works when browser storage is available and enabled.
+          Clearing browser data may erase the saved score.
+        </p>
+      </div>
+
+      <div class="faq">
+        <h3>Why did my run end?</h3>
+        <p>
+          Hitting an obstacle ends the current run. Restart the game and try
+          another lane or time your jump more carefully on your next attempt.
         </p>
       </div>
     </section>
 
-    <section class="content-card">
-      <h2>More Free Online Games</h2>
-      <p>
-        Want to try another challenge? Explore more games on Gameso.
-      </p>
+    <section class="section">
+      <h2>Explore More Games</h2>
+      <p>Finished your run? Discover more games in the Gameso collection.</p>
 
-      <div class="related-grid">
-        <a class="related-link" href="/games/drift-boss/">
-          <span class="related-emoji" aria-hidden="true">🏎️</span>
+      <div class="related">
+        <a href="/games/drift-boss/">
+          <span class="emoji">🏎️</span>
           <strong>Drift Boss</strong>
-          <small>Driving and drifting challenge</small>
+          <small>Steer and drift through tricky turns.</small>
         </a>
-
-        <a class="related-link" href="/games/2048/">
-          <span class="related-emoji" aria-hidden="true">🔢</span>
+        <a href="/games/2048/">
+          <span class="emoji">🔢</span>
           <strong>2048</strong>
-          <small>Classic number puzzle</small>
+          <small>Combine numbers in this classic puzzle.</small>
         </a>
-
-        <a class="related-link" href="/games/snake/">
-          <span class="related-emoji" aria-hidden="true">🐍</span>
+        <a href="/games/snake/">
+          <span class="emoji">🐍</span>
           <strong>Snake</strong>
-          <small>Classic arcade action</small>
+          <small>Play a timeless arcade classic.</small>
         </a>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <p>© <span id="year"></span> <a href="/">Gameso</a>. Play, explore and have fun.</p>
+  <footer class="footer">
+    <p>© <span id="year"></span> <a href="/">Gameso</a>. All rights reserved.</p>
     <p><a href="/">Home</a> · <a href="/#games">All Games</a></p>
   </footer>
 
   <script>
-    const gameFrame = document.getElementById("gameFrame");
-    const gameStage = document.getElementById("gameStage");
-    const gamePlaceholder = document.getElementById("gamePlaceholder");
-    const startBtn = document.getElementById("startBtn");
-    const launchBtn = document.getElementById("launchBtn");
-    const fullscreenBtn = document.getElementById("fullscreenBtn");
+    (() => {
+      "use strict";
 
-    let gameStarted = false;
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
 
-    function launchGame() {
-      if (!gameStarted) {
-        gameStarted = true;
-        gameFrame.src = gameFrame.dataset.src;
-        gamePlaceholder.style.display = "none";
-        startBtn.textContent = "↻ Reload Game";
-        return;
-      }
+      const scoreEl = document.getElementById("scoreValue");
+      const bestEl = document.getElementById("bestValue");
+      const coinEl = document.getElementById("coinValue");
+      const speedEl = document.getElementById("speedValue");
 
-      gameFrame.src = "about:blank";
+      const playBtn = document.getElementById("playBtn");
+      const restartBtn = document.getElementById("restartBtn");
+      const fullscreenBtn = document.getElementById("fullscreenBtn");
+      const gameWrap = document.getElementById("gameWrap");
 
-      window.setTimeout(() => {
-        gameFrame.src = gameFrame.dataset.src;
-      }, 100);
+      const W = canvas.width;
+      const H = canvas.height;
 
-      gamePlaceholder.style.display = "none";
-    }
+      let state = "ready";
+      let score = 0;
+      let coins = 0;
+      let best = loadBest();
+      let elapsed = 0;
+      let speed = 250;
+      let spawnTimer = 0;
+      let lastTime = 0;
+      let roadOffset = 0;
+      let flash = 0;
 
-    startBtn.addEventListener("click", launchGame);
-    launchBtn.addEventListener("click", launchGame);
+      let player = {
+        lane: 1,
+        visualLane: 1,
+        jump: 0,
+        jumpVelocity: 0,
+        jumpHeld: false
+      };
 
-    fullscreenBtn.addEventListener("click", async () => {
-      try {
-        if (document.fullscreenElement) {
-          await document.exitFullscreen();
-        } else if (gameStage.requestFullscreen) {
-          await gameStage.requestFullscreen();
-        } else {
-          alert("Fullscreen is not supported by this browser.");
+      let obstacles = [];
+      let pickups = [];
+      let particles = [];
+      let touchDirection = 0;
+
+      bestEl.textContent = best;
+
+      function loadBest() {
+        try {
+          return Number(localStorage.getItem("gamesoCrazyGuysBest")) || 0;
+        } catch (e) {
+          return 0;
         }
-      } catch (error) {
-        console.warn("Fullscreen could not be opened:", error);
       }
-    });
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+      function saveBest() {
+        try {
+          localStorage.setItem("gamesoCrazyGuysBest", String(best));
+        } catch (e) {
+          // Game remains playable if browser storage is unavailable.
+        }
+      }
+
+      function resetGame() {
+        score = 0;
+        coins = 0;
+        elapsed = 0;
+        speed = 250;
+        spawnTimer = 0.7;
+        roadOffset = 0;
+        flash = 0;
+
+        player = {
+          lane: 1,
+          visualLane: 1,
+          jump: 0,
+          jumpVelocity: 0,
+          jumpHeld: false
+        };
+
+        obstacles = [];
+        pickups = [];
+        particles = [];
+
+        scoreEl.textContent = "0";
+        coinEl.textContent = "0";
+        speedEl.textContent = "1";
+      }
+
+      function startGame() {
+        resetGame();
+        state = "playing";
+        playBtn.textContent = "Ⅱ Pause";
+        canvas.focus();
+      }
+
+      function endGame() {
+        if (state !== "playing") return;
+
+        state = "over";
+        playBtn.textContent = "↻ Play Again";
+
+        if (score > best) {
+          best = score;
+          saveBest();
+          bestEl.textContent = best;
+        }
+
+        burst(W * 0.5, H * 0.7, "#ff6b82", 22);
+      }
+
+      function pauseGame() {
+        if (state === "playing") {
+          state = "paused";
+          playBtn.textContent = "▶ Resume";
+        } else if (state === "paused") {
+          state = "playing";
+          playBtn.textContent = "Ⅱ Pause";
+          lastTime = performance.now();
+        }
+      }
+
+      function moveLane(dir) {
+        if (state === "ready" || state === "over") {
+          startGame();
+        }
+
+        if (state !== "playing") return;
+
+        player.lane = Math.max(0, Math.min(2, player.lane + dir));
+      }
+
+      function jump() {
+        if (state === "ready" || state === "over") {
+          startGame();
+        }
+
+        if (state !== "playing") return;
+
+        if (player.jump <= 0) {
+          player.jumpVelocity = 650;
+          player.jump = 1;
+          player.jumpHeld = true;
+        }
+      }
+
+      function randomInt(max) {
+        return Math.floor(Math.random() * max);
+      }
+
+      function spawnPattern() {
+        const lane = randomInt(3);
+        const roll = Math.random();
+
+        if (roll < 0.55) {
+          obstacles.push({
+            lane,
+            z: 0,
+            type: Math.random() < 0.5 ? "block" : "bar",
+            checked: false,
+            hue: randomInt(3)
+          });
+        } else if (roll < 0.78) {
+          const otherLane = (lane + 1 + randomInt(2)) % 3;
+
+          obstacles.push({
+            lane,
+            z: 0,
+            type: "block",
+            checked: false,
+            hue: randomInt(3)
+          });
+
+          obstacles.push({
+            lane: otherLane,
+            z: 0,
+            type: "block",
+            checked: false,
+            hue: randomInt(3)
+          });
+        } else {
+          pickups.push({
+            lane,
+            z: 0,
+            collected: false,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+
+        if (Math.random() < 0.7) {
+          const coinLane = randomInt(3);
+
+          for (let i = 0; i < 3; i++) {
+            pickups.push({
+              lane: coinLane,
+              z: -0.13 * (i + 1),
+              collected: false,
+              phase: i * 0.8
+            });
+          }
+        }
+      }
+
+      function roadGeometry(z) {
+        const depth = Math.max(0, Math.min(1, z));
+        const y = 145 + depth * 380;
+        const halfWidth = 50 + depth * 325;
+
+        return {
+          y,
+          left: W / 2 - halfWidth,
+          right: W / 2 + halfWidth,
+          halfWidth
+        };
+      }
+
+      function laneX(lane, z) {
+        const g = roadGeometry(z);
+        return g.left + (g.right - g.left) * ((lane + 0.5) / 3);
+      }
+
+      function burst(x, y, color, amount) {
+        for (let i = 0; i < amount; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const force = 40 + Math.random() * 230;
+
+          particles.push({
+            x,
+            y,
+            vx: Math.cos(angle) * force,
+            vy: Math.sin(angle) * force,
+            life: 0.35 + Math.random() * 0.65,
+            maxLife: 1,
+            size: 2 + Math.random() * 5,
+            color
+          });
+        }
+      }
+
+      function update(dt) {
+        if (state !== "playing") return;
+
+        elapsed += dt;
+        speed = Math.min(520, 250 + elapsed * 5.3);
+        score += dt * (10 + speed * 0.025);
+        roadOffset = (roadOffset + speed * dt * 0.0018) % 1;
+
+        player.visualLane += (player.lane - player.visualLane) *
+          Math.min(1, dt * 12);
+
+        if (player.jump > 0) {
+          player.jump += player.jumpVelocity * dt / 420;
+          player.jumpVelocity -= 1550 * dt;
+
+          if (player.jumpVelocity < 0 && player.jump <= 0.02) {
+            player.jump = 0;
+            player.jumpVelocity = 0;
+          }
+
+          if (player.jumpVelocity < 0 && player.jump < 0) {
+            player.jump = 0;
+            player.jumpVelocity = 0;
+          }
+        }
+
+        spawnTimer -= dt;
+
+        if (spawnTimer <= 0) {
+          spawnPattern();
+          spawnTimer = Math.max(0.48, 0.95 - elapsed * 0.004) +
+            Math.random() * 0.24;
+        }
+
+        for (const ob of obstacles) {
+          ob.z += speed * dt / 650;
+
+          if (!ob.checked && ob.z >= 0.82) {
+            ob.checked = true;
+
+            const sameLane = ob.lane === player.lane;
+            const safelyJumping = player.jump > 0.48;
+
+            if (sameLane && !safelyJumping) {
+              endGame();
+              break;
+            }
+          }
+        }
+
+        obstacles = obstacles.filter(ob => ob.z < 1.16);
+
+        for (const item of pickups) {
+          item.z += speed * dt / 650;
+
+          if (!item.collected && item.z >= 0.82 && item.z <= 1.02 &&
+              item.lane === player.lane) {
+            item.collected = true;
+            coins++;
+            score += 25;
+            coinEl.textContent = coins;
+
+            const px = laneX(item.lane, 0.91);
+            burst(px, 470, "#ffd166", 9);
+          }
+        }
+
+        pickups = pickups.filter(item =>
+          !item.collected && item.z < 1.14
+        );
+
+        for (const p of particles) {
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.vy += 180 * dt;
+          p.life -= dt;
+        }
+
+        particles = particles.filter(p => p.life > 0);
+        flash = Math.max(0, flash - dt * 2.8);
+
+        scoreEl.textContent = Math.floor(score);
+        speedEl.textContent = String(Math.max(1, Math.floor(speed / 100)));
+      }
+
+      function polygon(points, fill, stroke, lineWidth = 1) {
+        ctx.beginPath();
+        ctx.moveTo(points[0][0], points[0][1]);
+
+        for (let i = 1; i < points.length; i++) {
+          ctx.lineTo(points[i][0], points[i][1]);
+        }
+
+        ctx.closePath();
+        ctx.fillStyle = fill;
+        ctx.fill();
+
+        if (stroke) {
+          ctx.strokeStyle = stroke;
+          ctx.lineWidth = lineWidth;
+          ctx.stroke();
+        }
+      }
+
+      function drawBackground() {
+        const sky = ctx.createLinearGradient(0, 0, 0, H);
+        sky.addColorStop(0, "#172345");
+        sky.addColorStop(0.58, "#344e79");
+        sky.addColorStop(1, "#142037");
+
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, W, H);
+
+        const glow = ctx.createRadialGradient(
+          W * 0.5, 180, 5,
+          W * 0.5, 180, 330
+        );
+
+        glow.addColorStop(0, "rgba(92,229,237,0.25)");
+        glow.addColorStop(1, "rgba(92,229,237,0)");
+
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, W, 420);
+
+        ctx.fillStyle = "#243454";
+
+        for (let i = 0; i < 15; i++) {
+          const bw = 28 + (i % 4) * 14;
+          const bh = 45 + ((i * 31) % 95);
+          const x = i * 72 - 12;
+
+          ctx.fillRect(x, 210 - bh, bw, bh + 60);
+
+          ctx.fillStyle = "rgba(100,220,238,.26)";
+
+          for (let j = 0; j < Math.floor(bh / 22); j++) {
+            ctx.fillRect(x + 7, 175 - j * 22, 5, 5);
+            ctx.fillRect(x + 18, 175 - j * 22, 5, 5);
+          }
+
+          ctx.fillStyle = "#243454";
+        }
+
+        ctx.fillStyle = "#111a2c";
+        ctx.fillRect(0, 230, W, H - 230);
+      }
+
+      function drawRoad() {
+        const top = roadGeometry(0);
+        const bottom = roadGeometry(1);
+
+        polygon([
+          [top.left, top.y],
+          [top.right, top.y],
+          [bottom.right, H],
+          [bottom.left, H]
+        ], "#303b55");
+
+        polygon([
+          [top.left - 13, top.y],
+          [top.left, top.y],
+          [bottom.left, H],
+          [bottom.left - 30, H]
+        ], "#58e3df");
+
+        polygon([
+          [top.right, top.y],
+          [top.right + 13, top.y],
+          [bottom.right + 30, H],
+          [bottom.right, H]
+        ], "#58e3df");
+
+        polygon([
+          [top.left + 5, top.y],
+          [top.right - 5, top.y],
+          [bottom.right - 6, H],
+          [bottom.left + 6, H]
+        ], "#242d43");
+
+        for (let divider = 1; divider <= 2; divider++) {
+          for (let i = 0; i < 11; i++) {
+            const z = ((i / 11) + roadOffset) % 1;
+            const z2 = Math.min(1, z + 0.038);
+            const g1 = roadGeometry(z);
+            const g2 = roadGeometry(z2);
+            const x1 = g1.left + (g1.right - g1.left) * divider / 3;
+            const x2 = g2.left + (g2.right - g2.left) * divider / 3;
+
+            polygon([
+              [x1 - 1, g1.y],
+              [x1 + 1, g1.y],
+              [x2 + 2, g2.y],
+              [x2 - 2, g2.y]
+            ], "rgba(198,220,245,.65)");
+          }
+        }
+
+        for (let i = 0; i < 9; i++) {
+          const z = ((i / 9) + roadOffset * 0.7) % 1;
+          const g = roadGeometry(z);
+          const w = 2 + z * 10;
+
+          ctx.fillStyle = "rgba(82,229,237,.16)";
+          ctx.fillRect(g.left - w * 2, g.y, w, 2 + z * 3);
+          ctx.fillRect(g.right + w, g.y, w, 2 + z * 3);
+        }
+      }
+
+      function drawObstacle(ob) {
+        const g = roadGeometry(ob.z);
+        const x = laneX(ob.lane, ob.z);
+        const scale = 0.28 + ob.z * 1.5;
+        const w = (ob.type === "bar" ? 52 : 42) * scale;
+        const h = (ob.type === "bar" ? 28 : 42) * scale;
+        const y = g.y - h;
+
+        ctx.fillStyle = "rgba(0,0,0,.22)";
+        ctx.beginPath();
+        ctx.ellipse(x, g.y + 2, w * .8, h * .17, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (ob.type === "bar") {
+          ctx.fillStyle = "#ff6b82";
+          ctx.fillRect(x - w / 2, y, w, h);
+
+          ctx.fillStyle = "#ffb1bc";
+          ctx.fillRect(x - w / 2, y, w, h * .22);
+
+          ctx.fillStyle = "#9f3152";
+          ctx.fillRect(x - w / 2, y + h * .75, w, h * .25);
+        } else {
+          const palette = [
+            ["#ff7089", "#b93f65"],
+            ["#9271ff", "#5c45bd"],
+            ["#ffbe55", "#bd7a2d"]
+          ][ob.hue];
+
+          polygon([
+            [x - w / 2, y],
+            [x - w / 2 + w * .2, y - h * .2],
+            [x + w / 2 + w * .2, y - h * .2],
+            [x + w / 2, y]
+          ], palette[0]);
+
+          ctx.fillStyle = palette[0];
+          ctx.fillRect(x - w / 2, y, w, h);
+
+          polygon([
+            [x + w / 2, y],
+            [x + w / 2 + w * .2, y - h * .2],
+            [x + w / 2 + w * .2, y + h * .8],
+            [x + w / 2, y + h]
+          ], palette[1]);
+
+          ctx.fillStyle = "rgba(255,255,255,.3)";
+          ctx.fillRect(x - w * .3, y + h * .18, w * .13, h * .56);
+        }
+      }
+
+      function drawCoin(item) {
+        const x = laneX(item.lane, item.z);
+        const g = roadGeometry(item.z);
+        const scale = 0.3 + item.z * 1.3;
+        const radius = 8 * scale;
+        const y = g.y - 25 * scale +
+          Math.sin(elapsed * 5 + item.phase) * 4 * scale;
+
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(Math.max(.3, Math.abs(Math.cos(elapsed * 3 + item.phase))), 1);
+
+        ctx.fillStyle = "rgba(255,209,102,.22)";
+        ctx.beginPath();
+        ctx.arc(0, 0, radius * 1.8, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#ffd166";
+        ctx.beginPath();
+        ctx.arc(0, 0, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = "#fff0ad";
+        ctx.lineWidth = Math.max(1, scale * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = "#a56623";
+        ctx.font = `bold ${Math.max(6, radius * 1.25)}px Arial`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("$", 0, 1);
+
+        ctx.restore();
+      }
+
+      function drawPlayer() {
+        const x = laneX(player.visualLane, .9);
+        const groundY = 480;
+        const jumpHeight = Math.max(0, player.jump) * 0.5;
+        const y = groundY - jumpHeight;
+        const scale = 1.0;
+
+        ctx.fillStyle = `rgba(0,0,0,${Math.max(.08, .25 - jumpHeight / 600)})`;
+        ctx.beginPath();
+        ctx.ellipse(x, groundY + 8, 25 - jumpHeight * .025, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.save();
+        ctx.translate(x, y);
+
+        if (player.jump > 0) {
+          ctx.rotate(-0.12);
+        }
+
+        // Original character: a custom geometric runner, drawn in Canvas.
+        ctx.fillStyle = "#7d63f6";
+        ctx.beginPath();
+        ctx.roundRect(-19, -48, 38, 43, 12);
+        ctx.fill();
+
+        ctx.fillStyle = "#a99aff";
+        ctx.beginPath();
+        ctx.roundRect(-14, -44, 28, 10, 5);
+        ctx.fill();
+
+        ctx.fillStyle = "#ffcfaa";
+        ctx.beginPath();
+        ctx.arc(0, -61, 17, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#222a45";
+        ctx.beginPath();
+        ctx.roundRect(-14, -67, 28, 12, 5);
+        ctx.fill();
+
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.arc(-6, -61, 3.5, 0, Math.PI * 2);
+        ctx.arc(6, -61, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#18213c";
+        ctx.beginPath();
+        ctx.arc(-6, -61, 1.7, 0, Math.PI * 2);
+        ctx.arc(6, -61, 1.7, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = "#ffcfaa";
+        ctx.lineWidth = 8;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(-17, -37);
+        ctx.lineTo(-24, -21);
+        ctx.moveTo(17, -37);
+        ctx.lineTo(24, -21);
+        ctx.stroke();
+
+        const running = state === "playing" ? Math.sin(elapsed * 15) * 5 : 0;
+
+        ctx.strokeStyle = "#3c347d";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(-9, -8);
+        ctx.lineTo(-12 + running, 8);
+        ctx.moveTo(9, -8);
+        ctx.lineTo(12 - running, 8);
+        ctx.stroke();
+
+        ctx.fillStyle = "#52e5ed";
+        ctx.beginPath();
+        ctx.roundRect(-19 + running, 3, 15, 7, 3);
+        ctx.roundRect(4 - running, 3, 15, 7, 3);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      function drawParticles() {
+        for (const p of particles) {
+          ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        }
+
+        ctx.globalAlpha = 1;
+      }
+
+      function roundedRect(x, y, w, h, r, color) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, r);
+        ctx.fill();
+      }
+
+      function drawOverlay(title, subtitle, buttonText) {
+        ctx.fillStyle = "rgba(9,13,28,.65)";
+        ctx.fillRect(0, 0, W, H);
+
+        const panelW = Math.min(560, W - 38);
+        const panelH = 185;
+        const px = (W - panelW) / 2;
+        const py = (H - panelH) / 2;
+
+        roundedRect(px, py, panelW, panelH, 22, "#1a2440");
+
+        ctx.strokeStyle = "rgba(130,231,238,.45)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(px, py, panelW, panelH, 22);
+        ctx.stroke();
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.fillStyle = "#ffd166";
+        ctx.font = "900 32px Arial";
+        ctx.fillText(title, W / 2, py + 48);
+
+        ctx.fillStyle = "#e2e9fb";
+        ctx.font = "16px Arial";
+        ctx.fillText(subtitle, W / 2, py + 88);
+
+        roundedRect(W / 2 - 95, py + 116, 190, 43, 11, "#52e5ed");
+
+        ctx.fillStyle = "#10172b";
+        ctx.font = "900 16px Arial";
+        ctx.fillText(buttonText, W / 2, py + 138);
+
+        ctx.fillStyle = "#bac8e7";
+        ctx.font = "12px Arial";
+        ctx.fillText("Press ENTER or tap Start Game", W / 2, py + 169);
+      }
+
+      function drawMobileControls() {
+        if (window.innerWidth > 700) return;
+
+        const y = H - 58;
+        const buttons = [
+          { x: 65, text: "◀" },
+          { x: W / 2, text: "▲" },
+          { x: W - 65, text: "▶" }
+        ];
+
+        for (const b of buttons) {
+          ctx.fillStyle = "rgba(18,26,49,.8)";
+          ctx.beginPath();
+          ctx.arc(b.x, y, 27, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.strokeStyle = "rgba(82,229,237,.7)";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.fillStyle = "#fff";
+          ctx.font = "bold 23px Arial";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(b.text, b.x, y);
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        drawBackground();
+        drawRoad();
+
+        const sortedObstacles = [...obstacles].sort((a, b) => a.z - b.z);
+        const sortedPickups = [...pickups].sort((a, b) => a.z - b.z);
+
+        for (const item of sortedPickups) {
+          drawCoin(item);
+        }
+
+        for (const ob of sortedObstacles) {
+          drawObstacle(ob);
+        }
+
+        drawPlayer();
+        drawParticles();
+
+        // Compact in-game HUD.
+        roundedRect(18, 16, 180, 55, 12, "rgba(11,17,35,.76)");
+
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "#b9c8e7";
+        ctx.font = "bold 12px Arial";
+        ctx.fillText("DISTANCE", 32, 33);
+
+        ctx.fillStyle = "#fff";
+        ctx.font = "900 23px Arial";
+        ctx.fillText(String(Math.floor(score)), 32, 54);
+
+        roundedRect(W - 144, 16, 126, 44, 11, "rgba(11,17,35,.76)");
+        ctx.fillStyle = "#ffd166";
+        ctx.font = "bold 15px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("🪙 " + coins, W - 81, 39);
+
+        if (flash > 0) {
+          ctx.fillStyle = `rgba(255,70,110,${flash * .18})`;
+          ctx.fillRect(0, 0, W, H);
+        }
+
+        if (state === "ready") {
+          drawOverlay("NEON RUNNER", "Dodge barriers. Collect coins. Beat your best.", "START RUN");
+        } else if (state === "paused") {
+          drawOverlay("PAUSED", "Take a breath, then get back on the track.", "RESUME");
+        } else if (state === "over") {
+          drawOverlay("RUN OVER", "Score: " + Math.floor(score) + "  •  Coins: " + coins, "TRY AGAIN");
+        }
+      }
+
+      function frame(now) {
+        if (!lastTime) lastTime = now;
+
+        const dt = Math.min((now - lastTime) / 1000, 0.035);
+        lastTime = now;
+
+        update(dt);
+        draw();
+
+        requestAnimationFrame(frame);
+      }
+
+      playBtn.addEventListener("click", () => {
+        if (state === "playing") {
+          pauseGame();
+        } else {
+          startGame();
+        }
+      });
+
+      restartBtn.addEventListener("click", startGame);
+
+      fullscreenBtn.addEventListener("click", async () => {
+        try {
+          if (document.fullscreenElement) {
+            await document.exitFullscreen();
+          } else if (gameWrap.requestFullscreen) {
+            await gameWrap.requestFullscreen();
+          }
+        } catch (error) {
+          console.warn("Fullscreen is not available:", error);
+        }
+      });
+
+      document.addEventListener("keydown", event => {
+        const key = event.key.toLowerCase();
+
+        if (["arrowleft", "arrowright", "arrowup", " "].includes(key)) {
+          event.preventDefault();
+        }
+
+        if (key === "arrowleft" || key === "a") moveLane(-1);
+        if (key === "arrowright" || key === "d") moveLane(1);
+        if (key === "arrowup" || key === " " || key === "w") jump();
+
+        if (key === "p" && (state === "playing" || state === "paused")) {
+          pauseGame();
+        }
+
+        if (key === "enter" && state !== "playing") {
+          startGame();
+        }
+      });
+
+      canvas.addEventListener("pointerdown", event => {
+        if (event.pointerType === "mouse") return;
+
+        const rect = canvas.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width * W;
+        const y = (event.clientY - rect.top) / rect.height * H;
+
+        if (y < H * .65) {
+          if (x < W / 3) {
+            moveLane(-1);
+          } else if (x > W * 2 / 3) {
+            moveLane(1);
+          } else {
+            jump();
+          }
+        } else {
+          if (x < W * .34) moveLane(-1);
+          else if (x > W * .66) moveLane(1);
+          else jump();
+        }
+      });
+
+      // Keep best score and page layout independent of external services.
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      resetGame();
+      requestAnimationFrame(frame);
+    })();
   </script>
 </body>
 </html>
