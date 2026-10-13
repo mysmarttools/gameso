@@ -6,135 +6,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Roblox Obby Online – Play Free Obstacle Course | Gameso</title>
-<meta name="description" content="Play Roblox Obby style obstacle course online for free at Gameso! Jump over platforms, avoid lava, reach checkpoints and complete challenging levels.">
+<meta name="description" content="Play Roblox Obby style obstacle course online for free at Gameso! Jump across platforms, avoid lava, reach checkpoints and complete challenging levels.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://gameso.vercel.app/games/roblox-obby/">
+<meta property="og:title" content="Roblox Obby Online – Free Obstacle Course | Gameso">
+<meta property="og:description" content="Jump across platforms, avoid lava and complete five exciting obstacle-course levels on Gameso.">
+<meta property="og:url" content="https://gameso.vercel.app/games/roblox-obby/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#080b14">
 
 <style>
-:root {
-  --bg: #080b14;
-  --card: #121827;
-  --card-hover: #182137;
-  --text: #ffffff;
-  --muted: #9ba4b6;
-  --primary: #6c5ce7;
-  --accent: #00d4ff;
-  --border: rgba(255,255,255,.08);
+:root{
+  --bg:#080b14;
+  --card:#121827;
+  --card-hover:#182137;
+  --text:#fff;
+  --muted:#9ba4b6;
+  --primary:#6c5ce7;
+  --accent:#00d4ff;
+  --border:rgba(255,255,255,.08);
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
   min-height:100vh;
   color:var(--text);
   font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   background:radial-gradient(circle at 50% 0%,rgba(108,92,231,.16),transparent 40%),var(--bg);
   overflow-x:hidden;
 }
-a { color:inherit; text-decoration:none; }
-button { font:inherit; }
-.game-header {
-  height:70px; position:sticky; top:0; z-index:10;
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.game-header{
+  position:sticky;top:0;z-index:100;height:70px;
   background:rgba(8,11,20,.92);
   border-bottom:1px solid var(--border);
   backdrop-filter:blur(18px);
 }
-.header-inner {
-  width:min(1100px,calc(100% - 32px)); height:100%;
-  margin:auto; display:flex; align-items:center; justify-content:space-between;
+.header-inner{
+  width:min(1100px,calc(100% - 32px));height:100%;margin:auto;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
 }
-.logo { display:flex; align-items:center; gap:9px; font-size:20px; font-weight:800; }
-.logo-icon {
+.logo{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:800}
+.logo-icon{
   width:36px;height:36px;display:grid;place-items:center;border-radius:10px;
-  background:linear-gradient(135deg,var(--primary),var(--accent));
+  background:linear-gradient(135deg,var(--primary),var(--accent));font-size:18px;
 }
-.logo strong {
+.logo strong{
   background:linear-gradient(90deg,#fff,#bdb9ff);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.back-button {
-  padding:11px 15px;border:1px solid var(--border);border-radius:10px;
-  background:rgba(255,255,255,.03);color:var(--muted);font-size:13px;font-weight:600;
+.back-button{
+  padding:11px 15px;color:var(--muted);
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:10px;
+  font-size:13px;font-weight:600;
 }
-.game-page { padding:48px 0 75px; }
-.game-container { width:min(900px,calc(100% - 32px));margin:auto; }
-.game-heading { text-align:center;margin-bottom:26px; }
-.game-label { color:#9b93ff;font-size:11px;font-weight:800;letter-spacing:1px; }
-h1 { font-size:clamp(32px,5vw,46px);letter-spacing:-1.3px;margin-top:10px; }
-.game-heading p { color:var(--muted);font-size:14px;margin-top:10px;line-height:1.7; }
-.game-box {
+.back-button:hover{color:#fff;background:rgba(255,255,255,.08)}
+.game-page{padding:48px 0 75px}
+.game-container{width:min(900px,calc(100% - 32px));margin:auto}
+.game-heading{text-align:center;margin-bottom:27px}
+.game-label{
+  display:inline-block;color:#9b93ff;font-size:11px;font-weight:800;
+  letter-spacing:1px;
+}
+h1{margin-top:10px;font-size:clamp(32px,5vw,46px);letter-spacing:-1.3px;line-height:1.15}
+.game-heading p{
+  max-width:620px;margin:12px auto 0;color:var(--muted);
+  font-size:14px;line-height:1.7;
+}
+.game-box{
   padding:18px;background:linear-gradient(145deg,#141b2b,#0e1422);
   border:1px solid var(--border);border-radius:22px;
   box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
-.game-stats { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px; }
-.stat-box {
+.game-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px}
+.stat-box{
   padding:10px;text-align:center;background:rgba(255,255,255,.04);
   border:1px solid var(--border);border-radius:12px;
 }
-.stat-box span { display:block;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:1px; }
-.stat-box strong { display:block;margin-top:4px;font-size:19px; }
-#gameCanvas {
+.stat-box span{display:block;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:1px}
+.stat-box strong{display:block;margin-top:4px;font-size:19px}
+#gameCanvas{
   display:block;width:100%;height:auto;aspect-ratio:800/440;
   background:#101a35;border:3px solid #20283a;border-radius:14px;
   touch-action:none;
 }
-.game-message {
-  min-height:40px;display:flex;align-items:center;justify-content:center;
-  text-align:center;color:var(--muted);font-size:13px;font-weight:600;
+.game-message{
+  min-height:43px;display:flex;align-items:center;justify-content:center;
+  text-align:center;color:var(--muted);font-size:13px;font-weight:600;line-height:1.5;
 }
-.game-actions { display:flex;justify-content:center;gap:10px;flex-wrap:wrap; }
-.game-button,.secondary-button {
-  min-height:44px;padding:0 19px;border-radius:11px;font-size:12px;
-  font-weight:800;cursor:pointer;transition:.2s;
+.game-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.game-button,.secondary-button{
+  min-height:44px;padding:0 19px;border-radius:11px;
+  font-size:12px;font-weight:800;cursor:pointer;transition:.2s;
 }
-.game-button { color:white;background:linear-gradient(135deg,var(--primary),#5144d7);border:0; }
-.secondary-button { color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border); }
-.game-button:hover,.secondary-button:hover { transform:translateY(-2px); }
-.mobile-controls {
-  display:none;justify-content:center;align-items:center;gap:12px;margin-top:14px;
+.game-button{
+  color:#fff;background:linear-gradient(135deg,var(--primary),#5144d7);border:0;
 }
-.mobile-controls button {
+.secondary-button{
+  color:var(--muted);background:rgba(255,255,255,.04);border:1px solid var(--border);
+}
+.game-button:hover,.secondary-button:hover{transform:translateY(-2px)}
+.mobile-controls{display:none;justify-content:center;align-items:center;gap:12px;margin-top:14px}
+.mobile-controls button{
   width:65px;height:53px;border:1px solid var(--border);border-radius:13px;
-  color:white;background:#20283a;font-size:22px;font-weight:800;touch-action:none;
+  color:#fff;background:#20283a;font-size:22px;font-weight:800;touch-action:none;
 }
-.mobile-controls .jump { width:100px;background:var(--primary);font-size:13px; }
-.game-info,.related-section { max-width:760px;margin:55px auto 0; }
-.game-info h2,.related-section h2 { font-size:23px;margin-bottom:13px;line-height:1.4; }
-.game-info h2:not(:first-child) { margin-top:30px; }
-.game-info p { color:var(--muted);font-size:14px;line-height:1.85;margin-bottom:12px; }
-.game-info ul { padding-left:21px;color:var(--muted);font-size:14px;line-height:2; }
-.related-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
-.related-card {
-  min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  background:var(--card);border:1px solid var(--border);border-radius:14px;transition:.2s;
+.mobile-controls .jump{width:100px;background:var(--primary);font-size:13px}
+.game-info,.related-section{max-width:760px;margin:55px auto 0}
+.game-info h2,.related-section h2{font-size:23px;margin-bottom:13px;line-height:1.4}
+.game-info h2:not(:first-child){margin-top:32px}
+.game-info h3{font-size:17px;line-height:1.5;margin:23px 0 8px}
+.game-info p{
+  color:var(--muted);font-size:14px;line-height:1.85;margin-bottom:13px;
 }
-.related-card:hover { transform:translateY(-3px);background:var(--card-hover); }
-.related-card span { font-size:30px; }
-.related-card strong { font-size:12px; }
-footer {
+.game-info ul{padding-left:21px;color:var(--muted);font-size:14px;line-height:2}
+.game-info li{padding-left:2px;margin-bottom:3px}
+.game-info strong{color:#e5e9f2}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.related-card{
+  min-height:100px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;background:var(--card);
+  border:1px solid var(--border);border-radius:14px;transition:.2s;
+}
+.related-card:hover{transform:translateY(-3px);background:var(--card-hover);border-color:rgba(108,92,231,.4)}
+.related-card span{font-size:30px}
+.related-card strong{font-size:12px}
+footer{
   margin-top:65px;padding:22px 15px;text-align:center;color:#697284;
   background:#060810;border-top:1px solid var(--border);font-size:11px;
 }
-@media(max-width:700px) {
-  .game-page { padding:35px 0 55px; }
-  .game-box { padding:11px;border-radius:16px; }
-  .related-grid { grid-template-columns:1fr; }
-  .related-card { min-height:68px;flex-direction:row;justify-content:flex-start;padding:0 20px; }
-  .mobile-controls { display:flex; }
+@media(max-width:700px){
+  .game-page{padding:35px 0 55px}
+  .game-box{padding:11px;border-radius:16px}
+  .related-grid{grid-template-columns:1fr}
+  .related-card{min-height:68px;flex-direction:row;justify-content:flex-start;padding:0 20px}
+  .mobile-controls{display:flex}
 }
-@media(max-width:420px) {
-  .game-header { height:62px; }
-  .header-inner { width:calc(100% - 22px); }
-  .logo { font-size:17px; }
-  .logo-icon { width:32px;height:32px; }
-  .back-button { padding:10px;font-size:11px; }
-  .game-container { width:calc(100% - 20px); }
-  h1 { font-size:29px; }
-  .game-heading p { font-size:12px; }
-  .stat-box { padding:8px 4px; }
-  .stat-box strong { font-size:17px; }
-  .mobile-controls button { width:57px;height:49px; }
-  .mobile-controls .jump { width:85px;font-size:12px; }
+@media(max-width:420px){
+  .game-header{height:62px}
+  .header-inner{width:calc(100% - 22px)}
+  .logo{font-size:17px}
+  .logo-icon{width:32px;height:32px}
+  .back-button{padding:10px;font-size:11px}
+  .game-container{width:calc(100% - 20px)}
+  h1{font-size:29px}
+  .game-heading p{font-size:12px}
+  .stat-box{padding:8px 4px}
+  .stat-box strong{font-size:17px}
+  .mobile-controls{gap:8px}
+  .mobile-controls button{width:57px;height:49px}
+  .mobile-controls .jump{width:85px;font-size:12px}
+  .game-info h2,.related-section h2{font-size:21px}
 }
 </style>
 </head>
@@ -154,60 +178,154 @@ footer {
 
   <section class="game-heading">
     <span class="game-label">FREE ONLINE GAME</span>
-    <h1>Roblox Obby</h1>
-    <p>Jump across platforms, dodge lava and race to the finish in this free obstacle-course challenge!</p>
+    <h1>Roblox Obby – Play Free Online</h1>
+    <p>Jump across platforms, avoid lava, reach checkpoints and complete this exciting obstacle-course challenge on Gameso.</p>
   </section>
 
-  <section class="game-box" aria-label="Roblox Obby style game">
+  <section class="game-box" aria-label="Playable obstacle course">
     <div class="game-stats">
       <div class="stat-box"><span>LEVEL</span><strong id="level">1 / 5</strong></div>
-      <div class="stat-box"><span>CHECKPOINT</span><strong id="checkpoint">1</strong></div>
+      <div class="stat-box"><span>CHECKPOINT</span><strong id="checkpoint">Start</strong></div>
       <div class="stat-box"><span>FALLS</span><strong id="falls">0</strong></div>
     </div>
 
-    <canvas id="gameCanvas" width="800" height="440" aria-label="Obstacle course game area"></canvas>
-    <div class="game-message" id="message" role="status">Use ← → to move and SPACE to jump!</div>
+    <canvas id="gameCanvas" width="800" height="440" aria-label="Obstacle course game. Move and jump across platforms to reach the finish."></canvas>
+    <div class="game-message" id="message" role="status" aria-live="polite">Use arrow keys or A/D to move and SPACE to jump!</div>
 
     <div class="game-actions">
       <button class="game-button" id="restart">↻ Restart Level</button>
       <button class="secondary-button" id="sound">🔊 Sound On</button>
     </div>
 
-    <div class="mobile-controls">
+    <div class="mobile-controls" aria-label="Mobile game controls">
       <button id="left" aria-label="Move left">←</button>
-      <button id="jump" class="jump">JUMP ↑</button>
+      <button id="jump" class="jump" aria-label="Jump">JUMP ↑</button>
       <button id="right" aria-label="Move right">→</button>
     </div>
   </section>
 
   <section class="game-info">
-    <h2>🎮 How to Play Roblox Obby</h2>
-    <p>Welcome to Gameso's Roblox Obby-style platform challenge! Move your character across floating platforms, jump over dangerous lava and reach the green finish platform to complete each level.</p>
 
-    <h2>🕹️ Game Controls</h2>
+    <h2>🎮 What Is Roblox Obby?</h2>
+    <p>Roblox Obby is inspired by obstacle-course games in which players jump between platforms, avoid dangerous traps and try to reach the finish line. In this free Roblox Obby-style game on Gameso, test your timing, improve your jumping skills and complete multiple challenging levels directly in your browser.</p>
+    <p>Each level features a different arrangement of platforms and gaps. Watch your movements carefully, avoid the lava and use checkpoints to make progress. Whether you enjoy casual platform games or challenging parkour adventures, this game offers a fun way to test your skills.</p>
+
+    <h2>🕹️ How to Play Roblox Obby Online</h2>
+    <p>Your goal is to guide your character across the platforms and reach the green finish platform. Falling into lava or missing a platform sends your character back to the saved position.</p>
+    <ul>
+      <li>Move across platforms using the movement controls.</li>
+      <li>Jump over gaps and land safely on the next platform.</li>
+      <li>Avoid red lava areas and dangerous gaps.</li>
+      <li>Reach checkpoints to save your progress within the level.</li>
+      <li>Find the green finish platform to complete a level.</li>
+      <li>Complete all five levels to finish the challenge.</li>
+    </ul>
+
+    <h2>⌨️ Roblox Obby Controls</h2>
+    <p>The game supports keyboard controls on desktop computers and on-screen buttons on compatible mobile devices.</p>
     <ul>
       <li><strong>Move left:</strong> Left Arrow or A key.</li>
       <li><strong>Move right:</strong> Right Arrow or D key.</li>
-      <li><strong>Jump:</strong> Spacebar, Up Arrow or W key.</li>
-      <li><strong>Mobile:</strong> Use the on-screen movement and jump buttons.</li>
-      <li><strong>Restart:</strong> Restart your current level at any time.</li>
+      <li><strong>Jump:</strong> Spacebar, W or Up Arrow key.</li>
+      <li><strong>Mobile controls:</strong> Tap the left and right arrows to move and the Jump button to jump.</li>
+      <li><strong>Restart Level:</strong> Restart the current level.</li>
     </ul>
 
-    <h2>🏁 Tips to Complete the Obby</h2>
-    <p>Watch the gaps between platforms before jumping. Land safely on checkpoint platforms to save your progress, avoid red lava zones and build momentum for longer jumps. Reach the finish platform to unlock the next stage.</p>
+    <h2>🏆 Tips to Complete Roblox Obby Levels</h2>
+    <p>Use these tips to improve your timing, avoid unnecessary falls and make it through the obstacle course.</p>
+    <ul>
+      <li><strong>Time your jumps:</strong> Approach the edge before jumping across a gap.</li>
+      <li><strong>Watch the platforms:</strong> Check the distance and height of the next platform.</li>
+      <li><strong>Use checkpoints:</strong> Save your position when you reach a checkpoint.</li>
+      <li><strong>Avoid rushing:</strong> Controlled movements can help you land more accurately.</li>
+      <li><strong>Learn from mistakes:</strong> Try a different approach after falling.</li>
+      <li><strong>Practise difficult jumps:</strong> Learn the distance and timing needed for each platform.</li>
+    </ul>
 
-    <h2>❓ Is Roblox Obby Free to Play?</h2>
-    <p>This original browser-based obstacle-course game is free to play on Gameso. It is inspired by the obstacle-course genre popular on Roblox, but it is not the official Roblox game and does not require a Roblox account.</p>
+    <h2>🌟 Features of This Free Obby Game</h2>
+    <ul>
+      <li>Free browser-based obstacle-course gameplay.</li>
+      <li>Five levels with different platform arrangements.</li>
+      <li>Checkpoint system within each level.</li>
+      <li>Keyboard and mobile touch controls.</li>
+      <li>Restart option for practising difficult sections.</li>
+      <li>No separate game installation required.</li>
+      <li>Responsive layout for desktop, tablet and mobile screens.</li>
+    </ul>
+
+    <h2>📱 Can You Play Roblox Obby on Mobile?</h2>
+    <p>Yes. This Gameso obstacle-course game includes touch buttons for moving and jumping on compatible mobile browsers. Open the page on your phone, use the on-screen controls and try to reach the finish platform. For the best experience, use an updated browser and keep the game page open while playing.</p>
+
+    <h2>🆓 Is Roblox Obby Free to Play?</h2>
+    <p>Yes. This Roblox Obby-style browser game on Gameso is free to play. You can start directly from the page without downloading a separate game or creating an account for this browser game.</p>
+
+    <h2>❓ Frequently Asked Questions</h2>
+
+    <h3>1. What is Roblox Obby?</h3>
+    <p>Roblox Obby refers to obstacle-course games popular on the Roblox platform. Players jump across platforms, avoid hazards and try to reach the end of a course. This Gameso version is a separate browser-based game inspired by that style.</p>
+
+    <h3>2. Can I play Roblox Obby online for free?</h3>
+    <p>Yes. You can play this Roblox Obby-style game online for free on Gameso using a compatible web browser. No separate download is required.</p>
+
+    <h3>3. How do I jump in Roblox Obby?</h3>
+    <p>On a desktop computer, press the Spacebar, W or Up Arrow key to jump. On mobile devices, tap the Jump button displayed below the game area.</p>
+
+    <h3>4. How do I move my character?</h3>
+    <p>Use the Left and Right Arrow keys or the A and D keys on your keyboard. On mobile, use the on-screen arrow buttons to move your character.</p>
+
+    <h3>5. Can I play this Obby game on my phone?</h3>
+    <p>Yes. The page is designed to adapt to mobile screens and includes touch controls. Performance may vary depending on your device and browser.</p>
+
+    <h3>6. How many levels are in this game?</h3>
+    <p>This version includes five obstacle-course levels. Reach the finish platform in each level to advance to the next challenge.</p>
+
+    <h3>7. What happens if I fall into the lava?</h3>
+    <p>If your character touches a lava area or falls off the platforms, the character returns to the saved position. You can then try the obstacle again.</p>
+
+    <h3>8. What are checkpoints in an Obby game?</h3>
+    <p>Checkpoints are positions that help you continue after a fall. In this version, checkpoint progress is managed within the current level and is not saved permanently after leaving the page.</p>
+
+    <h3>9. Do I need to download Roblox to play this game?</h3>
+    <p>No. This particular Gameso obstacle-course game runs in your browser and does not require the Roblox application. It is not connected to an official Roblox account.</p>
+
+    <h3>10. Is this the official Roblox Obby game?</h3>
+    <p>No. This is an independent browser-based obstacle-course game inspired by the obby genre. Roblox is a separate gaming platform, and this page is not an official Roblox product.</p>
+
+    <h3>11. How can I complete difficult jumps?</h3>
+    <p>Approach the platform carefully, time your jump and avoid moving too far before landing. Practising the same section can help you learn the distances between platforms.</p>
+
+    <h3>12. Can I restart the game?</h3>
+    <p>Yes. Select the Restart Level button to restart the current level. If you have completed all levels, you can start the challenge again.</p>
+
+    <h3>13. Does Roblox Obby work on a computer?</h3>
+    <p>Yes. Use a compatible desktop browser and the keyboard controls to move, jump and navigate the obstacle course.</p>
+
+    <h3>14. Why does my character fall off a platform?</h3>
+    <p>You may be jumping too early, too late or moving too far. Adjust your timing and approach each gap carefully. You can restart the level to practise again.</p>
+
+    <h3>15. Can I play without creating an account?</h3>
+    <p>Yes. This browser-based Gameso game does not require you to register or sign in to play.</p>
+
+    <h2>🎯 Play More Free Online Games</h2>
+    <p>Enjoy more free browser games on Gameso. Try arcade challenges, classic puzzles and driving games whenever you want a quick gaming break.</p>
+
   </section>
 
   <section class="related-section">
-    <h2>🎯 More Free Games</h2>
+    <h2>🎮 More Free Online Games</h2>
     <div class="related-grid">
-      <a class="related-card" href="/games/drift-boss/"><span>🏎️</span><strong>Drift Boss</strong></a>
-      <a class="related-card" href="/games/snake/"><span>🐍</span><strong>Snake Game</strong></a>
-      <a class="related-card" href="/games/2048/"><span>🔢</span><strong>2048 Puzzle</strong></a>
+      <a class="related-card" href="/games/snake/">
+        <span>🐍</span><strong>Snake Game</strong>
+      </a>
+      <a class="related-card" href="/games/drift-boss/">
+        <span>🏎️</span><strong>Drift Boss</strong>
+      </a>
+      <a class="related-card" href="/games/2048/">
+        <span>🔢</span><strong>2048 Puzzle</strong>
+      </a>
     </div>
   </section>
+
 </div>
 </main>
 
@@ -215,6 +333,8 @@ footer {
 
 <script>
 (() => {
+  "use strict";
+
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
   const $ = id => document.getElementById(id);
@@ -222,139 +342,129 @@ footer {
   $("year").textContent = new Date().getFullYear();
 
   const levels = [
-    { start:30, finish:735, platforms:[
-      [0,390,155,50],[190,350,90,18],[320,305,85,18],
-      [445,255,90,18],[565,205,90,18],[680,160,120,18]
-    ], hazards:[[155,405,35,35],[280,405,70,35],[405,405,80,35],[535,405,90,35]], checkpoints:[320] },
-    { start:30, finish:735, platforms:[
-      [0,390,130,50],[170,335,70,18],[280,280,70,18],
-      [390,330,65,18],[495,245,75,18],[610,195,75,18],[710,150,90,18]
-    ], hazards:[[130,405,40,35],[240,405,80,35],[360,405,70,35],[470,405,80,35],[580,405,90,35]], checkpoints:[390] },
-    { start:30, finish:735, platforms:[
-      [0,390,115,50],[150,320,60,18],[245,260,60,18],
-      [340,320,60,18],[435,240,60,18],[530,180,60,18],[625,240,60,18],[720,150,80,18]
-    ], hazards:[[115,405,35,35],[210,405,70,35],[305,405,70,35],[400,405,70,35],[495,405,70,35],[590,405,70,35]], checkpoints:[435] },
-    { start:30, finish:735, platforms:[
-      [0,390,115,50],[155,340,55,18],[250,290,55,18],
-      [345,240,55,18],[440,290,55,18],[535,225,55,18],[630,175,55,18],[720,135,80,18]
-    ], hazards:[[115,405,40,35],[210,405,70,35],[305,405,70,35],[400,405,70,35],[495,405,70,35],[590,405,70,35]], checkpoints:[440] },
-    { start:30, finish:735, platforms:[
-      [0,390,110,50],[155,330,50,18],[240,275,50,18],
-      [325,220,50,18],[410,275,50,18],[495,215,50,18],[580,160,50,18],[665,205,50,18],[735,145,65,18]
-    ], hazards:[[110,405,45,35],[195,405,60,35],[280,405,60,35],[365,405,60,35],[450,405,60,35],[535,405,60,35],[620,405,60,35]], checkpoints:[495] }
+    {
+      platforms:[[0,390,155,50],[190,350,90,18],[320,305,85,18],[445,255,90,18],[565,205,90,18],[680,160,120,18]],
+      hazards:[[155,405,35,35],[280,405,40,35],[405,405,40,35],[535,405,30,35]],
+      checkpoints:[{x:320,y:305}]
+    },
+    {
+      platforms:[[0,390,130,50],[170,335,70,18],[280,280,70,18],[390,330,65,18],[495,245,75,18],[610,195,75,18],[710,150,90,18]],
+      hazards:[[130,405,40,35],[240,405,40,35],[360,405,40,35],[470,405,40,35],[580,405,30,35]],
+      checkpoints:[{x:390,y:330}]
+    },
+    {
+      platforms:[[0,390,115,50],[150,320,60,18],[245,260,60,18],[340,320,60,18],[435,240,60,18],[530,180,60,18],[625,240,60,18],[720,150,80,18]],
+      hazards:[[115,405,35,35],[210,405,35,35],[305,405,35,35],[400,405,35,35],[495,405,35,35],[590,405,35,35]],
+      checkpoints:[{x:435,y:240}]
+    },
+    {
+      platforms:[[0,390,115,50],[155,340,55,18],[250,290,55,18],[345,240,55,18],[440,290,55,18],[535,225,55,18],[630,175,55,18],[720,135,80,18]],
+      hazards:[[115,405,40,35],[210,405,40,35],[305,405,40,35],[400,405,40,35],[495,405,40,35],[590,405,40,35]],
+      checkpoints:[{x:440,y:290}]
+    },
+    {
+      platforms:[[0,390,110,50],[155,330,50,18],[240,275,50,18],[325,220,50,18],[410,275,50,18],[495,215,50,18],[580,160,50,18],[665,205,50,18],[735,145,65,18]],
+      hazards:[[110,405,45,35],[195,405,45,35],[280,405,45,35],[365,405,45,35],[450,405,45,35],[535,405,45,35],[620,405,45,35]],
+      checkpoints:[{x:495,y:215}]
+    }
   ];
 
-  let level = 0, falls = 0, savedX = 30, savedY = 350;
-  let won = false, soundOn = true, audio = null;
-  let keys = {}, last = 0;
-  let player = {x:30,y:350,w:22,h:30,vx:0,vy:0,ground:false};
-  const gravity = 0.52;
-  const speed = 3.7;
-  const jumpPower = -10.8;
+  let level=0,falls=0,won=false,soundOn=true,audio=null;
+  let keys={},last=0,checkpointReached=false;
+  const player={x:30,y:350,w:22,h:30,vx:0,vy:0,ground:false};
+  let savedX=30,savedY=350;
+  const gravity=.52,speed=3.7,jumpPower=-10.8;
 
-  function say(text) { $("message").textContent = text; }
-  function updateStats() {
-    $("level").textContent = `${level+1} / ${levels.length}`;
-    $("checkpoint").textContent = level+1;
-    $("falls").textContent = falls;
+  function say(text){$("message").textContent=text}
+  function updateStats(){
+    $("level").textContent=`${level+1} / ${levels.length}`;
+    $("checkpoint").textContent=checkpointReached?"Saved":"Start";
+    $("falls").textContent=falls;
   }
-  function beep(freq=500) {
-    if (!soundOn) return;
-    try {
-      audio ||= new (window.AudioContext || window.webkitAudioContext)();
-      const o=audio.createOscillator(), g=audio.createGain();
-      o.frequency.value=freq; g.gain.value=.035;
-      o.connect(g); g.connect(audio.destination);
-      o.start(); g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);
-      o.stop(audio.currentTime+.13);
-    } catch(e) {}
+  function beep(freq=500){
+    if(!soundOn)return;
+    try{
+      audio ||= new(window.AudioContext||window.webkitAudioContext)();
+      const osc=audio.createOscillator(),gain=audio.createGain();
+      osc.frequency.value=freq;gain.gain.value=.035;
+      osc.connect(gain);gain.connect(audio.destination);osc.start();
+      gain.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.12);
+      osc.stop(audio.currentTime+.13);
+    }catch(e){}
   }
-  function resetPosition() {
-    player.x=savedX; player.y=savedY;
-    player.vx=0; player.vy=0; player.ground=false;
+  function resetPosition(){
+    player.x=savedX;player.y=savedY;
+    player.vx=0;player.vy=0;player.ground=false;
   }
-  function loadLevel() {
-    savedX=levels[level].start; savedY=350;
-    resetPosition(); won=false; updateStats();
-    say("Level "+(level+1)+": jump carefully and reach the green finish!");
+  function loadLevel(){
+    savedX=30;savedY=360;checkpointReached=false;won=false;
+    resetPosition();updateStats();
+    say(`Level ${level+1}: jump carefully and reach the green finish!`);
+    draw();
   }
-  function die() {
-    falls++; updateStats(); resetPosition(); beep(180);
+  function die(){
+    falls++;updateStats();resetPosition();beep(180);
     say("Oops! Try again from your checkpoint.");
   }
-  function nextLevel() {
-    if(level < levels.length-1) {
-      level++; loadLevel(); beep(760);
-    } else {
-      won=true; say("🏆 Amazing! You completed all 5 levels!");
-      beep(900);
+  function nextLevel(){
+    if(level<levels.length-1){
+      level++;loadLevel();beep(760);
+    }else{
+      won=true;say("🏆 Amazing! You completed all 5 levels!");beep(900);
     }
   }
-  function rect(x,y,w,h,color) {
-    ctx.fillStyle=color; ctx.fillRect(x,y,w,h);
+  function rect(x,y,w,h,color){
+    ctx.fillStyle=color;ctx.fillRect(x,y,w,h);
   }
-  function draw() {
+  function draw(){
     const sky=ctx.createLinearGradient(0,0,0,440);
-    sky.addColorStop(0,"#172447"); sky.addColorStop(1,"#101426");
+    sky.addColorStop(0,"#172447");sky.addColorStop(1,"#101426");
     rect(0,0,800,440,sky);
 
-    // Stars
     for(let i=0;i<55;i++){
-      const x=(i*137+23)%800, y=(i*71+15)%270;
-      rect(x,y,2,2,"rgba(255,255,255,.42)");
+      rect((i*137+23)%800,(i*71+15)%270,2,2,"rgba(255,255,255,.42)");
     }
 
-    // Distant scenery
-    ctx.fillStyle="#18203b";
-    ctx.beginPath(); ctx.moveTo(0,350);
-    for(let x=0;x<=800;x+=100) ctx.lineTo(x,310+(x%200)*.16);
+    ctx.fillStyle="#18203b";ctx.beginPath();ctx.moveTo(0,350);
+    for(let x=0;x<=800;x+=100)ctx.lineTo(x,310+(x%200)*.16);
     ctx.lineTo(800,440);ctx.lineTo(0,440);ctx.fill();
 
     const data=levels[level];
-    // Lava
-    data.hazards.forEach(([x,y,w,h],i)=>{
-      rect(x,y,w,h,"#d83b55");
-      rect(x,y,w,5,"#ff8066");
-      for(let n=0;n<3;n++){
-        const px=x+(n*29+8)%Math.max(10,w-5);
-        rect(px,y+12+(n%2)*9,5,3,"#ffb15c");
-      }
+
+    data.hazards.forEach(([x,y,w,h])=>{
+      rect(x,y,w,h,"#d83b55");rect(x,y,w,5,"#ff8066");
+      for(let n=0;n<3;n++)rect(x+(n*29+8)%Math.max(10,w-5),y+12+(n%2)*9,5,3,"#ffb15c");
     });
 
-    // Platforms
     data.platforms.forEach(([x,y,w,h],i)=>{
-      rect(x,y,w,h,"#5966a1");
-      rect(x,y,w,5,"#8c9aff");
+      rect(x,y,w,h,"#5966a1");rect(x,y,w,5,"#8c9aff");
       if(i===data.platforms.length-1){
         rect(x,y-5,w,5,"#55edac");
         ctx.fillStyle="#55edac";ctx.font="bold 13px Arial";
-        ctx.fillText("FINISH",x+8,y-13);
+        ctx.fillText("FINISH",x+5,y-12);
       }
     });
 
-    // Checkpoint marker
-    data.checkpoints.forEach(x=>{
-      rect(x,275,4,30,"#00d4ff");
-      rect(x+4,275,22,13,"#00d4ff");
+    data.checkpoints.forEach(cp=>{
+      rect(cp.x,cp.y-30,4,30,"#00d4ff");
+      rect(cp.x+4,cp.y-30,22,13,"#00d4ff");
     });
 
-    // Player shadow and character
     ctx.fillStyle="rgba(0,0,0,.25)";
     ctx.fillRect(player.x-2,player.y+player.h,player.w+4,4);
     rect(player.x,player.y,player.w,player.h,"#6c5ce7");
     rect(player.x+3,player.y+4,player.w-6,9,"#bdb9ff");
-    rect(player.x+4,player.y+8,4,4,"#ffffff");
-    rect(player.x+14,player.y+8,4,4,"#ffffff");
+    rect(player.x+4,player.y+8,4,4,"#fff");
+    rect(player.x+14,player.y+8,4,4,"#fff");
     rect(player.x+5,player.y+9,2,2,"#172447");
     rect(player.x+15,player.y+9,2,2,"#172447");
     rect(player.x+5,player.y+22,5,8,"#00d4ff");
     rect(player.x+13,player.y+22,5,8,"#00d4ff");
 
     if(won){
-      ctx.fillStyle="rgba(5,10,20,.83)";ctx.fillRect(0,0,800,440);
-      ctx.textAlign="center";
-      ctx.fillStyle="#55edac";ctx.font="bold 38px Arial";
-      ctx.fillText("YOU WIN!",400,190);
+      ctx.fillStyle="rgba(5,10,20,.85)";ctx.fillRect(0,0,800,440);
+      ctx.textAlign="center";ctx.fillStyle="#55edac";
+      ctx.font="bold 38px Arial";ctx.fillText("YOU WIN!",400,190);
       ctx.fillStyle="#fff";ctx.font="18px Arial";
       ctx.fillText("You conquered every obstacle!",400,230);
       ctx.font="14px Arial";ctx.fillStyle="#bdb9ff";
@@ -363,85 +473,90 @@ footer {
     }
   }
 
-  function update() {
-    if(won) return;
+  function update(){
+    if(won)return;
+
     const oldBottom=player.y+player.h;
 
-    if(keys.ArrowLeft||keys.a||keys.A) player.vx=-speed;
-    else if(keys.ArrowRight||keys.d||keys.D) player.vx=speed;
+    if(keys.ArrowLeft||keys.a||keys.A)player.vx=-speed;
+    else if(keys.ArrowRight||keys.d||keys.D)player.vx=speed;
     else player.vx*=.72;
 
-    if((keys[" "]||keys.ArrowUp||keys.w||keys.W) && player.ground) {
+    if((keys[" "]||keys.ArrowUp||keys.w||keys.W)&&player.ground){
       player.vy=jumpPower;player.ground=false;beep(380);
     }
 
     player.x+=player.vx;
     player.x=Math.max(0,Math.min(800-player.w,player.x));
-    player.vy+=gravity;
-    player.vy=Math.min(player.vy,12);
+    player.vy=Math.min(player.vy+gravity,12);
     player.y+=player.vy;
     player.ground=false;
 
     const data=levels[level];
-    for(const [x,y,w,h] of data.platforms) {
-      if(player.vy>=0 && player.x+player.w>x && player.x<x+w &&
-         oldBottom<=y+5 && player.y+player.h>=y && player.y+player.h<=y+h+10) {
+
+    for(const [x,y,w,h] of data.platforms){
+      if(player.vy>=0&&player.x+player.w>x&&player.x<x+w&&
+         oldBottom<=y+5&&player.y+player.h>=y&&player.y+player.h<=y+h+10){
         player.y=y-player.h;player.vy=0;player.ground=true;
       }
     }
 
-    for(const [x,y,w,h] of data.hazards) {
-      if(player.x+player.w>x && player.x<x+w &&
-         player.y+player.h>y && player.y<y+h) { die();return; }
-    }
-
-    // Save progress on checkpoint platforms.
-    for(const x of data.checkpoints) {
-      if(player.x+player.w>x && player.x<x+30 && player.ground && savedX<x) {
-        savedX=x+5; savedY=levels[level].platforms.find(p=>p[0]===x)?.[1]-player.h || player.y;
-        say("Checkpoint saved! Keep going!");
-        updateStats();beep(650);
+    for(const [x,y,w,h] of data.hazards){
+      if(player.x+player.w>x&&player.x<x+w&&player.y+player.h>y&&player.y<y+h){
+        die();return;
       }
     }
 
-    if(player.y>460) { die();return; }
+    for(const cp of data.checkpoints){
+      if(!checkpointReached&&player.x+player.w>cp.x&&player.x<cp.x+28&&
+         player.ground&&Math.abs(player.y+player.h-cp.y)<7){
+        checkpointReached=true;savedX=cp.x+5;savedY=cp.y-player.h;
+        updateStats();say("Checkpoint saved! Keep going!");beep(650);
+      }
+    }
 
-    // Finish when landing on the final platform.
-    const lastPlatform=data.platforms[data.platforms.length-1];
-    if(player.x+player.w>lastPlatform[0] && player.x<lastPlatform[0]+lastPlatform[2] &&
-       player.y+player.h>=lastPlatform[1] && player.y+player.h<=lastPlatform[1]+10 && player.ground) {
+    if(player.y>460){die();return}
+
+    const finish=data.platforms[data.platforms.length-1];
+    if(player.x+player.w>finish[0]&&player.x<finish[0]+finish[2]&&
+       player.ground&&Math.abs(player.y+player.h-finish[1])<7){
       nextLevel();
     }
   }
 
-  function frame(t) {
-    if(t-last>16){update();draw();last=t;}
+  function frame(t){
+    if(t-last>16){update();draw();last=t}
     requestAnimationFrame(frame);
   }
 
   document.addEventListener("keydown",e=>{
-    if(["ArrowLeft","ArrowRight","ArrowUp"," "].includes(e.key)) e.preventDefault();
+    if(["ArrowLeft","ArrowRight","ArrowUp"," "].includes(e.key))e.preventDefault();
     keys[e.key]=true;
   });
   document.addEventListener("keyup",e=>keys[e.key]=false);
   window.addEventListener("blur",()=>keys={});
 
   function holdButton(id,key){
-    const b=$(id);
-    b.addEventListener("pointerdown",e=>{e.preventDefault();keys[key]=true;b.setPointerCapture(e.pointerId);});
-    const stop=e=>{keys[key]=false;};
-    b.addEventListener("pointerup",stop);
-    b.addEventListener("pointercancel",stop);
-    b.addEventListener("lostpointercapture",stop);
+    const button=$(id);
+    button.addEventListener("pointerdown",e=>{
+      e.preventDefault();keys[key]=true;
+      button.setPointerCapture(e.pointerId);
+    });
+    const stop=()=>{keys[key]=false};
+    button.addEventListener("pointerup",stop);
+    button.addEventListener("pointercancel",stop);
+    button.addEventListener("lostpointercapture",stop);
   }
+
   holdButton("left","ArrowLeft");
   holdButton("right","ArrowRight");
   holdButton("jump"," ");
 
   $("restart").addEventListener("click",()=>{
-    if(won) level=0;
+    if(won)level=0;
     loadLevel();beep(500);
   });
+
   $("sound").addEventListener("click",()=>{
     soundOn=!soundOn;
     $("sound").textContent=soundOn?"🔊 Sound On":"🔇 Sound Off";
