@@ -108,26 +108,6 @@
     <priority>0.8</priority>
   </url>
 
-    <!-- Gameso Blog -->
-  <url>
-    <loc>https://gameso.vercel.app/blog/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Best Free Online Games 2026 -->
-  <url>
-    <loc>https://gameso.vercel.app/blog/best-free-online-games-2026/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-<url>
-    <loc>https://gameso.vercel.app/blog/best-racing-games-online/</loc>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
 <url>
     <loc>https://gameso.vercel.app/games/roblox-obby/</loc>
     <changefreq>monthly</changefreq>
@@ -158,11 +138,7 @@
             <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     </url>
-    <url>
-        <loc>https://gameso.vercel.app/games/spades-card-games/</loc>
-            <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    </url>
+   
     <url>
         <loc>https://gameso.vercel.app/games/crazy-guys/</loc>
             <changefreq>weekly</changefreq>
